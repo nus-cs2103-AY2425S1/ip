@@ -46,15 +46,17 @@ public class Deadline extends Task{
         return new Deadline(description, Status.NOT_DONE, deadline);
     }
 
-
+    /**
+     * Returns a string representation of this deadline
+     * @return A string detailing this deadline
+     */
     @Override
     public String toString() {
-        String str = "[D]" +
+        return "[D]" +
                 super.toString() +
                 " (Deadline: " +
                 deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
                 ")";
-        return str;
     }
 
     /**
@@ -63,10 +65,9 @@ public class Deadline extends Task{
      */
     @Override
     protected String toCsv() {
-        String csv = "Deadline," +
+        return "Deadline," +
                 super.toCsv() +
                 "," +
                 this.deadline;
-        return csv;
     }
 }

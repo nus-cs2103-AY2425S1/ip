@@ -1,9 +1,19 @@
 package lewis;
 
+/**
+ * This command tells Lewis to mark or unmark a task from the tasklist
+ * as complete.
+ */
 public class MarkUnmarkCommand extends Command {
 
+    /** The index of the task to mark or unmark*/
     int taskIndex;
+    /** The status that the task will change to */
     Task.Status updatedStatus = Task.Status.NOT_DONE;
+
+    /** Public constructor for this command
+     * @param input a string input propagated from the standard input stream
+     */
     public MarkUnmarkCommand(String input) {
         if (input.startsWith("mark")) {
             this.updatedStatus = Task.Status.DONE;
@@ -15,10 +25,16 @@ public class MarkUnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Returns a description for the user on the usage of this command
+     * @return a string description
+     */
     public static String getHelpDescription() {
-        return "Marks a task as complete or incomplete.\nUsage: mark <index>\n" +
-                "Usage: unmark <index>\n " +
-                "The index of the task can be found by using the list command";
+        return """
+                Marks a task as complete or incomplete.
+                Usage: mark <index>
+                Usage: unmark <index>
+                 The index of the task can be found by using the list command""";
     }
 
 
@@ -33,7 +49,5 @@ public class MarkUnmarkCommand extends Command {
         } catch (LewisException e) {
             Ui.printString(e.getMessage());
         }
-
-
     }
 }

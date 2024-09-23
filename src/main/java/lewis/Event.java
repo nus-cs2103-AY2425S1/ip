@@ -3,9 +3,14 @@ package lewis;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class implements an Event, which is a task subtype.
+ * Along with supporting a description of an event, it can also
+ * contain the start and end date and time of this event.
+ */
 public class Event extends Task{
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Private constructor for a Task
@@ -18,6 +23,15 @@ public class Event extends Task{
        this.to = to;
    }
 
+    /**
+     * Factory method for instantiating a new event. This should be called
+     * when generating a new Event via the EventCommand class using the of method.
+     * By default, this event is not done.
+     * @param description A string representation of this event
+     * @param from The starting date and time of this event
+     * @param to The ending date and time of this event
+     * @return an event
+     */
     public static Event of(String description, LocalDateTime from, LocalDateTime to) {
         return new Event(description, Status.NOT_DONE, from, to);
     }
@@ -30,20 +44,23 @@ public class Event extends Task{
      * @param to The ending date and time of this event
      * @return an event
      */
-   protected static Event of(String description, String status,
+    protected static Event of(String description, String status,
                              LocalDateTime from, LocalDateTime to) {
        Task.Status newStatus = Task.Status.valueOf(status);
        return new Event(description, newStatus, from, to);
    }
 
+    /**
+     * Returns a string description of this event
+     * @return a string
+     */
     @Override
     public String toString() {
-        String str = "[E]" +
+        return "[E]" +
                 super.toString() +
                 String.format(" (From: %s To: %s)",
                         from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
                         to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
-        return str;
     }
 
     /**
@@ -52,12 +69,11 @@ public class Event extends Task{
      */
     @Override
     protected String toCsv() {
-        String csv = "Event," +
+        return "Event," +
                 super.toCsv() +
                 "," +
                 this.from +
                 "," +
                 this.to;
-        return csv;
     }
 }

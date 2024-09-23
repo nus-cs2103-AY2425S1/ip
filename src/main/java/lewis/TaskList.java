@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * It supports the following methods:
  * (i) add
  * (ii) delete
- * (iii)
+ * (iii) save
+ * (iv) load
  */
-
 public class TaskList {
 
     /** Private constructor for a tasklist */
@@ -117,6 +117,11 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Returns a string representation of this tasklist
+     * @return a string
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
