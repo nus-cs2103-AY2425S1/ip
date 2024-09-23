@@ -45,6 +45,6 @@ public class Todo extends Task {
      * @return a string representation of this todo task.
      */
     public String convertToTxt() {
-        return String.format("%s,%s","T", super.convertToTxt());
+        return String.format("%s,%s", "T", super.convertToTxt());
     }
 }

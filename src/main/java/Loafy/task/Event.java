@@ -1,7 +1,7 @@
 package loafy.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event task with specified start and end date and time.
@@ -64,6 +64,6 @@ public class Event extends Task {
      * @return a string representation of this event task.
      */
     public String convertToTxt() {
-        return String.format("%s,%s,%s,%s","E", super.convertToTxt(), this.startDate, this.endDate);
+        return String.format("%s,%s,%s,%s", "E", super.convertToTxt(), this.startDate, this.endDate);
     }
 }

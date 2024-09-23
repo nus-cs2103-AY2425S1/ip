@@ -26,7 +26,7 @@ public class TaskList {
                 "Now you have " + this.tasks.size() + " tasks in the list.";
     }
 
-     public String view() {
+    public String view() {
         int i = 1;
         String s = "Here are the tasks in your list:";
         for (Task task : this.tasks) {
@@ -67,7 +67,7 @@ public class TaskList {
 
         for (Task task : this.tasks) {
             i++;
-            if (! task.hasMatch(keyword)) {
+            if (!task.hasMatch(keyword)) {
                 continue;
             }
             hasMatch = true;

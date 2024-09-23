@@ -1,7 +1,7 @@
 package loafy.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a specified deadline.
@@ -59,6 +59,6 @@ public class Deadline extends Task {
      * @return a string representation of this deadline task.
      */
     public String convertToTxt() {
-        return String.format("%s,%s,%s","D", super.convertToTxt(), this.date);
+        return String.format("%s,%s,%s", "D", super.convertToTxt(), this.date);
     }
 }

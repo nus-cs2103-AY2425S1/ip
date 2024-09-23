@@ -1,7 +1,5 @@
 package loafy.main;
 
-import java.util.Scanner;
-
 import loafy.command.Command;
 import loafy.loafyexception.LoafyException;
 import loafy.parser.Parser;

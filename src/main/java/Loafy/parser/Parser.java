@@ -2,11 +2,10 @@ package loafy.parser;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-
 import java.util.Arrays;
 
 import loafy.command.AddCommand;
@@ -94,7 +93,7 @@ public class Parser {
      * @return The LocalDateTime object.
      */
     static LocalDateTime parseDateTime(String dateTime) throws LoafyException {
-        assert ! dateTime.isEmpty();
+        assert !dateTime.isEmpty();
 
         String[] dateTimeArr = dateTime.split(" ");
         String date = dateTimeArr[0];
@@ -105,7 +104,7 @@ public class Parser {
             String time = dateTimeArr[1];
             timeObj = parseTime(time);
         } else {
-            timeObj = LocalTime.of(23, 59, 59);
+            timeObj = LocalTime.of(23, 59);
         }
         return dateObj.atTime(timeObj);
     }

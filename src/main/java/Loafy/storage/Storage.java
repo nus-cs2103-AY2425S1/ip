@@ -3,11 +3,9 @@ package loafy.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class Storage {
     }
 
     public void writeToFile(String text) {
-        if (! this.isWorking) {
+        if (!this.isWorking) {
             // do nothing
             return;
         }
@@ -71,7 +69,7 @@ public class Storage {
                     Todo todo = new Todo(isDone, arr[2]);
                     tasks.add(todo);
                     break;
-                case "D" :
+                case "D":
                     Deadline deadline = new Deadline(isDone, arr[2], LocalDateTime.parse(arr[3]));
                     tasks.add(deadline);
                     break;
