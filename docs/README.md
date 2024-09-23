@@ -4,7 +4,7 @@
 
 _Torne_ is a chatbot. It does stuff. Mostly tasks. Does have persistent storage though, I guess that's cool.
 
-## :hearts: Main Commands
+## Main Commands
 
 Note: all commands are case-sensitive. They are to be input in **all-lowercase**.
 
@@ -57,7 +57,7 @@ Your search for 'sleep' returned the following tasks:
 1. [T][ ] Get sleep
 ```
 
-## :heavy_plus_sign: Task Commands - Add
+## Task Commands - Add
 
 - Task adding commands are all of the format `cmd <name> [options...]`. Adding a name is required.
 - All date/time inputs are of the format `yyyy-MM-dd HHmm`. For instance, `1970-01-01 2359`.
@@ -104,7 +104,7 @@ Alright, I'll add this task:
 Now you have 2 tasks!
 ```
 
-## :pencil2: Task Commands - Modify
+## Task Commands - Modify
 
 Modify tasks. If the command calls for an index, the index is 1-indexed (not 0-indexed) and corresponds to the index
 shown if you run the `list` command.
@@ -121,7 +121,7 @@ Deletes a task. Takes in the index of the task.
 
 example: `delete 1`
 
-## :newspaper: Notes
+## Notes
 
 ### Saving of User Task Data
 
