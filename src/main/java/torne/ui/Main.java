@@ -1,13 +1,14 @@
 package torne.ui;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 /**
@@ -33,6 +34,10 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            // set up app icon
+            Image appIcon = new Image("/images/torne_icon.png");
+            stage.getIcons().add(appIcon);
 
             stage.setTitle("Torne");
             stage.setScene(scene);
