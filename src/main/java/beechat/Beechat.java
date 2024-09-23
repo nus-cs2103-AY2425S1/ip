@@ -43,29 +43,24 @@ public class Beechat {
     }
 
     /**
-     * Runs the Beechat chatbot application, executing user commands until a leave command is given.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isLeave = false;
-        while (!isLeave) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isLeave = c.isLeave();
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * The entry point of the Beechat chatbot application.
+     * Processes user input and returns the chatbot's response.
      *
-     * @param args Command line arguments.
+     * @param input The user's input command.
+     * @return The response from the chatbot.
      */
-    public static void main(String[] args) {
-        new Beechat("data/beechat.txt").run();
+    public String getResponse(String input) {
+        if (input.equals("list")) {
+            return tasks.getAllTasksAsString();
+        }
+        if (input.equals("welcome")) {
+            return ui.getWelcomeMessage();
+        }
+        try {
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+            return ui.getLatestResponse();  // Get the latest response for the GUI
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();  // Return error message if something goes wrong
+        }
     }
 }

@@ -25,14 +25,13 @@ public class FindCommand extends Command {
     /**
      * Executes the find command, which finds all tasks with the keyword in the description.
      *
-     * @param tasks   The TaskList object that stores all tasks.
-     * @param ui      The Ui object that handles user interactions.
-     * @param storage The Storage object that loads and saves tasks to the file.
+     * @param tasks   The TaskList object that contains all tasks.
+     * @param ui      The Ui object that handles all user interactions.
+     * @param storage The Storage object that saves and loads tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchingTasks = tasks.findTasks(keyword);
         ui.showFindResults(matchingTasks);
     }
-}
 }
