@@ -88,7 +88,7 @@ public interface Ui {
     /**
      * Returns the output lines in the buffer to be printed.
      *
-     * @return String to be outputted or printed:
+     * @return String to be outputted or printed.
      */
     String getNextOutputLine() throws YappingBotIoException;
 }
