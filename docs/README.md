@@ -1,10 +1,13 @@
 # Alexer User Guide
 
-// Update the title above to match the actual product name
-
 // Product screenshot goes here
 
-// Product intro goes here
+Alexer is a powerful companion that allows you to:
+- Create different types of tasks for all your important activites, such as deadlines and events
+- Show and view all your created tasks in a neat and easy-to-read manner
+- Mark and unmark tasks that have been completed (or yet to be done)
+- Find and search tasks that you don't remember the exact details for
+- Delete tasks created by mistake or completed tasks that are unneeded anymore
 
 ## Adding deadlines
 
