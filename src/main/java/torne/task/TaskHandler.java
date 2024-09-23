@@ -1,5 +1,7 @@
 package torne.task;
 
+import torne.ui.ChatOutput;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,5 +87,28 @@ public class TaskHandler {
                 .stream()
                 .filter((task) -> task.name.contains(keyword))
                 .toList();
+    }
+
+    /**
+     * Checks an index for validity against this taskHandler.
+     * Also takes in the output to handle the error message (temp).
+     * <br>
+     * Used for all task-related commands that need use indexing to get the right task.
+     *
+     * @param index Index to be checked. 0-indexed.
+     * @param output {@link ChatOutput} instance.
+     * @return `True` if index is valid, `False` if index is not.
+     */
+    public boolean indexChecker(int index, ChatOutput output) {
+        if (index == -1) {
+            output.error("Go away you nerd. We are a 1-indexed household.");
+            return false;
+        } else if (index < -1 || index >= getTaskCount()) {
+            // TODO I'm guessing task handler should be the one raising this exception!
+            output.error("Invalid task index. Out of range.");
+            return false;
+        }
+
+        return true;
     }
 }

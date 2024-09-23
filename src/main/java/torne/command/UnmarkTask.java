@@ -30,9 +30,7 @@ public class UnmarkTask extends Command {
         try {
             int index = Integer.parseInt(indexStr.trim()) - 1;
 
-            if (index < 0 || index >= taskHandler.getTaskCount()) {
-                // TODO I'm guessing task handler should be the one raising this exception!
-                output.error("Invalid task index. Out of range");
+            if (!taskHandler.indexChecker(index, output)) {
                 return;
             }
 
