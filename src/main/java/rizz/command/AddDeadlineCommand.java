@@ -19,7 +19,7 @@ public class AddDeadlineCommand extends SaveableCommand {
         }
         Deadline newDeadline = new Deadline(description, deadlineTimeBy, false);
         tasks.addTask(newDeadline);
-        return "Deadline added: " + newDeadline.toString();
+        return "New Deadline added!!\n" + newDeadline.toString();
     }
 }
 

@@ -24,6 +24,6 @@ public class AddEventCommand extends SaveableCommand {
         }
         Event newEvent = new Event(description, eventStartTime, eventEndTime, false);
         tasks.addTask(newEvent);
-        return "Event added: " + newEvent.toString();
+        return "New Event added!!\n" + newEvent.toString();
     }
 }

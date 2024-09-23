@@ -23,9 +23,9 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks) {
         TaskList foundTasks = tasks.findByKeyword(keyword);
         if (foundTasks.getLength() == 0) {
-            return "No matching tasks found";
+            return "No matching tasks found :((";
         } else {
-            return "Here are the matching tasks in your list:\n" + foundTasks.toString();
+            return "I found some! Here are the matching tasks in your list:\n" + foundTasks.toString();
         }
     }
 }

@@ -45,26 +45,17 @@ public class Parser {
         }
         assert commandType != null: "Command type null at dis point";
 
-        switch (commandType) {
-        case BYE:
-            return new ExitCommand();
-        case LIST:
-            return new ListCommand();
-        case TODO:
-            return new AddToDoCommand(details);
-        case EVENT:
-            return parseEventCommand(details);
-        case DEADLINE:
-            return parseDeadlineCommand(details);
-        case FIND:
-            return new FindCommand(details);
-        case UNDO:
-            return new UndoCommand();
-        case MARK, UNMARK, DELETE:
-            return processMultipleTasks(details, commandType, taskList);
-        default:
-            return null;
-        }
+        return switch (commandType) {
+        case BYE -> new ExitCommand();
+        case LIST -> new ListCommand();
+        case TODO -> new AddToDoCommand(details);
+        case EVENT -> parseEventCommand(details);
+        case DEADLINE -> parseDeadlineCommand(details);
+        case FIND -> new FindCommand(details);
+        case UNDO -> new UndoCommand();
+        case MARK, UNMARK, DELETE -> doMultipleTasks(details, commandType, taskList);
+        default -> null;
+        };
     }
 
     /**
@@ -111,7 +102,7 @@ public class Parser {
      * @return The Command object representing the operation (e.g., MarkCommand, UnmarkCommand, DeleteCommand).
      * @throws IllegalArgumentException If any of the task indices are out of bounds.
      */
-    private static Command processMultipleTasks(String details, CommandType commandType, TaskList taskList) {
+    private static Command doMultipleTasks(String details, CommandType commandType, TaskList taskList) {
         // Split since they are space-separated
         String[] indices = details.split(" ");
 
@@ -122,15 +113,11 @@ public class Parser {
                 throw new IllegalArgumentException("Task index " + index[i] + " is out of bounds.");
             }
         }
-        switch (commandType) {
-        case MARK:
-            return new MarkCommand(index);
-        case UNMARK:
-            return new UnmarkCommand(index);
-        case DELETE:
-            return new DeleteCommand(index);
-        default:
-            return null;
-        }
+        return switch (commandType) {
+        case MARK -> new MarkCommand(index);
+        case UNMARK -> new UnmarkCommand(index);
+        case DELETE -> new DeleteCommand(index);
+        default -> null;
+        };
     }
 }
