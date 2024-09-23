@@ -86,6 +86,12 @@ public class Parser {
                 return this.sendDeleteCommand(userInput);
             case "find":
                 return this.sendFindCommand(userInput);
+            case "help":
+                return this.sendHelpCommand();
+            case "hello", "hi", "hey", "hii":
+                return this.sendHelloCommand();
+            case "u", "you", "kys", "shit", "fuck", "bitch":
+                return this.sendRudeCommand();
             }
         } catch (BigmouthException e) {
             return new Command(e.getMessage());
@@ -96,6 +102,12 @@ public class Parser {
         return new Command("Idk what ur sayin girl :/");
     }
 
+    private Command sendHelloCommand() {
+        return new Command(ui.helloResponse());
+    }
+    private Command sendRudeCommand() {
+        return new Command(ui.rudeResponse());
+    }
     /**
      * Processes the "list" command, which displays the current list of tasks.
      *
@@ -105,7 +117,8 @@ public class Parser {
     private Command sendListCommand() throws BigmouthException {
         assert tasks != null : "Task list cannot be null";
         if (tasks.isEmpty()) {
-            throw new BigmouthException("Your task list is empty!");
+            throw new BigmouthException("Your task list is empty! Let's start" +
+                    " planning, girl\u2728");
         }
         String response = ui.showTaskList(this.tasks);
         return new Command(response);
@@ -119,13 +132,16 @@ public class Parser {
      * @throws BigmouthException If the task number is invalid.
      */
     private Command sendMarkCommand(String userInput) throws BigmouthException {
-        assert userInput.split(" ").length > 1 : "User input for mark command must have a task number";
+        assert userInput.split(" ").length > 1 : "Honey, user input for mark command must have a task number!";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
         assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number must be valid";
 
+        int size = tasks.size();
+
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new BigmouthException("Invalid task number. " +
-                    "Please enter a valid task number.");
+            throw new BigmouthException(String.format("Sweetie... " +
+                    "Please enter a valid task number. (U have" +
+                    " %d tasks in your list)", size));
         }
         tasks.get(taskNumber).markAsDone();
         storage.saveToFile();
@@ -140,13 +156,15 @@ public class Parser {
      * @throws BigmouthException If the task number is invalid.
      */
     private Command sendUnmarkCommand(String userInput) throws BigmouthException {
-        assert userInput.split(" ").length > 1 : "User input for unmark command must have a task number";
+        assert userInput.split(" ").length > 1 : "Honey, user input for unmark command must have a task number!";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
         assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number must be valid";
+        int size = tasks.size();
 
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new BigmouthException("Invalid task number. " +
-                    "Please enter a valid task number.");
+            throw new BigmouthException(String.format("Sweetie... " +
+                    "Please enter a valid task number. (U have" +
+                    " %d tasks in your list)", size));
         }
         tasks.get(taskNumber).markAsNotDone();
         storage.saveToFile();
@@ -161,10 +179,10 @@ public class Parser {
      * @throws BigmouthException If the description of the Todo task is empty.
      */
     private Command sendTodoCommand(String userInput) throws BigmouthException {
-        assert userInput.length() > 5 : "Todo command must have a description";
+        assert userInput.length() > 5 : "Honey, the Todo command must have a description";
         String description = userInput.substring(5).trim();
         if (description.isEmpty()) {
-            throw new BigmouthException("OOPS! The description of " +
+            throw new BigmouthException("Girl! The description of " +
                     "a todo cannot be empty.");
         }
         Todo curr = new Todo(description);
@@ -181,16 +199,16 @@ public class Parser {
      * @throws BigmouthException If the description or deadline is missing or invalid.
      */
     private Command sendDeadlineCommand(String userInput) throws BigmouthException {
-        assert userInput.contains(" /by ") : "Deadline command must have a description and due date";
+        assert userInput.contains(" /by ") : "Honey, the Deadline command must have a description and due date";
         String[] parts = userInput.split(" /by ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new BigmouthException("OOPS! The deadline " +
+            throw new BigmouthException("Girl! The deadline " +
                     "command is missing a date/time.");
         }
         String description = parts[0].substring(9).trim();
         LocalDateTime by = Parser.parseDateTime(parts[1].trim());
         if (description.isEmpty()) {
-            throw new BigmouthException("OOPS! The description of " +
+            throw new BigmouthException("Girl! The description of " +
                     "a deadline cannot be empty.");
         }
         Deadline curr = new Deadline(description, by);
@@ -198,7 +216,15 @@ public class Parser {
         storage.saveToFile();
         return new Command(ui.showTaskAdded(curr, tasks.size()));
     }
-
+    /**
+     * Processes the "help" command and provides a list of available commands with their formats.
+     *
+     * @return A Command object with the help message.
+     */
+    private Command sendHelpCommand() {
+        String response = ui.showHelp();
+        return new Command(response);
+    }
     /**
      * Processes the "do...after" command to add a new Deadline task.
      *
@@ -207,23 +233,20 @@ public class Parser {
      * @throws BigmouthException If the description or deadline is missing or invalid.
      */
     private Command sendDoAfterCommand(String userInput) throws BigmouthException {
-        // Assert that the userInput contains the expected "/after" keyword
-        assert userInput.contains(" /after ") : "Do after command must have a description and after date/time";
 
-        // Split the userInput to extract the description and after date/time
+        assert userInput.contains(" /after ") : "Honey, the Do after command must have a description and after date/time";
+
         String[] parts = userInput.split(" /after ");
 
-        // Check if the after date/time is missing or invalid
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new BigmouthException("OOPS! The 'do after' command is missing a date/time.");
+            throw new BigmouthException("Girl! The 'do after' command is missing a date/time.");
         }
 
-        // Extract and validate the task description
-        String description = parts[0].substring(3).trim();  // Start substring after 'do' (index 3)
+        String description = parts[0].substring(3).trim();
         LocalDateTime after = Parser.parseDateTime(parts[1].trim());
 
         if (description.isEmpty()) {
-            throw new BigmouthException("OOPS! The description of a 'do after' task cannot be empty.");
+            throw new BigmouthException("Girl! The description of a 'do after' task cannot be empty.");
         }
 
         // Create a new DoAfter task (similar to Deadline)
@@ -235,25 +258,6 @@ public class Parser {
         return new Command(ui.showTaskAdded(curr, tasks.size()));
     }
 
-//    private Command sendDoAfterCommand(String userInput) throws BigmouthException {
-//        assert userInput.contains(" /after ") : "Do after command must have a description and date to do after";
-//        String[] parts = userInput.split(" /after ");
-//        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-//            throw new BigmouthException("OOPS! The do after " +
-//                    "command is missing a date/time.");
-//        }
-//        String description = parts[0].substring(9).trim();
-//        LocalDateTime after = Parser.parseDateTime(parts[1].trim());
-//        if (description.isEmpty()) {
-//            throw new BigmouthException("OOPS! The description of " +
-//                    "a do after cannot be empty.");
-//        }
-//        DoAfter curr = new DoAfter(description, after);
-//        tasks.add(curr);
-//        storage.saveToFile();
-//        return new Command(ui.showTaskAdded(curr, tasks.size()));
-//    }
-
     /**
      * Processes the "event" command to add a new Event task.
      *
@@ -262,17 +266,17 @@ public class Parser {
      * @throws BigmouthException If the description, start, or end time is missing or invalid.
      */
     private Command sendEventCommand(String userInput) throws BigmouthException {
-        assert userInput.contains(" /from ") && userInput.contains(" /to ") : "Event command must have a description, start, and end time";
+        assert userInput.contains(" /from ") && userInput.contains(" /to ") : "Honey, the Event command must have a description, start, and end time";
         String[] parts = userInput.split(" /from | /to ");
         if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            throw new BigmouthException("OOPS! The event command " +
+            throw new BigmouthException("Girl! The event command " +
                     "is missing a start or end time.");
         }
         String description = parts[0].substring(6).trim();
         LocalDateTime from = Parser.parseDateTime(parts[1].trim());
         LocalDateTime to = Parser.parseDateTime(parts[2].trim());
         if (description.isEmpty()) {
-            throw new BigmouthException("OOPS! The description of " +
+            throw new BigmouthException("Girl! The description of " +
                     "an event cannot be empty.");
         }
         Event curr = new Event(description, from, to);

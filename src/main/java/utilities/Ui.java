@@ -14,14 +14,6 @@ public class Ui {
 
     }
 
-    /**
-     * Displays a welcome message when the chatbot is initialized.
-     */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Bigmouth\nWhat can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
 
     /**
      * Returns a message indicating that a task has been added.
@@ -31,9 +23,29 @@ public class Ui {
      * @return The response of added task
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return "Got it. I've added this task:\n " +
+        return "Got it, girl. I've added this task\u2728:\n " +
                 task + "\n "+"Now you have " + taskCount
                 + " tasks in the list.";
+    }
+
+    /**
+     * Returns a message indicating that a task has been added.
+     *
+     * @return The response of added task
+     */
+    public String helloResponse() {
+        return "Aww... no one ever really greets me!" +
+                " Thanks honey, you're too sweet. Now let's get stuff done, girl\u2728!";
+    }
+
+    /**
+     * Returns a message indicating that a task has been added.
+     *
+     * @return The response of added task
+     */
+    public String rudeResponse() {
+        return "Girl! That's kinda mean :(." +
+                " I just wanted to help...";
     }
 
     /**
@@ -44,7 +56,7 @@ public class Ui {
      * @return The response of removed task
      */
     public String showTaskRemoved(Task task, int taskCount) {
-        return "Noted. I've removed this task:\n " +
+        return "Gotcha, girl. I've removed this task\u2728:\n " +
                 task + "\n " + "Now you have " + taskCount
                 + " tasks in the list.";
     }
@@ -57,7 +69,7 @@ public class Ui {
      * @return A string showing all lists in task
      */
     public String showTaskList(TaskList tasks) {
-        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder response = new StringBuilder("Here's your list, honey\u2728:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             response.append(" ").append(i + 1).append(".").append(currentTask).append("\n");
@@ -73,7 +85,7 @@ public class Ui {
      * @return task marked message
      */
     public String showTaskMarked(Task task) {
-        return "Nice! I've marked this task as done:\n " + task;
+        return "Good job, girboss! I've marked this task as done\u2728:\n " + task;
     }
 
     /**
@@ -83,7 +95,7 @@ public class Ui {
      * @return task unmarked message
      */
     public String showTaskUnmarked(Task task) {
-        return "Ok, I've unmarked this task:\n " + task;
+        return "Aww, I've unmarked this task\u2728:\n " + task;
     }
 
     /**
@@ -93,10 +105,10 @@ public class Ui {
      * @return string listing out matching tasks
      */
     public String showMatchingTasks(TaskList tasks, int mainListSize) {
-        String response = "Here are the matching tasks in your list:\n";
+        String response = "Here's the matching tasks in your list, girl\u2728:\n";
 
         if (tasks.isEmpty()) {
-            response = "There are no matching tasks in your list.";
+            response = "Honey, there's no task like that in your list :/ \u2728.";
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 response += " " + (i + 1) + "." + tasks.get(i)
@@ -106,4 +118,24 @@ public class Ui {
         return response + "Now you have " + mainListSize
                 + " tasks in the list.";
     }
+
+    /**
+     * Returns a help message showing all available commands and their format.
+     *
+     * @return The help message.
+     */
+    public String showHelp() {
+        return "Here are the available commands, honey:\n" +
+                "\u2728 list - Display all your tasks.\n" +
+                "\u2728 mark <task number> - Mark a task as done.\n" +
+                "\u2728 unmark <task number> - Unmark a task as not done.\n" +
+                "\u2728 todo <description> - Add a new todo task.\n" +
+                "\u2728 deadline <description> /by <M/d/yyyy HHmm> - Add a new deadline task.\n" +
+                "\u2728 do <description> /after <M/d/yyyy HHmm> - Add a task to do after a certain time.\n" +
+                "\u2728 event <description> /from <M/d/yyyy HHmm> /to <M/d/yyyy HHmm> - Add a new event.\n" +
+                "\u2728 delete <task number> - Delete a task.\n" +
+                "\u2728 find <keyword> - Find tasks with a keyword.\n" +
+                "\u2728 bye - Exit the chatbot.";
+    }
+
 }

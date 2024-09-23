@@ -39,8 +39,9 @@ public class TaskFairy {
     }
 
     public String greetUser() {
-        return "Hey girlie! Use me to organise your tasks :D. Just tell " +
-                "me what to do and I'll add it to your list!";
+        return "Hey girlie! Use me to organise your tasks \u2728 Just tell " +
+                "me what to do and I'll add it to your list! You can also " +
+                "type 'help' if you're not sure what to enter \u2728";
     }
 
     /**
@@ -49,7 +50,7 @@ public class TaskFairy {
     public String getResponse(String input) {
         Command command = parser.parseInput(input);
         if (command.isTypeGoodbye()) {
-            return "Nice talk, girl. Now, get back to that hustle!";
+            return "Nice talk, girl. Now, get back to that hustle\u2728!";
         }
         return command.getResponse();
     }

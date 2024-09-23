@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, taskFairyImage)
         );
 
-        if (response.equals("Nice talk, girl. Now, get back to that hustle!")) {
+        if (response.equals("Nice talk, girl. Now, get back to that hustle\u2728!")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();

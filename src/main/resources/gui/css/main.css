@@ -39,8 +39,8 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
-    -fx-background-radius: 1em;
+    -fx-background-color: #800080;
+    -fx-background-radius: 2em;
 }
 
 /* Hides the increment and decrement buttons. */
