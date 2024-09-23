@@ -7,7 +7,7 @@ public abstract class Task {
     /**
      * The completion status of the task.
      */
-    protected boolean status;
+    protected boolean isDone;
     /**
      * The name or description of the task.
      */
@@ -20,7 +20,7 @@ public abstract class Task {
      */
     public Task(String desc) {
         this.name = desc;
-        this.status = false; // default: task not completed
+        this.isDone = false; // default: task not completed
     }
 
     /**
@@ -31,7 +31,7 @@ public abstract class Task {
      */
     public Task(String desc, boolean status) {
         this.name = desc;
-        this.status = status;
+        this.isDone = status;
     }
 
     /**
@@ -40,21 +40,21 @@ public abstract class Task {
      * @return true if the task is completed, false otherwise.
      */
     public boolean isDone() {
-        return this.status;
+        return this.isDone;
     }
 
     /**
      * Marks the task as completed.
      */
     public void markDone() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not completed.
      */
     public void unDone() {
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class Task {
      * @return "1" if the task is completed, "0" otherwise.
      */
     public String storeInFileAsString() {
-        return String.valueOf(this.status ? 1 : 0);
+        return String.valueOf(this.isDone ? 1 : 0);
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String prepend = this.status ? "[X] " : "[ ] ";
+        String prepend = this.isDone ? "[X] " : "[ ] ";
         return prepend + this.name;
     }
 }

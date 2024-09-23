@@ -37,6 +37,7 @@ public class ExitCommand extends Command {
         assert storage != null : "Storage cannot be null.";
 
         ui.showGoodbye();
+        System.exit(0);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class Noosy {
     /**
      * The user interface component.
      */
-    private final Ui ui;
+    private Ui ui;
 
     /**
      * The command type.
@@ -58,10 +58,12 @@ public class Noosy {
     }
 
     /**
-     * The main entry point for the Noosy application.
-     * Creates a new Noosy instance and starts its execution.
+     * Serves as the main entry point for the Noosy application.
      *
-     * @param args Command line arguments (not used).
+     * This class is responsible for initializing and starting the Noosy application.
+     * It creates a new instance of the Noosy class and begins its execution.
+     *
+     * @param args Command-line arguments passed to the application (not used).
      */
     public static void main(String[] args) {
         new Noosy("data/noosy.txt").run();
@@ -87,6 +89,14 @@ public class Noosy {
     public String getCommandType() {
         return commandType;
     }
+
+    /**
+     * Sets the ui.
+     */
+    public void setUi(Ui ui) {
+        this.ui = ui;
+    }
+
 
     /**
      * Runs the main execution loop of the Noosy chatbot.
