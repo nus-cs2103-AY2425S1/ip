@@ -62,7 +62,7 @@ public class Bob {
             commandType = c.getClass().getSimpleName();
         } catch (BobException e) {
             ui.printError(e.getMessage());
-            commandType = "";
+            commandType = "Error";
         }
         return ui.getLastMessage();
     }
