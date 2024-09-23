@@ -1,5 +1,6 @@
 package elysia.ui;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -24,7 +25,10 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(elysia); // inject the Duke instance
             fxmlLoader.<MainWindow>getController().showWelcome();
-            fxmlLoader.<MainWindow>getController().showFileMessage();
+            File f = new File("data.txt");
+            if (f.exists()) {
+                fxmlLoader.<MainWindow>getController().showFileMessage();
+            }
             stage.setTitle("Elysia");
             stage.show();
         } catch (IOException e) {

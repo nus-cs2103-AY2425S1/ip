@@ -30,6 +30,7 @@ public class InputOutputHandler {
      * interact with the file storage.
      */
     public InputOutputHandler() {
+        fileReaderWriter = new FileReaderWriter(taskList);
         taskList = new TaskList();
     }
 
@@ -40,7 +41,6 @@ public class InputOutputHandler {
      * @return a string message representing the tasks read from the file.
      */
     public String fileMessage() {
-        fileReaderWriter = new FileReaderWriter(taskList);
         return fileReaderWriter.readFile();
     }
 
