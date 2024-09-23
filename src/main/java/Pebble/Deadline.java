@@ -31,6 +31,10 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * Prints out a formatted string of deadline instance
+     * @return Formatted string
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "

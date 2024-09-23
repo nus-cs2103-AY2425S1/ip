@@ -47,11 +47,23 @@ public class Ui {
                 + "\nNow you have " + size + " tasks in the list.");
     }
 
+    /**
+     * Shows a message when a task is deleted.
+     *
+     * @param task The task that was deleted.
+     * @param size The size of the tasks list.
+     * @return The message to be displayed on GUI.
+     */
     public String showDeleteTask(Task task, int size) {
         return showMessage("Noted. I've removed this task:\n"
                 + task + "\nNow you have " + size + " tasks in the list.");
     }
 
+    /**
+     * Shows a message when an error has occurred
+     *
+     * @return The error message to be displayed on GUI.
+     */
     public String showError(String errorMessage) {
         return showMessage("Error: " + errorMessage);
     }

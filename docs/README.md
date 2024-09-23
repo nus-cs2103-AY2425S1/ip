@@ -3,10 +3,12 @@
 - ALL tasks are auto saved locally in your computer!
 - You can find the source code [here](https://github.com/slidings/ip)
 
-
+---
 ## Main Features
 1) Types of tasks to be tracked includes ToDos, Deadlines, Events 
+
 2) Includes basic functionalities to manage the tasks
+---
 
 ### 1a) Todo
 ToDos are essentially tasks without any date/time attached to it
@@ -50,8 +52,7 @@ Example: `unmark <task number>`
 
 ![img_5.png](img_5.png)
 
->[!TIP]
-> Marking a marked task and unmarking an unmarked task will not do anything
+>Note: Marking a marked task and unmarking an unmarked task will not do anything
 
 ### 2d) Delete
 This deletes a specific task
@@ -74,7 +75,9 @@ Example: `bye`
 
 ![img_8.png](img_8.png)
 
-### _*Newest patch: Friendlier syntax*_
+---
+
+### _**Newest patch: Friendlier syntax**_
 Improved support for friendlier command syntax and shortcuts
 
 In addition to `<Command 1>` -> `<Command 2>` `<Command 3>` 
@@ -94,6 +97,8 @@ In addition to `<Command 1>` -> `<Command 2>` `<Command 3>`
 `delete` -> `rm`, `remove`
 
 `find` -> `f`, `search`
+
+---
 
 Note that all commands outside the ones stated will not be recognised.
 ![img_9.png](img_9.png)

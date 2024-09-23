@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor that creates a dialog box
+     *
+     * @param text Text to be shown within the dialog box
+     * @param img Image that is tagged to the dialog box
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -54,7 +60,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getPebbleDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
