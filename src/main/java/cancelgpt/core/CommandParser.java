@@ -162,6 +162,8 @@ public class CommandParser {
      */
     public Task parseToDoTaskCreationCommand(String command) throws InvalidTaskException {
         String[] commandArray = command.split(" ");
+        assert commandArray.length >= 2;
+        assert commandArray[0].equals(Command.TODO.toString());
         String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, commandArray.length);
         String taskDescription = String.join(" ", taskDescriptionArr);
 
@@ -181,6 +183,8 @@ public class CommandParser {
      */
     public Task parseDeadlineTaskCreationCommand(String command) throws InvalidTaskException {
         String[] commandArray = command.split(" ");
+        assert commandArray.length >= 2;
+        assert commandArray[0].equals(Command.DEADLINE.toString());
 
         int byIndex = Arrays.asList(commandArray).indexOf("/by");
         if (byIndex == -1) {
@@ -219,6 +223,8 @@ public class CommandParser {
      */
     public Task parseEventTaskCreationCommand(String command) throws InvalidTaskException {
         String[] commandArray = command.split(" ");
+        assert commandArray.length >= 2;
+        assert commandArray[0].equals(Command.EVENT.toString());
 
         int fromIndex = Arrays.asList(commandArray).indexOf("/from");
         if (fromIndex == -1) {
