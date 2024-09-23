@@ -11,6 +11,7 @@
 - Elysia does not allow tasks with deadlines in the past or events that start in the past.
 
 > [!IMPORTANT]
+
 > Use "23 Sep" as the input date instead of "23Sep" for deadline and event commands.
 
 
@@ -29,7 +30,9 @@
 
 ---
 ### Add Todos
+
 <a name="add-todos"></a>
+
 Adds a todo to the task list.
 
 Format: ``todo TASK``
@@ -38,18 +41,24 @@ Examples:
 - todo read book
 
 ---
+
 ### Add Deadlines
+
 <a name="add-deadlines"></a>
+
 Adds a deadline to the task list.
 
 Format: ``deadline TASK /by DATE``
+
 > [!NOTE]
+
 > The month and "by" are case-sensitive.
 > - The input date will be assumed to be in the current year.
 >   - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
 > - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
 > [!TIP]
+
 > - mon, tue, wed, ... will be interpreted as the next occuring mon, tue, wed, ...
 >   - For example, if today is Monday (23 Sep),
 >   - then mon will be interpreted as 30 Sep.
@@ -61,22 +70,29 @@ Examples:
 - deadline return book /by Mon
 
 ---
+
 ### Add Events
+
 <a name="add-events"></a>
+
 Adds an event to the task list.
 
 Format: ``event TASK /from DATE\TIME /to TIME``
+
 > [!NOTE]
+
 > "from" and "to" are case-sensitive.
 > - The input date will be assumed to be in the current year.
 > - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
 > - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
 > [!NOTE]
+
 > The start time and end time are assumed to be within the same day.
 > The end time must not be earlier than the start time.
 
 > [!TIP]
+
 > - mon, tue, wed, ... will be interpreted as the next occuring mon, tue, wed, ...
 >   - For example, if today is Monday (23 Sep),
 >   - then mon will be interpreted as 30 Sep.
@@ -88,6 +104,7 @@ Examples:
 - event project meeting /from 23 Sep 2024\1400 /to 1600
 
 ---
+
 ### List all
 <a name="list-all"></a>
 Shows a list of all tasks in the task list.
