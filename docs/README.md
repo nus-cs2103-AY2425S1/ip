@@ -3,6 +3,7 @@
 <img src="Ui.png" alt="Screenshot of Elysia's UI" width="1272" />
 
 ### Notes about the command format:
+
 - Words in ``UPPER_CASE`` are the parameters to be supplied by the user.
    - e.g. in todo TASK, TASK is a parameter which can be used as todo read book.
 - For deadline command and event command, the input date will be assumed to be in the current year.
@@ -11,11 +12,11 @@
 - Elysia does not allow tasks with deadlines in the past or events that start in the past.
 
 > [!IMPORTANT]
-
 > Use "23 Sep" as the input date instead of "23Sep" for deadline and event commands.
 
 
 ## Features
+
 - [Add Todos](#add-todos)
 - [Add Deadlines](#add-deadlines)
 - [Add Events](#add-events)
@@ -29,6 +30,7 @@
 - [Exit](#exit-1)
 
 ---
+
 ### Add Todos
 
 <a name="add-todos"></a>
@@ -51,14 +53,12 @@ Adds a deadline to the task list.
 Format: ``deadline TASK /by DATE``
 
 > [!NOTE]
-
 > The month and "by" are case-sensitive.
 > - The input date will be assumed to be in the current year.
 >   - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
 > - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
 > [!TIP]
-
 > - mon, tue, wed, ... will be interpreted as the next occuring mon, tue, wed, ...
 >   - For example, if today is Monday (23 Sep),
 >   - then mon will be interpreted as 30 Sep.
@@ -80,19 +80,16 @@ Adds an event to the task list.
 Format: ``event TASK /from DATE\TIME /to TIME``
 
 > [!NOTE]
-
 > "from" and "to" are case-sensitive.
 > - The input date will be assumed to be in the current year.
 > - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
 > - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
 > [!NOTE]
-
 > The start time and end time are assumed to be within the same day.
 > The end time must not be earlier than the start time.
 
 > [!TIP]
-
 > - mon, tue, wed, ... will be interpreted as the next occuring mon, tue, wed, ...
 >   - For example, if today is Monday (23 Sep),
 >   - then mon will be interpreted as 30 Sep.
@@ -106,21 +103,29 @@ Examples:
 ---
 
 ### List all
+
 <a name="list-all"></a>
+
 Shows a list of all tasks in the task list.
 
 Format: ``list``
 
 ---
+
 ### Clear all
+
 <a name="clear-all"></a>
+
 Clears all the tasks in the task list.
 
 Format: ``clear``
 
 ---
+
 ### Mark task
+
 <a name="mark-task"></a>
+
 Marks a task in the task list as done.
 
 Format: ``mark INDEX``
@@ -131,8 +136,11 @@ Examples:
 - ``list`` followed by ``mark 2`` marks the 2nd task in the task list as done.
 
 ---
+
 ### Unmark task
+
 <a name="unmark-task"></a>
+
 Unmarks a task in the task list.
 
 Format: ``unmark INDEX``
@@ -143,8 +151,11 @@ Examples:
 - ``list`` followed by ``unmark 2`` unmarks the 2nd task in the task list.
 
 ---
+
 ### Delete task
+
 <a name="delete task"></a>
+
 Deletes a task in the task list.
 
 Format: ``delete INDEX``
@@ -155,7 +166,9 @@ Examples:
 - ``list`` followed by ``delete 2`` deletes the 2nd task in the task list.
 
 ---
+
 ### Find task
+
 <a name="find task"></a>
 Finds a task in the task list.
 
@@ -167,16 +180,22 @@ Examples:
 - ``find book`` displays all tasks containing the keyword "book" in the description.
 
 ---
+
 ### Elysia
+
 <a name="elysia"></a>
+
 Call Elysia by her name and she will respond to you.
 
 Format: ``Elysia`` or ``elysia``
 She will respond to you with the randomised voice lines taken from Honkai Impact 3rd.
 
 ---
+
 ### Exit
+
 <a name="exit"></a>
+
 Exit the application.
 
 Format: ``bye``
