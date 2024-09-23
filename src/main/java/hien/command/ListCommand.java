@@ -18,15 +18,12 @@ public class ListCommand extends Command {
 
     private String listTasks(TaskList tasks, UI ui) throws HienException {
         if (tasks.isEmpty()) {
-//            ui.showMessage(" There are no tasks in your list.");
-            return " There are no tasks in your list.";
+            return ui.showMessage(" There are no tasks in your list.");
         } else {
-            String msg = " Here are the tasks in your list:\n";
-//            ui.showMessage(" Here are the tasks in your list:");
+            String msg = ui.showMessage(" Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 String taskMessage = " " + (i + 1) + "." + tasks.getTask(i);
-                msg += taskMessage + "\n";
-//                ui.showMessage(taskMessage);
+                msg += ui.showMessage(taskMessage);
             }
             return msg;
         }

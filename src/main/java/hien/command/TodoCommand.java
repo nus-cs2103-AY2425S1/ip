@@ -19,16 +19,12 @@ public class TodoCommand extends Command {
         if (description.isEmpty()) {
             throw new HienException("☹ OOPS!!! The description of todo cannot be empty");
         }
-//        ui.showMessage("description: " + description);
         Todo todo = new Todo(description);
         tasks.addTask(todo);
         storage.save(tasks);
-        msg += " Got it. I've added this task:\n";
-        msg += "   " + todo + "\n";
-        msg += " Now you have " + tasks.size() + " tasks in the list.";
-//        ui.showMessage(" Got it. I've added this task:");
-//        ui.showMessage("   " + todo);
-//        ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+        msg += ui.showMessage(" Got it. I've added this task:");
+        msg += ui.showMessage("   " + todo);
+        msg += ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
         return msg;
 
     }

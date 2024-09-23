@@ -49,11 +49,9 @@ public class FindCommand extends Command {
             return "No matching tasks found.";
         } else {
             String msg = "";
-            msg += "Here are the matching tasks in your list:\n";
-//            ui.showMessage("Here are the matching tasks in your list:");
+            msg += ui.showMessage("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                msg += (i + 1) + "." + matchingTasks.get(i) + "\n";
-//                ui.showMessage((i + 1) + "." + matchingTasks.get(i));
+                msg += ui.showMessage((i + 1) + "." + matchingTasks.get(i));
             }
             return msg;
         }

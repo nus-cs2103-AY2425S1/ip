@@ -33,19 +33,21 @@ public class UI {
     /**
      * Displays a goodbye message to the user.
      */
-    public void showGoodbye() {
+    public String showGoodbye() {
         String goodbyeMessage = "____________________________________________________________\n"
                 + " Bye. Hope to see you again soon!";
-        System.out.println(goodbyeMessage);
+//        System.out.println(goodbyeMessage);
         lastMessage = goodbyeMessage;
+        return goodbyeMessage;
     }
 
     /**
      * Displays a horizontal line for formatting purposes.
      */
-    public void showLine() {
+    public String showLine() {
         String lineMessage = "____________________________________________________________";
-        System.out.println(lineMessage);
+//        System.out.println(lineMessage);
+        return lineMessage + "\n";
     }
 
     /**
@@ -60,10 +62,10 @@ public class UI {
     /**
      * Displays an error message when loading tasks fails.
      */
-    public void showLoadingError() {
+    public String showLoadingError() {
         String errorMessage = "Error loading tasks. Starting with an empty task list.";
-        System.out.println(errorMessage);
         lastMessage = errorMessage;
+        return errorMessage + "\n";
     }
 
     /**
@@ -71,9 +73,10 @@ public class UI {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+//        System.out.println(message);
         lastMessage = message;
+        return message + "\n";
     }
 
     /**
@@ -81,9 +84,10 @@ public class UI {
      *
      * @param message The message to be displayed.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+//        System.out.println(message);
         lastMessage = message;
+        return message + "\n";
     }
 
     /**

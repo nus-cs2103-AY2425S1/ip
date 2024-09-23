@@ -30,16 +30,10 @@ public class EventCommand extends Command {
                 Event event = new Event(parts[0].trim(), startTime, endTime);
                 tasks.addTask(event);
                 storage.save(tasks);
-                msg += " Got it. I've added this task:";
-                msg += System.lineSeparator();
-                msg += "   " + event;
-                msg += System.lineSeparator();
-                msg += " Now you have " + tasks.size() + " tasks in the list.";
-                msg += System.lineSeparator();
+                msg += ui.showMessage(" Got it. I've added this task:");
+                msg += ui.showMessage("   " + event);
+                msg += ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
                 return msg;
-//                ui.showMessage(" Got it. I've added this task:");
-//                ui.showMessage("   " + event);
-//                ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
             } catch (DateTimeParseException e) {
                 throw new HienException("☹ OOPS!!! The date format is incorrect. Please use: yyyy-MM-dd HHmm");
             }

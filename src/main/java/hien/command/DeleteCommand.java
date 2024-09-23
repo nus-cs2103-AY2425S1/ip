@@ -36,23 +36,17 @@ public class DeleteCommand extends Command {
             Task removedTask = tasks.getTask(i - 1);
             tasks.deleteTask(i - 1);
             storage.save(tasks);
-            msg += " Got it. I've deleted this task:";
-            msg += System.lineSeparator();
-            msg += "   " + removedTask;
-            msg += System.lineSeparator();
-            msg += " Now you have " + tasks.size() + " tasks in the list.";
-//            ui.showMessage(" Got it. I've deleted this task:");
-//            ui.showMessage("   " + removedTask);
-//            ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+            msg += ui.showMessage(" Got it. I've deleted this task:");
+            msg += ui.showMessage("   " + removedTask);
+            msg += ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
         }
         return msg;
     }
 
     private String deleteAllTasks(TaskList tasks, UI ui, Storage storage) throws HienException {
         tasks.clear();
-//        ui.showMessage(" Got it. I've deleted all the tasks");
         storage.save(tasks);
-        return " Got it. I've deleted all the tasks";
+        return ui.showMessage(" Got it. I've deleted all the tasks");
 
     }
 

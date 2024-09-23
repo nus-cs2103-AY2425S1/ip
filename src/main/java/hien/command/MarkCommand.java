@@ -38,15 +38,12 @@ public class MarkCommand extends Command {
         if (isValidIndex) {
             int i = Integer.parseInt(index);
             if (isDone) {
-//                ui.showMessage(" Nice! I've marked this task as done:");
-                msg += " Nice! I've marked this task as done:\n";
+                msg += ui.showMessage(" Nice! I've marked this task as done:");
             } else {
-//                ui.showMessage(" OK, I've marked this task as not done yet:");
-                msg += " OK, I've marked this task as not done yet:\n";
+                msg += ui.showMessage(" OK, I've marked this task as not done yet:");
             }
             tasks.markTask(i - 1, isDone);
-//            ui.showMessage("   " + tasks.getTask(i - 1));
-            msg += "   " + tasks.getTask(i - 1);
+            msg += ui.showMessage("   " + tasks.getTask(i - 1));
             storage.save(tasks);
         }
         return msg;

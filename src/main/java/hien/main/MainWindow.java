@@ -1,5 +1,7 @@
 package hien.main;
 
+import hien.ui.UI;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +23,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Hien hien;
+
+    private UI ui = new UI();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image hienImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -48,6 +52,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getHienDialog(response, hienImage)
         );
         userInput.clear();
+        if (response.equals(ui.showGoodbye())) {
+            Platform.exit();  // Close the application
+        }
     }
 }
 

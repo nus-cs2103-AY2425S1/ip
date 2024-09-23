@@ -61,7 +61,7 @@ public class Hien {
             String temp = c.execute(tasks, ui, storage);
             msg = temp;
         } catch (HienException e) {
-            msg = e.getMessage();
+            msg = ui.showError(e.getMessage());
         }
         return msg;
     }
