@@ -84,6 +84,17 @@ public class MainWindow extends AnchorPane {
         }
 
         String response = ava.respond();
-        renderAvaMessage(response);
+        if (!response.isEmpty()) {
+            renderAvaMessage(response);
+        }
+    }
+
+    /**
+     * Displays an error message.
+     *
+     * @param errorMessage The error message to be displayed.
+     */
+    public void displayError(String errorMessage) {
+        renderAvaMessage(errorMessage);
     }
 }

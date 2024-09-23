@@ -23,10 +23,11 @@ public class Gui extends Application {
      * Delay is in milliseconds.
      */
     private static final int EXIT_DELAY = 600;
+    private static MainWindow mainWindow;
 
     private final AVA ava;
     private final AssetManager assetManager;
-    private Stage stage;
+
 
     /**
      * Creates a GUI instance for a fresh AVA.
@@ -54,11 +55,11 @@ public class Gui extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            this.stage = stage;
             FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            fxmlLoader.<MainWindow>getController().setAVA(ava);
+            mainWindow = fxmlLoader.<MainWindow>getController();
+            mainWindow.setAVA(ava);
             stage.getIcons().add(assetManager.getIcon());
             stage.setTitle("AVA");
             stage.setScene(scene);
@@ -66,6 +67,10 @@ public class Gui extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void renderError(String message) {
+        mainWindow.displayError(message);
     }
 
     /**

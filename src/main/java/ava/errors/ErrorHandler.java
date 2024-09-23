@@ -1,5 +1,7 @@
 package ava.errors;
 
+import ava.gui.Gui;
+
 /**
  * Handles errors.
  */
@@ -21,7 +23,7 @@ public class ErrorHandler {
      * @param displayError Error message to display.
      */
     public static void handle(Error error, String displayError) {
-        System.out.println(error + ": " + displayError);
+        Gui.renderError(error + ": " + displayError);
     }
 
     /**
@@ -31,7 +33,7 @@ public class ErrorHandler {
      * @param displayError Error message to display.
      */
     public static void handle(InputError error, String displayError) {
-        System.out.println(error + ": " + displayError);
+        Gui.renderError(error + ": " + displayError);
     }
 
 
