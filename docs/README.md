@@ -1,6 +1,6 @@
 # meerkatbot User Guide
 
-![my ui](/docs/Ui.png)
+![my ui](./Ui.png)
 
 This is meeerkatbot! It can log tasks for you, display what you have on your tasklist,
 and you can remove them as and when you like! 
