@@ -2,8 +2,8 @@ package mysutong;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a list of tasks in the MySutong application. This class provides methods
@@ -188,7 +188,9 @@ public class TaskList {
             throw new NoDescriptionException("Deadline command must include '/by' followed by a date/time.");
         }
         String[] details = argument.split(" /by ", 2);
-        Task deadline = new Deadline(details[0].trim(), LocalDateTime.parse(details[1].trim(), DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+        Task deadline = new Deadline(details[0].trim(),
+                LocalDateTime.parse(details[1].trim(),
+                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
         addTask(deadline);
         ui.showLine();
         ui.showMessage("Got it. I've added this task:");
@@ -199,10 +201,15 @@ public class TaskList {
 
     private void addEventTask(String argument, Ui ui, Storage storage) throws Exception {
         if (!argument.contains(" /from ") || !argument.contains(" /to ")) {
-            throw new NoDescriptionException("Event command must include '/from' and '/to' followed by their respective times.");
+            throw new NoDescriptionException(
+                    "Event command must include '/from' and '/to' followed by their respective times.");
         }
         String[] details = argument.split(" /from | /to ", 3);
-        Task event = new Event(details[0].trim(), LocalDateTime.parse(details[1].trim(), DateTimeFormatter.ofPattern("d/M/yyyy HHmm")), LocalDateTime.parse(details[2].trim(), DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+        Task event = new Event(details[0].trim(),
+                LocalDateTime.parse(details[1].trim(),
+                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
+                LocalDateTime.parse(details[2].trim(),
+                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
         addTask(event);
         ui.showLine();
         ui.showMessage("Got it. I've added this task:");

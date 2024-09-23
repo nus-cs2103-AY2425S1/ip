@@ -1,5 +1,8 @@
 package mysutong;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.util.Collections;
-
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a label containing text from the speaker.
@@ -21,9 +21,9 @@ import java.util.Collections;
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;  // The label containing the dialog text.
+    private Label dialog; // The label containing the dialog text.
     @FXML
-    private ImageView displayPicture;  // The ImageView displaying the speaker's image.
+    private ImageView displayPicture; // The ImageView displaying the speaker's image.
 
     /**
      * Constructs a DialogBox with the specified text and image.
@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);  // Align the flipped dialog box to the top left.
+        setAlignment(Pos.TOP_LEFT); // Align the flipped dialog box to the top left.
     }
 
     /**

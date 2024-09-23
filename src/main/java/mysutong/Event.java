@@ -51,7 +51,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s | %s", (isDone ? 1 : 0), description, from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
+        return String.format("E | %d | %s | %s | %s", (isDone ? 1 : 0),
+                description,
+                from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
                 to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
     }
 }

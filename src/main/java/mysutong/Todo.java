@@ -13,7 +13,7 @@ class Todo extends Task {
      * @param description the description of the todo task.
      */
     public Todo(String description) {
-        super(description);  // Call to the superclass (Task) constructor.
+        super(description); // Call to the superclass (Task) constructor.
     }
 
     /**
@@ -24,6 +24,6 @@ class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();  // Include the task type in the toString output.
+        return "[T]" + super.toString(); // Include the task type in the toString output.
     }
 }

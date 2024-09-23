@@ -15,19 +15,18 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
     @FXML
-    private ScrollPane scrollPane;  // ScrollPane to display the conversation between the user and MySutong.
+    private ScrollPane scrollPane; // ScrollPane to display the conversation between the user and MySutong.
     @FXML
-    private VBox dialogContainer;   // VBox to hold dialog boxes.
+    private VBox dialogContainer; // VBox to hold dialog boxes.
     @FXML
-    private TextField userInput;    // TextField for the user to type input.
+    private TextField userInput; // TextField for the user to type input.
     @FXML
-    private Button sendButton;      // Button to submit the user input.
+    private Button sendButton; // Button to submit the user input.
 
-    private MySutong mysutong;      // Instance of MySutong to process user commands.
+    private MySutong mysutong; // Instance of MySutong to process user commands.
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));  // Image representing the user.
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));  // Image representing Duke (MySutong's responses).
-
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     /**
      * Initializes the controller.
      * This method binds the ScrollPane's scroll value to the height of the dialog container,

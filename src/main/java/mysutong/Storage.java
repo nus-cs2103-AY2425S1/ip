@@ -1,8 +1,5 @@
 package mysutong;
 
-import mysutong.Deadline;
-import mysutong.Event;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
