@@ -25,8 +25,9 @@ public class MainWindow extends AnchorPane {
 
     private ChatBot chatBot;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/256x256.png"));
-    private final Image chatBotImage= new Image(this.getClass().getResourceAsStream("/images/256x256.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+
+    private final Image chatBotImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.png"));
 
     @FXML
     public void initialize() {
@@ -38,6 +39,13 @@ public class MainWindow extends AnchorPane {
      */
     public void setChatbot(ChatBot chatbot) {
         this.chatBot = chatbot;
+        showWelcomeDialog();
+    }
+
+    public void showWelcomeDialog() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getChatBotDialog(chatBot.getWelcome(), chatBotImage)
+        );
     }
 
     /**
