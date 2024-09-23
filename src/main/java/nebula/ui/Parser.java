@@ -103,28 +103,9 @@ public class Parser {
             throw new NebulaException(ui.displayUnknownCommandException());
         } else if (command.startsWith("mark") || command.startsWith("unmark")
                 || command.startsWith("delete")) {
-            String[] parts = command.split(" ", 2);
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new NebulaException(ui.displayUnknownTaskNumberException());
-            }
-            try {
-                int taskIndex = Integer.parseInt(parts[1].trim()) - 1;
-                if (taskIndex < 0 || taskIndex >= TaskList.getTaskListLength()) {
-                    throw new NebulaException(ui.displayNonexistentTaskNumberException());
-                }
-            } catch (NumberFormatException e) {
-                throw new NebulaException(ui.displayUnknownTaskNumberException());
-            }
+            parseMarkUnMarkDelete(command);
         } else if (command.startsWith("find")) {
-            String[] parts = command.split(" ", 2);
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new NebulaException(ui.displayUnknownMessageException());
-            }
-
-            String[] keywords = parts[1].trim().split("\\s+");
-            if (keywords.length != 1) {
-                throw new NebulaException(ui.displayOneKeywordException());
-            }
+            parseFind(command);
         } else {
             String[] parts = command.split(" ", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -134,40 +115,75 @@ public class Parser {
             String description = parts[1].trim();
 
             if (command.startsWith("deadline")) {
-                if (!description.contains("/by")) {
-                    throw new NebulaException(ui.displayUnknownDeadlineException());
-                } else {
-                    // Extract the date after "/by"
-                    String[] parts2 = description.split("/by");
-                    String dueDate = parts2[1].trim();
-
-                    // Validate the due date format
-                    if (!isValidDate(dueDate)) {
-                        throw new NebulaException("Warning: Deadline date "
-                                + "is not in the correct format (M/d/yyyy HHmm).");
-                    }
-                }
+                parseDeadline(description);
             } else if (command.startsWith("event")) {
-                if (!description.contains("/from") || !description.contains("/to")) {
-                    throw new NebulaException(ui.displayUnknownEventTimingException());
-                } else {
-                    // Extract dates from the description
-                    String[] parts2 = description.split("/from");
-                    String timingPart = parts2[1].trim();
-                    String[] dates = timingPart.split("/to");
+                parseEvent(description);
+            }
+        }
+    }
 
-                    if (dates.length < 2) {
-                        throw new NebulaException(ui.displayUnknownEventTimingException());
-                    }
-                    String startDate = dates[0].trim();
-                    String endDate = dates[1].trim();
+    private static void parseMarkUnMarkDelete(String command) throws NebulaException {
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new NebulaException(ui.displayUnknownTaskNumberException());
+        }
+        try {
+            int taskIndex = Integer.parseInt(parts[1].trim()) - 1;
+            if (taskIndex < 0 || taskIndex >= TaskList.getTaskListLength()) {
+                throw new NebulaException(ui.displayNonexistentTaskNumberException());
+            }
+        } catch (NumberFormatException e) {
+            throw new NebulaException(ui.displayUnknownTaskNumberException());
+        }
+    }
 
-                    // Validate the start and end dates
-                    if (!isValidDate(startDate) || !isValidDate(endDate)) {
-                        throw new NebulaException("Warning: Event dates"
-                                + " must be in yyyy-mm-dd format.");
-                    }
-                }
+    private static void parseFind(String command) throws NebulaException {
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new NebulaException(ui.displayUnknownMessageException());
+        }
+
+        String[] keywords = parts[1].trim().split("\\s+");
+        if (keywords.length != 1) {
+            throw new NebulaException(ui.displayOneKeywordException());
+        }
+    }
+
+    private static void parseDeadline(String description) throws NebulaException {
+        if (!description.contains("/by")) {
+            throw new NebulaException(ui.displayUnknownDeadlineException());
+        } else {
+            // Extract the date after "/by"s
+            String[] parts2 = description.split("/by");
+            String dueDate = parts2[1].trim();
+
+            // Validate the due date format
+            if (!isValidDate(dueDate)) {
+                throw new NebulaException("Warning: Deadline date "
+                        + "is not in the correct format (M/d/yyyy HHmm).");
+            }
+        }
+    }
+
+    private static void parseEvent(String description) throws NebulaException {
+        if (!description.contains("/from") || !description.contains("/to")) {
+            throw new NebulaException(ui.displayUnknownEventTimingException());
+        } else {
+            // Extract dates from the description
+            String[] parts2 = description.split("/from");
+            String timingPart = parts2[1].trim();
+            String[] dates = timingPart.split("/to");
+
+            if (dates.length < 2) {
+                throw new NebulaException(ui.displayUnknownEventTimingException());
+            }
+            String startDate = dates[0].trim();
+            String endDate = dates[1].trim();
+
+            // Validate the start and end dates
+            if (!isValidDate(startDate) || !isValidDate(endDate)) {
+                throw new NebulaException("Warning: Event dates"
+                        + " must be in yyyy-mm-dd format.");
             }
         }
     }
