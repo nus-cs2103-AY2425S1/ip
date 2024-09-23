@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  * Represents the command to list tasks due on a specific date in the Noosy task management system.
  * This command filters and displays Deadline and Event tasks that match the specified date.
  */
-public class OnCommand extends Command {
+public class DateSearchCommand extends Command {
 
     /**
      * The date for which to list tasks.
@@ -27,7 +27,7 @@ public class OnCommand extends Command {
      *
      * @param date The date for which to list tasks.
      */
-    public OnCommand(LocalDate date) {
+    public DateSearchCommand(LocalDate date) {
         this.date = date;
     }
 
@@ -47,28 +47,28 @@ public class OnCommand extends Command {
         assert storage != null : "Storage cannot be null.";
 
         System.out.println("You needa do this on " + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ":");
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task instanceof Deadline deadline) {
                 if (deadline.getDate().equals(date)) {
                     System.out.println(deadline);
-                    found = true;
+                    isFound = true;
                 }
             } else if (task instanceof Event event) {
                 if (event.getStart().toLocalDate().equals(date)) {
                     System.out.println(event);
-                    found = true;
+                    isFound = true;
                 }
             }
         }
-        if (!found) {
+        if (!isFound) {
             System.out.println("Hooray! Nothing to do on " + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
     }
 
     @Override
     public String getString() {
-        return "On command!";
+        return "All tasks on this date shown!";
     }
 }
