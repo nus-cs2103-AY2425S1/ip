@@ -1,5 +1,6 @@
 package maga;  //same package as the class being tested
 
+import maga.exceptions.LoadTaskException;
 import maga.task.Task;
 import maga.task.TaskList;
 import maga.task.TodoTask;
@@ -12,8 +13,12 @@ public class MagaTest {
     @Test
     public void deleteTest() {
         TaskList taskList = new TaskList();
-        taskList.addTask(new TodoTask(false, "Test 1"));
-        taskList.addTask(new TodoTask(false, "Test 2"));
+        try {
+            taskList.addTask(new TodoTask(false, "Test 1"));
+            taskList.addTask(new TodoTask(false, "Test 2"));
+        } catch (LoadTaskException e) {
+            System.out.print("Test failed!");
+        }
         taskList.deleteTask(3); //invalid delete
         taskList.deleteTask(-1); //invalid delete
         taskList.deleteTask(1);

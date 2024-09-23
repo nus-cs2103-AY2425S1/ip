@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import maga.exceptions.LoadTaskException;
+
 /**
  * The {@code TaskManager} class handles the saving and loading of tasks to and from a file.
  * It is responsible for persisting the task list between sessions and retrieving tasks from a saved file.
@@ -66,7 +68,7 @@ public class TaskManager {
             while ((line = reader.readLine()) != null) {
                 tasks.addTask(Task.fromString(line));
             }
-        } catch (IOException e) {
+        } catch (IOException | LoadTaskException e) {
             System.out.println("Error while loading tasks!");
         }
 

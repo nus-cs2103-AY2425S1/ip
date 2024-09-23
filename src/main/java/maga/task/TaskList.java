@@ -1,10 +1,12 @@
 package maga.task;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import maga.commands.Command;
+import maga.exceptions.LoadTaskException;
 
 
 /**
@@ -166,14 +168,11 @@ public class TaskList {
      * @param task The {@code Task} to add to the list.
      * @return A message indicating the task has been added or an error message if the task list is full.
      */
-    public String addTask(Task task) {
+    public void addTask(Task task) throws LoadTaskException {
         try {
             taskList.add(task);
-            return "Another maga.task for the American people added:\n" + task.getTaskType()
-                    + task.getStatusIcon() + task.getDescription() + "\nYou have "
-                    + taskList.size() + " task(s) now!\n";
         } catch (IndexOutOfBoundsException e) {
-            return "Tasklist is full!";
+            throw new LoadTaskException();
         }
     }
 }
