@@ -14,6 +14,7 @@ import cancelgpt.exception.task.TaskDoesNotExist;
 import cancelgpt.exception.task.UnmarkTaskInputException;
 import cancelgpt.task.Deadline;
 import cancelgpt.task.Event;
+import cancelgpt.task.FixedDurationTask;
 import cancelgpt.task.Task;
 import cancelgpt.task.ToDo;
 
@@ -63,6 +64,9 @@ public class CommandParser {
         } else if (command.startsWith(Command.EVENT.toString())) {
             Task eventTask = parseEventTaskCreationCommand(command);
             return this.chatbot.handleAddingTask(eventTask);
+        } else if (command.startsWith(Command.FIXED.toString())) {
+            Task fixedDurationTask = parseFixedDurationTaskCreationCommand(command);
+            return this.chatbot.handleAddingTask(fixedDurationTask);
         } else if (command.startsWith(Command.FIND.toString())) {
             String keyword = parseFindTaskCommand(command);
             return this.chatbot.findTasks(keyword);
@@ -258,5 +262,43 @@ public class CommandParser {
         }
 
         return eventTask;
+    }
+
+    /**
+     * Parses command to create a FixedDurationTask task and returns the FixedDurationTask task created.
+     *
+     * @param command the command to create a FixedDurationTask task
+     * @return the FixedDurationTask task created
+     * @throws InvalidTaskException if the command to create FixedDurationTask task cannot be parsed
+     */
+    public Task parseFixedDurationTaskCreationCommand(String command) throws InvalidTaskException {
+        String[] commandArray = command.split(" ");
+
+        int forIndex = Arrays.asList(commandArray).indexOf("/for");
+        if (forIndex == -1) {
+            throw new InvalidTaskException("Missing `for` for CancelGPT.task.FixedDurationTask task");
+        }
+
+        String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, forIndex);
+        String taskDescription = String.join(" ", taskDescriptionArr);
+        if (taskDescription.isEmpty()) {
+            throw new InvalidTaskException("Missing description for CancelGPT.task.FixedDurationTask task");
+        }
+
+        String[] forDurationArr = Arrays.copyOfRange(commandArray, forIndex + 1, commandArray.length);
+        String forDuration = String.join(" ", forDurationArr);
+        if (forDuration.isEmpty()) {
+            throw new InvalidTaskException("Missing for duration for CancelGPT.task.FixedDurationTask task");
+        }
+
+        Task fixedDurationTask;
+
+        try {
+            fixedDurationTask = new FixedDurationTask(taskDescription,
+                    Double.parseDouble(forDuration));
+        } catch (NullPointerException | NumberFormatException e) {
+            throw new InvalidTaskException("Invalid for duration format");
+        }
+        return fixedDurationTask;
     }
 }
