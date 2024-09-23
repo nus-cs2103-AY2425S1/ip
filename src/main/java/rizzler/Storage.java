@@ -118,7 +118,6 @@ public class Storage {
     private Task tsvToTask(String tsvLine) throws RizzlerException, IndexOutOfBoundsException {
         String[] tsvFields = tsvLine.split("\t");
         Task newTask;
-        assert tsvFields.length > 0 : "Invalid tsv field";
         switch (tsvFields[0]) {
         case ToDo.TYPE_STRING:
             boolean todoIsDone = Boolean.parseBoolean(tsvFields[1]);
