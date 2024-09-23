@@ -58,6 +58,12 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Writes a task from a given text line into an ArrayList of tasks.
+     *
+     * @param listOfTasks the ArrayList of Task objects to which the task will be added.
+     * @param textLine the string representation of the task to be parsed and added.
+     */
     public void writeTaskToArrayList(ArrayList<Task> listOfTasks, String textLine) {
         String[] parts = textLine.split("\\|");
 
@@ -77,6 +83,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a Task based on the specified task symbol and properties
+     *
+     * @param taskSymbol a character representing the type of task ('T', 'D', or 'E').
+     * @param parts an array of strings containing task details.
+     * @param isDone a boolean indicating whether the task is marked as done.
+     * @return
+     */
     public Task createTask(char taskSymbol, String[] parts, boolean isDone) {
         switch (taskSymbol) {
             case 'T':
@@ -95,6 +109,13 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Creates a Todo Task based on the provided parts and completion status.
+     *
+     * @param parts the array of strings containing task details
+     * @param isDone a boolean indicating whether the task is marked as done.
+     * @return the created Todo Task object, or null if the parts are insufficient.
+     */
     public Task createTodoTask(String[] parts, boolean isDone) {
         if (parts.length >= 3) {
             Task task = new Todo(parts[2]);
@@ -104,6 +125,13 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Creates a Deadline Task based on the provided parts and completion status.
+     *
+     * @param parts an array of strings containing task details
+     * @param isDone a boolean indicating whether the task is marked as done.
+     * @return the created Deadline Task object, or null if the parts are insufficient.
+     */
     public Task createDeadlineTask(String[] parts, boolean isDone) {
         if (parts.length >= 4) {
             String deadlineDescription = parts[2];
@@ -117,6 +145,13 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Creates an Event Task based on the provided parts and completion status
+     *
+     * @param parts the array of strings containing task details.
+     * @param isDone a boolean indicating whether the task is marked as done.
+     * @return the created Event Task object, or null if the parts are insufficient
+     */
     public Task createEventTask(String[] parts, boolean isDone) {
         if (parts.length >= 4) {
             String eventDescription = parts[2];
@@ -203,6 +238,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Writes the details of a Task to a FileWriter in a specific format
+     *
+     * @param task the Task object to be written to the file (of type Todo, Deadline, or Event).
+     * @param fw the FileWriter object used to write the task to the file.
+     * @throws IOException if an I/O error occurs while writing to the file.
+     */
     public void writeTask(Task task, FileWriter fw) throws IOException {
         String isMarked = task.isDone() ? "1" : "0";
         String taskSymbol = task.getTaskSymbol();
