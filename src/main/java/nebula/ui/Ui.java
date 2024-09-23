@@ -193,8 +193,19 @@ public class Ui {
         return UNKNOWN_EVENT_TIMING;
     }
 
+    /**
+     * Displays a message when no matching tasks have been found with the find command.
+     *
+     * @return A string message indicating no matching tasks were found.
+     */
     public String displayNoMatchingTasks() {return NO_MATCHING_TASKS;}
 
+    /**
+     * Displays a list of tasks that match the user inputted find keyword
+     *
+     * @param matchingTasks An ArrayList of Task objects that match the find keyword
+     * @return A string message listing the matching tasks
+     */
     public String displayMatchingTasks(ArrayList<Task> matchingTasks) {
         String displayList = "Here are the matching tasks in your list:" + "\n";
 
@@ -207,6 +218,11 @@ public class Ui {
         return displayList;
     }
 
+    /**
+     * Displays a list of supported commands for the chatbot.
+     *
+     * @return A string message outlining all the commands the chatbot can handle.
+     */
     public String displayCommands() {
         String commands = "";
         commands += "These are the commands I support!\n\n";
@@ -226,6 +242,11 @@ public class Ui {
         return commands;
     }
 
+    /**
+     * Returns a messsage indicating that only one keyword is expected.
+     *
+     * @return A string containing the exception message for the one keyword requirement.
+     */
     public String displayOneKeywordException() {
         return ONE_KEYWORD;
     }
@@ -241,6 +262,11 @@ public class Ui {
         return command;
     }
 
+    /**
+     * Displays error message to the console.
+     *
+     * @param errorMessage The error that is displayed to the console
+     */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
