@@ -1,6 +1,6 @@
 # Noosy User Guide
 
-![Screenshot 2024-09-23 at 12.01.56 PM.png](..%2F..%2F..%2FDocuments%2FScreenshot%202024-09-23%20at%2012.01.56%E2%80%AFPM.png)
+![Ui.png](Ui.png)
 
 Welcome to Noosy, your simple and intuitive task manager. 
 Noosy helps you manage todos, deadlines, and events efficiently, 
