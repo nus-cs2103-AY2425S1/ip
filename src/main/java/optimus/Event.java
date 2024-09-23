@@ -56,7 +56,7 @@ public class Event extends Task {
             }
         }
         throw new OptimusException("Invalid date-time format. Please use one of the following formats: " +
-                "d/MM/yyyy HH:mm, yyyy-MM-dd HH:mm, d-MM-yyyy HH:mm, yyyy/MM/d HH:mm.");
+                "d/MM/yyyy HH:mm, yyyy-MM-dd HH:mm, d-MM-yyyy HH:mm, yyyy/MM/d HH:mm with no extra spaces.");
     }
 
     /**

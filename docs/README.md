@@ -15,7 +15,7 @@ You can _delete_ a task
 You can _find_ tasks with one or more words depending on how narrow you want your searches to be!
 
 
-## Features
+## Features  
 ### Adding Todo task
 
 _Adds a Todo task in Optimus_  

@@ -8,7 +8,8 @@ import java.util.Scanner;
  * The {@code Ui} class handles interactions with the user, including displaying messages
  * and reading input commands.
  */
-//Documentation done with help of GPT
+//Documentation done with help of GPT. It has helped in reducing my time needed on writing it out completely making it
+//more effective
 public class Ui {
     private Scanner scanner;  // Scanner for reading user input.
 

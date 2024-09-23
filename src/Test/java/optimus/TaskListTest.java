@@ -2,15 +2,17 @@ package optimus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.Arrays;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+//Used GPT to help with refining parts of the unit tests helping with more coverage
 public class TaskListTest {
 
     private TaskList taskList;
     private Ui ui;
-    //ChatGPT helped with coming up with some of the tests. But it could not give correct inputs for some so
-    //had to tweak the code a bit
+
     @BeforeEach
     public void setUp() throws OptimusException {
         // Set up a TaskList with some tasks for testing
@@ -22,6 +24,7 @@ public class TaskListTest {
         ui = new Ui(); // Assuming Ui class exists
     }
 
+    // Basic tests
     @Test
     public void testFindTasks_NoMatch() {
         String result = taskList.findTasks("nonexistent", ui);
@@ -59,6 +62,40 @@ public class TaskListTest {
                 + "1. [E][ ] Project meeting (on: Sep 20 2024, 4:00pm - Sep 21 2024, 5:00pm)\n";
         assertEquals(expected, result);
     }
+
+    @Test
+    public void testFindTasks_EmptyKeyword() {
+        String result = taskList.findTasks("", ui);
+        String expected = "Here are the matching tasks in your list:\n"
+                + "1. [T][ ] Buy groceries\n"
+                + "2. [D][ ] Submit assignment (by: Oct 10 2024, 4:00pm)\n"
+                + "3. [E][ ] Project meeting (on: Sep 20 2024, 4:00pm - Sep 21 2024, 5:00pm)\n";
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testFindTasks_NoTasksInList() throws OptimusException {
+        // Set up an empty TaskList
+        taskList = new TaskList(Collections.emptyList());
+        String result = taskList.findTasks("Buy", ui);
+        assertEquals("No matching tasks found. Try again", result);
+    }
+
+    @Test
+    public void testFindTasks_PartialMatch() {
+        String result = taskList.findTasks("gro", ui); // Partial match with "groceries"
+        String expected = "Here are the matching tasks in your list:\n"
+                + "1. [T][ ] Buy groceries\n";
+        assertEquals(expected, result);
+    }
+
+
+    @Test
+    public void testFindTasks_ExactMatch() {
+        String result = taskList.findTasks("Buy groceries", ui);
+        String expected = "Here are the matching tasks in your list:\n"
+                + "1. [T][ ] Buy groceries\n";
+        assertEquals(expected, result);
+    }
+
 }
-
-

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 //Documentation done with help of chatGPT
+//Also used AI to help refine and refactor the storage method to improve quality of code
 /**
  * The {@code Storage} class handles loading and saving tasks to and from a file.
  * It reads from an existing data file to initialize tasks and saves tasks back
