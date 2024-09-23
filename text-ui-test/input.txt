@@ -1,0 +1,11 @@
+todo something
+deadline another thing /by tonight
+event some other thing /from 11am /to 12pm
+list
+mark 2
+mark 5
+unmark 1
+unmark 9
+delete 1
+list
+bye
