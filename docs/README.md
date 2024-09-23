@@ -65,35 +65,49 @@ Mark tasks as completed using the `done` command.
 Remove tasks from your list using the `delete` command.
 
 - Command:  
-  ```delete <task_number>```
+  ```
+  delete <task_number>
+  ```
 - Example:  
-  ```delete 3```
+  ```
+  delete 3
+  ```
 
 ### 4. View All Tasks
 List all tasks currently in the task list.
 
 - Command:
-  ```list```
+  ```
+  list
+  ```
 
 ### 5. Find Tasks
 Search for tasks by keyword using the `find` command.
 
 - Command:
-  ```find <keyword>```
+  ```
+  find <keyword>
+  ```
 - Example:  
-  ```find documentation```
+  ```
+  find documentation
+  ```
 
 ### 6. Help
 To view the help page, use the `help` command.
 
 - Command:  
-  ```help```
+  ```
+  help
+  ```
 
 ### 7. Exit the Chatbot
 Exit the chatbot using the `bye` command.
 
 - Command:  
-  ```bye```
+  ```
+  bye
+  ```
 
 ## First-Time Setup
 
