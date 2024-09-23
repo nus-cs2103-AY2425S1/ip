@@ -273,6 +273,8 @@ public class CommandParser {
      */
     public Task parseFixedDurationTaskCreationCommand(String command) throws InvalidTaskException {
         String[] commandArray = command.split(" ");
+        assert commandArray.length >= 2;
+        assert commandArray[0].equals(Command.FIXED.toString());
 
         int forIndex = Arrays.asList(commandArray).indexOf("/for");
         if (forIndex == -1) {
