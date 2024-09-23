@@ -66,7 +66,6 @@ public class Deadline extends Task {
             LocalDate localDate = LocalDate.parse(input, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             return localDate;
         } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
