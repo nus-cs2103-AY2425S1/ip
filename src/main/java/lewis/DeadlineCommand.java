@@ -6,7 +6,9 @@ import java.time.format.DateTimeParseException;
  * This command creates a new deadline command, and handles the appropriate
  * parsing of user input, UI and entering the deadline into the tasklist.
  */
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
+    /** Each command has one unique deadline associated to it */
+    private final Deadline deadline;
 
     /**
      * Private constructor for this class
@@ -15,8 +17,7 @@ public class DeadlineCommand extends Command{
     private DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
     }
-    /** Each command has one unique deadline associated to it */
-    private final Deadline deadline;
+
 
     /**
      * Factory method for creating a DeadlineCommand. This method should be used
@@ -47,9 +48,9 @@ public class DeadlineCommand extends Command{
             Deadline newDeadline = Deadline.of(deadlineDescription, date, time);
             return new DeadlineCommand(newDeadline);
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new LewisException("Hey, I don't understand your command! Type your " +
-                    "command in this format:\n" +
-                    "deadline <description> /by YYYY-MM-DD HH:MM");
+            throw new LewisException("Hey, I don't understand your command! Type your "
+                    + "command in this format:\n"
+                    + "deadline <description> /by YYYY-MM-DD HH:MM");
         }
     }
 

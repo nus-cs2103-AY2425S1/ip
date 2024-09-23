@@ -8,7 +8,8 @@ public class TodoCommand extends Command {
 
     /** The todo associated with this command */
     private final Todo newTodo;
-    /** Constructor for a TodoCommand
+    /**
+     * Constructor for a TodoCommand
      * @param input a string propagated from the standard input stream
      */
     TodoCommand(String input) {
@@ -25,6 +26,10 @@ public class TodoCommand extends Command {
         return "Creates a todo and enters it into the list.\nUsage: todo <description>";
     }
 
+    /**
+     * Creates a new todo, saves it to storage, and prints
+     * to the user the new todo
+     */
     public void execute() {
         TaskList.add(newTodo);
         Storage.save();

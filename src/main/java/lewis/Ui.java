@@ -7,13 +7,12 @@ import java.util.Scanner;
  * the parser. It also handles output to the user, via the terminal
  */
 public class Ui {
+    public static final String LINE = "---------------------------------------------------------";
+    /** Scanner object for reading user input*/
+    private static final Scanner SCANNER = new Scanner(System.in);
     private Ui() {
     }
 
-    /** Scanner object for reading user input*/
-    private static final Scanner SCANNER = new Scanner(System.in);
-
-    public static final String LINE = "------------------------------------------------------------------------------------------";
     public static void printLine() {
         System.out.println(LINE);
     }

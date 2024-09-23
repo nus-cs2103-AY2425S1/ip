@@ -7,10 +7,10 @@ package lewis;
 public class HelpCommand extends Command {
 
     /** The default help that Lewis will give */
-    private String helpDescription = "Hi, I'm Lewis the chatbot, and I love helping people\n" +
-            "Here is a list of what I can do!\n" +
-            Parser.VALID_COMMANDS.toString() +
-            "\nType help <command> for more information on each command!";
+    private String helpDescription = "Hi, I'm Lewis the chatbot, and I love helping people\n"
+            + "Here is a list of what I can do!\n"
+            + Parser.VALID_COMMANDS.toString()
+            + "\nType help <command> for more information on each command!";
 
     /**
      * Private constructor for HelpCommand
@@ -37,45 +37,45 @@ public class HelpCommand extends Command {
             String[] arguments = input.split("help");
             String commandToSearch = arguments[1].trim();
             switch (commandToSearch) {
-                case "mark", "unmark" -> {
-                    String helpDescription = MarkUnmarkCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "echo" -> {
-                    String helpDescription = EchoCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "todo" -> {
-                    String helpDescription = TodoCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "deadline" -> {
-                    String helpDescription = DeadlineCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "event" -> {
-                    String helpDescription = EventCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "bye", "exit" -> {
-                    String helpDescription = ByeCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "list" -> {
-                    String helpDescription = ListCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "delete" -> {
-                    String helpDescription = DeleteCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                case "hello" -> {
-                    String helpDescription = HelloCommand.getHelpDescription();
-                    return new HelpCommand(helpDescription);
-                }
-                default -> {
-                    return new HelpCommand();
-                }
+            case "mark", "unmark" -> {
+                String helpDescription = MarkUnmarkCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "echo" -> {
+                String helpDescription = EchoCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "todo" -> {
+                String helpDescription = TodoCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "deadline" -> {
+                String helpDescription = DeadlineCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "event" -> {
+                String helpDescription = EventCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "bye", "exit" -> {
+                String helpDescription = ByeCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "list" -> {
+                String helpDescription = ListCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "delete" -> {
+                String helpDescription = DeleteCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            case "hello" -> {
+                String helpDescription = HelloCommand.getHelpDescription();
+                return new HelpCommand(helpDescription);
+            }
+            default -> {
+                return new HelpCommand();
+            }
             }
         }
 

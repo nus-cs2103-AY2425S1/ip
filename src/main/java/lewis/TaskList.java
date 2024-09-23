@@ -11,19 +11,11 @@ import java.util.ArrayList;
  * (iv) load
  */
 public class TaskList {
-
-    /** Private constructor for a tasklist */
-    private TaskList() {
-    }
-
-    /** The singular instance of TaskList */
-    private static final TaskList TASKLIST = new TaskList();
-
-    /** Private fields that keep track of the length of the tasklist
+    /**
+     * Private fields that keep track of the length of the tasklist
      * (equivalently, the number of elements in the tasklist)
      */
     private static int length = 0;
-
     /**
      * Container for all tasks entered in to the tasklist
      */
@@ -34,6 +26,12 @@ public class TaskList {
      * By default, it will refer to all tasks.
      */
     private static ArrayList<Task> currentTasks = TASKS;
+    /** The singular instance of TaskList */
+    private static final TaskList TASKLIST = new TaskList();
+
+    /** Private constructor for a tasklist */
+    private TaskList() {
+    }
 
     /**
      * Factory method for instantiating a tasklist.
@@ -72,12 +70,12 @@ public class TaskList {
      */
     static void update(int index, Task.Status status) throws LewisException {
         if (length == 0) {
-            throw new LewisException("Hey, you can't update an empty list. Try" +
-                    "entering some tasks first!");
+            throw new LewisException("Hey, you can't update an empty list. Try"
+                    + "entering some tasks first!");
         }
         if (index > length) {
-            throw new LewisException(String.format("Hey, enter a valid index " +
-                    "between 1 and %d!", length));
+            throw new LewisException(String.format("Hey, enter a valid index "
+                    + "between 1 and %d!", length));
         }
         Task task = TASKS.get(index - 1);
         task.updateStatus(status);
@@ -109,17 +107,17 @@ public class TaskList {
      * tasklist
      * @param tasksToRead an array of strings representing tasks in csv format.
      */
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")//Class names are effectively enum
     private static void load(ArrayList<String> tasksToRead) {
-        final String DELIMITER = ",";
         for (String taskToParse : tasksToRead) {
-            String[] tokens = taskToParse.split(DELIMITER);
+            String[] tokens = taskToParse.split(",");
             //To handle the different types of tasks separately.
             switch (tokens[0]) {
-                case "Event" -> TaskList.add(Event.of(tokens[1],tokens[2],
-                        LocalDateTime.parse(tokens[3]),
-                        LocalDateTime.parse(tokens[4])));
-                case "Deadline" -> TaskList.add(Deadline.of(tokens[1],tokens[2], LocalDateTime.parse(tokens[3])));
-                case "Todo" -> TaskList.add(new Todo(tokens[1],tokens[2]));
+            case "Event" -> TaskList.add(Event.of(tokens[1], tokens[2],
+                    LocalDateTime.parse(tokens[3]),
+                    LocalDateTime.parse(tokens[4])));
+            case "Deadline" -> TaskList.add(Deadline.of(tokens[1], tokens[2], LocalDateTime.parse(tokens[3])));
+            case "Todo" -> TaskList.add(new Todo(tokens[1], tokens[2]));
             }
         }
     }

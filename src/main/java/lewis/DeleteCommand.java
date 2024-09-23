@@ -5,7 +5,7 @@ package lewis;
  * and update the storage accordingly.
  *
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     /** The index of the (0-indexed) task to be deleted */
     private final int index;
@@ -26,10 +26,10 @@ public class DeleteCommand extends Command{
      * @return a DeleteCommand
      * @throws LewisException if the user tries to delete a non-existent task
      */
-    public static DeleteCommand of(String input) throws LewisException{
+    public static DeleteCommand of(String input) throws LewisException {
         if (TaskList.getLength() == 0) {
-            throw new LewisException("Hey, the tasklist is empty. You can't delete" +
-                    "something from an empty list!");
+            throw new LewisException("Hey, the tasklist is empty. You can't delete"
+                    + "something from an empty list!");
         }
         try {
             String[] tokens = input.split(" ");
@@ -40,7 +40,7 @@ public class DeleteCommand extends Command{
                         TaskList.getLength()));
             }
             return new DeleteCommand(index);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new LewisException(
                     String.format("Hey, enter a valid number between 1 and %d",
                             TaskList.getLength()));

@@ -5,11 +5,15 @@ import java.util.Set;
  * Implements a parser that interprets the user input string for Lewis to execute.
  */
 class Parser {
+    /** A set of valid commands for Lewis to execute */
+    public static final Set<String> VALID_COMMANDS = Set.of("help", "mark", "unmark", "echo",
+            "todo", "deadline", "event", "bye", "hello", "list", "delete", "exit");
+    /** The singular instance of Parser */
+    private static final Parser PARSER = new Parser();
     /** Private constructor for Parser */
     private Parser() {
     }
-    /** The singular instance of Parser */
-    final static Parser PARSER = new Parser();
+
 
     /**
      * Factory method for creating a Parser.
@@ -18,10 +22,6 @@ class Parser {
     public static Parser of() {
         return PARSER;
     }
-
-    /** A set of valid commands for Lewis to execute */
-    public final static Set<String> VALID_COMMANDS = Set.of("help","mark","unmark","echo",
-            "todo","deadline","event","bye","hello","list","delete","exit");
 
     /**
      * Gets the command from the input string, compares it against the set of valid commands
@@ -47,51 +47,51 @@ class Parser {
     Command parseCommand(String input) throws LewisException {
         String command = getCommand(input);
         if (command == null) {
-            throw new LewisException("Hey, I don't recognise that command. Try \"help\"" +
-                    " to find out what I can do.");
+            throw new LewisException("Hey, I don't recognise that command. Try \"help\""
+                    + " to find out what I can do.");
         }
         switch(command) {
-            case "help" -> {
-                return HelpCommand.of(input);
+        case "help" -> {
+            return HelpCommand.of(input);
+        }
+        case "mark", "unmark" -> {
+            return new MarkUnmarkCommand(input);
+        }
+        case "echo" -> {
+            try {
+                return new EchoCommand(input);
+            } catch (LewisException e) {
+                Ui.printString(e.getMessage());
             }
-            case "mark", "unmark" -> {
-                return new MarkUnmarkCommand(input);
+        }
+        case "todo" -> {
+            return new TodoCommand(input);
+        }
+        case "deadline" -> {
+            return DeadlineCommand.of(input);
+        }
+        case "event" -> {
+            try {
+                return EventCommand.of(input);
+            } catch (LewisException e) {
+                Ui.printString(e.getMessage());
             }
-            case "echo" -> {
-                try {
-                    return new EchoCommand(input);
-                } catch (LewisException e) {
-                    Ui.printString(e.getMessage());
-                }
-            }
-            case "todo" -> {
-                return new TodoCommand(input);
-            }
-            case "deadline" -> {
-                return DeadlineCommand.of(input);
-            }
-            case "event" -> {
-                try {
-                    return EventCommand.of(input);
-                } catch (LewisException e) {
-                    Ui.printString(e.getMessage());
-                }
-            }
-            case "bye", "exit" -> {
-                return ByeCommand.of();
-            }
-            case "hello" -> {
-                return HelloCommand.of();
-            }
-            case "list" -> {
-                return ListCommand.of();
-            }
-            case "delete" -> {
-                return DeleteCommand.of(input);
-            }
-            default -> {
-                //fall through
-            }
+        }
+        case "bye", "exit" -> {
+            return ByeCommand.of();
+        }
+        case "hello" -> {
+            return HelloCommand.of();
+        }
+        case "list" -> {
+            return ListCommand.of();
+        }
+        case "delete" -> {
+            return DeleteCommand.of(input);
+        }
+        default -> {
+            //fall through
+        }
         }
         return HelpCommand.of("help");
     }

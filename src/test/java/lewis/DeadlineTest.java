@@ -1,8 +1,9 @@
 package lewis;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * JUnit test class for Deadline in the Lewis chatbot
