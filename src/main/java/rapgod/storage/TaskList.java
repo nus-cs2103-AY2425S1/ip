@@ -91,7 +91,7 @@ public class TaskList {
     public String markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
         StringBuilder sb = new StringBuilder();
-        sb.append("Yeah, I got it. This task’s marked as done—like a champ:\n");
+        sb.append("Yeah, I got it. This task's marked as done-like a champ:\n");
         sb.append(list.get(index - 1));
         return sb.toString();
     }
@@ -172,7 +172,7 @@ public class TaskList {
         list.add(new Deadline(deadlineDesc, due));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this task: \n%s\n", list.get(list.size() - 1)));
-        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
+        sb.append(String.format("Now you're rockin' with %d tasks int he list. Keep it rollin'!\n", list.size()));
         return sb.toString();
     }
 
@@ -187,7 +187,7 @@ public class TaskList {
         list.add(new Event(eventDesc, from, to));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this event: \n%s\n", list.get(list.size() - 1)));
-        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
+        sb.append(String.format("Now you're rockin' with %d tasks int he list. Keep it rollin'!\n", list.size()));
         return sb.toString();
     }
 
@@ -200,7 +200,7 @@ public class TaskList {
         list.add(new ToDo(todoDesc));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this task: \n%s\n", list.get(list.size() - 1)));
-        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
+        sb.append(String.format("Now you're rockin' with %d tasks int he list. Keep it rollin'!\n", list.size()));
         return sb.toString();
     }
 

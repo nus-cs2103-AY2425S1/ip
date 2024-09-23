@@ -22,13 +22,15 @@ public class RapGod {
 
     public static String getInitialMessage() {
         String initialise = """
-            Yo, List Bot’s kickin' off! Here’s the lowdown:
+            Yo, Rap Bot's kickin off! Here's the lowdown:
+            
+            'ADD abc'                 - Adds a new task 'abc'
         
-            'LIST'                    - Wanna see everything? This shows the full list.
+            'LIST'                    - This shows the full list.
             'FIND abc, def'           - Searching for tasks with 'abc' or 'def'? This filters 'em out.
             
             'MARK n'                  - Mark the nth task as done. Easy peasy.
-            'UNMARK n'                - Oops, need to undo that? This marks the nth task as not done.
+            'UNMARK n'                - This marks the nth task as not done.
             'DELETE n'                - Get rid of the nth task. Poof, it's gone.
             
             '/BY z'                   - Got a deadline? Specify it with '/BY z'.
@@ -64,75 +66,75 @@ public class RapGod {
             assert command != null : "Yo! Command type should not be null";
 
             switch (command) {
-                case LIST:
-                    response = dataManager.getTaskList().taskString();
-                    break;
+            case LIST:
+                response = dataManager.getTaskList().taskString();
+                break;
 
-                case FIND:
-                    String[] keywords = CommandType.extractKeywords(input);
-                    response = dataManager.getTaskList().filteredTask(keywords);
-                    break;
+            case FIND:
+                String[] keywords = CommandType.extractKeywords(input);
+                response = dataManager.getTaskList().filteredTask(keywords);
+                break;
 
-                case MARK:
-                    int markIndex = CommandType.extractIndex(input, command);
-                    assert markIndex >= 0 : "Yo! Mark index should be non-negative";
-                    response = dataManager.getTaskList().markTaskByIndex(markIndex);
-                    break;
+            case MARK:
+                int markIndex = CommandType.extractIndex(input, command);
+                assert markIndex >= 0 : "Yo! Mark index should be non-negative";
+                response = dataManager.getTaskList().markTaskByIndex(markIndex);
+                break;
 
-                case UNMARK:
-                    int unmarkIndex = CommandType.extractIndex(input, command);
-                    assert unmarkIndex >= 0 : "Yo! Unmark index should be non-negative";
-                    response = dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
-                    break;
+            case UNMARK:
+                int unmarkIndex = CommandType.extractIndex(input, command);
+                assert unmarkIndex >= 0 : "Yo! Unmark index should be non-negative";
+                response = dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
+                break;
 
-                case DELETE:
-                    int deleteIndex = CommandType.extractIndex(input, command);
-                    assert deleteIndex >= 0 : "Yo! Delete index should be non-negative";
-                    response = dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
-                    break;
+            case DELETE:
+                int deleteIndex = CommandType.extractIndex(input, command);
+                assert deleteIndex >= 0 : "Yo! Delete index should be non-negative";
+                response = dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
+                break;
 
-                case DEADLINE:
-                    String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
-                    String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
-                    assert !deadlineDesc.isEmpty() : "Yo! Deadline description should not be empty";
-                    assert !due.isEmpty() : "Yo! Due date should not be empty";
-                    response = dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
-                    break;
+            case DEADLINE:
+                String deadlineDesc = input.substring(4, input.toLowerCase().indexOf("/by"));
+                String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
+                assert !deadlineDesc.isEmpty() : "Yo! Deadline description should not be empty";
+                assert !due.isEmpty() : "Yo! Due date should not be empty";
+                response = dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
+                break;
 
-                case EVENT:
-                    String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
-                    String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
-                    String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
-                    assert !eventDesc.isEmpty() : "Yo! Event description should not be empty";
-                    assert !from.isEmpty() : "Yo! 'From' date should not be empty";
-                    assert !to.isEmpty() : "Yo! 'To' date should not be empty";
-                    response = dataManager.getTaskList().addEventTask(eventDesc, from, to);
-                    break;
+            case EVENT:
+                String eventDesc = input.substring(4, input.toLowerCase().indexOf("/from"));
+                String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
+                String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
+                assert !eventDesc.isEmpty() : "Yo! Event description should not be empty";
+                assert !from.isEmpty() : "Yo! 'From' date should not be empty";
+                assert !to.isEmpty() : "Yo! 'To' date should not be empty";
+                response = dataManager.getTaskList().addEventTask(eventDesc, from, to);
+                break;
 
-                case TODO:
-                    response = dataManager.getTaskList().addToDoTask(input);
-                    break;
+            case TODO:
+                response = dataManager.getTaskList().addToDoTask(input.substring(4));
+                break;
 
-                case SNOOZE_DEADLINE:
-                    int snoozeDeadlineIndex = CommandType.extractIndex(input, command);
-                    String snoozeDueField = input.substring(input.toLowerCase().indexOf("/by") + 4);
-                    response = dataManager.getTaskList().snoozeDeadline(snoozeDeadlineIndex, snoozeDueField);
-                    break;
+            case SNOOZE_DEADLINE:
+                int snoozeDeadlineIndex = CommandType.extractIndex(input, command);
+                String snoozeDueField = input.substring(input.toLowerCase().indexOf("/by") + 4);
+                response = dataManager.getTaskList().snoozeDeadline(snoozeDeadlineIndex, snoozeDueField);
+                break;
 
-                case SNOOZE_EVENT:
-                    int snoozeEventIndex = CommandType.extractIndex(input, command);
-                    String snoozeFromField = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
-                    String snoozeToField = input.substring(input.toLowerCase().indexOf("/to") + 4);
-                    response = dataManager.getTaskList().snoozeEvent(snoozeEventIndex, snoozeFromField, snoozeToField);
-                    break;
+            case SNOOZE_EVENT:
+                int snoozeEventIndex = CommandType.extractIndex(input, command);
+                String snoozeFromField = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
+                String snoozeToField = input.substring(input.toLowerCase().indexOf("/to") + 4);
+                response = dataManager.getTaskList().snoozeEvent(snoozeEventIndex, snoozeFromField, snoozeToField);
+                break;
 
-                case BYE:
-                    response = "Peace out! Catch you on the flip side!";
-                    break;
+            case BYE:
+                response = "Peace out! Catch you on the flip side!";
+                break;
 
-                default:
-                    response = "What’s this? I ain't never seen a command like that before, man!";
-                    break;
+            default:
+                response = "What's this? I ain't never seen a command like that before, man!";
+                break;
             }
 
             dataManager.updateMemory();
@@ -157,7 +159,7 @@ public class RapGod {
      * Commands include listing tasks, marking/unmarking tasks, deleting tasks, and adding deadlines, events, or to-dos.
      */
     public enum CommandType {
-        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, SNOOZE_DEADLINE, SNOOZE_EVENT;
+        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, SNOOZE_DEADLINE, SNOOZE_EVENT, UNKNOWN;
 
         /**
          * Determines the {@link CommandType} based on the provided user input string.
@@ -184,14 +186,18 @@ public class RapGod {
                         && input.toLowerCase().contains("/from")
                         && input.toLowerCase().contains("/to")) {
                 return SNOOZE_EVENT;
-            } else if (input.toLowerCase().contains("/by")) {
+            } else if (input.toLowerCase().startsWith("add ")
+                        && input.toLowerCase().contains("/by")) {
                 return DEADLINE;
-            } else if (input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
+            } else if (input.toLowerCase().startsWith("add ")
+                    && input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
                 return EVENT;
+            } else if (input.toLowerCase().startsWith("add ")) {
+                return TODO;
             } else if (input.equalsIgnoreCase("bye")) {
                 return BYE;
             } else {
-                return TODO;
+                return UNKNOWN;
             }
         }
 
@@ -207,21 +213,21 @@ public class RapGod {
          */
         public static int extractIndex(String input, CommandType command) throws NumberFormatException {
             switch (command) {
-                case SNOOZE_DEADLINE:
-                case SNOOZE_EVENT:
-                    return Integer.parseInt(input.substring(7, input.indexOf('/')).trim());
-                case MARK:
-                    return Integer.parseInt(input.substring(5).trim());
-                case UNMARK:
-                    return Integer.parseInt(input.substring(7).trim());
-                case DELETE:
-                    return Integer.parseInt(input.substring(7).trim());
-                default:
-                    throw new IllegalArgumentException("Command does not require an index.");
+            case SNOOZE_DEADLINE:
+            case SNOOZE_EVENT:
+                return Integer.parseInt(input.substring(7, input.indexOf('/')).trim());
+            case MARK:
+                return Integer.parseInt(input.substring(5).trim());
+            case UNMARK:
+                return Integer.parseInt(input.substring(7).trim());
+            case DELETE:
+                return Integer.parseInt(input.substring(7).trim());
+            default:
+                throw new IllegalArgumentException("Command does not require an index.");
             }
         }
 
-        public static String[] extractKeywords(String input) {
+        private static String[] extractKeywords(String input) {
             String substring = input.substring(5);
             return substring.split(",\\s*");
         }

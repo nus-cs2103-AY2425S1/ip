@@ -36,6 +36,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.getStyleClass().add(styleClass);
+        dialog.setWrapText(true);
         displayPicture.setFitHeight(50);
         displayPicture.setPreserveRatio(true);
         displayPicture.setImage(img);
@@ -57,12 +58,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
+        text = text + "\n";
         var db = new DialogBox(text, img, "duke-label");
         db.flip();
         return db;
     }
 
     public static DialogBox getInitialDialog(String text, Image img) {
+        text = text + "\n\n\n\n";
         var db = new DialogBox(text, img, "duke-label");
         db.flip();
         return db;
