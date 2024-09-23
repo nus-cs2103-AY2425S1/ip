@@ -11,6 +11,10 @@ import trackie.ui.TrackieException;
 public abstract class Command {
     protected String[] arguments;
 
+    public String[] getArguments() {
+        return this.arguments;
+    }
+
     public String fetchDescription() throws TrackieException {
 
         StringBuilder descFetcher = new StringBuilder();

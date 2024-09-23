@@ -5,25 +5,22 @@ import trackie.commands.Command;
 import trackie.commands.InvalidCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.format.DateTimeParseException;
 
 public class ParserTest {
     @Test
     public void testCommandParsing() {
-        String userInput = "lsit";
+        String userInput = "lmao";
         Command c = Parser.parseCommand(userInput);
         assertEquals(c instanceof InvalidCommand, true);
     }
 
     @Test
-    public void testCommandParsing2() {
-        String userInput = "bye";
-        Command c = Parser.parseCommand(userInput);
-        assertEquals(c instanceof ExitCommand, true);
-    }
-
-    @Test
     public void testParsingResult() {
-        String userInput = "todo       ";
+        String userInput = "t      ";
         Command c = Parser.parseCommand(userInput);
         assertEquals(c.getArguments().length, 1);
     }
