@@ -60,3 +60,6 @@ jobs:
 
       - name: run gradle test
         run: ./gradlew test
+
+      - name: run CLI test
+        run: cd text-ui-test; ./runtest.sh
