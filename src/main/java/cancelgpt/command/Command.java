@@ -10,6 +10,7 @@ public enum Command {
     UNMARK("unmark"),
     TODO("todo"),
     DEADLINE("deadline"),
+    FIXED("fixed"),
     EVENT("event"),
     FIND("find"),
     BYE("bye");

@@ -64,6 +64,9 @@ public abstract class Task {
             if (savedDataStringArr[0].equals("E")) {
                 return Event.getTaskFromSavedDataStringArr(savedDataStringArr);
             }
+            if (savedDataStringArr[0].equals("F")) {
+                return FixedDurationTask.getTaskFromSavedDataStringArr(savedDataStringArr);
+            }
         } catch (DateTimeParseException e) {
             throw new InvalidTaskException("Unable to read task from tasks "
                     + "storage due to incorrect format saved");
