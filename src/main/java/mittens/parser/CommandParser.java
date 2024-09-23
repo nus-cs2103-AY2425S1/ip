@@ -8,12 +8,6 @@ import mittens.commands.FindCommand;
 import mittens.commands.ListCommand;
 import mittens.commands.MarkCommand;
 import mittens.commands.UnmarkCommand;
-import mittens.task.Deadline;
-import mittens.task.Event;
-import mittens.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a parser for commands.
