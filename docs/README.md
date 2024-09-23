@@ -12,6 +12,9 @@ Say, you wanted to add a todo task with the description "task1",
 here's how you would do it:\
 `t task1`
 
+The bot will return:
+> Added: task1
+
 ## Adding a deadline task
 Deadline tasks are tasks that come with a deadline.
 To add a deadline task, simply provide the description
@@ -23,6 +26,9 @@ For instance, let's say that you want to add the following deadline:
 
 This is done by issuing the following command:\
 `d finish assignment /by 20240926 2359`
+
+As a result, the bot will return:
+> Added: finish assignment (by: 26 Sep 2024, 23:59:00pm)
 
 ## Adding an event task
 Event tasks are tasks that have both a start and end time.
@@ -38,12 +44,8 @@ For instance, to add the following event:
 This is how it's done:\
 `e attend party /from 20210819 1900 /to 20210819 2300`
 
-Upon adding a task, the bot should inform you of the addition.
-For instance:\
-`t some random task`
-
-will result in the bot displaying:
-> Added: some random task
+And this is what you'll get:
+> Added: attend party (from: 19 Aug 2021, 7:00:00pm to: 19 Aug 2021, 11:00:00pm)
 
 ## Listing Tasks
 To see a list of all your tasks, simply type `ls`.
