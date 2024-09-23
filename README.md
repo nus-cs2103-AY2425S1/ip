@@ -1,18 +1,19 @@
 # Torne
 
-This is the chatbot `torne.ui.Torne`, short for `Torment Nexus`. 
+![Torne icon. Credits: me](./src/main/resources/images/torne_icon.png)
 
-## Setting up in Intellij
+[![GitHub Release](https://img.shields.io/github/v/release/AY2425S1-CS2103T-F14B-2/tp)](https://github.com/AY2425S1-CS2103T-F14B-2/tp/releases)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+This is the chatbot `torne.ui.Torne`, short for `Torment Nexus`.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-2. Open the project into Intellij as follows:
-   1. Click `Open`.
-   2. Select the project directory, and click `OK`.
-   3. If there are any further prompts, accept the defaults.
-3. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-4. After that, locate the `src/main/java/torne.ui.Torne.java` file, right-click it, and choose `Run torne.ui.Torne.main()`
-   to start the chatBot
+## How to Run
 
+Make sure you have Java installed and accessible from your CLI.
+
+1. Go to [releases](https://github.com/Zeepheru/ip/releases).
+2. Find the newest release and download the `torne.jar` file.
+3. In your terminal, navigate to the location of the `torne.jar` file and run `java -jar torne.jar`.
+
+## User Guide
+
+[https://zeepheru.github.io/ip/](https://zeepheru.github.io/ip/)
