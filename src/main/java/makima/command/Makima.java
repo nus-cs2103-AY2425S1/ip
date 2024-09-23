@@ -62,6 +62,7 @@ public class Makima {
 
     /**
      * Mark the selected task
+     *
      * @param idx index of task to mark
      */
     public void mark(int idx) {
@@ -71,6 +72,7 @@ public class Makima {
 
     /**
      * Unmark the selected task
+     *
      * @param idx index of task to unmark
      */
     public void unmark(int idx) {
