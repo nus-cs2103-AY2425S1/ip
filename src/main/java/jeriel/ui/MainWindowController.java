@@ -1,29 +1,50 @@
 package jeriel.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import jeriel.Jeriel;
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 public class MainWindowController {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+
+    private Jeriel jeriel; 
+
+    private ImageView userImage = new ImageView("/images/user.png");
+    private ImageView botImage = new ImageView("/images/bot.png");
 
     @FXML
-    private TextArea displayArea;
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-    @FXML
-    private TextField inputField;
+        // Adding event listener to listen for 'Enter' key press in userInput TextField
+        userInput.setOnAction(event -> handleUserInput());  // Handles enter key press in text field
+    }
 
-    private Jeriel jeriel = new Jeriel("data/tasks.txt");
+    public void setJeriel(Jeriel j) {
+        this.jeriel = j;
+    }
 
-    /**
-     * Handles the user input when the "Send" button is clicked.
-     */
     @FXML
     private void handleUserInput() {
-        String input = inputField.getText();
-        String response = jeriel.handleCommand(input); // Use handleCommand to process input
-        displayArea.appendText("User: " + input + "\n");
-        displayArea.appendText("Duke: " + response + "\n");
-        inputField.clear();
+        String input = userInput.getText().trim(); // Trim to remove unnecessary spaces
+        if (!input.isEmpty()) {  // Only process input if it's not empty
+            String response = jeriel.getResponse(input);
+
+            // Add user and bot dialog to the dialog container
+            dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage.getImage()), 
+                DialogBox.getBotDialog(response, botImage.getImage())
+            );
+
+            userInput.clear();  // Clear the text field after handling input
+        }
     }
 }

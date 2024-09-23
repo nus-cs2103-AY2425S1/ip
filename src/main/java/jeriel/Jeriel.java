@@ -22,24 +22,17 @@ public class Jeriel {
     }
 
     /**
-     * Handles a single user command and returns the response.
-     * This replaces the run loop for the GUI implementation.
+     * Processes user input and returns the chatbot's response.
      *
-     * @param fullCommand the user input
-     * @return the result of the command execution
+     * @param input The user's input
+     * @return The chatbot's response after processing the input
      */
-    public String handleCommand(String fullCommand) {
+    public String getResponse(String input) {
         try {
-            Command command = Parser.parse(fullCommand);
-            return command.execute(tasks, ui, storage);
+            Command command = Parser.parse(input);  // Parse the user's input into a command
+            return command.execute(tasks, ui, storage);  // Execute the command and return the result
         } catch (JerielException | IOException e) {
-            return e.getMessage();
+            return e.getMessage();  // Return error messages if something goes wrong
         }
-    }
-
-    public static void main(String[] args) {
-        // If you need a CLI fallback, you can implement that here.
-        // For now, it's not needed for the GUI application.
-        // new Jeriel("data/tasks.txt").run();
     }
 }
