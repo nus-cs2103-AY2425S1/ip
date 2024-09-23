@@ -135,6 +135,12 @@ enter: "edit [task number as shown in list]"
 
 enter: "[part to change] [new value]"
 
+#### parts
+* name
+* by
+* start
+* end
+
 Example:`edit 2`
 
 ```dtd
