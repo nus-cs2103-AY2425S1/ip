@@ -77,7 +77,7 @@ public class TaskHandler {
     }
 
     /**
-     * Searches for tasks using a keyword and returns the list of tasks.
+     * Searches for tasks using a keyword substring and returns the list of tasks. Case-insensitive.
      *
      * @param keyword Keyword used to search. Matches if the name of a task contains the keyword.
      * @return The list of matching tasks
@@ -85,7 +85,7 @@ public class TaskHandler {
     public List<Task> findTasksWithKeyword(String keyword) {
         return taskList
                 .stream()
-                .filter((task) -> task.name.contains(keyword))
+                .filter((task) -> task.name.toLowerCase().contains(keyword.toLowerCase()))
                 .toList();
     }
 
