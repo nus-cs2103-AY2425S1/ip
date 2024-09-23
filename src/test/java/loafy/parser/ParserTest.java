@@ -14,22 +14,22 @@ public class ParserTest {
         // normal input results in correct LocalDateTime
         String input = "25/12/2024 2359";
         LocalDateTime dateTime = LocalDateTime.of(2024, 12, 25, 23, 59);
-        assertEquals(dateTime, Parser.parseDate(input));
+        assertEquals(dateTime, Parser.parseDateTime(input));
 
         // single digits for date and month results in correct LocalDateTime;
         input = "2/1/2024 2359";
         dateTime = LocalDateTime.of(2024, 1, 2, 23, 59);
-        assertEquals(dateTime, Parser.parseDate(input));
+        assertEquals(dateTime, Parser.parseDateTime(input));
 
         // padded date and month results in correct LocalDateTime;
         input = "02/01/2024 2359";
         dateTime = LocalDateTime.of(2024, 1, 2, 23, 59);
-        assertEquals(dateTime, Parser.parseDate(input));
+        assertEquals(dateTime, Parser.parseDateTime(input));
 
         // padded time and hour results in correct LocalDateTime;
         input = "25/12/2024 0309";
         dateTime = LocalDateTime.of(2024, 12, 25, 3, 9);
-        assertEquals(dateTime, Parser.parseDate(input));
+        assertEquals(dateTime, Parser.parseDateTime(input));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ParserTest {
         try {
             String input = "25/12/2024 359";
             LocalDateTime dateTime = LocalDateTime.of(2024, 12, 25, 3, 59);
-            assertEquals(dateTime, Parser.parseDate(input));
+            assertEquals(dateTime, Parser.parseDateTime(input));
             fail(); // the test should not reach this line
         } catch (Exception e) {
             String wrongDateFormatMsg = "" +
@@ -52,7 +52,7 @@ public class ParserTest {
         try {
             String input = "25/12/24 2359";
             LocalDateTime dateTime = LocalDateTime.of(2024, 12, 25, 23, 59);
-            assertEquals(dateTime, Parser.parseDate(input));
+            assertEquals(dateTime, Parser.parseDateTime(input));
             fail(); // the test should not reach this line
         } catch (Exception e) {
             String wrongDateFormatMsg = "" +

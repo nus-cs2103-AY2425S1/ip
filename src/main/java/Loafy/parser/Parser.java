@@ -1,5 +1,8 @@
 package loafy.parser;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
@@ -85,14 +88,50 @@ public class Parser {
     /**
      * Parses the user input into a LocalDateTime object.
      * Throws a LoafyException if user input has an unexpected format.
+     * Accepts both day of week and d/M/yyyy, with optional HHmm as input.
      *
-     * @param date The user input representing a date.
+     * @param dateTime The user input representing date and time.
      * @return The LocalDateTime object.
      */
-    public static LocalDateTime parseDate(String date) throws LoafyException {
+    static LocalDateTime parseDateTime(String dateTime) throws LoafyException {
+        assert ! dateTime.isEmpty();
+
+        String[] dateTimeArr = dateTime.split(" ");
+        String date = dateTimeArr[0];
+        LocalDate dateObj = parseDate(date);
+        LocalTime timeObj;
+
+        if (dateTimeArr.length == 2) {
+            String time = dateTimeArr[1];
+            timeObj = parseTime(time);
+        } else {
+            timeObj = LocalTime.of(23, 59, 59);
+        }
+        return dateObj.atTime(timeObj);
+    }
+
+    private static LocalDate parseDate(String date) throws LoafyException {
+        // handle date in day of week format
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(date, formatter);
+            LocalDate now = LocalDate.now();
+            int day = DayOfWeek.valueOf(date.toUpperCase()).getValue();
+            int today = now.getDayOfWeek().getValue();
+            return now.plusDays(day - today);
+        } catch (IllegalArgumentException e) {
+            // handle date in d/M/yyyy format
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                return LocalDate.parse(date, dateFormatter);
+            } catch (DateTimeParseException exception) {
+                throw LoafyException.ofWrongDateFormat();
+            }
+        }
+    }
+
+    private static LocalTime parseTime(String time) throws LoafyException {
+        try {
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+            return LocalTime.parse(time, timeFormatter);
         } catch (DateTimeParseException e) {
             throw LoafyException.ofWrongDateFormat();
         }
@@ -105,7 +144,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return the exit command.
      */
-    public static Command handleExit(String[] inputArr) throws LoafyException {
+    private static Command handleExit(String[] inputArr) throws LoafyException {
         if (inputArr.length != 1) {
             throw LoafyException.ofInvalidCommand();
         }
@@ -120,7 +159,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return the list command.
      */
-    public static Command handleList(String[] inputArr) throws LoafyException {
+    private static Command handleList(String[] inputArr) throws LoafyException {
         if (inputArr.length != 1) {
             throw LoafyException.ofInvalidCommand();
         }
@@ -135,7 +174,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return The mark or delete command.
      */
-    public static Command handleMarkUnmarkDelete(String[] inputArr) throws LoafyException {
+    private static Command handleMarkUnmarkDelete(String[] inputArr) throws LoafyException {
         if (inputArr.length != 2) {
             throw LoafyException.ofInvalidAction();
         }
@@ -160,7 +199,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return the todo command.
      */
-    public static Command handleToDo(String[] inputArr) throws LoafyException {
+    private static Command handleToDo(String[] inputArr) throws LoafyException {
         if (inputArr.length == 1) {
             throw LoafyException.ofEmptyTodo();
         }
@@ -177,7 +216,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return the deadline command.
      */
-    public static Command handleDeadline(String[] inputArr) throws LoafyException {
+    private static Command handleDeadline(String[] inputArr) throws LoafyException {
         int i = Arrays.asList(inputArr).indexOf("/by");
 
         if (i == -1) {
@@ -185,14 +224,14 @@ public class Parser {
         }
 
         String name = joinRange(inputArr, 1, i);
-        String date = joinRange(inputArr, i + 1, inputArr.length);
+        String dateTime = joinRange(inputArr, i + 1, inputArr.length);
 
-        if (name.isEmpty() || date.isEmpty()) {
+        if (name.isEmpty() || dateTime.isEmpty()) {
             throw LoafyException.ofNoDeadline();
         }
 
-        LocalDateTime dateTime = parseDate(date);
-        Task task = new Deadline(name, dateTime);
+        LocalDateTime dateTimeObj = parseDateTime(dateTime);
+        Task task = new Deadline(name, dateTimeObj);
         return new AddCommand(task);
     }
 
@@ -203,7 +242,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return the event command.
      */
-    public static Command handleEvent(String[] inputArr) throws LoafyException {
+    private static Command handleEvent(String[] inputArr) throws LoafyException {
         int fromIndex = Arrays.asList(inputArr).indexOf("/from");
         int toIndex = Arrays.asList(inputArr).indexOf("/to");
 
@@ -219,8 +258,8 @@ public class Parser {
             throw LoafyException.ofNoEventDates();
         }
 
-        LocalDateTime startDate = parseDate(startDateString);
-        LocalDateTime endDate = parseDate(endDateString);
+        LocalDateTime startDate = parseDateTime(startDateString);
+        LocalDateTime endDate = parseDateTime(endDateString);
         Task task = new Event(name, startDate, endDate);
         return new AddCommand(task);
     }
@@ -232,7 +271,7 @@ public class Parser {
      * @param inputArr An array of words of the user input.
      * @return the find command.
      */
-    public static Command handleFind(String[] inputArr) throws LoafyException {
+    private static Command handleFind(String[] inputArr) throws LoafyException {
         if (inputArr.length == 1) {
             throw LoafyException.ofEmptyFind();
         }
