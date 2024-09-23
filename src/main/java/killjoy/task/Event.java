@@ -31,7 +31,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (from: " + this.from.format(DATE_TIME_OUTPUT_FORMATTER) + " to: "
+        return "[E] " + super.toString() + " (from: " + this.from.format(DATE_TIME_OUTPUT_FORMATTER) + " to: "
                 + this.to.format(DATE_TIME_OUTPUT_FORMATTER) + ")";
     }
 }
