@@ -11,7 +11,7 @@ It is a desktop app meant to help you manage your tasks efficiently!
 1. Ensure that you have Java `17` installed on your computer.
 2. Download the latest release of the app [here](https://github.com/sam-theman88/ip/releases).
 3. Copy the file to the folder you want to use as your _home folder_ for your Edith chatbot.
-4. Open a command terminal, `cd` into the folder containing the `edith.jar` file, and use the command `java -jar Edith.jar`.
+4. Open a command terminal, `cd` into the folder containing the `edith.jar` file, and use the command `java -jar edith.jar`.
 5. A GUI will shortly appear.
 6. Have fun interacting with the chatbot!
 7. Refer to the **Features** section below for details of all available commands.
