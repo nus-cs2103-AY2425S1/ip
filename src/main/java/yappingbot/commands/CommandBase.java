@@ -3,8 +3,10 @@ package yappingbot.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import yappingbot.commands.commands.ArgEnums;
+import yappingbot.commands.commands.CreateDeadlineCommand;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.stringconstants.ReplyTextMessages;
@@ -58,7 +60,14 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
      * @throws IllegalArgumentException If there is no Arg Enum matching the given key.
      */
     private A getArgTypeFromKeyword(String key) throws IllegalArgumentException {
-        return ArgEnums.findKeyword(getArgumentClass(), key);
+        A a;
+        try {
+            a = ArgEnums.findKeyword(getArgumentClass(), key);
+        } catch (NoSuchElementException e) {
+            throw new IllegalArgumentException(key);
+        }
+        assert a != null;
+        return a;
     }
 
     /**
@@ -69,7 +78,11 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
      *                                             argument flag given.
      */
     public CommandBase(String[] argSlices) throws YappingBotIncorrectCommandException {
-        parseArguments(getArgumentSeperator(), argSlices);
+        try {
+            parseArguments(getArgumentSeperator(), argSlices);
+        } catch (IllegalArgumentException e) {
+            throw new YappingBotIncorrectCommandException(getHelpText(), e.getMessage());
+        }
 
         // command id ready to be run
         argumentsLoaded = true;
@@ -137,11 +150,17 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
         // check if arguments satisfied
         boolean areRequiredArgsSatisfied = Arrays.stream(getArgumentClass().getEnumConstants())
                                                  .filter(ArgEnums::isRequired)
-                                                 .map(arguments::containsKey)
+                                                 .map(arguments::get)
+                                                 .map(a -> a != null && a.length > 0)
                                                  .reduce(Boolean::logicalAnd)
                                                  .orElse(true);
         if (!areRequiredArgsSatisfied) {
             throw new YappingBotException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS);
         }
+    }
+
+
+    protected String getArgValueJoined(A arg) {
+        return String.join(" ", arguments.get(arg)).trim();
     }
 }

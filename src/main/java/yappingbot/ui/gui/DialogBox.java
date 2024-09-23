@@ -21,14 +21,10 @@ import javafx.scene.layout.VBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    @FXML
-    private Label dialog;
-    @FXML
-    private ImageView displayPicture;
-    @FXML
-    private VBox labelsVbox;
-
-    private boolean isReplyDialog;
+    private @FXML Label dialog;
+    private @FXML ImageView displayPicture;
+    private @FXML VBox labelsVbox;
+    private final boolean isReplyDialog;
 
     /**
      * Constructor for DialogBox that holds a user image and text.
@@ -73,9 +69,13 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Adds new text into DialogBox.
+     *
+     * @param text String to be appended.
+     */
     public void addLabel(String text) {
         assert text != null;
         Label l = new Label();
@@ -84,6 +84,9 @@ public class DialogBox extends HBox {
         if (isReplyDialog) {
             l.getStyleClass().add("reply-label");
         }
+        l.setMaxWidth(dialog.getMaxWidth());
+        l.setMinWidth(dialog.getMinWidth());
+        l.setWrapText(dialog.isWrapText());
         labelsVbox.getChildren().add(l);
     }
 

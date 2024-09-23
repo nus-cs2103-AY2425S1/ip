@@ -6,7 +6,7 @@ import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.ui.UiCli;
+import yappingbot.ui.cli.UiCli;
 import yappingbot.ui.gui.MainGuiApplication;
 
 /**
@@ -15,7 +15,9 @@ import yappingbot.ui.gui.MainGuiApplication;
 public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherCommand> {
 
     /**
-     * Enum for the possible Arguments of this command.
+     * Defines Argument Enum for this class.
+     *
+     * @see ArgEnums for more info.
      */
     protected enum Args implements ArgEnums<Args> {
         FIRST_ARG("", false),
@@ -49,8 +51,8 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherC
      * Constructs Command object with arguments to prepare for execution.
      *
      * @param argSlices ordered array of strings with argument flags followed by argument values.
-     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
-     *                                             flag given.
+     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
+     *                                             argument flag given.
      */
     public LauncherCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
         super(argSlices);

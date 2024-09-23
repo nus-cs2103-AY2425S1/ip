@@ -16,14 +16,10 @@ import javafx.scene.layout.VBox;
  * Controller for the main GUI.
  */
 public class MainWindow extends VBox {
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private VBox dialogContainer;
-    @FXML
-    private ScrollPane scrollPane;
+    private @FXML TextField userInput;
+    private @FXML Button sendButton;
+    private @FXML VBox dialogContainer;
+    private @FXML ScrollPane scrollPane;
 
     private final InputStream userImageStream =
             this.getClass().getResourceAsStream("/images/DaUser.png");

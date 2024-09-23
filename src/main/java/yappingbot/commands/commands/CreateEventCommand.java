@@ -11,6 +11,11 @@ import yappingbot.tasks.Task;
  */
 public class CreateEventCommand extends CreateTaskCommandBase<CreateEventCommand.Args> {
 
+    /**
+     * Defines Argument Enum for this class.
+     *
+     * @see ArgEnums for more info.
+     */
     protected enum Args implements ArgEnums<Args> {
         TASK_NAME("", true),
         START_DATE("/from", true),
@@ -61,8 +66,8 @@ public class CreateEventCommand extends CreateTaskCommandBase<CreateEventCommand
      * Constructs Command object with arguments to prepare for execution.
      *
      * @param argSlices ordered array of strings with argument flags followed by argument values.
-     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
-     *                                             flag given.
+     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
+     *                                             argument flag given.
      */
     public CreateEventCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
         super(argSlices);
@@ -89,9 +94,9 @@ public class CreateEventCommand extends CreateTaskCommandBase<CreateEventCommand
                && arguments.containsKey(Args.START_DATE)
                && arguments.containsKey(Args.END_DATE);
 
-        return new Event(String.join("", arguments.get(Args.TASK_NAME)),
+        return new Event(getArgValueJoined(Args.TASK_NAME),
                          false,
-                         String.join("", arguments.get(Args.START_DATE)),
-                         String.join("", arguments.get(Args.START_DATE)));
+                         getArgValueJoined(Args.START_DATE),
+                         getArgValueJoined(Args.START_DATE));
     }
 }

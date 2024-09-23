@@ -1,4 +1,4 @@
-package yappingbot.ui;
+package yappingbot.ui.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,10 +34,12 @@ class UiCliTest {
                 + " |  multiline\n"
                 + " |  Allowed\n"
                 + "\n"
-                + " |  This is a very very very very longggggg line lakdjjadkjldkjsaldkjdklasjd\n"
-                + " |  lkdjalksdjalkdjalkdjalkdjadkljadlkajdklajdlkajdalkdjsldjldjaldkjadlkajdl\n"
-                + " |  kajd Random space here laksjdalkdjalkdjalkdjaldkjalkdjadlkjadlkajdlkasjd\n"
-                + " |  lasjdjalkdjalskdjaslkdjasldjas\n";
+                + " |  This is a very very very very longggggg line qwertyqwertyqwertyqwerty123\n"
+                + " |  4567890qwerty1234567890qwerty1234567890qwerty1234567890qwertyqwerty12345\n"
+                + " |  67890qwerty1234567890qwerty1234567890qwerty1234567890 Random space here\n"
+                + " |  qwerty1234567890qwerty1234567890qwerty1234567890qwerty1234567890djalkdja\n"
+                + " |  lskdjaslkdjasldjas\n"
+                + "\n";
 
         TestHelper h = new TestHelper();
         h.captureStdOut();
@@ -45,10 +47,10 @@ class UiCliTest {
         ui.print("");
         ui.print("multiline\nAllowed");
         ui.print("This is a very very very very longggggg line "
-                 + "lakdjjadkjldkjsaldkjdklasjdlkdjalksdjalkdjalkdjalkdjadkljadlkajdklajdlkajdalkd"
-                 + "jsldjldjaldkjadlkajdlkajd "
-                 + "Random space here laksjdalkdjalkdjalkdjaldkjalkdjadlkjadlkajdlkasjdlasj"
-                 + "djalkdjalskdjaslkdjasldjas");
+                 + "qwertyqwertyqwertyqwerty1234567890qwerty1234567890qwerty1234567890qwerty123456"
+                 + "7890qwertyqwerty1234567890qwerty1234567890qwerty1234567890qwerty1234567890 "
+                 + "Random space here qwerty1234567890qwerty1234567890qwerty1234567890qwerty123456"
+                 + "7890djalkdjalskdjaslkdjasldjas");
         h.stopCapture();
         assertEquals(expected, h.toString());
     }

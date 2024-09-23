@@ -12,6 +12,11 @@ import yappingbot.tasks.Todo;
  */
 public class CreateDeadlineCommand extends CreateTaskCommandBase<CreateDeadlineCommand.Args> {
 
+    /**
+     * Defines Argument Enum for this class.
+     *
+     * @see ArgEnums for more info.
+     */
     protected enum Args implements ArgEnums<Args> {
         TASK_NAME("", true),
         DEADLINE("/by", true);
@@ -61,8 +66,8 @@ public class CreateDeadlineCommand extends CreateTaskCommandBase<CreateDeadlineC
      * Constructs Command object with arguments to prepare for execution.
      *
      * @param argSlices ordered array of strings with argument flags followed by argument values.
-     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
-     *                                             flag given.
+     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
+     *                                             argument flag given.
      */
     public CreateDeadlineCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
         super(argSlices);
@@ -86,8 +91,8 @@ public class CreateDeadlineCommand extends CreateTaskCommandBase<CreateDeadlineC
     @Override
     protected Task createNewTask() {
         assert arguments.containsKey(Args.TASK_NAME) && arguments.containsKey(Args.DEADLINE);
-        return new Deadline(String.join("", arguments.get(Args.TASK_NAME)),
+        return new Deadline(getArgValueJoined(Args.TASK_NAME),
                             false,
-                            String.join("", arguments.get(Args.DEADLINE)));
+                            getArgValueJoined(Args.DEADLINE));
     }
 }

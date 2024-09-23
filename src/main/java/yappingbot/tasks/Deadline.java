@@ -31,10 +31,10 @@ public class Deadline extends Task {
      * Deadline date will default to the current local date of creation.
      *
      * @param taskName String name of this task.
-     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      */
-    public Deadline(String taskName, boolean taskDone) {
-        super(taskName, taskDone);
+    public Deadline(String taskName, boolean isTaskDone) {
+        super(taskName, isTaskDone);
         super.setTaskType(TaskTypes.DEADLINE);
         this.deadline = LocalDate.now();
     }
@@ -43,12 +43,12 @@ public class Deadline extends Task {
      * Creates a Deadline task.
      *
      * @param taskName String name of this task.
-     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      * @param deadline String of the deadline, in format "YYYY-MM-DD".
      */
-    public Deadline(String taskName, boolean taskDone, String deadline)
+    public Deadline(String taskName, boolean isTaskDone, String deadline)
     throws YappingBotIncorrectCommandException {
-        super(taskName, taskDone);
+        super(taskName, isTaskDone);
         super.setTaskType(TaskTypes.DEADLINE);
 
         assert deadline != null;

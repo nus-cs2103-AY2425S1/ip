@@ -11,13 +11,17 @@ import yappingbot.ui.Ui;
 /**
  * Marks or Unmarks a task in a task list.
  */
-public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatusCommand.Args, ChangeTaskListStatusCommand> {
+public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatusCommand.Args,
+        ChangeTaskListStatusCommand> {
     private TaskList userList;
     private Ui ui;
     private boolean isTaskDone = false;
 
     /**
+     * Defines Argument Enum for this class.
      * Argument Enums - this class excepts no Arguments.
+     *
+     * @see ArgEnums for more info.
      */
     protected enum Args implements ArgEnums<Args> {
         INDEX("", true),
@@ -48,7 +52,8 @@ public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatu
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public ChangeTaskListStatusCommand(String[] userInputSlices) throws YappingBotIncorrectCommandException {
+    public ChangeTaskListStatusCommand(String[] userInputSlices)
+    throws YappingBotIncorrectCommandException {
         super(userInputSlices);
     }
 
@@ -103,14 +108,16 @@ public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatu
     /**
      * Set the necessary values needed to execute this command.
      *
-     * @param currentUserList TaskList that needs to be resetted
-     * @return this object, useful for chainning
+     * @param ui Ui that will allow Input/Output.
+     * @param currentUserList TaskList that needs to be resetted.
+     * @param isTaskDone new {@code isTaskDone} of the task.
+     * @return this object, useful for chainning.
      */
     public ChangeTaskListStatusCommand setEnvironment(Ui ui, TaskList currentUserList,
-                                                      boolean newState) {
+                                                      boolean isTaskDone) {
         this.userList = currentUserList;
         this.ui = ui;
-        this.isTaskDone = newState;
+        this.isTaskDone = isTaskDone;
         return this;
     }
 

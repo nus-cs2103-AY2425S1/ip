@@ -1,9 +1,12 @@
-package yappingbot.ui;
+package yappingbot.ui.cli;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
+import yappingbot.ui.Ui;
 
 /**
  * User-interface class for mainly outputting different texts and decorating them to represent
@@ -13,6 +16,7 @@ public class UiCli implements Ui {
     private static final String PREFIX = " |  ";
     private static final String PREFIX_EMPTY = " |";
     private static final int MAX_STRING_LENGTH = 72;
+    private static final int MIN_SINGLE_STRING_LEN = MAX_STRING_LENGTH * 2 / 3;
     private final Scanner scanner;
 
     public UiCli() {
@@ -56,14 +60,16 @@ public class UiCli implements Ui {
     public String getNextOutputLine() {
         // System.out.print directly interfaces with Java's STDOUT.
         // We do not need to implement any system to collect and output any STDOUT streams.
-        throw new YappingBotIoException("NOT IMPLEMENTED");
+        assert false : "NOT IMPLEMENTED";
+        return "";
     }
 
     @Override
     public boolean hasOutputLines() {
         // System.out.print directly interfaces with Java's STDOUT.
         // We do not need to implement any system to collect and output any STDOUT streams.
-        throw new YappingBotIoException("NOT IMPLEMENTED");
+        assert false : "NOT IMPLEMENTED";
+        return false;
     }
 
     // INPUT methods
@@ -72,7 +78,7 @@ public class UiCli implements Ui {
     public void pushInputLine(String input) {
         // Scanner with System.in directly interfaces with Java's STDIN
         // We do not need to implement any system to collect inputs and stream to bot.
-        throw new YappingBotIoException("NOT IMPLEMENTED");
+        assert false : "NOT IMPLEMENTED";
     }
 
     @Override
@@ -93,42 +99,37 @@ public class UiCli implements Ui {
 
     /**
      * Decorates the given string, to denote that it is the bot's output.
+     * Only for single-line strings. All newlines in passed String will be stripped.
+     * Use {@link UiCli#quoteMultilineText} for decorating multiline text.
      *
      * @param line the message to be decorated.
      * @return String of the newly decorated message.
      */
     private String quoteSinglelineText(String line) {
+        // handle empty
         if (line == null || line.trim().isEmpty()) {
             return PREFIX_EMPTY + "\n";
-        } else if (line.length() >= MAX_STRING_LENGTH) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(PREFIX);
-            int p = 0;
-            int nextBoundary = 0;
-            while (p < line.length()) {
-                nextBoundary = line.indexOf(' ', p + 1);
-                if (nextBoundary < 0) {
-                    nextBoundary = line.length();
-                }
-
-                if ((p % MAX_STRING_LENGTH) + (nextBoundary - p) > MAX_STRING_LENGTH) {
-                    nextBoundary = p + (MAX_STRING_LENGTH - (p % MAX_STRING_LENGTH));
-                }
-
-                if (nextBoundary < p) {
-                    break;
-                }
-
-                sb.append(line, p, nextBoundary);
-                p = nextBoundary;
-                if (p % MAX_STRING_LENGTH == 0) {
-                    sb.append("\n").append(PREFIX);
-                }
-            }
-            return sb.toString();
-        } else {
-            return PREFIX + line.replaceAll("\n", "") + "\n";
         }
+
+        // remove all newlines
+        String escapedLine = line.replaceAll("\n", "").trim();
+
+        // handle normal strings
+        if (escapedLine.length() <= MAX_STRING_LENGTH) {
+            return PREFIX + escapedLine + "\n";
+        }
+
+        // handle strings too long
+        int softWrapIndex = escapedLine.lastIndexOf(" ", MAX_STRING_LENGTH);
+        // (1) space found and the resulting broken line is not too short
+        // (2) space found but resulting broken line is very short
+        // (3) no space found
+        if (softWrapIndex < MIN_SINGLE_STRING_LEN) {
+            softWrapIndex = MAX_STRING_LENGTH;
+        }
+
+        return quoteSinglelineText(escapedLine.substring(0, softWrapIndex))
+               + quoteSinglelineText(escapedLine.substring(softWrapIndex));
     }
 
     /**
@@ -139,16 +140,10 @@ public class UiCli implements Ui {
      * @return String of the newly decorated message.
      */
     private String quoteMultilineText(String text) {
-        // annotates text with pipe to denote speech from bot
-        if (text == null) {
-            return quoteSinglelineText("");
-        }
-        String[] lines = text.split("\n");
-        StringBuilder sb = new StringBuilder();
-        for (String l : lines) {
-            sb.append(quoteSinglelineText(l));
-        }
-        return sb.toString();
+        return text == null ? quoteSinglelineText("")
+                            : Arrays.stream(text.split("\n"))
+                                    .map(this::quoteSinglelineText)
+                                    .collect(Collectors.joining());
     }
 }
 
