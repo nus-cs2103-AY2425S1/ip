@@ -2,6 +2,11 @@ package rei;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Abstract class for tasks.
@@ -9,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     private String taskName;
     private boolean isDone;
+
+    // The use of HashSet is inspired by https://teamtreehouse.com/community/java-data-structures-efficiency-add-tags-to-course
+    private Set<String> tags;
 
     /**
      * Constructs abstract task instance from the task prompt.
@@ -18,6 +26,7 @@ public abstract class Task {
     private Task(String task) {
         this.taskName = task;
         this.isDone = false;
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -98,6 +107,40 @@ public abstract class Task {
      */
     public abstract String toStoringFormat();
 
+    /**
+     * Deletes a tag of this Task
+     * @param tag the tag
+     */
+    public void deleteTag(String tag) {
+        tags.remove(tag);
+    }
+
+    /**
+     * Adds a list of tags to this Task
+     * @param tags list of tags
+     */
+    public void addTags(List<String> tags) {
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Checks if the Task contains the tag
+     * @param tag
+     * @return true if the Task has the tag, false otherwise
+     */
+    public boolean hasTag(String tag) {
+        return tags.contains(tag);
+    }
+
+    /**
+     * String representation of all the tags
+     * @return all the tags
+     */
+    public String allTagsToString() {
+        String[] allTags = new String[tags.size()];
+        return String.join(" ", tags.toArray(allTags));
+    }
+
 
 
 
@@ -117,7 +160,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("T | %d | %s", this.isDone() ? 1 : 0, super.taskName);
+            return String.format("T | %d | %s | tags:%s", this.isDone() ? 1 : 0, super.taskName, super.allTagsToString());
         }
     }
 
@@ -141,7 +184,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("D | %d | %s | %s", this.isDone() ? 1 : 0, super.taskName, this.deadline);
+            return String.format("D | %d | %s | %s | tags:%s", this.isDone() ? 1 : 0, super.taskName, this.deadline, super.allTagsToString());
         }
     }
 
@@ -168,8 +211,8 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("E | %d | %s | %s to %s", this.isDone() ? 1 : 0, super.taskName,
-                    this.from, this.to);
+            return String.format("E | %d | %s | %s to %s | tags:%s", this.isDone() ? 1 : 0, super.taskName,
+                    this.from, this.to, super.allTagsToString());
         }
     }
 

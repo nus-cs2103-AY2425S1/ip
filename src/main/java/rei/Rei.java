@@ -1,6 +1,8 @@
 package rei;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -29,8 +31,9 @@ public class Rei {
     public String getResponse(String prompt) {
         try {
             Parser.Prompt promptType = Parser.parse(prompt);
-            String output;
+            String output = "";
             int taskIndex;
+            String[] details;
             switch (promptType) {
                 case LIST:
                     output = tasks.toString();
@@ -66,8 +69,26 @@ public class Rei {
                 case ANNYEONG:
                     output = "annyeong";
                     break;
+                case TAG:
+                    details = prompt.substring(3).trim().split(" ");
+                    taskIndex = Integer.parseInt(details[0]);
+                    List<String> tags = new ArrayList<>();
+                    for (int i = 1; i < details.length; i++) {
+                        tags.add(details[i]);
+                    }
+                    output = tasks.addTags(taskIndex, tags);
+                    break;
+                case UNTAG:
+                    details = prompt.substring(5).trim().split(" ");
+                    taskIndex = Integer.parseInt(details[0]);
+                    output = tasks.deleteTag(taskIndex, details[1]);
+                    break;
+                case VIEWTAGS:
+                    taskIndex = Integer.parseInt(prompt.substring(8).trim());
+                    output = tasks.viewTags(taskIndex);
+                    break;
                 default:
-                    assert false : "switch-case should never reach this"
+                    assert false : "switch-case should never reach this";
                     break;
             }
             storage.save(tasks);
