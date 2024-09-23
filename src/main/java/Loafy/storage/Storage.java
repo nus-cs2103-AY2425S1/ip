@@ -29,14 +29,16 @@ public class Storage {
     }
 
     public void writeToFile(String text) {
-        if (this.isWorking) {
-            try {
-                FileWriter writer = new FileWriter(this.filePath);
-                writer.write(text);
-                writer.close();
-            } catch (IOException exception) {
-                System.out.println("Error: Changes failed to save to hard drive");
-            }
+        if (! this.isWorking) {
+            // do nothing
+            return;
+        }
+        try {
+            FileWriter writer = new FileWriter(this.filePath);
+            writer.write(text);
+            writer.close();
+        } catch (IOException exception) {
+            System.out.println("Error: Changes failed to save to hard drive");
         }
     }
 
@@ -52,6 +54,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an array list of task objects loaded from datafile
+     * If the datafile is corrupted, LoafyException is thrown.
+     *
+     * @return Array list of task objects.
+     */
     public ArrayList<Task> getList() throws LoafyException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
