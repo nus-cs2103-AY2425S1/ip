@@ -14,3 +14,5 @@ for AVA and the user.
 
 I do not claim the rights to any images used in 
 this project.
+
+I also used AI (Gemini 1.5 Pro) to polish up my Readme.md

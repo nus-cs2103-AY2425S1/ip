@@ -39,7 +39,7 @@ public class AssetManager {
      * @param imagePath relative path to the images from the assets.
      */
     public AssetManager(String assetPath, String imagePath) {
-        this(assetPath, imagePath, "user_close_up.jpg", "AVA.jpg");
+        this(assetPath, imagePath, "user_close_up.jpg", "AVA_free.jpg");
     }
 
 
