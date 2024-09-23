@@ -31,7 +31,7 @@ public class DeleteCommand implements Command {
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
         Task task = tasks.delete(idx);
-        response += "A task is deleted\n";
+        response += "A task is deleted:\n";
         response += task.toString() + "\n";
         return response;
     }

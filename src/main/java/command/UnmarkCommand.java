@@ -32,7 +32,7 @@ public class UnmarkCommand implements Command {
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
         Task task = tasks.unmark(idx);
-        response += "A task is unmarked\n";
+        response += "A task is unmarked:\n";
         response += task + "\n";
         return response;
     }

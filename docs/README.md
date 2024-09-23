@@ -1,7 +1,5 @@
 # ToMo User Guide
 
-<img src="/docs/Ui.png" alt="Eli chatbot screenshot" width="300"/>
-
 ToMo is a **precise** chatbot that helps you managing your tasks.
 
 ## Quickstart

@@ -28,7 +28,7 @@ public class ToDoCommand implements Command {
     public String getResponse(TaskList tasks) {
         String response = "";
         tasks.add(this.todo);
-        response += "A task is added\n";
+        response += "A task is added:\n";
         response += this.todo + "\n";
         return response;
     }

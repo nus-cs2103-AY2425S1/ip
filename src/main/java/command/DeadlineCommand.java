@@ -49,7 +49,7 @@ public class DeadlineCommand implements Command {
     public String getResponse(TaskList tasks) {
         String response = "";
         tasks.add(deadline);
-        response += "A task is added\n";
+        response += "A task is added:\n";
         response += deadline.toString() + "\n";
         return response;
     }

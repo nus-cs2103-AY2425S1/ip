@@ -37,7 +37,7 @@ public class UntagCommand implements Command {
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
         Task task = tasks.untag(idx, tag);
-        response += "A task is untagged\n";
+        response += "A task is untagged:\n";
         response += task + "\n";
         return response;
     }

@@ -53,7 +53,7 @@ public class EventCommand implements Command {
     public String getResponse(TaskList tasks) {
         String response = "";
         tasks.add(event);
-        response += "A task is added\n";
+        response += "A task is added:\n";
         response += this.event.toString() + "\n";
         return response;
     }

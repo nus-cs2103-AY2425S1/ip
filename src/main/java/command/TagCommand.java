@@ -37,7 +37,7 @@ public class TagCommand implements Command {
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
         Task task = tasks.tag(idx, tag);
-        response += "A task is tagged\n";
+        response += "A task is tagged:\n";
         response += task + "\n";
         return response;
     }

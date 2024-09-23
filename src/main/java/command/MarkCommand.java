@@ -32,7 +32,7 @@ public class MarkCommand implements Command {
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
         Task task = tasks.mark(idx);
-        response += "A task is marked\n";
+        response += "A task is marked:\n";
         response += task;
         return response;
     }
