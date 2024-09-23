@@ -4,6 +4,17 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+def os = System.getProperty("os.name").toLowerCase()
+def javaFxSdkPath = ''
+
+if (os.contains("win")) {
+    javaFxSdkPath = 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib'
+} else if (os.contains("mac")) {
+    javaFxSdkPath = '/path/to/javafx/macos/lib'
+} else if (os.contains("nix") || os.contains("nux")) {
+    javaFxSdkPath = '/path/to/javafx/linux/lib'
+}
+
 repositories {
     mavenCentral()
 }
@@ -67,7 +78,8 @@ run {
 tasks.withType(JavaCompile) {
     options.compilerArgs += [
         // '--module-path', '/Users/jerielchan/Downloads/javafx-sdk-17.0.12/lib',
-        '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',
+        // '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',
+        '--module-path', javaFxSdkPath,
         '--add-modules', 'javafx.controls,javafx.fxml'
     ]
 }
