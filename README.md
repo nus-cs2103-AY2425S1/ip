@@ -13,19 +13,19 @@ Here's what AVA can do:
 
 * **Task Management:** Keep track of your to-dos and deadlines using AVA's simple checklist system.
 
--[ ] Add tasks to your list.
--[ ] Mark tasks as done.
--[ ] Delete tasks from your list.
+- [ ] Add tasks to your list.
+- [ ] Mark tasks as done.
+- [ ] Delete tasks from your list.
 
 ## Future Aspirations 🚀
 
 AVA is constantly learning and evolving. In the near future, she hopes to:
 
--[ ] Offer voice interaction for a more natural experience.
--[ ] Expand her skillset to include calendar management, reminders, and information retrieval.
--[ ] Learn your preferences and anticipate your needs.
--[ ] Become your go-to companion for both productivity and entertainment.
--[ ] And much more!
+- [ ] Offer voice interaction for a more natural experience.
+- [ ] Expand her skillset to include calendar management, reminders, and information retrieval.
+- [ ] Learn your preferences and anticipate your needs.
+- [ ] Become your go-to companion for both productivity and entertainment.
+- [ ] And much more!
 
 ## Technical Details 💻
 
