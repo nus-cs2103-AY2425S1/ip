@@ -51,5 +51,11 @@ public class Optimus {
         return ui;
     }
 
+    /**
+     * Method required for Optimus to run but is not actually needed in actual program
+     * @param args
+     */
+    public static void main(String[] args) {}
+
 
 }
