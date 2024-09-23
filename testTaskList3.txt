@@ -1,0 +1,4 @@
+D | 1 | return book | 2020-12-20 | 22:00
+T | 0 | read book
+T | contact boss|
+E | 1 | book fair | 2020-12-25T22:00 | 2020-12-22T22:00

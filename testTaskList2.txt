@@ -1,0 +1,4 @@
+T | 0 | read book
+K
+D | 2 | return book | 2020-12-20
+E | 1 | book fair | 2020-12-21 | 2020-12-22T22:00
