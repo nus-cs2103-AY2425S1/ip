@@ -5,9 +5,9 @@ import java.time.format.DateTimeParseException;
 import cancelgpt.exception.task.InvalidTaskException;
 
 /**
- * Represents a generic task.
+ * Represents an abstract generic task.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -26,6 +26,7 @@ public class Task {
      * Initialises Task with an initial status set to isDone,
      * description, with initial status
      *
+     * @param isDone the status of the task
      * @param description the description of the task
      */
     public Task(boolean isDone, String description) {

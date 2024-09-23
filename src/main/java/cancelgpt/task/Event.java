@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import cancelgpt.datetime.LocalDateTimeHandler;
 
 /**
- * Represents an event task, with a from date and a to date.
+ * Represents an event task, with a `from` date and a `to` date.
  */
 public class Event extends Task {
     protected LocalDateTimeHandler fromDate;

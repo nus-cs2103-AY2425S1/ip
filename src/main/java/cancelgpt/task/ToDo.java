@@ -21,6 +21,7 @@ public class ToDo extends Task {
      * Initialises ToDo with a an initial status set to isDone,
      * description, with initial status
      *
+     * @param isDone the status of the todo task
      * @param description the description of the todo
      */
     public ToDo(boolean isDone, String description) {
