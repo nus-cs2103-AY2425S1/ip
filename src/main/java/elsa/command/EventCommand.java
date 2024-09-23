@@ -1,5 +1,6 @@
 package elsa.command;
 
+import elsa.ElsaException;
 import elsa.task.TaskList;
 import elsa.ui.Ui;
 
@@ -12,17 +13,17 @@ public class EventCommand extends Command {
     /**
      * The description of the eventTask to be created.
      */
-    private String description;
+    private final String description;
 
     /**
      * The start date and time of the eventTask to be created.
      */
-    private String start;
+    private final String start;
 
     /**
      * The end date and time of the eventTask to be created.
      */
-    private String end;
+    private final String end;
 
     /**
      * Constructs a elsa.command.EventCommand with the specified task description.
@@ -45,7 +46,7 @@ public class EventCommand extends Command {
      * @return A response string representing the result of the command execution, which can be displayed to the user.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) throws ElsaException {
         return tasks.addEvent(description, start, end);
     }
 }

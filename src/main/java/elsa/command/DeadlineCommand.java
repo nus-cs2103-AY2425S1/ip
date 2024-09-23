@@ -1,5 +1,6 @@
 package elsa.command;
 
+import elsa.ElsaException;
 import elsa.task.TaskList;
 import elsa.ui.Ui;
 
@@ -12,12 +13,12 @@ public class DeadlineCommand extends Command {
     /**
      * The description of the deadlineTask to be created.
      */
-    private String description;
+    private final String description;
 
     /**
      * The due date and time of the deadlineTask to be created.
      */
-    private String dueBy;
+    private final String dueBy;
 
     /**
      * Constructs a elsa.command.DeadlineCommand with the specified task description.
@@ -38,7 +39,7 @@ public class DeadlineCommand extends Command {
      * @return A response string representing the result of the command execution, which can be displayed to the user.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) throws ElsaException {
         return tasks.addDeadline(description, dueBy);
     }
 }
