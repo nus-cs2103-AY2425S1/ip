@@ -184,7 +184,7 @@ public class Parser {
         String[] userInputArr = trimmedUserInput.split(" ");
         if (userInputArr.length == 0) {
             return parseUnknown(userInput);
-        }
+            }
         Command outputCommand;
         String userInputFirstWord = userInputArr[0].trim();
         switch (userInputFirstWord) {
