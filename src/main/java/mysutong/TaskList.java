@@ -204,22 +204,48 @@ public class TaskList {
     }
 
     private void addEventTask(String argument, Ui ui, Storage storage) throws Exception {
+        // Ensure the argument contains both "/from" and "/to"
         if (!argument.contains(" /from ") || !argument.contains(" /to ")) {
             throw new NoDescriptionException(
                     "Event command must include '/from' and '/to' followed by their respective times.");
         }
-        String[] details = argument.split(" /from | /to ", 3);
-        Task event = new Event(details[0].trim(),
-                LocalDateTime.parse(details[1].trim(),
-                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
-                LocalDateTime.parse(details[2].trim(),
-                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
-        addTask(event);
-        ui.showLine();
-        ui.showMessage("Got it. I've added this task:");
-        ui.showMessage(event.toString());
-        ui.showLine();
-        storage.save(this);
+
+        try {
+            // Split the argument to extract the description, from date, and to date
+            String[] details = argument.split(" /from | /to ", 3);
+
+            // Validate that three parts are extracted (description, from, and to)
+            if (details.length != 3) {
+                throw new NoDescriptionException(
+                        "Please provide a valid description, from date, and to date for the event.");
+            }
+
+            // Parse the from and to dates
+            LocalDateTime fromDate = LocalDateTime.parse(details[1].trim(),
+                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            LocalDateTime toDate = LocalDateTime.parse(details[2].trim(),
+                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+
+            // Create a new Event and add it to the task list
+            Task event = new Event(details[0].trim(), fromDate, toDate);
+            addTask(event);
+
+            // Provide feedback to the user
+            ui.showLine();
+            ui.showMessage("Got it. I've added this task:");
+            ui.showMessage(event.toString());
+            ui.showLine();
+
+            // Save the updated task list to storage
+            storage.save(this);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NoDescriptionException(
+                    "Please provide valid dates for both /from and /to in the format 'd/M/yyyy HHmm'.");
+        } catch (Exception e) {
+            throw new NoDescriptionException(
+                    "There was an error parsing the event dates. Ensure you use the format 'd/M/yyyy HHmm'.");
+        }
     }
 
     private void deleteTask(String argument, Ui ui, Storage storage) throws Exception {

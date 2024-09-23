@@ -38,6 +38,7 @@ public class Main extends Application {
 
             // Inject the MySutong instance into the controller
             fxmlLoader.<MainWindow>getController().setMySutong(mysutong);
+            stage.setTitle("MySutong");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -23,7 +23,7 @@ public class Ui {
      * Displays a welcome message to the user at the start of the application.
      */
     public void showWelcome() {
-        String horizontalLine = "____________________________________________________________";
+        String horizontalLine = "";
         responses.add(horizontalLine);
         responses.add("Hello! I'm mysutong.MySutong");
         responses.add("What can I do for you?");
@@ -34,7 +34,7 @@ public class Ui {
      * Adds a horizontal line for separating sections of output.
      */
     public void showLine() {
-        responses.add("____________________________________________________________");
+        responses.add("");
     }
 
     /**
