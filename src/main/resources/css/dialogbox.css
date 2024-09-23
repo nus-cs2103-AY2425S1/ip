@@ -55,14 +55,14 @@
     all: unset;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-alignment: center-right;
+    -fx-alignment: bottom-right;
 }
 
 .labelsVbox-reply {
     all: unset;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-alignment: top-left;
+    -fx-alignment: bottom-left;
 }
 
 #displayPicture {
