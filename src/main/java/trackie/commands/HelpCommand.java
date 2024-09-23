@@ -13,9 +13,9 @@ public class HelpCommand extends Command {
             "e - add event task\n" +
             "mark - mark task as completed\n" +
             "unmark - mark task as NOT completed\n" +
-            "rm - delete task" +
-            "ls - list tasks" +
-            "help - display available commands";
+            "rm - delete task\n" +
+            "ls - list tasks\n" +
+            "help - display available commands\n";
 
     /**
      * Executes the help command, which displays a list of available commands.

@@ -73,6 +73,12 @@ Example:
 `rm 2`:
 > Deleted: do my homework
 
+## Finding Tasks
+If you would like to find a task, simply use the `find` command as follows: `find task1`.
+
+All the tasks that have "task1" as a substring of their description will be included in the list of tasks found.
+For instance, "task1", "task123" and "sometask123" are all matching queries.
+
 ## Help page
 If you're unsure about the list of commands that are available, you can always
 type `help` to bring up the list of available commands.
