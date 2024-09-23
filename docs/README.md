@@ -90,14 +90,6 @@ find <keyword> - Finds tasks containing the keyword
 help - Shows this help message
 bye - Exits the program
 ```
-<!-- ## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details -->
 
 ```
 Hello from
