@@ -1,7 +1,8 @@
-package rizzler.ui.parser;
+package rizzler.parser;
 
 import java.util.Arrays;
 
+import rizzler.RizzlerException;
 import rizzler.command.ByeCommand;
 import rizzler.command.Command;
 import rizzler.command.DeadlineCommand;
@@ -14,7 +15,6 @@ import rizzler.command.MarkCommand;
 import rizzler.command.NullCommand;
 import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents a parser that takes in user input and processes it into the appropriate command type.

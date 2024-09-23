@@ -1,4 +1,4 @@
-package rizzler.ui;
+package rizzler;
 
 /**
  * Represents Exceptions within the Rizzler chatbot due to violations of user command usage.
