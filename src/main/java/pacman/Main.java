@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pacman.gui.MainWindow;
 
 /**
  * A GUI for Duke using FXML.
@@ -21,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<pacman.MainWindow>getController().setPacman(pacman);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setPacman(pacman);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
