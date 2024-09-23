@@ -10,7 +10,7 @@ import kietwoforone.storage.Storage;
 public class ListCommand extends Command {
 
     /**
-     * Executes the command to display the task list.
+     * Returns the command to display the task list.
      *
      * @param tasks
      * @param ui

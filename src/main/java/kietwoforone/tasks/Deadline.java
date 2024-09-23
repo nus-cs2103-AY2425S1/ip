@@ -94,6 +94,12 @@ public class Deadline extends Task {
         return this.task.compareString(keyword);
     }
 
+    /**
+     * Returns the string representation of task with a tag.
+     *
+     * @param tag
+     * @return
+     */
     @Override
     public String addTag(String tag) {
         this.tag = tag;

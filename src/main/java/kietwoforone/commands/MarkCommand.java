@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the command to mark the task at the position specified by the user.
+     * Returns the command to mark the task at the position specified by the user.
      * Throws a KieTwoForOne exception when there is no task at the specified position.
      * Throws a KieTwoForOne exception when the file being saved to does not exist.
      *

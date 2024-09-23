@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the command to unmark the task at the position specified by the user.
+     * Returns the command to unmark the task at the position specified by the user.
      * Throws a KieTwoForOne exception when there is no task at the specified position.
      * Throws a KieTwoForOne exception when the file to be saved to does not exist.
      *

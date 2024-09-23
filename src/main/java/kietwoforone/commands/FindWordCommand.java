@@ -23,7 +23,7 @@ public class FindWordCommand extends Command {
     }
 
     /**
-     * Executes the command to filter the task list by the keyword.
+     * Returns the command to filter the task list by the keyword.
      *
      * @param tasks
      * @param ui

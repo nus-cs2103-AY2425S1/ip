@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the command that deletes a task from the task list.
+     * Returns the command that deletes a task from the task list.
      * Throws a KieTwoForOne exception when the index specified does not hold a task.
      * Throws a KieTwoForOne exception when saving to a file that doesn't exist.
      *

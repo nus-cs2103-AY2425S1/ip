@@ -23,7 +23,7 @@ public class FindDateCommand extends Command {
     }
 
     /**
-     * Executes the command to filter the tasks by date.
+     * Returns the command to filter the tasks by date.
      * Throws a KieTwoForOne exception when user inputs an incorrect date format.
      *
      * @param tasks

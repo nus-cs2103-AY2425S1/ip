@@ -11,7 +11,7 @@ import kietwoforone.ui.UI;
 public abstract class Command {
 
     /**
-     * Abstract method that executes any command that user can input.
+     * Returns any command that user can input.
      * Throws a KieTwoForOne exception if the user puts an invalid/incomplete input.
      *
      * @param tasks

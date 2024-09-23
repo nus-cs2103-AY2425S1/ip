@@ -10,7 +10,7 @@ import kietwoforone.ui.UI;
 public class ByeCommand extends Command {
 
     /**
-     * Executes the command to exit the user out of the chatbot.
+     * Returns the command to exit the user out of the chatbot.
      *
      * @param tasks
      * @param ui

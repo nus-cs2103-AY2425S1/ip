@@ -24,7 +24,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the command to add a task to the tasklist.
+     * Returns the command to add a task to the tasklist.
      * Throws a KieTwoForOne exception when there is no file to save date.
      *
      * @param tasks
