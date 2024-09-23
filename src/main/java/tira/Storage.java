@@ -75,7 +75,7 @@ public class Storage {
      * Writes the list of tasks onto the file as a text.
      *
      * @param tasks The list of tasks that need to be written on the file.
-     * @throws IOException
+     * @throws IOException built-in Java exception.
      */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);

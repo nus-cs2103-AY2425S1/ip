@@ -229,7 +229,7 @@ public class TaskList {
      * Extracts the String after a certain word
      * @param text the String that wants to be analysed
      * @param beginWord that the rest of the string needs to be extracted after.
-     * @return
+     * @return the String that has been extracted.
      */
     private static String extractAfterWord(String text, String beginWord) {
         int index = text.indexOf(beginWord);

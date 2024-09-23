@@ -26,6 +26,7 @@ public class Parser {
      *
      * @param command Main command entered by user.
      * @throws TiraException Custom Tira exception class.
+     * @return A String of response message from the command.
      */
     public String parseCommand(String command) throws TiraException {
         String [] commandSplitBySpace = command.split(" ");

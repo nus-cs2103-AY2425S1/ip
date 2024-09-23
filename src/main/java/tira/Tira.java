@@ -36,7 +36,8 @@ public class Tira {
 
     /**
      * Runs Tira chatbot by accepting user input through Ui class.
-     * @throws TiraException
+     * @throws TiraException A custom TiraException class.
+     * @return String of response to the user.
      */
     public String getResponse(String input) throws TiraException {
         String command = input;

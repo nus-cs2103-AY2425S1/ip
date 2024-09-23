@@ -40,6 +40,8 @@ public class Ui {
 
     /**
      * Displays a welcome message to the user.
+     *
+     * @return Welcome message.
      */
     public String showWelcome() {
         return "MIAO! I'm TIRAMISU THE CAT (TIRA)\n"
@@ -60,6 +62,7 @@ public class Ui {
      * Shows the current list of tasks to the user.
      *
      * @param taskList The TaskList containing the tasks to display.
+     * @return TaskList of the current tasks.
      */
     public String showTaskList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
