@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
-            prefWidth="500.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="480.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="torne.ui.MainWindow">
     <!--    note: remember to change fx:controller e.g. "Base.duke.MainWindow"-->
     <children>
