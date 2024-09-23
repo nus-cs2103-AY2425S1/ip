@@ -53,7 +53,9 @@ public class CancelGpt {
     }
 
     /**
-     * Prints greeting message to the .
+     * Returns greeting message
+     *
+     * @return greeting message
      */
     public String greet() {
         return "Hello! I am " + chatbotName + "\n"
@@ -61,9 +63,10 @@ public class CancelGpt {
     }
 
     /**
-     * Parses and handles the command given.
+     * Parses and handles the command given, and returns the result message
      *
      * @param command command entered by user
+     * @return result message of the executed command, if successful
      */
     public String handleCommand(String command) throws MarkTaskInputException, UnmarkTaskInputException,
             InvalidTaskException, TaskDoesNotExist, UnknownInput, DeleteTaskInputException,
@@ -72,9 +75,11 @@ public class CancelGpt {
     }
 
     /**
-     * Deletes a task identified by its task number in the chatbot's task list.
+     * Deletes a task identified by its task number in the chatbot's task list,
+     * and returns the result message.
      *
      * @param taskNumber the task number in the chatbot's task list
+     * @return the result message of successful delete task
      * @throws TaskDoesNotExist if the task number does not exist in the task list
      */
     public String deleteTask(int taskNumber) throws TaskDoesNotExist {
@@ -83,9 +88,10 @@ public class CancelGpt {
 
     /**
      * Handles adding the task to the chatbot's task list.
-     * Prints message of adding task to console, and calls addToTaskList
+     * Returns message of adding task to console, and calls addToTaskList
      *
      * @param task a Task object to be added
+     * @return result message after successfully adding task
      */
     public String handleAddingTask(Task task) {
         return "Got it. I've added this task: "
@@ -96,8 +102,10 @@ public class CancelGpt {
     /**
      * Marks the task identified by its task number in the chatbot's task list.
      * Does nothing if the task is already marked.
+     * Returns the task string representation after marking the task.
      *
      * @param taskNumber the task number in the chatbot's task list
+     * @return task string representation after it is marked
      * @throws TaskDoesNotExist if the task number does not exist in the task list
      */
     public String markTask(int taskNumber) throws TaskDoesNotExist {
@@ -107,8 +115,10 @@ public class CancelGpt {
     /**
      * Unmarks the task identified by its task number in the chatbot's task list.
      * Does nothing if the task is already unmarked.
+     * Returns the task string representation after unmarking the task.
      *
      * @param taskNumber the task number in the chatbot's task list
+     * @return task string representation after it is unmarked
      * @throws TaskDoesNotExist if the task number does not exist in the task list
      */
     public String unmarkTask(int taskNumber) throws TaskDoesNotExist {
@@ -116,16 +126,20 @@ public class CancelGpt {
     }
 
     /**
-     * Adds the task to the chatbot's task list.
+     * Adds the task to the chatbot's task list,
+     * and returns the result message after adding the task to the task list.
      *
      * @param task a Task object to be added
+     * @return the result message after adding the task to the task list
      */
     public String addToTaskList(Task task) {
         return this.tasksList.addToTaskList(task);
     }
 
     /**
-     * Prints the tasks in the chatbot's task list to console.
+     * Returns the tasks display string in the chatbot's task list to console.
+     *
+     * @return string of tasks separated by '\n'
      */
     public String displayTasksList() {
         return this.tasksList.displayTasksList();
@@ -151,6 +165,7 @@ public class CancelGpt {
      * Displays a list of tasks with the keyword given in their description.
      *
      * @param keyword the keyword in the description of tasks to find
+     * @return string of tasks that matches the keyword, separated by '\n'
      */
     public String findTasks(String keyword) {
         StringBuilder findTasksResponse = new StringBuilder();
