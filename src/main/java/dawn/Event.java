@@ -24,6 +24,9 @@ public class Event extends Task {
                     "your event in this format:\nevent [task name] /from [date yyyy-mm-dd] [time] / " +
                     "to [time]\n For example: event party /from 2024-09-01 5pm /to 9pm");
         }
+        if (!super.isValidDate(s[0])) {
+            throw new DawnException("Invalid date entered! Please enter a valid event date");
+        }
         this.date = LocalDate.parse(s[0]);
         this.start = s[1];
         this.end = end.substring(indexOfEnd).trim();

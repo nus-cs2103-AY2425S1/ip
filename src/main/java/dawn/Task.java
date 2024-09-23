@@ -1,4 +1,9 @@
 package dawn;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Task {
     private String desc;
     private boolean isDone;
@@ -65,5 +70,15 @@ public class Task {
     protected boolean isAMatch(String d) {
         String capitalDesc = this.desc.toUpperCase();
         return capitalDesc.contains(d.toUpperCase());
+    }
+
+    protected boolean isValidDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate d = LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
