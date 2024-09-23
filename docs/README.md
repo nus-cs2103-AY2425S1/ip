@@ -104,7 +104,7 @@ Now you have 2 task(s) in the list
 
 ## Feature 6: Getting a reminder on upcoming deadlines and events 
 
-You can ask Dawn to remind you of upcoming deadlines and events by using the ***remind*** keyword. Dawn will list out all the events happening today, and deadlines that are due within this week. 
+You can ask Dawn to remind you of upcoming deadlines and events (within the week) by using the ***remind*** keyword. Dawn will list out all the events happening today, and deadlines that are due within this week. 
 
 **Example #1** `remind`
 ```
