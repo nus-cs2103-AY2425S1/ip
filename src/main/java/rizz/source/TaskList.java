@@ -20,14 +20,18 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    // TaskList.java
+    /**
+     * Copy constructor that creates a deep copy of the provided TaskList.
+     * Assumes that each task has a `cloneCopy` method to create a deep copy of individual tasks.
+     *
+     * @param other The TaskList to copy from.
+     */
     public TaskList(TaskList other) {
         this.tasks = new ArrayList<>();
         for (Task task : other.tasks) {
             this.tasks.add(task.cloneCopy()); // Assuming each Task implements a clone method
         }
     }
-
 
     public void addTask(Task task) {
         assert task != null : "Task cannot be null";
@@ -101,6 +105,12 @@ public class TaskList {
         return exportTasks;
     }
 
+    /**
+     * Returns a string representation of the task list.
+     * The format is one task per line, with each task's index, type, and description.
+     *
+     * @return A formatted string of the task list.
+     */
     @Override
     public String toString() {
         if (tasks.isEmpty()) {
