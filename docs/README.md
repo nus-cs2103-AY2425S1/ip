@@ -12,7 +12,7 @@ makes organizing your life simpler and more efficient.
     - [Adding Event tasks: `Event`](#3-adding-an-event)
     - [Finding matching tasks: `Find`](#4-find-matching-tasks)
     - [Finding tasks before a due: `DueOn`](#5-find-task-before-a-due)
-      [Marking task as done: `Mark`](#6mark-a-task-as-done)
+    - [Marking task as done: `Mark`](#6mark-a-task-as-done)
     - [Marking task as not done: `Mark`](#7unmark-a-task-mark-a-task-as-not-done)
     - [Deleting a task: `Delete`](#8delete-a-task)
     - [Viewing the task list: `List`](#9-view-all-the-task)
@@ -264,6 +264,8 @@ The program will shut down after 1 second
 
 Try the command format start with `Hi`, `Hello`, `Oke`, `Yo` or `Nah` to explore unique features of this chatbot
 
+> [!HINT]
+> Try `Nah` with a number.
 --------------------------------------------------------------------------------------------------------------------
 ## FAQ
 
