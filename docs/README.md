@@ -11,9 +11,9 @@ task types and features like adding, marking, and deleting tasks, with a clean, 
 ## Quick Start Guide
 
 1. Ensure Java 17 is installed on your device.
-2. Download the JAR file from this repository.
-3. Place the JAR file in a directory and run it by double-clicking.
-4. Type the desired command and click enter or the send button to interact with echo.
+1. Download the JAR file from this repository.
+1. Place the JAR file in a directory and run it by double-clicking.
+1. Type the desired command and click enter or the send button to interact with echo.
 
 
 ## Features
