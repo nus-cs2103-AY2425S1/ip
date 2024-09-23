@@ -38,7 +38,6 @@ public class Makima {
     }
 
     public String getResponse(String input) {
-        System.out.print(input);
         return state.getResponse(input, this);
     }
 
@@ -74,6 +73,16 @@ public class Makima {
     public void unmark(int idx) {
         tasks.get(idx).unmark();
         FileManager.saveFile(this);
+    }
+
+    /**
+     * Set priority of task at given index
+     *
+     * @param idx - index of task to set priority
+     * @param priorityState - priority of task
+     */
+    public void setPriority(int idx, Task.PriorityLevel priorityState) {
+        tasks.get(idx).setPriority(priorityState);
     }
 
     /**

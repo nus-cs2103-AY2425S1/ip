@@ -5,8 +5,14 @@ package makima.task;
  */
 public abstract class Task {
 
+    public enum PriorityLevel {
+        LOW,
+        HIGH
+    };
+
     private String name = "";
     private boolean isDone = false;
+    private PriorityLevel priorityLevel = PriorityLevel.LOW;
 
     public Task(String name) {
         this.name = name;
@@ -59,6 +65,24 @@ public abstract class Task {
      */
     public String toFileString() {
         return String.format("%s\n%s\n", name, isDone);
+    }
+
+    /**
+     * Set task priority.
+     *
+     * @param priorityLevel - 0,1
+     */
+    public void setPriority(PriorityLevel priorityLevel) {
+        this.priorityLevel = priorityLevel;
+    }
+
+    /**
+     * Get task priority
+     *
+     * @return task's priority
+     */
+    public PriorityLevel getPriority() {
+        return this.priorityLevel;
     }
 
 }

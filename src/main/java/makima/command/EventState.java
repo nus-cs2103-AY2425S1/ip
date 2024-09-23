@@ -9,26 +9,26 @@ import java.time.format.DateTimeParseException;
  * State to handle event creation
  */
 public class EventState extends State {
-    private enum Variable {
+    private enum State {
         NAME,
         START_TIME,
         END_TIME
     }
     private String name;
     private LocalDateTime startTime;
-    private Variable state = Variable.NAME;
+    private State state = State.NAME;
     @Override
     public String getResponse(String input, Makima makima) {
         switch (state) {
         case NAME:
             name = input;
-            state = Variable.END_TIME;
+            state = State.END_TIME;
             return "What is the start time?\n";
         case START_TIME:
             assert name != null;
             try {
                 startTime = LocalDateTime.parse(input);
-                state = Variable.END_TIME;
+                state = State.END_TIME;
                 return "What is the end time?\n";
             } catch (DateTimeParseException e) {
                 return "Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM"

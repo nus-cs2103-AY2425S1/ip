@@ -10,18 +10,18 @@ import java.time.format.DateTimeParseException;
  */
 public class DeadlineState extends State {
 
-    private enum Variable {
+    private enum State {
         NAME,
         END_TIME
     }
     private String name;
-    private Variable state = Variable.NAME;
+    private State state = State.NAME;
     @Override
     public String getResponse(String input, Makima makima) {
         switch (state) {
         case NAME:
             name = input;
-            state = Variable.END_TIME;
+            state = State.END_TIME;
             return "What is the deadline?\n";
         case END_TIME:
             assert name != null;

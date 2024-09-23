@@ -43,6 +43,10 @@ public class WaitingState extends State {
             makima.setState(new FindState());
             return "What tasks are you searching for?\n";
 
+        case "prioritise":
+            makima.setState(new PriorityState());
+            return makima.getTaskList() + "Which task would you like to change the priority of?\n";
+
         default:
             return "Unknown command!\n";
         }
