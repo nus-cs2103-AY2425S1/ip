@@ -138,9 +138,8 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
         // check if arguments satisfied
         boolean areRequiredArgsSatisfied = Arrays.stream(getArgumentClass().getEnumConstants())
                                                  .filter(ArgEnums::isRequired)
-                                                 .filter(arguments::containsKey)
                                                  .map(arguments::get)
-                                                 .map(strings -> strings.length > 0)
+                                                 .map(a -> a != null && a.length > 0)
                                                  .reduce(Boolean::logicalAnd)
                                                  .orElse(true);
         if (!areRequiredArgsSatisfied) {
