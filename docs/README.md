@@ -1,30 +1,50 @@
-# Duke User Guide
+# Atlas User Guide
 
-// Update the title above to match the actual product name
+[//]: # (// Update the title above to match the actual product name)
 
-// Product screenshot goes here
+[//]: # ()
+[//]: # (// Product screenshot goes here)
 
-// Product intro goes here
+Atlas is a simple and intuitive task management chatbot designed to help users manage their tasks, deadlines, and events efficiently. It allows users to add, mark, delete, and search for tasks through a conversational interface. This guide will walk you through the main features of Atlas and how to interact with it.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+To add a Deadline task, you can specify the task description and the date by which the task is due.
 
 ```
-expected output
+deadline [task description] /by [YYYY-MM-DD]
 ```
 
-## Feature ABC
+Example: `deadline Submit assignment /by 2024-09-30`
 
-// Feature details
+Expected output:
+```
+Added: [D][ ] Submit assignment (by: 30 Sep 2024)
+```
+
+## Adding Events
+
+```
+event [event description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]
+```
+
+## Adding Todos
+
+```
+todo [todo description]
+```
 
 
-## Feature XYZ
+## Marking Tasks
 
-// Feature details
+```
+mark [task number]
+```
+
+Example: `mark 2`
+
+Expected output:
+```
+Nice! I've marked this task as done:
+[X] Submit assignment (by: 30 Sep 2024)
+```
