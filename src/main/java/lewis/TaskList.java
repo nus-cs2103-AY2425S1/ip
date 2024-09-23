@@ -2,6 +2,9 @@ package lewis;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * This class implements a container for tasks, using Java ArrayList.
  * It supports the following methods:
@@ -91,36 +94,37 @@ public class TaskList {
     }
 
     /**
-     * Returns the current tasklist in a format ready to be written to disk.
+     * Returns the current tasklist in a format ready to be written to disk
+     * using Java streams.
      * @return An array of strings in csv format.
      */
     public static ArrayList<String> toSaveFile() {
-        ArrayList<String> saveFiles = new ArrayList<>();
-        for (Task task : TASKS) {
-            saveFiles.add(task.toCsv());
-        }
-        return saveFiles;
+        return TASKS.stream()
+                .map(Task::toCsv)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     /**
      * Parses the given array of strings as tasks, and inputs them into the current working
-     * tasklist
+     * tasklist using streams.
      * @param tasksToRead an array of strings representing tasks in csv format.
      */
     @SuppressWarnings("checkstyle:MissingSwitchDefault")//Class names are effectively enum
     protected static void load(ArrayList<String> tasksToRead) {
-        for (String taskToParse : tasksToRead) {
-            String[] tokens = taskToParse.split(",");
-            //To handle the different types of tasks separately.
-            switch (tokens[0]) {
-            case "Event" -> TaskList.add(Event.of(tokens[1], tokens[2],
-                    LocalDateTime.parse(tokens[3]),
-                    LocalDateTime.parse(tokens[4])));
-            case "Deadline" -> TaskList.add(Deadline.of(tokens[1], tokens[2], LocalDateTime.parse(tokens[3])));
-            case "Todo" -> TaskList.add(new Todo(tokens[1], tokens[2]));
-            }
-        }
+        tasksToRead.stream()
+                .map(taskToParse -> taskToParse.split(","))
+                .forEach(tokens -> {
+                    switch (tokens[0]) {
+                    case "Event" -> TaskList.add(Event.of(tokens[1], tokens[2],
+                            LocalDateTime.parse(tokens[3]),
+                            LocalDateTime.parse(tokens[4])));
+                    case "Deadline" -> TaskList.add(Deadline.of(tokens[1], tokens[2], LocalDateTime.parse(tokens[3])));
+                    case "Todo" -> TaskList.add(new Todo(tokens[1], tokens[2]));
+                    }
+                });
     }
+
 
     /**
      * Returns a string representation of this tasklist
@@ -140,17 +144,15 @@ public class TaskList {
 
     /**
      * Formats the tasks in the tasklist to be printed to the user
+     * Uses Java streams to process the list.
      * @return An array of formatted strings.
      */
     public static ArrayList<String> allTasksToString() {
-        ArrayList<String> tasksToString = new ArrayList<>();
-        for (int i = 0; i < currentTasks.size(); i++) {
-            Task taskToAdd = TaskList.getTask(i);
-            String taskString = String.format("%d. %s", i + 1, taskToAdd.toString());
-            tasksToString.add(taskString);
-        }
-        return tasksToString;
+        return IntStream.range(0, currentTasks.size())
+                .mapToObj(i -> String.format("%d. %s", i + 1, TaskList.getTask(i).toString()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     /**
      * Resets the current tasklist to the entire tasklist.
@@ -163,18 +165,14 @@ public class TaskList {
     /**
      * Sets the current tasklist to a subset of all tasks
      * containing the keyword in its description or date and time fields.
+     * Uses Java streams to do so without manually iterating over the whole list
      * This method can be called repeatedly to narrow the list of tasks.
      * @param keyword the keyword to look for
      */
     public static void allMatchingTasks(String keyword) {
-        ArrayList<Task> filteredTasks = new ArrayList<>();
-        for (int i = 0; i < currentTasks.size(); i++) {
-            Task taskToCheck = TaskList.getTask(i);
-            if (taskToCheck.toString().contains(keyword)) {
-                filteredTasks.add(taskToCheck);
-            }
-        }
-        currentTasks = filteredTasks;
+        currentTasks = currentTasks.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
