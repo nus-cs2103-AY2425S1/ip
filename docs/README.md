@@ -1,5 +1,7 @@
 # Friday User Guide
 
+![UI](Ui.png)
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
