@@ -1,5 +1,7 @@
 package bigdog.gui;
 
+import java.util.Objects;
+
 import bigdog.Bigdog;
 import bigdog.Ui;
 import javafx.application.Platform;
@@ -11,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.Objects;
 
 
 /**
@@ -32,8 +33,10 @@ public class MainWindow extends AnchorPane {
 
     private Bigdog bigdog;
 
-    private Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/po.png")));
-    private Image bigdogImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/oog.png")));
+    private Image userImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/po.png")));
+    private Image bigdogImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/oog.png")));
 
     /**
      * Initializes the controller class.

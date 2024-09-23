@@ -43,11 +43,10 @@ public class Bigdog {
             botReply = processCommand(commands[0], commands[1]);
         } catch (BigdogException
                  | DateTimeParseException
-                 | NumberFormatException
-                 | IndexOutOfBoundsException
                  | AssertionError e) {
             return e.getMessage();
-        } finally {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Invalid index, please return a number within the list index!";
         }
         storage.save(this.tasks.get());
         return botReply;
@@ -81,19 +80,40 @@ public class Bigdog {
      * @throws BigdogException if an error specific to the Bigdog application occurs.
      */
     private String processCommand(String command, String description) throws RuntimeException {
-        String reply = "Invalid command";
-        reply = switch (command) {
-            case "bye" -> ui.bye();
-            case "list" -> this.tasks.toString();
-            case "mark" -> this.tasks.mark(Integer.parseInt(description));
-            case "unmark" -> this.tasks.unmark(Integer.parseInt(description));
-            case "delete" -> this.tasks.delete(Integer.parseInt(description));
-            case "todo" -> this.tasks.add(Todo.of(description));
-            case "deadline" -> this.tasks.add(Deadline.of(description));
-            case "event" -> this.tasks.add(Event.of(description));
-            case "find" -> this.tasks.find(description);
-            case "view" -> this.tasks.viewSchedule(description);
-            default -> "Unknown command. Please try again.";
+        String reply = "";
+        switch (command) {
+        case "bye":
+            ui.bye();
+            break;
+        case "list":
+            reply = this.tasks.toString();
+            break;
+        case "mark":
+            reply = this.tasks.mark(Integer.parseInt(description));
+            break;
+        case "unmark":
+            reply = this.tasks.unmark(Integer.parseInt(description));
+            break;
+        case "delete":
+            reply = this.tasks.delete(Integer.parseInt(description));
+            break;
+        case "todo":
+            reply = this.tasks.add(Todo.of(description));
+            break;
+        case "deadline":
+            reply = this.tasks.add(Deadline.of(description));
+            break;
+        case "event":
+            reply = this.tasks.add(Event.of(description));
+            break;
+        case "find":
+            reply = this.tasks.find(description);
+            break;
+        case "view":
+            reply = this.tasks.viewSchedule(description);
+            break;
+        default:
+            reply = "Unknown command";
         };
         return reply;
     }

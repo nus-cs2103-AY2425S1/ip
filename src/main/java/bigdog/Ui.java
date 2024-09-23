@@ -26,8 +26,7 @@ public class Ui {
     }
 
     /**
-     * @return String representation of a farewell message to the user and
-     * closes the Scanner when the application exits.
+     * @return String representation of a farewell message and closes the Scanner when the application exits.
      */
     public String bye() {
         this.scanner.close();

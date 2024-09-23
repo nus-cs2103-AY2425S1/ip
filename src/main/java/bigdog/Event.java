@@ -1,6 +1,5 @@
 package bigdog;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,6 +10,10 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
+    private static final int MIN_LENGTH_FOR_EMPTY_CHECK = 6;
+    private static final int MIN_LENGTH_FOR_CORRUPTION_CHECK = 4;
+    private static final int MIN_DASH_COUNT = 3;
+
     /** Indicates whether the event includes specific start and end times or just dates. */
     private static boolean isTimeIncluded;
 
@@ -19,10 +22,6 @@ public class Event extends Task {
 
     /** The end date and time of the event. */
     private LocalDateTime end;
-
-    private static final int MIN_LENGTH_FOR_EMPTY_CHECK = 6;
-    private static final int MIN_LENGTH_FOR_CORRUPTION_CHECK = 4;
-    private static final int MIN_DASH_COUNT = 3;
 
     /**
      * Private constructor for creating an Event instance.
@@ -50,21 +49,18 @@ public class Event extends Task {
 
         assert s.length() > MIN_LENGTH_FOR_EMPTY_CHECK : "event can't be empty! If theres no event then go and sleep!";
 
-        int dashCounter = 0;
-        for (int j = s.length() - 1; j > 5; j--) {
-            if (s.charAt(j) == '/') {
-                dashCounter++;
-            }
-            if (s.charAt(j) == '/' && dashCounter == MIN_DASH_COUNT) {
-                for (int i = 0; i < s.length(); i++) {
-                    if (s.charAt(i) == '/') {
-                        return new Event(s.substring(0, i - 1), stringToDate(s.substring(i + 6, j - 1)),
-                                stringToDate(s.substring(j + 4)), false);
-                    }
-                }
-            }
+        String[] eventParts = s.split("/from");
+        if (eventParts.length < 2) {
+            throw new BigdogException("Event has to have a start and end!");
         }
-        throw new BigdogException("Event has to have a start and end!");
+
+        String[] startAndEndDate = eventParts[1].split("/to");
+        if (startAndEndDate.length < 2) {
+            throw new BigdogException("Event has to have a start and end!");
+        }
+
+        return new Event(eventParts[0].trim(), stringToDate(startAndEndDate[0].trim()),
+                stringToDate(startAndEndDate[1].trim()), false);
     }
 
     /**
@@ -119,8 +115,8 @@ public class Event extends Task {
             isTimeIncluded = !time.equals("00:00");
             return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, time));
         } catch (DateTimeParseException e) {
-            throw new BigdogException("Invalid date format: " + str +
-                    "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
+            throw new BigdogException("Invalid date format: " + str
+                    + "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
         }
 
     }
@@ -148,9 +144,10 @@ public class Event extends Task {
      */
     @Override
     public boolean isOnDay(LocalDateTime date) {
-        boolean isAfterStart = date.toLocalDate().isEqual(start.toLocalDate()) || start.isAfter(date);
-        boolean isBeforeEnd = date.toLocalDate().isEqual(end.toLocalDate()) || end.isBefore(date);
-        return !this.isMarked() && isAfterStart || isBeforeEnd;
+        boolean isEqualStart = date.toLocalDate().isEqual(start.toLocalDate());
+        boolean isEqualEnd = date.toLocalDate().isEqual(end.toLocalDate());
+        boolean isBetweenStartAndEnd = date.isAfter(start) && date.isBefore(end);
+        return !this.isMarked() && isEqualStart || isEqualEnd || isBetweenStartAndEnd;
     }
 
     /**
