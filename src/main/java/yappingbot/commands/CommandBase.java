@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import yappingbot.commands.commands.ArgEnums;
+import yappingbot.commands.commands.CreateDeadlineCommand;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.stringconstants.ReplyTextMessages;
@@ -137,11 +138,18 @@ public abstract class CommandBase<A extends Enum<A> & ArgEnums<A>, C extends Com
         // check if arguments satisfied
         boolean areRequiredArgsSatisfied = Arrays.stream(getArgumentClass().getEnumConstants())
                                                  .filter(ArgEnums::isRequired)
-                                                 .map(arguments::containsKey)
+                                                 .filter(arguments::containsKey)
+                                                 .map(arguments::get)
+                                                 .map(strings -> strings.length > 0)
                                                  .reduce(Boolean::logicalAnd)
                                                  .orElse(true);
         if (!areRequiredArgsSatisfied) {
             throw new YappingBotException(ReplyTextMessages.NOT_ENOUGH_ARGUMENTS);
         }
+    }
+
+
+    protected String getArgValueJoined(A arg) {
+        return String.join(" ", arguments.get(arg)).trim();
     }
 }

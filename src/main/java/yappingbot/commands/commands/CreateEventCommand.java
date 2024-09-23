@@ -89,9 +89,9 @@ public class CreateEventCommand extends CreateTaskCommandBase<CreateEventCommand
                && arguments.containsKey(Args.START_DATE)
                && arguments.containsKey(Args.END_DATE);
 
-        return new Event(String.join("", arguments.get(Args.TASK_NAME)),
+        return new Event(getArgValueJoined(Args.TASK_NAME),
                          false,
-                         String.join("", arguments.get(Args.START_DATE)),
-                         String.join("", arguments.get(Args.START_DATE)));
+                         getArgValueJoined(Args.START_DATE),
+                         getArgValueJoined(Args.START_DATE));
     }
 }

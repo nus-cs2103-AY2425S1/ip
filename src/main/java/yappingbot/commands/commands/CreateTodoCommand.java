@@ -82,6 +82,6 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
     @Override
     protected Task createNewTask() {
         assert arguments.containsKey(Args.TASK_NAME);
-        return new Todo(String.join("", arguments.get(Args.TASK_NAME)), false);
+        return new Todo(getArgValueJoined(Args.TASK_NAME), false);
     }
 }
