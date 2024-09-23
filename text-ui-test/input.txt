@@ -1,0 +1,17 @@
+todo eat mala
+todo eat salted egg chicken
+deadline cs2106 /by tomorrow
+list
+mark 2
+list
+event cs3230 /from friday /to sunday
+deadline cs3230 /by next week
+event meet and greet /from 31 august /to 1 september
+mark 3
+list
+todo brew tea
+todo charge laptop
+event ive concert /from 29 Dec 2024 /to 30 Dec 2024
+deadline st2334 /by 7 august
+list
+annyeong
