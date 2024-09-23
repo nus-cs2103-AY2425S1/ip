@@ -69,7 +69,7 @@ public class Parser {
         }
         Task taskToDelete = record.getTask(taskNumber);
         record.deleteTask(taskNumber);
-        return ui.TaskDeleted(taskToDelete, record.getSizeOfRecord());
+        return ui.taskDeleted(taskToDelete, record.getSizeOfRecord());
     }
 
     private static String handleMarkCommand(String text, TaskList record, Ui ui) throws OptimusException {

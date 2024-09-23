@@ -51,7 +51,7 @@ public class Ui {
      * @param task the task that has been removed.
      * @param size the current number of tasks in the list.
      */
-    public String TaskDeleted(Task task, int size) {
+    public String taskDeleted(Task task, int size) {
         return "Noted. I've removed this task:\n  " + task.toString() +
                 "\nNow you have " + size + (size == 1 ? " task" : " tasks") + " in the list.";
     }
