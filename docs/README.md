@@ -92,7 +92,7 @@ Now you have 2 tasks!
 
 ### Event Tasks
 
-**Deadline** tasks are tasks with 1 date/time's to represent when the start and end date of the event task.
+**Event** tasks are tasks with 1 date/time's to represent when the start and end date of the event task.
 
 Example: `event survive /from 2024-09-28 1200 /to 2025-12-31 2359`
 
