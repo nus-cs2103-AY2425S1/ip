@@ -1,6 +1,6 @@
 # Torne
 
-![Torne icon. Credits: me](./src/main/resources/images/torne_icon.png)
+![Torne icon. Credits: me](./src/main/resources/images/torne_icon_400.png)
 
 [![GitHub Release](https://img.shields.io/github/v/release/zeepheru/ip)](https://github.com/zeepheru/ip/releases)
 
