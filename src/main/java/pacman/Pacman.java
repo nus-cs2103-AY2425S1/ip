@@ -1,7 +1,7 @@
 package pacman;
 
 public class Pacman {
-    private final Storage storage = new Storage("data/PacMan.txt");
+    private final Storage storage = new Storage("data/Pacman.txt");
     private final TaskList list = new TaskList(storage.load());
     private final Ui ui = new Ui();
 
