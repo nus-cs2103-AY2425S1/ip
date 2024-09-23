@@ -133,7 +133,7 @@ public class Ui {
      * @return a string message confirming the task has been removed
      */
     public String removeTask(Task task) {
-        return "phew! that list was looooonngggg... i was getting tired of remembering it!"
+        return "phew! that list was looooonngggg... i was getting tired of remembering it!\n"
                 + task.toString();
 
     }
