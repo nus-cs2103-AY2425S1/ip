@@ -32,15 +32,18 @@ public class EventException extends InputException {
     }
 
     private static String getMessageForExceptionType(EventExceptionType eventExceptionType) {
+        String correctUsage = "Correct usage: \nevent task_description /from yyyy-mm-dd /to yyyy-mm-dd";
         switch (eventExceptionType) {
         case NOFROM -> {
-            return "Incorrect usage of \"event\", no /from start_time (and potentially no /to end_time)\n";
+            return "Incorrect usage of \"event\", no /from start_time (and potentially no /to end_time)\n"
+                    + correctUsage;
         }
         case NOTO -> {
-            return "Incorrect usage of \"event\", no /to end_time\n";
+            return "Incorrect usage of \"event\", no /to end_time\n" + correctUsage;
         }
         default -> {
-            return "Incorrect usage of \"event\"\nCorrect usage: event event_name /from start_time /to end_time";
+            return "Incorrect usage of \"event\"\nCorrect usage: event event_name /from start_time /to end_time"
+                    + correctUsage;
         }
         }
     }

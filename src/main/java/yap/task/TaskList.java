@@ -32,55 +32,64 @@ public class TaskList {
      * Marks a task as completed.
      *
      * @param taskIndex The index of the task in the list.
+     * @return The message to print to the system about the marking of the task.
      */
-    public void markTask(int taskIndex) {
+    public String markTask(int taskIndex) {
         if (tasks.get(taskIndex) == null) {
             throw new IndexOutOfBoundsException();
         }
         tasks.get(taskIndex).markAsDone();
         saveCurrentTaskState();
-        System.out.println("I've marked this task as done:");
-        System.out.println(tasks.get(taskIndex));
+        String lineToPrint = "I've marked this task as done:\n"
+                + tasks.get(taskIndex);
+        System.out.println(lineToPrint);
+        return lineToPrint;
     }
 
     /**
      * Marks a task as uncompleted.
      *
      * @param taskIndex The index of the task in the list.
+     * @return The message to print to the system about the unmarking of the task.
      */
-    public void unmarkTask(int taskIndex) {
+    public String unmarkTask(int taskIndex) {
         if (tasks.get(taskIndex) == null) {
             throw new IndexOutOfBoundsException();
         }
         tasks.get(taskIndex).markAsUndone();
         saveCurrentTaskState();
-        System.out.println("I've marked this task as not done:");
-        System.out.println(tasks.get(taskIndex));
+        String lineToPrint = "I've marked this task as not done:\n"
+                + tasks.get(taskIndex);
+        System.out.println(lineToPrint);
+        return lineToPrint;
     }
 
     /**
-     * Deletes a task from the list.
      *
      * @param taskIndex The index of the task in the list.
+     * @return The message to print to the system about the removal of the task.
      */
-    public void deleteTask(int taskIndex) {
+    public String deleteTask(int taskIndex) {
         Task tempTask = tasks.get(taskIndex);
         tasks.remove(taskIndex);
         saveCurrentTaskState();
-        System.out.println("I've removed this task:");
-        System.out.println(tempTask);
+        String lineToPrint = "I've removed this task:\n" + tempTask.toString();
+        System.out.println(lineToPrint);
+        return lineToPrint;
     }
 
     /**
      * Adds a task to the list.
      *
      * @param task The task to add to the list.
+     * @return The message to print to the system about the addition of the task.
      */
     public String addTask(Task task) {
         tasks.add(task);
         saveCurrentTaskState();
         String lineToPrint = "Added: " + tasks.get(tasks.size() - 1)
-                + '\n' + "\"You now have %d tasks in the list%n\", tasks.size()";
+                + '\n' + "You now have " + tasks.size()
+                + " tasks in the list";
         System.out.println(lineToPrint);
         return lineToPrint;
     }
@@ -109,7 +118,7 @@ public class TaskList {
 
         tasks.stream()
                 .filter(task -> task.matchesTaskDescription(description))
-                .forEach(task -> result.append(task.toString()).append("\n"));
+                .forEach(task -> result.append(task).append("\n"));
 
         String resultString = result.toString(); // Convert StringBuilder to String
         System.out.println(resultString); // Print the result

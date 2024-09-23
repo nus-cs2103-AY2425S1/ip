@@ -1,1 +1,2 @@
-F | 0 | lala | 10
+T | 0 | Machine Learning Project
+D | 0 | CS2103T IP | 2024-09-23

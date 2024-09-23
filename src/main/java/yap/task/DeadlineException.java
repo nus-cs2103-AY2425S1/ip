@@ -17,6 +17,8 @@ public class DeadlineException extends InputException {
      * Constructs a DeadlineException with a generic message.
      */
     public DeadlineException() {
-        super("The deadline format is wrong!");
+        super("The deadline format is wrong!\n" +
+                "The correct format is:\n" +
+                "deadline task_description /by yyyy-mm-dd");
     }
 }

@@ -19,12 +19,13 @@ public class Command {
      * @param userInput The users' string input.
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
-    public void mark(String userInput) throws InputException {
+    public String mark(String userInput) throws InputException {
         assert userInput.startsWith("mark") : "Input should start with mark";
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            taskList.markTask(taskIndex);
+            String outputLine = taskList.markTask(taskIndex);
             System.out.println(SEPARATOR);
+            return outputLine;
         } catch (IndexOutOfBoundsException | NumberFormatException exception) {
             throw new InputException("You did not provide a valid task index to mark!");
         }
@@ -36,12 +37,13 @@ public class Command {
      * @param userInput The users' string input.
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
-    public void unmark(String userInput) throws InputException {
+    public String unmark(String userInput) throws InputException {
         assert userInput.startsWith("unmark") : "Input should start with unmark";
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            taskList.unmarkTask(taskIndex);
+            String outputLine = taskList.unmarkTask(taskIndex);
             System.out.println(SEPARATOR);
+            return outputLine;
         } catch (IndexOutOfBoundsException | NumberFormatException exception) {
             throw new InputException("You did not provide a valid task index to mark!");
         }
@@ -53,12 +55,13 @@ public class Command {
      * @param userInput The users' string input.
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
-    public void delete(String userInput) throws InputException {
+    public String delete(String userInput) throws InputException {
         assert userInput.startsWith("delete") : "Input should start with delete";
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            taskList.deleteTask(taskIndex);
+            String outputLine = taskList.deleteTask(taskIndex);
             System.out.println(SEPARATOR);
+            return outputLine;
         } catch (IndexOutOfBoundsException | NumberFormatException exception) {
             throw new InputException("You did not provide a valid task index to mark!");
         }
@@ -107,7 +110,7 @@ public class Command {
     }
 
     public String fixedduration(String userInput) throws InputException {
-        assert userInput.startsWith("duration");
+        assert userInput.startsWith("fixedduration");
         Task task = Parser.parseInputAsFixedDurationTask(userInput);
         String outputLine = taskList.addTask(task);
         System.out.println(SEPARATOR);
@@ -127,6 +130,7 @@ public class Command {
      * Processes a find command.
      *
      * @param userInput The users' string input.
+     * @return The message output by the find command.
      */
     public String find(String userInput) {
         assert userInput.startsWith("find") : "Input should start with find";
@@ -134,4 +138,20 @@ public class Command {
         System.out.println(SEPARATOR);
         return outputLine;
     }
+
+    public String help() {
+        return "Command List:\n"
+                + "todo task_description - creates a todo task.\n"
+                + "deadline task_description /by yyyy-mm-dd - creates a task with a deadline.\n"
+                + "event task_description /from yyyy-mm-dd /to yyyy-mm-dd - creates an event"
+                + "that starts and ends at a specific time.\n"
+                + "fixedduration task_description /duration duration_in_hours"
+                + " - creates a task with a fixed duration in hours.\n"
+                + "list - lists all the tasks stored currently.\n"
+                + "find task_description - finds a task that matches the task_description.\n"
+                + "mark task_number - marks the task as completed.\n"
+                + "unmark task_number - marks the task as uncompleted.\n"
+                + "delete task_number - deletes the task from the list.\n";
+    }
+
 }

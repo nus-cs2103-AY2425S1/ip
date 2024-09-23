@@ -34,26 +34,26 @@ public class Ui {
 
         // Mark functionality
         if (userInput.startsWith("mark")) {
-            command.mark(userInput);
-            return "";
+            String outputLine = command.mark(userInput);
+            return outputLine;
         }
 
         // Unmark functionality
         if (userInput.startsWith("unmark")) {
-            command.unmark(userInput);
-            return "";
+            String outputLine = command.unmark(userInput);
+            return outputLine;
         }
 
         // Delete functionality
         if (userInput.startsWith("delete")) {
-            command.delete(userInput);
-            return "";
+            String outputLine = command.delete(userInput);
+            return outputLine;
         }
 
         // If user adds a todo task
         if (userInput.startsWith("todo")) {
             String outputLine = command.todo(userInput);
-            return command.todo(userInput);
+            return outputLine;
         }
 
         // If user adds a deadline task
@@ -82,6 +82,12 @@ public class Ui {
 
         if (userInput.startsWith("find")) {
             String outputLine = command.find(userInput);
+            return outputLine;
+        }
+
+        if (userInput.startsWith("help")) {
+            String outputLine = command.help();
+            System.out.println(outputLine);
             return outputLine;
         }
 
