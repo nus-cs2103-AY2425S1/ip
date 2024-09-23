@@ -19,7 +19,7 @@ and the deadline as a date-time in "yyyymmdd hhmm" format.
 
 For instance, let's say that you want to add the following deadline:
 - Description: finish assignment
-- Deadline: 26th September, 2024, 2359
+- Deadline: 26th September 2024, 2359
 
 This is done by issuing the following command:\
 `d finish assignment /by 20240926 2359`
@@ -77,7 +77,10 @@ Example:
 If you would like to find a task, simply use the `find` command as follows: `find task1`.
 
 All the tasks that have "task1" as a substring of their description will be included in the list of tasks found.
-For instance, "task1", "task123" and "sometask123" are all matching queries.
+For instance, "task1" and "sometask123" are both matching queries.
+
+The bot will return the number of relevant tasks found and list those tasks as follows:
+>2 matching task(s) found: <br> <br> task1 <br> sometask123 (by: 1 Jan 2020, 12:00:00am)
 
 ## Help page
 If you're unsure about the list of commands that are available, you can always
