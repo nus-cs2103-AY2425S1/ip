@@ -10,3 +10,7 @@ Level-5: Handle Errors
 Level-6: Delete
 Level-7: Save
 Level-8: Dates and Times
+Level-9: Find
+A-Assertions: to automate adding assertions
+A-JavaDocs: To automate adding Javadocs
+A-JUnit: To assist in creating appropriate JUnit tests
