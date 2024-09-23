@@ -5,8 +5,7 @@
 
 ---
 ## Main Features
-1) Types of tasks to be tracked includes ToDos, Deadlines, Events 
-
+1) Types of tasks to be tracked includes ToDos, Deadlines, Events
 2) Includes basic functionalities to manage the tasks
 ---
 
