@@ -32,6 +32,7 @@ public class Bob {
             ui.printError(e.getMessage());
             tasks = new TaskList();
         }
+
         ui.printGreeting();
     }
 
@@ -61,7 +62,6 @@ public class Bob {
 
     public static void main(String[] args) {
         new Bob("data/Bob.txt").run();
-
     }
 
     /**

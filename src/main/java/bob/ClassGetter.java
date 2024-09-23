@@ -95,9 +95,7 @@ class ClassGetter {
     }
 
     /**
-     * Returns all the classes in a package by manually scanning the contents of a JAR file. This is done by:
-     * Opening the JAR file with the java JarFile class, then iterating through the JarEntries, and filtering
-     * the classes that match the package name.
+     * Returns all the classes in a package by manually scanning the contents of a JAR file.
      *
      * @param file File object that represents the JAR file
      * @param packageName name of the package

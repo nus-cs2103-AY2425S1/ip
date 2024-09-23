@@ -28,17 +28,17 @@ public class DeleteCommand extends Command {
             throw new MissingArgumentException("index of the task that you want to delete");
         }
 
-        int i;
+        int index;
         try {
-            i = Integer.parseInt(argument) - 1;
+            index = Integer.parseInt(argument) - 1;
         } catch (NumberFormatException e) {
             throw new IncorrectArgumentException("an integer");
         }
-        if (i < 0 || i >= tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new IncorrectArgumentException("a valid index");
         }
 
-        Task task = tasks.remove(i);
+        Task task = tasks.remove(index);
         ui.printWithFormat("OK, I've removed this task:\n"
                 + task + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
