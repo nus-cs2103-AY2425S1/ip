@@ -65,6 +65,7 @@ public class TaskList {
 
     public String deleteTask(int taskNumber) {
         try {
+            assert(taskNumber >= 0);
             Task tempTask = taskList.get(taskNumber);
             taskList.remove(taskNumber);
             return "I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon()
@@ -82,6 +83,7 @@ public class TaskList {
      */
     public String markTask(int taskNumber) {
         try {
+            assert(taskNumber >= 0);
             Task temp = taskList.get(taskNumber);
             temp.markAsDone();
             return "Ya boi Donald took the LIBERTY to mark this done:\n"
@@ -100,6 +102,7 @@ public class TaskList {
      */
     public String unmarkTask(int taskNumber) {
         try {
+            assert(taskNumber >= 0);
             Task temp = taskList.get(taskNumber);;
             temp.markAsUndone();
             return "Here's the task promised but not completed, just like the DEMS\n"
@@ -147,6 +150,7 @@ public class TaskList {
         }
 
         try {
+            assert(task != null);
             taskList.add(task);
             return "Another task for the American people added:\n" + task.getTaskType()
                     + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskList.size() + " task(s) now!";
