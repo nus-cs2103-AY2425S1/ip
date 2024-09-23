@@ -32,6 +32,7 @@ public class Bob {
             ui.printError(e.getMessage());
             tasks = new TaskList();
         }
+
         ui.printGreeting();
     }
 

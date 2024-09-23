@@ -33,11 +33,7 @@ public class FindCommand extends Command {
         List<Task> taskList = tasks.getTasks(); // Create a new List<Integer>
         assert taskList != null : "TaskList.getTasks() should not return null";
         List<Integer> foundIndices = getIndices(taskList, keyword); // Get the list of indices of matching tasks
-
-        String listString = foundIndices.stream()
-                .map(index -> (index + 1) + "."
-                        + taskList.get(index).toString())
-                .reduce("", (a, b) -> a + "\n" + b);
+        String listString = getTasksAtIndices(taskList, foundIndices);
 
         ui.printWithFormat("Here are the matching tasks in your list:"
                 + ui.highlightKeyword(listString, keyword, true));
@@ -59,5 +55,12 @@ public class FindCommand extends Command {
         }
 
         return indices;
+    }
+
+    private static String getTasksAtIndices(List<Task> tasks, List<Integer> indices) {
+        return indices.stream()
+                .map(index -> (index + 1) + "."
+                        + tasks.get(index).toString())
+                .reduce("", (a, b) -> a + "\n" + b);
     }
 }

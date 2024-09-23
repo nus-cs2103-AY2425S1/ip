@@ -100,12 +100,24 @@ public class Parser {
             return map;
         }
 
+        // Split the remaining string by argument
+        String[] arguments = splitArguments(t[1]);
+
+        // Add the arguments into the map
+        mapArguments(map, arguments);
+
+        return map;
+    }
+
+    private static String[] splitArguments(String string) {
         // delimiter matches any word that begins with ARGUMENT_PREFIX, given it is followed by whitespace
         String delimiter = String.format("((^| )%s[^\\s]+( |$))", ARGUMENT_PREFIX);
 
         // Split the string by each argument, including the delimiter
-        String[] arguments = t[1].split(String.format("(?<=%1$s)|(?=%1$s)", delimiter));
+        return string.split(String.format("(?<=%1$s)|(?=%1$s)", delimiter));
+    }
 
+    private static void mapArguments(Map<String, String> map, String[] arguments) {
         // Iterate through each argument and its value
         for (int i = 0; i < arguments.length; i++) {
             String s = arguments[i].strip();
@@ -118,7 +130,5 @@ public class Parser {
                 map.put("", s);
             }
         }
-
-        return map;
     }
 }
