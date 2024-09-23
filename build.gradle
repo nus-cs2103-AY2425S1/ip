@@ -49,7 +49,7 @@ application {
 shadowJar {
     archiveBaseName = "Optimus"
     archiveClassifier = null
-    mainClassName = 'optimus.Optimus'
+    mainClassName = 'optimus.Launcher'
     archiveFileName = 'Optimus.jar'
 
 }
