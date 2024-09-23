@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in); // Scanner to read user input.
-    private List<String> responses;  // List to store responses for later retrieval.
+    private List<String> responses; // List to store responses for later retrieval.
 
     /**
      * Constructs a new Ui instance and initializes the response list.

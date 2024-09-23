@@ -5,8 +5,8 @@ package mysutong;
  * This class provides the base structure and functionalities for task objects.
  */
 public class Task {
-    protected String description;  // Description of the task.
-    protected boolean isDone;      // Status of the task, whether it is completed or not.
+    protected String description; // Description of the task.
+    protected boolean isDone; // Status of the task, whether it is completed or not.
 
     /**
      * Constructs a new Task with a specific description.

@@ -43,6 +43,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s | %s", (isDone ? 1 : 0), description, by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+        return String.format("D | %d | %s | %s", (isDone ? 1 : 0),
+                description,
+                by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
     }
 }

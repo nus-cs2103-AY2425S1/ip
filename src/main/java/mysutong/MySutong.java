@@ -67,7 +67,7 @@ public class MySutong {
             // Create a custom Ui to capture the output as a string
             Ui responseUi = new Ui();
             parser.executeCommand(input, tasks, responseUi, storage);
-            return responseUi.getResponse();  // Get the captured output from Ui
+            return responseUi.getResponse(); // Get the captured output from Ui
         } catch (Exception e) {
             return "An error occurred: " + e.getMessage();
         }

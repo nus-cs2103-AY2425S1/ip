@@ -12,6 +12,6 @@ class UnknownCommandException extends SutongException {
      * @param message the detail message, providing more information about why the exception was thrown.
      */
     public UnknownCommandException(String message) {
-        super(message);  // Pass the message up to the superclass constructor.
+        super(message); // Pass the message up to the superclass constructor.
     }
 }
