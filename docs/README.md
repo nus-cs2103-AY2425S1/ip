@@ -149,7 +149,7 @@ priority 2 1
 
 Parameter:
 - INDEX must be a positive integer and less than or equal to the total number of tasks in your list.
-- INDEX starts from 1 (the first task on the list).
+- INDEX of the task starts from 1.
 - PRIORITY_NO must be a integer from 1 to 3.
 ## 10. Exiting the Program: `bye`
 
