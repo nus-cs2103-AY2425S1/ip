@@ -67,16 +67,13 @@ public class Parser {
         }
         else {
             validateCommand(command);
-
             TaskType taskType = parseTaskType(command);
 
             switch (taskType) {
                 case TODO:
                     return new AddTodoCommand(command);
-
                 case DEADLINE:
                     return new AddDeadlineCommand(command);
-
                 case EVENT:
                     return new AddEventCommand(command);
             }
