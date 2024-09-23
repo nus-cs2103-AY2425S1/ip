@@ -31,7 +31,7 @@ public class TaskFairy {
      * @return The file path to the tasks file.
      */
     public static String getFilePath() {
-        File file = new File("data/utilities.TaskFairy.txt");
+        File file = new File("./data/utilities.TaskFairy.txt");
         return file.getAbsolutePath();
     }
 

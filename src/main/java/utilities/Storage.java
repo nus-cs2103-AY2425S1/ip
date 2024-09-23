@@ -25,12 +25,27 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified filename.
+     * If the file does not exist, it creates a new one.
      *
      * @param filename The file path where tasks will be saved and loaded from.
      */
     public Storage(String filename) {
         assert filename != null && !filename.trim().isEmpty() : "Filename must not be null or empty";
         this.rootPath = filename;
+
+        // Create the file if it doesn't exist
+        File file = new File(rootPath);
+        try {
+            if (!file.exists()) {
+                File dir = new File(file.getParent()); // Ensure the parent directory exists
+                if (!dir.exists()) {
+                    dir.mkdirs(); // Create directories if they don't exist
+                }
+                file.createNewFile(); // Create the file
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
     }
 
     /**
