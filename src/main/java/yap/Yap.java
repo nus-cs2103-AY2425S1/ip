@@ -11,8 +11,38 @@ import yap.ui.Ui;
  * The main class that will run the Chatbot.
  */
 public class Yap {
-    public static void main(String[] args) {
-        // Initialize Scanner
+    private Ui ui;
+
+    /**
+     * The constructor for creating an instance of Yap.
+     */
+    public Yap() {
+        Storage storage = new Storage("yap.txt", "./data/");
+        TaskList taskList = new TaskList(storage);
+        this.ui = new Ui(taskList);
+    }
+
+    /**
+     * Gets a response from yap depending on the users' input from the GUI.
+     *
+     * @param input The users' input string
+     * @return A string of the response from yap
+     */
+    public String getResponse(String input) {
+        // Get the response from the Ui instance
+        String response = "";
+        try {
+            response = ui.reactToUserInput(input);
+        } catch (InputException exception) {
+            response = exception.getMessage();
+        }
+        return response;
+    }
+
+    /**
+     * The method that starts yap up
+     */
+    public void run() {
         Scanner scanner = new Scanner(System.in);
 
         // Print logo and introductions
@@ -28,28 +58,26 @@ public class Yap {
         System.out.println(separator);
 
         // Infinite loop to get user input
-        Storage storage = new Storage("yap.txt", "./data/");
-        TaskList taskList = new TaskList(storage);
-        Ui ui = new Ui(taskList);
 
         while (true) {
             String userInput = scanner.nextLine();
             try {
-                int userInputParseStatus = ui.reactToUserInput(userInput);
-                if (userInputParseStatus == 0) {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    System.out.println("Bye! It was really nice talking to you, see you soon :)");
                     break;
                 }
+                String userInputParseStatus = ui.reactToUserInput(userInput);
             } catch (InputException | DateTimeParseException exception) {
                 System.out.println(exception.getMessage());
                 System.out.println(separator);
             }
         }
+        scanner.close();
     }
 
-    /**
-     * Generates a response for the users' chat message
-     */
-    public String getResponse(String input) {
-        return "Yap heard: " + input;
+    public static void main(String[] args) {
+        // Initialize Scanner
+        Yap yap = new Yap();
+        yap.run();
     }
 }

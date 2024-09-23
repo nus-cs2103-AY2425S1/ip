@@ -23,60 +23,60 @@ public class Ui {
      * Reacts to the user's input
      *
      * @param userInput A string containing the user's input
-     * @return Returns 0 if user sends bye, 1 otherwise
+     * @return Returns the string that describes the action taken.
      * @throws InputException Throws an input exception if the user inputs an invalid command
      */
-    public int reactToUserInput(String userInput) throws InputException {
+    public String reactToUserInput(String userInput) throws InputException {
         if (userInput.equalsIgnoreCase("bye")) {
             System.out.println("Bye! It was really nice talking to you, see you soon :)");
-            return 0;
+            return "";
         }
 
         // Mark functionality
         if (userInput.startsWith("mark")) {
             command.mark(userInput);
-            return 1;
+            return "";
         }
 
         // Unmark functionality
         if (userInput.startsWith("unmark")) {
             command.unmark(userInput);
-            return 1;
+            return "";
         }
 
         // Delete functionality
         if (userInput.startsWith("delete")) {
             command.delete(userInput);
-            return 1;
+            return "";
         }
 
         // If user adds a todo task
         if (userInput.startsWith("todo")) {
-            command.todo(userInput);
-            return 1;
+            String outputLine = command.todo(userInput);
+            return command.todo(userInput);
         }
 
         // If user adds a deadline task
         if (userInput.startsWith("deadline")) {
-            command.deadline(userInput);
-            return 1;
+            String outputLine = command.deadline(userInput);
+            return outputLine;
         }
 
         // If user adds an event task
         if (userInput.startsWith("event")) {
-            command.event(userInput);
-            return 1;
+            String outputLine = command.event(userInput);
+            return outputLine;
         }
 
         // List functionality
         if (userInput.startsWith("list")) {
-            command.list();
-            return 1;
+            String outputLine = command.list();
+            return outputLine;
         }
 
         if (userInput.startsWith("find")) {
-            command.find(userInput);
-            return 1;
+            String outputLine = command.find(userInput);
+            return outputLine;
         }
 
         throw new InputException();

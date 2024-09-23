@@ -76,32 +76,44 @@ public class TaskList {
      *
      * @param task The task to add to the list.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
         saveCurrentTaskState();
-        System.out.println("Added: " + tasks.get(tasks.size() - 1));
-        System.out.printf("You now have %d tasks in the list%n", tasks.size());
+        String lineToPrint = "Added: " + tasks.get(tasks.size() - 1)
+                + '\n' + "\"You now have %d tasks in the list%n\", tasks.size()";
+        System.out.println(lineToPrint);
+        return lineToPrint;
     }
 
     /**
      * Lists all the tasks in teh list.
      */
-    public void listTasks() {
+    public String listTasks() {
+        StringBuilder lineToPrint = new StringBuilder(); // Use StringBuilder for efficient concatenation
         for (int input = 0; input < tasks.size(); ++input) {
-            System.out.println((input + 1) + ". " + tasks.get(input).toString());
+            lineToPrint.append(input + 1).append(". ").append(tasks.get(input).toString()).append('\n');
         }
+        String outputLine = lineToPrint.toString(); // Convert StringBuilder to String once
+        System.out.println(outputLine);
+        return outputLine;
     }
 
     /**
      * Lists all matching tasks based on the description of the task.
      *
      * @param description The description of the task.
+     * @return A string of all matching tasks.
      */
-    public void listMatchingDescriptionTasks(String description) {
+    public String listMatchingDescriptionTasks(String description) {
+        StringBuilder result = new StringBuilder();
+
         tasks.stream()
                 .filter(task -> task.matchesTaskDescription(description))
-                .toList()
-                .forEach(task -> System.out.println(task.toString()));
+                .forEach(task -> result.append(task.toString()).append("\n"));
+
+        String resultString = result.toString(); // Convert StringBuilder to String
+        System.out.println(resultString); // Print the result
+        return resultString; // Return the result
     }
 
     /**

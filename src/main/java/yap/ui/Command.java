@@ -70,11 +70,12 @@ public class Command {
      * @param userInput The users' string input.
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
-    public void todo(String userInput) throws InputException {
+    public String todo(String userInput) throws InputException {
         assert userInput.startsWith("todo") : "Input should start with todo";
         Task task = Parser.parseInputAsToDo(userInput);
-        taskList.addTask(task);
+        String outputLine = taskList.addTask(task);
         System.out.println(SEPARATOR);
+        return outputLine;
     }
 
     /**
@@ -83,11 +84,12 @@ public class Command {
      * @param userInput The users' string input.
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
-    public void deadline(String userInput) throws InputException {
+    public String deadline(String userInput) throws InputException {
         assert userInput.startsWith("deadline") : "Input should start with deadline";
         Task task = Parser.parseInputAsDeadline(userInput);
-        taskList.addTask(task);
+        String outputLine = taskList.addTask(task);
         System.out.println(SEPARATOR);
+        return outputLine;
     }
 
     /**
@@ -96,19 +98,21 @@ public class Command {
      * @param userInput The users' string input.
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
-    public void event(String userInput) throws InputException {
+    public String event(String userInput) throws InputException {
         assert userInput.startsWith("event") : "Input should start with event";
         Task task = Parser.parseInputAsEvent(userInput);
-        taskList.addTask(task);
+        String outputLine = taskList.addTask(task);
         System.out.println(SEPARATOR);
+        return outputLine;
     }
 
     /**
      * Processes a list command
      */
-    public void list() {
-        taskList.listTasks();
+    public String list() {
+        String outputLine = taskList.listTasks();
         System.out.println(SEPARATOR);
+        return outputLine;
     }
 
     /**
@@ -116,9 +120,10 @@ public class Command {
      *
      * @param userInput The users' string input.
      */
-    public void find(String userInput) {
+    public String find(String userInput) {
         assert userInput.startsWith("find") : "Input should start with find";
-        taskList.listMatchingDescriptionTasks(Parser.getStringFromFindCommand(userInput));
+        String outputLine = taskList.listMatchingDescriptionTasks(Parser.getStringFromFindCommand(userInput));
         System.out.println(SEPARATOR);
+        return outputLine;
     }
 }

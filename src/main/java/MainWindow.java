@@ -23,14 +23,14 @@ public class MainWindow extends AnchorPane {
     private Yap yap;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/yap1.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/yap2.jpg"));
+    private Image yapImage = new Image(this.getClass().getResourceAsStream("/images/yap2.jpg"));
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Yap yap) {
+    public void setYap(Yap yap) {
         this.yap = yap;
     }
 
@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
         String response = yap.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getYapDialog(response, dukeImage)
+                DialogBox.getYapDialog(response, yapImage)
         );
         userInput.clear();
     }
