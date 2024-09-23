@@ -5,7 +5,7 @@ package makima.task;
  */
 public class ToDo extends Task {
 
-    public final static int SAVE_PARAMETERS = 4;
+    public static final int SAVE_PARAMETERS = 4;
     public ToDo(String name) {
         super(name);
     }

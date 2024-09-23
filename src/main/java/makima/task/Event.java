@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
-    public final static int SAVE_PARAMETERS = 6;
+    public static final int SAVE_PARAMETERS = 6;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 

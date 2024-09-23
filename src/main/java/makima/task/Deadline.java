@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
 
-    public final static int SAVE_PARAMETERS = 5;
+    public static final int SAVE_PARAMETERS = 5;
     private LocalDateTime endTime;
 
     /**

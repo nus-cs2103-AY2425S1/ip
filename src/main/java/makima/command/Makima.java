@@ -5,6 +5,7 @@ import makima.io.FileManager;
 import makima.task.Task;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -38,6 +39,10 @@ public class Makima {
     }
 
     public String getResponse(String input) {
+        if (Objects.equals(input, "return")) {
+            setState(new WaitingState());
+            return "Returned to menu!\n";
+        }
         return state.getResponse(input, this);
     }
 

@@ -5,6 +5,9 @@ package makima.task;
  */
 public abstract class Task {
 
+    /**
+     * Priority levels of task
+     */
     public enum PriorityLevel {
         LOW,
         HIGH
