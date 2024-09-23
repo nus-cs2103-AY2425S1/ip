@@ -4,16 +4,7 @@ package lewis;
  * This command signals for the program to exit.
  */
 public class ByeCommand extends Command {
-
-    private ByeCommand() {
-    }
-
-    private static final ByeCommand BYE_COMMAND = new ByeCommand();
-
-    public static ByeCommand of() {
-        return BYE_COMMAND;
-    }
-    private final static String GOODBYE_MESSAGE = """
+    private static final String GOODBYE_MESSAGE = """
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠒⠒⠢⢄⡀⠀⠀⢠⡏⠉⠉⠉⠑⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠙⢦⠀⡇⡇⠀⠀⠀⠀⠀⠀⠈⠱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠊⠉⠉⠙⠒⢤⡀⠀⣼⠀⠀⢀⣶⣤⠀⠀⠀⢣⡇⡇⠀⠀⢴⣶⣦⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -32,6 +23,16 @@ public class ByeCommand extends Command {
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠹⣀⣀⣤⣶⣿⡿⠃⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⢻⣿⣷⣦⣤⣤⠎⠀⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣤⣿⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀""";
 
+
+    private static final ByeCommand BYE_COMMAND = new ByeCommand();
+
+    private ByeCommand() {
+    }
+
+
+    public static ByeCommand of() {
+        return BYE_COMMAND;
+    }
     /**
      * Returns a string description of how to use the exit command
      * @return a string description

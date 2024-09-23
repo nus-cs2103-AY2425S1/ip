@@ -3,18 +3,21 @@ package lewis;
 /**
  * This class tells Lewis to greet the user
  */
-public class HelloCommand extends Command{
-    /** Private constructor for a HelloCommand */
-    private HelloCommand() {
-    }
-    /** The singular instance of the HelloCommand */
-    private static final HelloCommand HELLO_COMMAND = new HelloCommand();
-
+public class HelloCommand extends Command {
     /** The greeting that Lewis will give */
-    private final String HELLO_MESSAGE = """
+    private static final String HELLO_MESSAGE = """
                 Hello there! I am Lewis, a simple chatbot and I'm here to help you.
                 In future versions, I'll be able to handle task scheduling and other services to make your life easier.
                 Isn't that swell?""";
+    /** The singular instance of the HelloCommand */
+    private static final HelloCommand HELLO_COMMAND = new HelloCommand();
+
+    /** Private constructor for a HelloCommand */
+    private HelloCommand() {
+    }
+
+
+
     /** Factory method to produce a HelloCommand */
     public static HelloCommand of() {
         return HELLO_COMMAND;

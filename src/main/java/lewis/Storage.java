@@ -3,10 +3,10 @@ package lewis;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.nio.file.Files;
 /**
  * This class implements a storage, which saves and loads the tasklist from
  * and to file. This class stores data as a comma-separated-variable file.
@@ -15,16 +15,15 @@ import java.nio.file.Files;
  * (ii) load
  */
 public class Storage {
-    /** Private constructor for Storage */
-    private Storage() {
-    }
-
     /** The singular instance of storage.*/
-    private final static Storage STORAGE = new Storage();
+    private static final Storage STORAGE = new Storage();
     /** The default file path for storing and writing data */
     private static final Path FILE_PATH = Path.of("./data/tasks.csv");
     /** The default directory path for storing and writing data */
     private static final Path DIRECTORY_PATH = Path.of("./data/");
+    /** Private constructor for Storage */
+    private Storage() {
+    }
 
     /**
      * Default factory method of Storage. Returns the singular instance
@@ -74,8 +73,8 @@ public class Storage {
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Oh no! I can't save your file. \n " +
-                    "Check out the error message to see what went wrong");
+            System.out.println("Oh no! I can't save your file. \n "
+                    + "Check out the error message to see what went wrong");
             e.printStackTrace();
         }
     }
@@ -128,8 +127,8 @@ public class Storage {
                 ex.printStackTrace();
             }
         } catch (IOException e) {
-            System.out.println("Oh no, I can't read the saved file. \n" +
-                    "Check the error message to see why");
+            System.out.println("Oh no, I can't read the saved file. \n"
+                    + "Check the error message to see why");
             e.printStackTrace();
         }
         return new ArrayList<>();

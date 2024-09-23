@@ -3,7 +3,7 @@ package lewis;
 /**
  * This command signals for Lewis to repeat the user input back to them.
  */
-public class EchoCommand extends Command{
+public class EchoCommand extends Command {
 
     /** The string to be echoed back to the user */
     private final String echoString;

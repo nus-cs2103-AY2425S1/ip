@@ -7,11 +7,12 @@ package lewis;
 public class MarkUnmarkCommand extends Command {
 
     /** The index of the task to mark or unmark*/
-    int taskIndex;
+    private final int taskIndex;
     /** The status that the task will change to */
-    Task.Status updatedStatus = Task.Status.NOT_DONE;
+    private Task.Status updatedStatus = Task.Status.NOT_DONE;
 
-    /** Public constructor for this command
+    /**
+     * Public constructor for this command
      * @param input a string input propagated from the standard input stream
      */
     public MarkUnmarkCommand(String input) {

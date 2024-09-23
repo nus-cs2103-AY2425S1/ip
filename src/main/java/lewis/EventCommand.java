@@ -51,13 +51,14 @@ public class EventCommand extends Command {
      *              event <description> /from <YYYY-MM-DD> <HH:MM> /to <YYYY-MM-DD> <HH:MM>
      * @return a new event command with those specifications
      */
-    public static EventCommand of(String input) throws LewisException{
+
+    public static EventCommand of(String input) throws LewisException {
         try {
             return new EventCommand(input);
         } catch (IndexOutOfBoundsException e) {
-            throw new LewisException("Hey, I can't understand your command. " +
-                    "Type your event in this format:\n" +
-                    "event <description> /from <YYYY-MM-DD> <HH:MM> /to <YYYY-MM-DD> <HH:MM> ");
+            throw new LewisException("Hey, I can't understand your command. "
+                    + "Type your event in this format:\n"
+                    + "event <description> /from <YYYY-MM-DD> <HH:MM> /to <YYYY-MM-DD> <HH:MM> ");
         }
     }
 
@@ -66,8 +67,8 @@ public class EventCommand extends Command {
      * @return a string description
      */
     public static String getHelpDescription() {
-        return "Creates a new event and enters it into the tasklist\n" +
-                "Usage: event <description> /from <YYYY-MM-DD> <HH:MM> /to <YYYY-MM-DD> <HH:MM>";
+        return "Creates a new event and enters it into the tasklist\n"
+                + "Usage: event <description> /from <YYYY-MM-DD> <HH:MM> /to <YYYY-MM-DD> <HH:MM>";
     }
 
     /**

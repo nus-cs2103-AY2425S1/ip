@@ -1,13 +1,14 @@
 package lewis;
 
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit test for the TaskList class in Lewis
@@ -18,17 +19,17 @@ public class TaskListTest {
         // Arrange
         LocalDate date = LocalDate.parse("2024-09-20");
         LocalTime time = LocalTime.parse("23:59");
-        LocalDateTime by = LocalDateTime.of(date,time);
+        LocalDateTime by = LocalDateTime.of(date, time);
         LocalDate date2 = LocalDate.parse("2024-09-21");
         LocalTime time2 = LocalTime.parse("12:00");
-        LocalDateTime from = LocalDateTime.of(date2,time2);
+        LocalDateTime from = LocalDateTime.of(date2, time2);
         LocalDate date3 = LocalDate.parse("2024-09-21");
         LocalTime time3 = LocalTime.parse("13:30");
-        LocalDateTime to = LocalDateTime.of(date3,time3);
+        LocalDateTime to = LocalDateTime.of(date3, time3);
 
 
-        Deadline deadline = Deadline.of("Submit assignment", "NOT_DONE",by);
-        Event event = Event.of("Dinner","NOT_DONE",from ,to);
+        Deadline deadline = Deadline.of("Submit assignment", "NOT_DONE", by);
+        Event event = Event.of("Dinner", "NOT_DONE", from , to);
         Todo todo = new Todo("Clean up iP");
         ArrayList<String> tasks = new ArrayList<>();
         tasks.add(deadline.toCsv());
@@ -53,17 +54,17 @@ public class TaskListTest {
         // Arrange
         LocalDate date = LocalDate.parse("2024-09-20");
         LocalTime time = LocalTime.parse("23:59");
-        LocalDateTime by = LocalDateTime.of(date,time);
+        LocalDateTime by = LocalDateTime.of(date, time);
         LocalDate date2 = LocalDate.parse("2024-09-21");
         LocalTime time2 = LocalTime.parse("12:00");
-        LocalDateTime from = LocalDateTime.of(date2,time2);
+        LocalDateTime from = LocalDateTime.of(date2, time2);
         LocalDate date3 = LocalDate.parse("2024-09-21");
         LocalTime time3 = LocalTime.parse("13:30");
-        LocalDateTime to = LocalDateTime.of(date3,time3);
+        LocalDateTime to = LocalDateTime.of(date3, time3);
 
 
-        Deadline deadline = Deadline.of("Submit assignment", "DONE",by);
-        Event event = Event.of("Dinner","NOT_DONE",from ,to);
+        Deadline deadline = Deadline.of("Submit assignment", "DONE", by);
+        Event event = Event.of("Dinner", "NOT_DONE", from , to);
         Todo todo = new Todo("Clean up iP", "DONE");
         ArrayList<String> tasks = new ArrayList<>();
         tasks.add(deadline.toCsv());
@@ -88,17 +89,17 @@ public class TaskListTest {
         // Arrange
         LocalDate date = LocalDate.parse("2024-09-20");
         LocalTime time = LocalTime.parse("23:59");
-        LocalDateTime by = LocalDateTime.of(date,time);
+        LocalDateTime by = LocalDateTime.of(date, time);
         LocalDate date2 = LocalDate.parse("2024-09-21");
         LocalTime time2 = LocalTime.parse("12:00");
-        LocalDateTime from = LocalDateTime.of(date2,time2);
+        LocalDateTime from = LocalDateTime.of(date2, time2);
         LocalDate date3 = LocalDate.parse("2024-09-21");
         LocalTime time3 = LocalTime.parse("13:30");
-        LocalDateTime to = LocalDateTime.of(date3,time3);
+        LocalDateTime to = LocalDateTime.of(date3, time3);
 
 
-        Deadline deadline = Deadline.of("Submit assignment", "DONE",by);
-        Event event = Event.of("Dinner","NOT_DONE",from ,to);
+        Deadline deadline = Deadline.of("Submit assignment", "DONE", by);
+        Event event = Event.of("Dinner", "NOT_DONE", from , to);
         Todo todo = new Todo("Clean up iP", "DONE");
         ArrayList<String> tasks = new ArrayList<>();
         tasks.add(deadline.toCsv());
@@ -114,9 +115,9 @@ public class TaskListTest {
         String actual = saveFile.toString();
 
         // Assert
-        String expected = "[Deadline,Submit assignment,DONE,2024-09-20T23:59," +
-                " Event,Dinner,NOT_DONE,2024-09-21T12:00,2024-09-21T13:30," +
-                " Todo,Clean up iP,DONE]";
+        String expected = "[Deadline,Submit assignment,DONE,2024-09-20T23:59,"
+                + " Event,Dinner,NOT_DONE,2024-09-21T12:00,2024-09-21T13:30,"
+                + " Todo,Clean up iP,DONE]";
         assertEquals(expected, actual);
     }
 }

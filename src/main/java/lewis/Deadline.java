@@ -5,7 +5,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+/**
+ * This class implements a deadline, which can contain a description
+ * of a task, and its deadline in terms of date and time.
+ * It extends from a Task, and supports its inherited methods
+ */
+public class Deadline extends Task {
     private final LocalDateTime deadline;
     /**
      * Private constructor for a Task
@@ -13,7 +18,7 @@ public class Deadline extends Task{
      * @param status The status of the task(done or not done)
      * @param deadline A deadline formatted as a LocalDateTime object
      */
-    private Deadline(String description, Task.Status status, LocalDateTime deadline){
+    private Deadline(String description, Task.Status status, LocalDateTime deadline) {
         super(description, status);
         this.deadline = deadline;
     }
@@ -26,7 +31,7 @@ public class Deadline extends Task{
      * @param deadline The deadline as a LocalDateTime object
      * @return A deadline with those specifications
      */
-     static Deadline of(String description,String status, LocalDateTime deadline) {
+    static Deadline of(String description, String status, LocalDateTime deadline) {
         Task.Status formattedStatus = Task.Status.valueOf(status);
         return new Deadline(description, formattedStatus, deadline);
     }
@@ -42,7 +47,7 @@ public class Deadline extends Task{
     static Deadline of(String description, String date, String time) {
         LocalDate formattedDate = LocalDate.parse(date);
         LocalTime formattedTime = LocalTime.parse(time);
-        LocalDateTime deadline = LocalDateTime.of(formattedDate,formattedTime);
+        LocalDateTime deadline = LocalDateTime.of(formattedDate, formattedTime);
         return new Deadline(description, Status.NOT_DONE, deadline);
     }
 
@@ -52,11 +57,11 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" +
-                super.toString() +
-                " (Deadline: " +
-                deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
-                ")";
+        return "[D]"
+                + super.toString()
+                + " (Deadline: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + ")";
     }
 
     /**
@@ -65,9 +70,9 @@ public class Deadline extends Task{
      */
     @Override
     protected String toCsv() {
-        return "Deadline," +
-                super.toCsv() +
-                "," +
-                this.deadline;
+        return "Deadline,"
+                + super.toCsv()
+                + ","
+                + this.deadline;
     }
 }

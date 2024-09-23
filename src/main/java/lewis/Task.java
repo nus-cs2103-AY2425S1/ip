@@ -9,13 +9,13 @@ package lewis;
  * Currently, the subclasses are: Event, Todo and Deadline
  */
 public abstract class Task {
+    protected Status status;
     private final String description;
     enum Status {
-        DONE,NOT_DONE,URGENT
+        DONE, NOT_DONE, URGENT
     }
-    protected Status status;
-
-    /** Protected constructor for a Task.
+    /**
+     * Protected constructor for a Task.
      * Initialises the completion status to NOT_DONE by default.
      * @param description a string description of this task.
      */
@@ -24,7 +24,8 @@ public abstract class Task {
         this.status = Status.NOT_DONE;
     }
 
-    /** Protected constructor for a Task.
+    /**
+     * Protected constructor for a Task.
      * This should be used when loading an already initialised task
      * @param description a string description of this task
      * @param status the completion status of this task
@@ -39,14 +40,15 @@ public abstract class Task {
      * Updates the status of this task to the indicated status
      * @param input the status that this task should update to.
      */
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")//enum input is used
     protected void updateStatus(Task.Status input) {
         StringBuilder changelog = new StringBuilder();
         changelog.append("Status updated successfully: \nOld: ");
         changelog.append(this);
         switch(input) {
-            case DONE -> status = Status.DONE;
-            case NOT_DONE -> status = Status.NOT_DONE;
-            case URGENT -> status = Status.URGENT;
+        case DONE -> status = Status.DONE;
+        case NOT_DONE -> status = Status.NOT_DONE;
+        case URGENT -> status = Status.URGENT;
         }
         changelog.append("\nNew: ");
         changelog.append(this);
@@ -60,9 +62,9 @@ public abstract class Task {
      */
     private char getStatusIcon() {
         return switch (status) {
-            case DONE -> 'X';
-            case NOT_DONE -> ' ';
-            case URGENT -> '!';
+        case DONE -> 'X';
+        case NOT_DONE -> ' ';
+        case URGENT -> '!';
         };
     }
 
@@ -81,8 +83,8 @@ public abstract class Task {
      * @return this task as a csv string
      */
     protected String toCsv() {
-        return this.description +
-                "," +
-                this.status;
+        return this.description
+                + ","
+                + this.status;
     }
 }

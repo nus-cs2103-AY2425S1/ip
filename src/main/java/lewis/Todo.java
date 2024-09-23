@@ -6,7 +6,8 @@ package lewis;
  * and its completion status
  */
 public class Todo extends Task {
-    /** Protected constructor for a todo.
+    /**
+     * Protected constructor for a todo.
      * This should be used to create a new Todo.
      * By default, its completion status is NOT_DONE
      * @param description a description of this todo
@@ -31,8 +32,8 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" +
-                super.toString();
+        return "[T]"
+                + super.toString();
     }
 
     /**
@@ -41,7 +42,7 @@ public class Todo extends Task {
      */
     @Override
     protected String toCsv() {
-        return "Todo," +
-                super.toCsv();
+        return "Todo,"
+                + super.toCsv();
     }
 }

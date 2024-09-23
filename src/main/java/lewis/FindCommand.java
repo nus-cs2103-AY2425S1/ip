@@ -28,14 +28,14 @@ public class FindCommand extends Command {
                 throw new LewisException("Oi, I can't find anything in there!");
             }
             return new FindCommand(keyword);
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new LewisException("Oi, I can't find anything in there!");
         }
     }
 
     public static String getHelpDescription() {
-        return "Displays all tasks matching a keyword in the current tasklist.\n" +
-                "Usage: find <string>";
+        return "Displays all tasks matching a keyword in the current tasklist.\n"
+                + "Usage: find <string>";
     }
     /**
      * Executes the command. Subclasses of this class must implement this logic.

@@ -7,11 +7,11 @@ import java.util.ArrayList;
  * tasklist
  */
 public class ListCommand extends Command {
+    /** The singular instance of ListCommand. */
+    private static final ListCommand LIST_COMMAND = new ListCommand();
     /** Private constructor for ListCommand */
     private ListCommand() {
     }
-    /** The singular instance of ListCommand. */
-    private static final ListCommand LIST_COMMAND = new ListCommand();
 
     /**
      * Factory method to instantiate a list command
@@ -26,8 +26,8 @@ public class ListCommand extends Command {
      * @return a string description
      */
     public static String getHelpDescription() {
-        return "Displays all tasks in the current tasklist.\n" +
-                "Usage: list";
+        return "Displays all tasks in the current tasklist.\n"
+                + "Usage: list";
     }
     /**
      * Executes the command. Subclasses of this class must implement this logic.

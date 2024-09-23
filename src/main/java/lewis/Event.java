@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Along with supporting a description of an event, it can also
  * contain the start and end date and time of this event.
  */
-public class Event extends Task{
+public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
@@ -17,11 +17,11 @@ public class Event extends Task{
      *
      * @param description A string description of the event
      */
-   private Event(String description, Task.Status status, LocalDateTime from, LocalDateTime to) {
-       super(description, status);
-       this.from = from;
-       this.to = to;
-   }
+    private Event(String description, Task.Status status, LocalDateTime from, LocalDateTime to) {
+        super(description, status);
+        this.from = from;
+        this.to = to;
+    }
 
     /**
      * Factory method for instantiating a new event. This should be called
@@ -46,9 +46,9 @@ public class Event extends Task{
      */
     protected static Event of(String description, String status,
                              LocalDateTime from, LocalDateTime to) {
-       Task.Status newStatus = Task.Status.valueOf(status);
-       return new Event(description, newStatus, from, to);
-   }
+        Task.Status newStatus = Task.Status.valueOf(status);
+        return new Event(description, newStatus, from, to);
+    }
 
     /**
      * Returns a string description of this event
@@ -56,9 +56,9 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" +
-                super.toString() +
-                String.format(" (From: %s To: %s)",
+        return "[E]"
+                + super.toString()
+                + String.format(" (From: %s To: %s)",
                         from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
                         to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
     }
@@ -69,11 +69,11 @@ public class Event extends Task{
      */
     @Override
     protected String toCsv() {
-        return "Event," +
-                super.toCsv() +
-                "," +
-                this.from +
-                "," +
-                this.to;
+        return "Event,"
+                + super.toCsv()
+                + ","
+                + this.from
+                + ","
+                + this.to;
     }
 }
