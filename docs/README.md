@@ -43,7 +43,7 @@ For instance:\
 \
 `t some random task`\
 \
-will result in the bot displaying:\
+will result in the bot displaying:
 
 > Added: some random task
 
