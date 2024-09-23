@@ -72,7 +72,7 @@ public class CommandParser {
     }
 
     /**
-     * Returns the keyword to find task for after parsing the find task command
+     * Returns the keyword to find task for after parsing the find task command.
      *
      * @param command the command string
      * @return the keyword to find task for
