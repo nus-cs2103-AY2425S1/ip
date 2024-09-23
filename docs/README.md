@@ -16,7 +16,7 @@ Currently, the only available commands are `list`, `mark`, `unmark`,
 `delete`, `tag`, `find`, `todo`, `event`, `deadline` and the
 exit command `bye`.
 
-## Adding To-Do Tasks
+## Add To-Do Tasks
 
 Add to-do tasks with a description and no deadline.
 
@@ -32,7 +32,7 @@ Another task for the American people added:
 [T][ ] buy chicken
 You have 1 task(s) now!
 ```
-## Adding Event Tasks
+## Add Event Tasks
 
 Add event tasks with a description and an event date.
 
@@ -51,7 +51,7 @@ Another task for the American people added:
 You have 2 task(s) now!
 ```
 
-## Adding Deadline Tasks
+## Add Deadline Tasks
 
 Add deadline tasks with a description, a beginning and an end date.
 
