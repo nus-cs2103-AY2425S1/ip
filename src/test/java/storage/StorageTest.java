@@ -3,11 +3,12 @@ package storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,15 +37,17 @@ public class StorageTest {
 
     @Test
     public void storeEvent_normalTextTodo() {
-        String expectedOutput = "T | | buy groceries";
+        String expectedOutput = "T |   | buy groceries ";
         try {
             ArrayList<Task> testList = new ArrayList<>();
             testList.add(new Todo("buy groceries"));
             testStorage.saveHistory(testList);
-
-
+            Scanner sc = new Scanner(Paths.get(testStorage.getHistFilePath()));
+            assertEquals(expectedOutput, sc.nextLine());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("error");
+        } catch (IOException e) {
+            System.out.println("file not found");
         }
     }
 
@@ -118,9 +121,41 @@ public class StorageTest {
             Tag tag2 = new Tag("#tag2");
             test.addTag(tag1);
             test.addTag(tag2);
+
+            // Sort tags for comparison
+            List<Tag> expectedTags = new ArrayList<>(test.getTagSet());
+            List<Tag> actualTags = new ArrayList<>(taskList.get(0).getTagSet());
+            Collections.sort(expectedTags, Comparator.comparing(Tag::getTagName));
+            Collections.sort(actualTags, Comparator.comparing(Tag::getTagName));
+
+            assertEquals(expectedTags, actualTags);
+
+        } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
+
+    @Test
+    public void loadDead_text() {
+        try {
+            ArrayList<Task> taskList = new ArrayList<>();
+            TagList tags = new TagList();
+            testStorage.parseTask(testParser, "D |   | dead 1 ( by tmr ) /tags #tag1 #tag2",
+                    taskList, tags);
+            Deadline test = new Deadline("dead 1", "tmr");
+            Tag tag1 = new Tag("#tag1");
+            Tag tag2 = new Tag("#tag2");
+            test.addTag(tag1);
+            test.addTag(tag2);
+
+            // Sort tags for comparison
+            List<Tag> expectedTags = new ArrayList<>(test.getTagSet());
+            List<Tag> actualTags = new ArrayList<>(taskList.get(0).getTagSet());
+            Collections.sort(expectedTags, Comparator.comparing(Tag::getTagName));
+            Collections.sort(actualTags, Comparator.comparing(Tag::getTagName));
+
             assertEquals(new Deadline("dead 1", "tmr").descNoTags(),
                     taskList.get(0).descNoTags());
-            assertEquals(test.getDescription(), taskList.get(0).getDescription());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("error" + e.getMessage());
         }
@@ -133,6 +168,41 @@ public class StorageTest {
             TagList tags = new TagList();
             testStorage.parseTask(testParser, "E |   | event 1 ( from 4pm to 6pm ) /tags #tag1 #tag2",
                     taskList, tags);
+            Event test = new Event("event 1", "4pm", "6pm");
+            Tag tag1 = new Tag("#tag1");
+            Tag tag2 = new Tag("#tag2");
+            test.addTag(tag1);
+            test.addTag(tag2);
+            List<Tag> expectedTags = new ArrayList<>(test.getTagSet());
+            List<Tag> actualTags = new ArrayList<>(taskList.get(0).getTagSet());
+            Collections.sort(expectedTags, Comparator.comparing(Tag::getTagName));
+            Collections.sort(actualTags, Comparator.comparing(Tag::getTagName));
+
+            assertEquals(expectedTags, actualTags);
+
+        } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
+
+    @Test
+    public void loadEvent_text() {
+        try {
+            ArrayList<Task> taskList = new ArrayList<>();
+            TagList tags = new TagList();
+            testStorage.parseTask(testParser, "E |   | event 1 ( from 4pm to 6pm ) /tags #tag1 #tag2",
+                    taskList, tags);
+            Event test = new Event("event 1", "4pm", "6pm");
+            Tag tag1 = new Tag("#tag1");
+            Tag tag2 = new Tag("#tag2");
+            test.addTag(tag1);
+            test.addTag(tag2);
+            List<Tag> expectedTags = new ArrayList<>(test.getTagSet());
+            List<Tag> actualTags = new ArrayList<>(taskList.get(0).getTagSet());
+            Collections.sort(expectedTags, Comparator.comparing(Tag::getTagName));
+            Collections.sort(actualTags, Comparator.comparing(Tag::getTagName));
+
+
             assertEquals(new Event("event 1", "4pm", "6pm").descNoTags(),
                     taskList.get(0).descNoTags());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {

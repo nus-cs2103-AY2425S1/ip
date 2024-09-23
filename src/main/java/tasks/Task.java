@@ -128,4 +128,13 @@ public abstract class Task {
      * @return string of description of task without tags.
      */
     public abstract String descNoTags();
+
+    /**
+     * Returns a set of tags associated with the task.
+     *
+     * @return set of tags associated with the task.
+     */
+    public Set<Tag> getTagSet() {
+        return this.tags;
+    }
 }
