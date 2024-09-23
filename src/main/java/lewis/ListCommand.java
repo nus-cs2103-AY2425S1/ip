@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * tasklist
  */
 public class ListCommand extends Command {
+    /** Private constructor for ListCommand */
     private ListCommand() {
     }
     /** The singular instance of ListCommand. */
@@ -20,6 +21,10 @@ public class ListCommand extends Command {
         return LIST_COMMAND;
     }
 
+    /**
+     * Returns a description for the user on the usage of this command
+     * @return a string description
+     */
     public static String getHelpDescription() {
         return "Displays the current tasklist.\n" +
                 "Usage: list";

@@ -57,10 +57,18 @@ public class Ui {
         System.out.println(string);
     }
 
+    /**
+     * Reads the next line of user input and returns it as a string
+     * @return a string
+     */
     public static String readLine() {
         return SCANNER.nextLine();
     }
 
+    /**
+     * Prints the list of tasks as strings separated by a new line
+     * @param listToPrint an array of strings representing tasks.
+     */
     public static void printList(ArrayList<String> listToPrint) {
         for (String string : listToPrint) {
             System.out.println(string);

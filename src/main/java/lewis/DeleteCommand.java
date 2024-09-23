@@ -1,9 +1,14 @@
 package lewis;
 
+/**
+ * This command signals for Lewis to delete a task from the task list
+ * and update the storage accordingly.
+ *
+ */
 public class DeleteCommand extends Command{
 
     /** The index of the (0-indexed) task to be deleted */
-    private int index;
+    private final int index;
 
     /**
      * Private constructor for a delete command
@@ -13,6 +18,14 @@ public class DeleteCommand extends Command{
         this.index = index;
     }
 
+    /**
+     * Factory method for producing a DeleteCommand.
+     * Parses a string input as a delete command, and returns a new
+     * DeleteCommand with the appropriate fields
+     * @param input a string (propagated from standard input)
+     * @return a DeleteCommand
+     * @throws LewisException if the user tries to delete a non-existent task
+     */
     public static DeleteCommand of(String input) throws LewisException{
         if (TaskList.getLength() == 0) {
             throw new LewisException("Hey, the tasklist is empty. You can't delete" +
@@ -45,6 +58,7 @@ public class DeleteCommand extends Command{
                 To find the index of the task you want to delete, try
                 "list\"""";
     }
+
     /**
      * Deletes the indicated task from the task list, specified by its index.
      */
@@ -52,5 +66,6 @@ public class DeleteCommand extends Command{
     public void execute() {
         Ui.printDeletedTask(TaskList.getTask(index));
         TaskList.delete(index);
+        Storage.save();
     }
 }

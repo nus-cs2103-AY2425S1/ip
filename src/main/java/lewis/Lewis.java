@@ -1,7 +1,12 @@
 package lewis;
 
 import java.util.ArrayList;
+
+/**
+ * This class implements Lewis, a chatbot who is designed to interact with the user.
+ */
 public class Lewis {
+    /** Exit flag for Lewis to close */
     private static boolean isExit = false;
     /**
      * Initialises the data for Lewis bot to function. This includes loading the tasklist from
@@ -9,31 +14,31 @@ public class Lewis {
      */
     private static void init() {
         ArrayList<String> savedTasks = Storage.load();
-        TaskList taskList = TaskList.of(savedTasks);
+        TaskList tasklist = TaskList.of(savedTasks);
     }
 
+    /**
+     * Tells Lewis to run, accepting user input until the "bye" or "exit" command is given
+     */
     public void run() {
-        Ui ui = Ui.of();
-        Storage storage = Storage.of();
         Parser parser = Parser.of();
         init();
-        ui.printLine();
+        Ui.printLine();
         System.out.println("Hello! My name is Lewis, a chatbot.\nHow can I help you?");
 
         while (!isExit) {
-            String userInput = ui.readLine();
+            String userInput = Ui.readLine();
             try {
                 Command command = parser.parseCommand(userInput);
                 Lewis.isExit = command.isExit();
                 command.execute();
             } catch (LewisException e) {
-                ui.printString(e.getMessage());
+                Ui.printString(e.getMessage());
             } finally {
-                ui.printLine();
+                Ui.printLine();
             }
         }
     }
-
     public static void main(String[] args) {
         Lewis lewis = new Lewis();
         lewis.run();

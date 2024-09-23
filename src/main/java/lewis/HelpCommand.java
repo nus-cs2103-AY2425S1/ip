@@ -1,5 +1,9 @@
 package lewis;
 
+/**
+ * This command tells Lewis to give the user help on how to use a command, or
+ * how to navigate the program.
+ */
 public class HelpCommand extends Command {
 
     /** The default help that Lewis will give */
@@ -21,6 +25,13 @@ public class HelpCommand extends Command {
      */
     private HelpCommand() {
     }
+
+    /**
+     * Factory method for producing a HelpCommand.
+     * Parses the user input to direct the user to more specific help
+     * @param input a string propagated from the standard input stream
+     * @return a HelpCommand to execute
+     */
     public static HelpCommand of(String input) {
         if (!input.trim().equals("help")) {
             String[] arguments = input.split("help");
@@ -58,15 +69,19 @@ public class HelpCommand extends Command {
                     String helpDescription = DeleteCommand.getHelpDescription();
                     return new HelpCommand(helpDescription);
                 }
+                case "hello" -> {
+                    String helpDescription = HelloCommand.getHelpDescription();
+                    return new HelpCommand(helpDescription);
+                }
                 default -> {
-                    String helpDescription = "I'm sorry, I can't help you with that. Did you type the " +
-                            "command correctly? \nUsage: help <command>";
+                    return new HelpCommand();
                 }
             }
         }
 
         return new HelpCommand();
     }
+
     /**
      * Prints to the terminal what the user is looking for help for
      */

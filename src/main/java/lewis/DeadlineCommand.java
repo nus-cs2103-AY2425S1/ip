@@ -2,13 +2,29 @@ package lewis;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * This command creates a new deadline command, and handles the appropriate
+ * parsing of user input, UI and entering the deadline into the tasklist.
+ */
 public class DeadlineCommand extends Command{
 
+    /**
+     * Private constructor for this class
+     * @param deadline A deadline
+     */
     private DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
     }
+    /** Each command has one unique deadline associated to it */
     private final Deadline deadline;
 
+    /**
+     * Factory method for creating a DeadlineCommand. This method should be used
+     * when parsing a new DeadlineCommand from the command line
+     * @param input A string read from the (standard) input stream
+     * @return A new DeadlineCommand
+     * @throws LewisException if the input is in an incorrect format
+     */
     public static DeadlineCommand of(String input) throws LewisException {
 
         try {
@@ -37,7 +53,11 @@ public class DeadlineCommand extends Command{
         }
     }
 
-        public static String getHelpDescription() {
+    /**
+     * Returns a description of usage of the deadline command for the user
+     * @return A help description
+     */
+    public static String getHelpDescription() {
         return """
                 Enters a new deadline into the tasklist.
                  Usage: deadline <description> /by <date> <time> where\s
@@ -47,6 +67,7 @@ public class DeadlineCommand extends Command{
     }
 
     /**
+     * Executes the deadline command
      * Parses the user input as a deadline and enters it into the tasklist
      */
     @Override

@@ -11,10 +11,11 @@ import java.nio.file.Files;
  * This class implements a storage, which saves and loads the tasklist from
  * and to file. This class stores data as a comma-separated-variable file.
  * It supports the following methods:
- * (i)
+ * (i) save
+ * (ii) load
  */
 public class Storage {
-
+    /** Private constructor for Storage */
     private Storage() {
     }
 
@@ -45,8 +46,10 @@ public class Storage {
             try {
                 Files.createDirectories(DIRECTORY_PATH);
             } catch (IOException e) {
-                System.out.println("Oh no! I can't create the file directory.\n" +
-                        "Check out the error message to see what went wrong\n");
+                System.out.println("""
+                        Oh no! I can't create the file directory.
+                        Check out the error message to see what went wrong
+                        """);
                 e.printStackTrace();
             }
         }
@@ -55,8 +58,10 @@ public class Storage {
             try {
                 Files.createFile(FILE_PATH);
             } catch (IOException e) {
-                System.out.println("Oh no! I can't create your save file.\n" +
-                        "Check out the error message to see what went wrong\n");
+                System.out.println("""
+                        Oh no! I can't create your save file.
+                        Check out the error message to see what went wrong
+                        """);
                 e.printStackTrace();
             }
         }
@@ -95,8 +100,10 @@ public class Storage {
                 try {
                     Files.createDirectories(DIRECTORY_PATH);
                 } catch (IOException e2) {
-                    System.out.println("Oh no! I can't save your file.\n" +
-                            "Check out the error message to see what went wrong\n");
+                    System.out.println("""
+                            Oh no! I can't save your file.
+                            Check out the error message to see what went wrong
+                            """);
                     e2.printStackTrace();
                 }
             }
@@ -106,8 +113,10 @@ public class Storage {
                 try {
                     Files.createFile(FILE_PATH);
                 } catch (IOException e2) {
-                    System.out.println("Oh no! I can't save your file.\n" +
-                            "Check out the error message to see what went wrong\n");
+                    System.out.println("""
+                            Oh no! I can't save your file.
+                            Check out the error message to see what went wrong
+                            """);
                     e2.printStackTrace();
                 }
             }
