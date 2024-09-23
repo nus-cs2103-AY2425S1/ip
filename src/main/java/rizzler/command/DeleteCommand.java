@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a <code>DeleteCommand</code> object.
      *
-     * @param commandToDelete Number representing the task to be deleted under <code>list</code>
+     * @param commandToDelete Number representing the task to be deleted under <code>list</code>.
      */
     public DeleteCommand(int commandToDelete) {
         super();

@@ -19,7 +19,7 @@ public abstract class Task {
     /**
      * Returns the task description.
      *
-     * @return String describing the task
+     * @return String describing the task.
      */
     public String getDesc() {
         return description;

@@ -39,7 +39,6 @@ public abstract class Command {
 
     /**
      * Outputs whether the command should result in the ending of the chatbot session.
-     * @return <code>boolean</code>
      */
     public boolean shouldEnd() {
         return shouldEnd;

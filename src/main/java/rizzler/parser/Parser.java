@@ -188,7 +188,7 @@ public class Parser {
 
     /**
      * Parses user input and returns a command indicating the input is not understood.
-     * @param userInput Exact string input by the user for output
+     * @param userInput Exact string input by the user for output.
      * @return NullCommand conveying to the user that the input is not understood.
      */
     private Command parseUnknown(String userInput) {

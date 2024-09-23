@@ -25,7 +25,7 @@ public class Storage {
     /**
      * Constructs a <code>Storage</code> object.
      */
-    protected Storage() {
+    public Storage() {
         File file = new File(STORAGE_PATH.toString());
         if (!file.getParentFile().exists()) {
             // if the taskStorage directory does not exist, create it
@@ -43,7 +43,7 @@ public class Storage {
     /**
      * Reads the tab-separated values file and parses it into a <code>TaskLog</code>.
      *
-     * @return <code>TaskLog</code> with all valid tasks read from the file
+     * @return <code>TaskLog</code> with all valid tasks read from the file.
      */
     public TaskLog getTasks() {
         Scanner scanner;

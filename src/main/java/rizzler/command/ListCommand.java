@@ -9,7 +9,7 @@ import rizzler.task.TaskLog;
  */
 public class ListCommand extends Command {
     public static final String EMPTY_LIST_RESPONSE = "our list is empty right now dear, no tasks to list!";
-    public static final String TASK_LIST_HEADER = "these are the things we gotta do:\n";
+    public static final String TASK_LIST_HEADER = "these are the things we gotta do:";
     private static final int TASK_LIST_START_INDEX = 1;
 
     /**
@@ -34,7 +34,7 @@ public class ListCommand extends Command {
             return new String[] {EMPTY_LIST_RESPONSE};
         }
 
-        output.append(TASK_LIST_HEADER);
+        output.append(TASK_LIST_HEADER).append("\n");
         for (int i = 0; i < tasks.length; i++) {
             output.append(i + TASK_LIST_START_INDEX).append(". ").append(tasks[i]);
             output.append("\n");
