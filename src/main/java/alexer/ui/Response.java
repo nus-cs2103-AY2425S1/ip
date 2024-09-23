@@ -7,9 +7,15 @@ package alexer.ui;
  */
 public class Response {
     public final String response;
+    public final ResponseType type;
 
     public Response(String response) {
+        this(response, ResponseType.SUCCESS);
+    }
+
+    public Response(String response, ResponseType type) {
         this.response = response;
+        this.type = type;
     }
 
     /**
@@ -19,5 +25,10 @@ public class Response {
         System.out.println("____________________________________________________________");
         System.out.println(response);
         System.out.println("____________________________________________________________");
+    }
+    
+    public enum ResponseType {
+        SUCCESS,
+        ERROR
     }
 }

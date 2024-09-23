@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().add(MessageBox.createUserDialog(input, userImage));
         if (response != null) {
-            dialogContainer.getChildren().add(MessageBox.createBotDialog(response.toString(), dukeImage));
+            dialogContainer.getChildren().add(MessageBox.createBotDialog(response.response, dukeImage));
         }
         userInput.clear();
     }
