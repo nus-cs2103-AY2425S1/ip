@@ -54,8 +54,14 @@ public abstract class Task {
         } else {
             output += "[ ]";
         }
-
-        return output + " " + name;
+        switch (priorityLevel) {
+        case HIGH:
+            return output + " " + name.toUpperCase();
+        case LOW:
+            return output + " " + name.toLowerCase();
+        default:
+            return output + " " + name;
+        }
     }
 
     /**
