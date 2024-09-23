@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import noosy.Noosy;
+import noosy.ui.Gui;
 
 /**
  * Controller for the main GUI of the Noosy application.
@@ -39,6 +40,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        DialogBox dialogBox = DialogBox.getNoosyDialog("Heyo! This is Noosy! \n" +
+                        "Noosy is da best, tell me what you need! :>", noosyImage);
+        dialogContainer.getChildren().addAll(dialogBox);
     }
 
     /**
@@ -49,10 +53,8 @@ public class MainWindow extends AnchorPane {
      */
     public void setNoosy(Noosy n) {
         noosy = n;
-        String welcome = noosy.getWelcome();
-//        dialogContainer.getChildren().add(
-//                DialogBox.getNoosyDialog(welcome, noosyImage, );
-//        )
+        Gui gui = new Gui(dialogContainer);
+        noosy.setUi(gui);
     }
 
     /**
@@ -63,12 +65,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = noosy.getResponse(input);
-        String commandType = noosy.getCommandType();
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNoosyDialog(response, noosyImage, commandType)
+                DialogBox.getUserDialog(input, userImage)
         );
+
+        String response = noosy.getResponse(input);
+        dialogContainer.getChildren().addAll(DialogBox.getNoosyDialog(response, noosyImage)
+        );
+
         userInput.clear();
     }
 }

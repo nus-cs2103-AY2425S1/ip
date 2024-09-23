@@ -74,6 +74,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a TaskList with all tasks in the list that contains the keyword.
+     */
     public TaskList find(String keyword) {
         TaskList tasksWithKeyword = new TaskList();
 
@@ -84,5 +87,15 @@ public class TaskList {
         }
 
         return tasksWithKeyword;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            String newTask = (i + 1) + ". " + tasks.get(i) + "\n";
+            str += newTask;
+        }
+        return str;
     }
 }

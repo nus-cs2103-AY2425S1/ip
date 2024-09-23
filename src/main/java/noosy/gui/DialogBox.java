@@ -96,13 +96,11 @@ public class DialogBox extends HBox {
      *
      * @param text The text of Noosy's message.
      * @param img The image representing Noosy.
-     * @param commandType The type of command, which determines the style to be applied.
      * @return A new DialogBox instance configured for Noosy messages.
      */
-    public static DialogBox getNoosyDialog(String text, Image img, String commandType) {
+    public static DialogBox getNoosyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.changeDialogStyle(commandType);
         return db;
     }
 }

@@ -28,7 +28,7 @@ public class Noosy {
     /**
      * The user interface component.
      */
-    private final Ui ui;
+    private Ui ui;
 
     /**
      * The command type.
@@ -84,6 +84,14 @@ public class Noosy {
     public String getCommandType() {
         return commandType;
     }
+
+    /**
+     * Sets the ui.
+     */
+    public void setUi(Ui ui) {
+        this.ui = ui;
+    }
+
 
     /**
      * Runs the main execution loop of the Noosy chatbot.
