@@ -10,12 +10,6 @@ import trackie.ui.TrackieException;
  */
 public class ListCommand extends Command {
     StringBuilder listOfTasks = new StringBuilder();
-    /**
-     * Creates a new ListCommand.
-     */
-    public ListCommand() {
-        super(false);
-    }
 
     /**
      * Executes the list command.

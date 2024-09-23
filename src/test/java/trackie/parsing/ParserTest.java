@@ -2,7 +2,6 @@ package trackie.parsing;
 
 import org.junit.jupiter.api.Test;
 import trackie.commands.Command;
-import trackie.commands.ExitCommand;
 import trackie.commands.InvalidCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

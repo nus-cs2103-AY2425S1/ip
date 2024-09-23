@@ -6,23 +6,22 @@ public class Parser {
     public static Command parseCommand(String input) {
         String[] arguments = input.split(" ");
         switch (arguments[0]) {
-        case "todo", "deadline", "event":
+        case "t", "d", "e":
             return new AddCommand(arguments);
         case "mark":
             return new MarkCommand(arguments);
         case "unmark":
             return new UnmarkCommand(arguments);
-        case "delete":
+        case "rm":
             return new DeleteCommand(arguments);
         case "find":
             return new FindCommand(arguments);
-        case "list":
+        case "ls":
             return new ListCommand();
-        case "bye":
-            return new ExitCommand();
+        case "help":
+            return new HelpCommand();
         default:
             return new InvalidCommand();
-
         }
     }
 

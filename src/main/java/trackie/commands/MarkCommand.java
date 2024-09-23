@@ -15,7 +15,6 @@ public class MarkCommand extends Command {
      *                  Typically, this would include the index of the task to be marked completed.
      */
     public MarkCommand(String[] arguments) {
-        super(false);
         super.arguments = arguments;
     }
 

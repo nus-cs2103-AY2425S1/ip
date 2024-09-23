@@ -26,7 +26,6 @@ public class AddCommand extends Command {
      * @param arguments An array of Strings storing the arguments provided by the user.
      */
     public AddCommand(String[] arguments) {
-        super(false);
         super.arguments = arguments;
     }
 
@@ -44,18 +43,17 @@ public class AddCommand extends Command {
     public String execute(TaskList taskList, Storage storage) throws TrackieException {
         try {
             switch (arguments[0]) {
-            case "todo":
+            case "t":
                 Task todoTask = new Todo(super.fetchDescription());
                 taskList.addTask(todoTask);
                 assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 return "Added: " + todoTask.toString();
-            case "deadline":
+            case "d":
                 Task deadlineTask = new Deadline(super.fetchDescription(), super.fetchDeadline());
                 taskList.addTask(deadlineTask);
                 assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
-
                 return "Added: " + deadlineTask.toString();
-            case "event":
+            case "e":
                 Task eventTask = new Event(super.fetchDescription(), super.fetchStartTime(), super.fetchEndTime());
                 taskList.addTask(eventTask);
                 assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
@@ -66,7 +64,7 @@ public class AddCommand extends Command {
         } catch (TrackieException e) {
             return e.getMessage();
         } catch (DateTimeParseException ex) {
-            return "Correct format for date and time: yyyy-dd-mmThh:mm:ss";
+            return "Correct format for date and time: yyyyddmm hhmm";
         } finally {
             storage.save();
         }
