@@ -120,7 +120,7 @@ public class TaskListTest {
             fail();
         } catch (JudeException je) {
             assertEquals(
-                    "You are trying to get an element of index out of the list size.", je.getMessage());
+                    "You are trying to get an element of index out of the list size 1.", je.getMessage());
         }
     }
 
@@ -148,7 +148,7 @@ public class TaskListTest {
                     new Todo("AAA").toString(), tasklist.getTask(1).toString());
             fail();
         } catch (JudeException je) {
-            assertEquals("You are trying to get an element of index out of the list size.", je.getMessage());
+            assertEquals("You are trying to get an element of index out of the list size 1.", je.getMessage());
         }
     }
 
