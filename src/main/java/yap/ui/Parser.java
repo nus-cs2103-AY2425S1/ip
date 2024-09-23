@@ -4,6 +4,8 @@ import yap.task.Deadline;
 import yap.task.DeadlineException;
 import yap.task.Event;
 import yap.task.EventException;
+import yap.task.FixedDurationTask;
+import yap.task.FixedDurationTaskException;
 import yap.task.ToDo;
 
 /**
@@ -78,6 +80,21 @@ public class Parser {
             throw new DeadlineException();
         }
         return new Deadline(description, deadline);
+    }
+
+    public static FixedDurationTask parseInputAsFixedDurationTask(String input) throws InputException {
+        String[] parts;
+        String description;
+        int duration;
+        try {
+            parts = input.split(" /duration");
+            description = parts[0].replace("duration", "").trim();
+            System.out.println(parts[1].trim());
+            duration = Integer.parseInt(parts[1].trim());
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException exception) {
+            throw new FixedDurationTaskException();
+        }
+        return new FixedDurationTask(description, duration);
     }
 
     public static String getStringFromFindCommand(String findCommand) {

@@ -68,6 +68,12 @@ public class Ui {
             return outputLine;
         }
 
+        // If user adds a fixed duration task
+        if (userInput.startsWith("fixedduration")) {
+            String outputLine = command.fixedduration(userInput);
+            return outputLine;
+        }
+
         // List functionality
         if (userInput.startsWith("list")) {
             String outputLine = command.list();

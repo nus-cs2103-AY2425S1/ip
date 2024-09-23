@@ -66,7 +66,7 @@ public class Yap {
                     System.out.println("Bye! It was really nice talking to you, see you soon :)");
                     break;
                 }
-                String userInputParseStatus = ui.reactToUserInput(userInput);
+                String yapReaction = ui.reactToUserInput(userInput);
             } catch (InputException | DateTimeParseException exception) {
                 System.out.println(exception.getMessage());
                 System.out.println(separator);

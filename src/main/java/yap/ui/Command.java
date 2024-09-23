@@ -106,6 +106,14 @@ public class Command {
         return outputLine;
     }
 
+    public String fixedduration(String userInput) throws InputException {
+        assert userInput.startsWith("duration");
+        Task task = Parser.parseInputAsFixedDurationTask(userInput);
+        String outputLine = taskList.addTask(task);
+        System.out.println(SEPARATOR);
+        return outputLine;
+    }
+
     /**
      * Processes a list command
      */

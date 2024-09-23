@@ -59,10 +59,15 @@ public class Task {
                 String startTime = taskDetails[3];
                 String endTime = taskDetails[4];
                 return new Event(description, startTime, endTime, isDone);
+            case 'F':
+                description = taskDetails[2];
+                isDone = Task.getCompletionStatusFromStoredTask(taskDetails[1].charAt(0));
+                int duration = Integer.parseInt(taskDetails[3]);
+                return new FixedDurationTask(description, duration, isDone);
             default:
                 throw new BadDataFormatException("A task format in the Data file is not valid");
             }
-        } catch (ArrayIndexOutOfBoundsException exception) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException exception) {
             throw new BadDataFormatException("The format of the file is incorrect."
                     + "Did you accidentally modify it?");
         }
