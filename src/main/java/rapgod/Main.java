@@ -27,7 +27,7 @@ public class Main extends Application {
             stage.setTitle("RAP-BOT");
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setDuke(rapGod);  // inject the rapgod.Duke instance
+            fxmlLoader.<MainWindow>getController().setDuke(rapGod);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

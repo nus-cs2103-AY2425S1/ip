@@ -1,16 +1,20 @@
 package rapgod.storage;
 
-import rapgod.tasks.Task;
-import rapgod.tasks.ToDo;
-import rapgod.tasks.Deadline;
-import rapgod.tasks.Event;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import rapgod.tasks.Deadline;
+import rapgod.tasks.Event;
+import rapgod.tasks.Task;
+import rapgod.tasks.ToDo;
+
 
 class TaskListTest {
 
@@ -72,6 +76,7 @@ class TaskListTest {
         taskList.addEventTask("Attend conference", "01/10/2024", "03/10/2024");
         assertEquals(1, taskList.getList().size());
         assertTrue(taskList.getList().get(0) instanceof Event);
-        assertEquals("[E] [ ] Attend conference (from: Oct 01 2024 to: Oct 03 2024)", taskList.getList().get(0).toString());
+        assertEquals("[E] [ ] Attend conference (from: Oct 01 2024 to: Oct 03 2024)",
+                        taskList.getList().get(0).toString());
     }
 }

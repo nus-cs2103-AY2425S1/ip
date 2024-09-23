@@ -5,7 +5,7 @@ package rapgod.exceptions;
  * This exception extends {@link RuntimeException} and provides a specific error message
  * for rude input scenarios.
  */
-public class RudeInputException extends RuntimeException{
+public class RudeInputException extends RuntimeException {
 
     /**
      * Constructs a new {@code RudeInputException} with a default message.

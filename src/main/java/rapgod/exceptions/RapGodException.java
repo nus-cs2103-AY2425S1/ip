@@ -5,7 +5,7 @@ package rapgod.exceptions;
  * This class extends {@link Exception} and is used to represent specific error conditions
  * in the application with a custom message.
  */
-public class RapGodException extends Exception{
+public class RapGodException extends Exception {
 
     /**
      * Constructs a new {@code RapGodException} with the specified detail message.

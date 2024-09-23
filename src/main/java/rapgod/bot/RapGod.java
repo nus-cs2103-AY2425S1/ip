@@ -1,45 +1,68 @@
 package rapgod.bot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import rapgod.exceptions.InvalidDateTimeException;
 import rapgod.exceptions.NoInputException;
 import rapgod.exceptions.RudeInputException;
 import rapgod.storage.DataManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
+/**
+ * The {@code RapGod} class is the main controller for the Rap Bot application.
+ * It handles user commands related to task management, such as adding, deleting,
+ * marking, and snoozing tasks. The class uses a {@link DataManager} to store
+ * and retrieve tasks.
+ *
+ * <p>Key features include:</p>
+ * <ul>
+ *     <li>Processing commands like {@code ADD}, {@code LIST}, {@code FIND},
+ *         {@code MARK}, {@code UNMARK}, and {@code DELETE}.</li>
+ *     <li>Providing a list of commands through {@link #getInitialMessage()}.</li>
+ *     <li>Validating user input to avoid empty or rude responses.</li>
+ * </ul>
+ *
+ * <p>Example usage:</p>
+ * <pre>
+ *     RapGod rapBot = new RapGod();
+ *     String response = rapBot.getResponse("ADD New Task");
+ * </pre>
+ *
+ * <p>Rude words are stored in a list, and the bot will respond to rude input
+ * with a specific message.</p>
+ *
+ * @see DataManager
+ * @see rapgod.exceptions.NoInputException
+ * @see rapgod.exceptions.RudeInputException
+ * @see rapgod.exceptions.InvalidDateTimeException
+ */
 public class RapGod {
-    DataManager dataManager = new DataManager("data/rapgod.txt");
-    public static void main(String[] args) {
-    }
     public static final ArrayList<String> RUDE_WORDS = new ArrayList<>(Arrays.asList(
             "damn", "hell", "shit", "fuck",
             "bitch", "asshole", "dickhead",
             "idiot", "moron", "stupid",
             "loser", "jerk", "creep"
     ));
+    private DataManager dataManager = new DataManager("data/rapgod.txt");
+    public static void main(String[] args) {
+    }
 
     public static String getInitialMessage() {
-        String initialise = """
-            Yo, Rap Bot's kickin off! Here's the lowdown:
-            
-            'ADD abc'                 - Adds a new task 'abc'
-        
-            'LIST'                    - This shows the full list.
-            'FIND abc, def'           - Searching for tasks with 'abc' or 'def'? This filters 'em out.
-            
-            'MARK n'                  - Mark the nth task as done. Easy peasy.
-            'UNMARK n'                - This marks the nth task as not done.
-            'DELETE n'                - Get rid of the nth task. Poof, it's gone.
-            
-            '/BY z'                   - Got a deadline? Specify it with '/BY z'.
-            '/FROM x /TO y'           - Set up an event from x to y with this.
-            'SNOOZE n /by x'          - Snooze that deadline on the nth task.
-            'SNOOZE n /from x /to y'  - Change the schedule on the nth event task.
-            
-            Time Format:              - Use dd/MM/yyyy or dd/MM/yyyy HH:mm to keep things in check.
-            """;
+        String initialise =
+                """
+                Yo, Rap Bot's kickin off! Here's the lowdown:\n
+                'ADD abc'                 - Adds a new task 'abc'\n
+                'LIST'                    - This shows the full list.
+                'FIND abc, def'           - Searching for tasks with 'abc' or 'def'? This filters 'em out.
+                'MARK n'                  - Mark the nth task as done. Easy peasy.
+                'UNMARK n'                - This marks the nth task as not done.
+                'DELETE n'                - Get rid of the nth task. Poof, it's gone.\n
+                '/BY z'                   - Got a deadline? Specify it with '/BY z'.
+                '/FROM x /TO y'           - Set up an event from x to y with this.
+                'SNOOZE n /by x'          - Snooze that deadline on the nth task.
+                'SNOOZE n /from x /to y'  - Change the schedule on the nth event task.
+                 Time Format:              - Use dd/MM/yyyy or dd/MM/yyyy HH:mm to keep things in check.
+                """;
 
         return initialise;
     }
@@ -52,7 +75,7 @@ public class RapGod {
 
         try {
 
-            assert input != null : "Yo! Input should not be null";  // Input should not be null
+            assert input != null : "Yo! Input should not be null";
             assert !input.trim().isEmpty() : "Yo! Input should not be empty";
 
             if (input == null || input.trim().isEmpty()) {
@@ -103,7 +126,8 @@ public class RapGod {
 
             case EVENT:
                 String eventDesc = input.substring(4, input.toLowerCase().indexOf("/from"));
-                String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
+                String from = input.substring(input.toLowerCase().indexOf("/from") + 6,
+                                               input.toLowerCase().indexOf("/to") - 1);
                 String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
                 assert !eventDesc.isEmpty() : "Yo! Event description should not be empty";
                 assert !from.isEmpty() : "Yo! 'From' date should not be empty";
@@ -123,7 +147,8 @@ public class RapGod {
 
             case SNOOZE_EVENT:
                 int snoozeEventIndex = CommandType.extractIndex(input, command);
-                String snoozeFromField = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
+                String snoozeFromField = input.substring(input.toLowerCase().indexOf("/from") + 6,
+                                                          input.toLowerCase().indexOf("/to") - 1);
                 String snoozeToField = input.substring(input.toLowerCase().indexOf("/to") + 4);
                 response = dataManager.getTaskList().snoozeEvent(snoozeEventIndex, snoozeFromField, snoozeToField);
                 break;
@@ -145,9 +170,9 @@ public class RapGod {
             response = "No such task exists man!";
         } catch (NoInputException | RudeInputException exc) {
             response = "RapGod:\n" + exc.getMessage();
-        } catch(IllegalArgumentException exc) {
+        } catch (IllegalArgumentException exc) {
             response = exc.getMessage();
-        }  catch (InvalidDateTimeException exc) {
+        } catch (InvalidDateTimeException exc) {
             response = exc.getMessage();
         } finally {
             return response;
@@ -173,7 +198,7 @@ public class RapGod {
                 return LIST;
             } else if (input.toLowerCase().startsWith("find ")) {
                 return FIND;
-            }else if (input.toLowerCase().startsWith("mark ")) {
+            } else if (input.toLowerCase().startsWith("mark ")) {
                 return MARK;
             } else if (input.toLowerCase().startsWith("unmark ")) {
                 return UNMARK;

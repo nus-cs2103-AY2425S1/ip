@@ -1,15 +1,24 @@
 package rapgod.utils;
 
-import rapgod.tasks.Deadline;
-import rapgod.tasks.Event;
-import rapgod.tasks.Task;
-import rapgod.tasks.ToDo;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import rapgod.tasks.Deadline;
+import rapgod.tasks.Event;
+import rapgod.tasks.Task;
+import rapgod.tasks.ToDo;
+
+/**
+ * Utility class for parsing input strings into tasks and date-time objects.
+ * This class provides methods to convert raw input into usable objects such as
+ * {@link LocalDateTime} and {@link Task}.
+ *
+ * <p>The class supports various date and time formats for parsing as well as
+ * specific formats for creating {@link Task} objects (e.g., {@link Deadline},
+ * {@link Event}, {@link ToDo}).
+ */
 public class Parser {
 
     /**
@@ -58,7 +67,8 @@ public class Parser {
         try {
             return LocalDateTime.parse(input, dateTimeFormatter4);
         } catch (DateTimeParseException e5) {
-            throw new IllegalArgumentException("Invalid date or time format. Please use formats like 'dd/MM/yyyy HHmm' or 'MMM dd yyyy'.");
+            String msg = "Invalid date or time format. Please use formats like 'dd/MM/yyyy HHmm' or 'MMM dd yyyy'.";
+            throw new IllegalArgumentException(msg);
         }
     }
 

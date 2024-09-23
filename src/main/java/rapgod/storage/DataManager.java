@@ -1,8 +1,5 @@
 package rapgod.storage;
 
-import rapgod.tasks.Task;
-import rapgod.utils.Parser;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,15 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import rapgod.tasks.Task;
+import rapgod.utils.Parser;
+
 /**
  * Manages task data stored in a file, providing functionality to read from and update the task data file.
  * This class handles file operations to persist task data, validates task entry formats, and maintains
  * a list of tasks.
  */
 public class DataManager {
+
+    /**
+     * Regular expression pattern to validate the format of task entries.
+     * The format includes an index, task type, completion status, and optional details.
+     */
+    private static final Pattern TASK_PATTERN = Pattern.compile(
+            "^\\d+\\. \\[[TDE]\\] \\[[ X]\\] .*(\\(from: .+?\\)|\\(to: .+?\\)|\\(by: .+?\\))?$"
+    );
     /**
      * Path to the file where task data is stored.
      */
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     private final Path DATA_FILE_PATH;
     private final TaskList taskList;
 
@@ -32,14 +41,6 @@ public class DataManager {
         this.DATA_FILE_PATH = Path.of(path);
         this.taskList = new TaskList(this.readMemory());
     }
-
-    /**
-     * Regular expression pattern to validate the format of task entries.
-     * The format includes an index, task type, completion status, and optional details.
-     */
-    private static final Pattern TASK_PATTERN = Pattern.compile(
-            "^\\d+\\. \\[[TDE]\\] \\[[ X]\\] .*(\\(from: .+?\\)|\\(to: .+?\\)|\\(by: .+?\\))?$"
-    );
 
     /**
      * Reads task data from the specified file and returns it as a list of {@link Task} objects.

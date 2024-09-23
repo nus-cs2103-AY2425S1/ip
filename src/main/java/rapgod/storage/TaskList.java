@@ -1,13 +1,13 @@
 package rapgod.storage;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import rapgod.tasks.Deadline;
 import rapgod.tasks.Event;
 import rapgod.tasks.Task;
 import rapgod.tasks.ToDo;
-
-import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -47,19 +47,6 @@ public class TaskList {
         sb.append(tasks);
         return sb.toString();
     }
-
-    /**
-     * Filters and displays tasks from the list that contain any of the specified keywords.
-     * <p>
-     * This method iterates through the list of tasks and checks if the description of each
-     * task contains any of the provided keywords. If a match is found, the task is displayed
-     * with its index.
-     * </p>
-     *
-     * @param keywords An array of keywords to search for in the task descriptions.
-     *                 The method will display tasks that contain at least one of these keywords.
-     *                 This parameter can be an empty array, in which case no tasks will be displayed.
-     */
     /**
      * Filters and displays tasks from the list that contain any of the specified keywords using streams.
      *
@@ -88,6 +75,14 @@ public class TaskList {
     }
 
 
+    /**
+     * Marks the task at the specified index as done and returns a confirmation message.
+     * The task's status is updated to indicate completion.
+     *
+     * @param index The 1-based index of the task to mark as done.
+     * @return A confirmation message that includes the details of the marked task.
+     * @throws IndexOutOfBoundsException If the provided index is out of range.
+     */
     public String markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
         StringBuilder sb = new StringBuilder();
@@ -183,7 +178,7 @@ public class TaskList {
      * @param from The start date and time of the event.
      * @param to The end date and time of the event.
      */
-    public String addEventTask(String eventDesc, String from, String to){
+    public String addEventTask(String eventDesc, String from, String to) {
         list.add(new Event(eventDesc, from, to));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this event: \n%s\n", list.get(list.size() - 1)));

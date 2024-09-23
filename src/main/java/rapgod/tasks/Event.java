@@ -1,16 +1,16 @@
 package rapgod.tasks;
 
-import rapgod.exceptions.InvalidDateTimeException;
-import rapgod.utils.Parser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import rapgod.exceptions.InvalidDateTimeException;
+import rapgod.utils.Parser;
 
 /**
  * Represents an event with a description and a time range.
  * This subclass of {@link Task} includes information about when the event starts and ends.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -65,7 +65,8 @@ public class Event extends Task{
      * and the start and end times formatted as "MMM dd yyyy hh:mma".
      * If the time is "12:00am", it is omitted from the display.
      *
-     * @return A string representation of the Event in the format "[E] [status] description (from: startTime to: endTime)".
+     * @return A string representation of the Event in the format "[E] [status] description
+     *              (from: startTime to: endTime)".
      */
     @Override
     public String toString() {
@@ -73,11 +74,11 @@ public class Event extends Task{
         String from = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
         String to = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
 
-        if(from.endsWith("12:00am")) {
+        if (from.endsWith("12:00am")) {
             from = from.substring(0, from.length() - 8);
         }
 
-        if(to.endsWith("12:00am")) {
+        if (to.endsWith("12:00am")) {
             to = to.substring(0, to.length() - 8);
         }
         return String.format("[E] [%s] %s (from: %s to: %s)", mark, super.description, from, to);

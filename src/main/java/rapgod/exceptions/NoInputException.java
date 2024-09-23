@@ -5,7 +5,7 @@ package rapgod.exceptions;
  * This class extends {@link RuntimeException} and represents an error condition
  * where the user is expected to provide some input but does not.
  */
-public class NoInputException extends RuntimeException{
+public class NoInputException extends RuntimeException {
 
     /**
      * Constructs a new {@code NoInputException} with a default detail message.

@@ -1,11 +1,13 @@
 package rapgod.utils;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDateTime;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
-
     @Test
     public void testParseToDateTime_validFormat1_dateTimeObjectReturned() {
         LocalDateTime actual = Parser.parseToDateTime("23/08/2024 1600");
@@ -44,7 +46,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseToDateTime_invalidFormat_IllegalArgumentExceptionThrown() {
+    public void testParseToDateTime_invalidFormat_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> {
             Parser.parseToDateTime("1/1/2024 04:30pm");
         });
