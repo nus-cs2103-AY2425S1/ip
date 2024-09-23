@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, trumpImage)
         );
 
-        if (input.equals("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             maga.closeBot();
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> System.exit(0));

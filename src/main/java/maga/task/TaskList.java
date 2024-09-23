@@ -107,7 +107,7 @@ public class TaskList {
             assert(taskNumber >= 0);
             Task temp = taskList.get(taskNumber);;
             temp.markAsUndone();
-            return "Here's the task promised but not completed, just like the DEMS\n"
+            return "Here's the task promised but not completed, just like the DEMS:\n"
                     + temp.getStatusIcon() + temp.getDescription() + "\n";
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             return "Stop trying to unmark tasks like ILLEGAL ALIENS after"
@@ -126,7 +126,7 @@ public class TaskList {
         int count = 1;
         for (Task task : taskList) {
             if (task.getDescription().contains(content)) {
-                message.append(count + ". ").append(task.toString()).append("\n");
+                message.append(count + ". ").append(task.printTask()).append("\n");
             }
             count++;
         }
@@ -145,10 +145,10 @@ public class TaskList {
         if (Objects.equals(command.getCommandType(), "todo")) {
             task = new TodoTask(false, command.getDescription());
         } else if (Objects.equals(command.getCommandType(), "event")) {
-            task = new EventTask(false, command.getCommandType(), command.getContent()[0]);
+            task = new EventTask(false, command.getDescription(), command.getContent()[0]);
         } else if (Objects.equals(command.getCommandType(), "deadline")) {
             task = new DeadlineTask(false,
-                    command.getCommandType(), command.getContent()[0], command.getContent()[1]);
+                    command.getDescription(), command.getContent()[0], command.getContent()[1]);
         }
 
         try {

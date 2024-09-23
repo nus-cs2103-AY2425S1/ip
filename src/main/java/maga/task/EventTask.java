@@ -55,6 +55,6 @@ public class EventTask extends Task {
     public String printTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd");
         String formattedLocalDate = localDate.format(formatter);
-        return getTaskType() + getStatusIcon() + getDescription() + " due on " + formattedLocalDate + " " + getTag();
+        return getTaskType() + getStatusIcon() + getDescription() + " on " + formattedLocalDate + " " + getTag();
     }
 }

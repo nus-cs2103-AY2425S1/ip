@@ -13,12 +13,8 @@ public class MagaTest {
     @Test
     public void deleteTest() {
         TaskList taskList = new TaskList();
-        try {
-            taskList.addTask(new TodoTask(false, "Test 1"));
-            taskList.addTask(new TodoTask(false, "Test 2"));
-        } catch (LoadTaskException e) {
-            System.out.print("Test failed!");
-        }
+        taskList.addTask(new TodoTask(false, "Test 1"));
+        taskList.addTask(new TodoTask(false, "Test 2"));
         taskList.deleteTask(3); //invalid delete
         taskList.deleteTask(-1); //invalid delete
         taskList.deleteTask(1);

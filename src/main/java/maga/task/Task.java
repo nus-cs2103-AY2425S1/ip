@@ -15,7 +15,7 @@ public abstract class Task {
     private static final Integer TODOLENGTH = 4;
     private static final Integer EVENTLENGTH = 5;
     private static final Integer DEADLINELENGTH = 6;
-    private String tag;
+    private String tag = "";
     protected String description;
     protected boolean isDone;
 

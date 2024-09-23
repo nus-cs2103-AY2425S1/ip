@@ -1,6 +1,7 @@
-package maga.ui;
+package maga;
 
 import javafx.application.Application;
+import maga.ui.Main;
 
 /**
  * A launcher class to workaround classpath issues.

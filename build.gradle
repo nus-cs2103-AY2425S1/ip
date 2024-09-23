@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("maga.java.Launcher")
+    mainClass.set("maga.Launcher")
 }
 
 shadowJar {
