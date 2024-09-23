@@ -128,3 +128,11 @@ Examples:
 Saves all tasks and closes the app.
 
 Format: `bye`
+
+## Acknowledgements
+
+Arona Icon: [Source](https://bluearchive.fandom.com/wiki/Arona?file=Arona_Icon.png)
+
+Sensei Icon: [Source](https://bluearchive.fandom.com/wiki/Sensei?file=Sensei+Anime+Icon.png)
+
+Images © 2021 NEXON Korea Corp. & NEXON GAMES Co., Ltd.
