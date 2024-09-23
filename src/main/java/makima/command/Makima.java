@@ -45,6 +45,15 @@ public class Makima {
     }
 
     /**
+     * Returns if the task list is empty.
+     *
+     * @return boolean
+     */
+    public boolean isTaskListEmpty() {
+        return tasks.isEmpty();
+    }
+
+    /**
      * Returns a formatted string representing all tasks
      *
      * @return String representing all currently tracked tasks

@@ -16,10 +16,18 @@ public class WaitingState extends State {
             return makima.getTaskList();
 
         case "mark":
+            if (makima.isTaskListEmpty()) {
+                return "No tasks!";
+            }
+
             makima.setState(new MarkState());
             return makima.getTaskList() + "Which item would you like to mark?\n";
 
         case "unmark":
+            if (makima.isTaskListEmpty()) {
+                return "No tasks!";
+            }
+
             makima.setState(new UnmarkState());
             return makima.getTaskList() + "Which item would you like to unmark?\n";
 
@@ -36,14 +44,26 @@ public class WaitingState extends State {
             return "What is the event name?\n";
 
         case "delete":
+            if (makima.isTaskListEmpty()) {
+                return "No tasks!";
+            }
+
             makima.setState(new DeleteState());
             return "Which item would you like to delete?\n";
 
         case "find":
+            if (makima.isTaskListEmpty()) {
+                return "No tasks!";
+            }
+
             makima.setState(new FindState());
             return "What tasks are you searching for?\n";
 
         case "prioritise":
+            if (makima.isTaskListEmpty()) {
+                return "No tasks!";
+            }
+
             makima.setState(new PriorityState());
             return makima.getTaskList() + "Which task would you like to change the priority of?\n";
 
