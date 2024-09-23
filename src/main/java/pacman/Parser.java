@@ -77,7 +77,7 @@ public class Parser {
         Parser.list = list;
         String type = command.split(" ", 2)[0];
         switch (type) {
-        case "bye" -> {
+        case "bye", "b" -> {
             return true;
         }
         case "list", "l" -> ui.showResult(list.toString());

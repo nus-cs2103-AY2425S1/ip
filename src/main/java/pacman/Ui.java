@@ -42,8 +42,10 @@ public class Ui {
      */
     public void showResult(String result) {
         System.out.println("  " + result);
+        if (!output.isEmpty()) {
+            output = output.concat(System.lineSeparator());
+        }
         output = output.concat(result);
-        output = output.concat(System.lineSeparator());
     }
 
     public String flushOutput() {

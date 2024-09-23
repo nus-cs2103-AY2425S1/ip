@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import pacman.gui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Pacman using FXML.
  */
 public class Main extends Application {
     private Pacman pacman = new Pacman();
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setPacman(pacman);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setPacman(pacman);  // inject the Pacman instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
