@@ -5,7 +5,7 @@ Lewis the chatterbox is a **command-line application** for managing tasks. It of
 user-friendly and interactive way to manage to-dos, deadlines, and events. Lewis
 does the thinking for you, and keeps you on track of your **immediate priorities**.
 
-![Screenshot of Lewis the Chatterbox GUI](.src/docs/Ui.png)
+![Screenshot of Lewis the Chatterbox GUI](./docs/Ui.png)
 
 -------------------------------------------------------
 
