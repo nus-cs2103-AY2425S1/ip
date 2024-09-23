@@ -42,6 +42,7 @@ public class MessageBox extends HBox {
         ObservableList<Node> nodes = FXCollections.observableArrayList(getChildren());
         FXCollections.reverse(nodes);
         getChildren().setAll(nodes);
+        getStyleClass().add("reversed");
     }
 
     /**
