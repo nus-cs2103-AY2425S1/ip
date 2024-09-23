@@ -18,7 +18,7 @@ public class Main extends Application {
 
     {
         try {
-            kafka = new Kafka("C:/Users/Nicholas/Downloads/Kafka.txt");
+            kafka = new Kafka("data/Kafka.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -31,7 +31,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setKafka(kafka);  // inject the Kafka instance
+            fxmlLoader.<MainWindow>getController().setKafka(kafka);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
