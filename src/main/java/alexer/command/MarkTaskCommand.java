@@ -1,6 +1,7 @@
 package alexer.command;
 
 import alexer.Alexer;
+import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
@@ -25,14 +26,24 @@ public class MarkTaskCommand extends Command {
 
     @Override
     public Response run(String... arguments) {
-        int index = Integer.parseInt(arguments[0]); // assume index is valid integer, will handle error later
-        TaskManager taskManager = Alexer.getInstance().getTaskManager();
+        try {
+            int index = Integer.parseInt(arguments[0]);
+            TaskManager taskManager = Alexer.getInstance().getTaskManager();
 
-        // assume input here is valid, we will handle exceptions later
-        taskManager.getTask(index - 1).markAsDone();
-        taskManager.saveTasks();
+            Task task = taskManager.getTask(index - 1);
+            if (task == null) {
+                return new Response("Error: I cannot mark a task that is non-existent.",
+                        Response.ResponseType.ERROR);
+            }
 
-        return new Response(String.format("%s\n\n\t%s",
-                MESSAGE_MARK_TASK, taskManager.getTask(index - 1)));
+            task.markAsDone();
+            taskManager.saveTasks();
+
+            return new Response(String.format("%s\n\n\t%s",
+                    MESSAGE_MARK_TASK, taskManager.getTask(index - 1)));
+        } catch (NumberFormatException e) {
+            return new Response("Error: That does not seem to be a valid task index, please try again!",
+                    Response.ResponseType.ERROR);
+        }
     }
 }
