@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (elysia.IsExit()) {
+        if (elysia.isExit()) {
             // Schedule the application to exit after 1.5 seconds
             Timeline timeline = new Timeline(new KeyFrame(
                     Duration.millis(1250),

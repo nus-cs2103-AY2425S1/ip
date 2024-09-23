@@ -198,6 +198,9 @@ public class Parser {
             case "delete":
                 result = Integer.parseInt(input.substring(6).trim()) - 1;
                 break;
+            default:
+                result = -1;
+                break;
             }
         } catch (Exception e) {
             // leave it blank to throw invalid number error

@@ -49,7 +49,7 @@ public abstract class Task {
      * Returns a string representation of the task, including its status icon and description.
      *
      * @return A string in the format "[status icon] [description]", where [status icon] represents the task's
-     * completion status (e.g., "X" for done, " " for not done), and [description] is the task's description.
+     *     completion status (e.g., "X" for done, " " for not done), and [description] is the task's description.
      */
     @Override
     public String toString() {

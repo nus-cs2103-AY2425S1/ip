@@ -61,7 +61,7 @@ public class Elysia {
         return ui.getWelcomeMessage();
     }
 
-    public boolean IsExit() {
+    public boolean isExit() {
         return this.isExit;
     }
 }

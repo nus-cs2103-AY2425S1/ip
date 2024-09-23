@@ -10,6 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * The main application class for Elysia, which extends {@link Application}.
+ * This class sets up the main window of the application and initializes
+ * the Elysia instance.
+ */
 public class Main extends Application {
     private Elysia elysia = new Elysia();
 
