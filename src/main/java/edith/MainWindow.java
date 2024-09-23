@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
 
     /** The profile images displayed in dialog boxes for the user and edith respectively. */
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image EdithImage = new Image(this.getClass().getResourceAsStream("/images/DaEdith.png"));
+    private Image edithImage = new Image(this.getClass().getResourceAsStream("/images/DaEdith.png"));
 
     /**
      * Initializes the GUI components.
@@ -55,6 +55,13 @@ public class MainWindow extends AnchorPane {
      */
     public void setEdith(Edith e) {
         edith = e;
+        displayGreeting();
+    }
+
+    private void displayGreeting() {
+        String greetingMessage = edith.getUi().showGreeting();
+        DialogBox edithBox = DialogBox.getEdithDialog(greetingMessage, edithImage);
+        dialogContainer.getChildren().add(edithBox);
     }
 
     /**
@@ -68,7 +75,7 @@ public class MainWindow extends AnchorPane {
         String edithText = edith.reply(userText);
 
         DialogBox userBox = DialogBox.getUserDialog(userText, userImage);
-        DialogBox edithBox = DialogBox.getEdithDialog(edithText, EdithImage);
+        DialogBox edithBox = DialogBox.getEdithDialog(edithText, edithImage);
 
         dialogContainer.getChildren().addAll(userBox, edithBox);
         userInput.clear();

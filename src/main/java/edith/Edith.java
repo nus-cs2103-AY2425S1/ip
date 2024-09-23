@@ -43,42 +43,14 @@ public class Edith {
             System.err.println(e.getMessage() + " Starting with an empty list.");
             tasks = new TaskList();
         } catch (IOException e) {
-            System.err.println("An error occurred while loading saved Edith.task list. Starting with an empty list.");
+            System.err.println("An error occurred while loading saved task list. Starting with an empty list.");
             tasks = new TaskList();
         }
         this.tasks = tasks;
     }
 
-    /**
-     * Starts the EDITH chatbot application.
-     * <p>
-     * Displays a greeting message, then enters a loop to continuously prompt the user for input, parse and execute
-     * commands. The loop terminates when an ExitCommand is executed. Handles any exceptions that occur during
-     * command execution or date/time parsing.
-     * </p>
-     */
-    public void run() {
-        ui.showGreeting();
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
-
-        while (true) {
-            userInput = scanner.nextLine();
-
-            try {
-                Command command = parser.parse(userInput);
-                command.execute(tasks, ui, storage);
-                if (command.isExit()) {
-                    break;
-                }
-            } catch (DateTimeParseException e) {
-                System.err.println(ui.invalidDateTimeError());
-            } catch (EdithException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-
-        scanner.close();
+    public Ui getUi() {
+        return this.ui;
     }
 
     public String reply(String userInput) {
