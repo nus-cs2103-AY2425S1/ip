@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-
 <fx:root alignment="TOP_RIGHT"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
@@ -19,4 +18,5 @@
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
     </padding>
+    <spacing>10</spacing>
 </fx:root>
