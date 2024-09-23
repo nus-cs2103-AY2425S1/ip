@@ -20,10 +20,8 @@ public class FindCommand extends Command {
         String command = getDescription();
         String keyword = Parser.splitCommandAndTaskDescription(command);
 
-        // List to hold matching tasks
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
-        // Iterate through all tasks and check if the description contains the keyword
         for (int i = 0; i < tasks.getTaskListLength(); i++) {
             Task task = tasks.getTask(i);
             if ((task.getDescription()).contains(keyword)) {
@@ -31,7 +29,6 @@ public class FindCommand extends Command {
             }
         }
 
-        // Display the matching tasks
         if (matchingTasks.isEmpty()) {
             return ui.displayNoMatchingTasks();
         } else {
