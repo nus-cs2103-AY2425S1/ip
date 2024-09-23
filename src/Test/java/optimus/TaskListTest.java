@@ -19,7 +19,7 @@ public class TaskListTest {
                 new Deadline("Submit assignment", "2024-10-10 16:00"),
                 new Event("Project meeting", "2024-09-20 16:00", "2024-09-21 17:00")
         ));
-        ui = new Ui(); // Assuming Ui class exists
+        ui = new Ui();
     }
 
     // Basic tests
