@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Rei rei = new Rei("data/rei.txt");
+    private Rei rei = new Rei("./data/rei.txt");
 
     @Override
     public void start(Stage stage) {

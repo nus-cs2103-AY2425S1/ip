@@ -1,5 +1,6 @@
 package rei;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +26,26 @@ public class Rei {
     private static final int UNTAG_COMMAND_LENGTH = 5;
     private static final int VIEWTAGS_COMMAND_LENGTH = 8;
 
+
     /**
      * Constructs a REI instance
      * @param filePath where to load the stored data
      */
     public Rei(String filePath) {
-        this.storage = new Storage(filePath);
-        this.tasks = new TaskList(storage.load());
+
+        // Adapted from https://github.com/adipanda2002/ip/blob/master/src/main/java/pandabot/main/PandaBot.java
+        assert filePath != null : "File path for task storage should not be null.";
+        storage = new Storage(filePath);
+        TaskList tasks;
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            System.out.println(("Error loading tasks: " + e.getMessage()));
+            tasks = new TaskList();
+        }
+        this.tasks = tasks;
     }
+
 
     /**
      * Gets REI's response for a prompt

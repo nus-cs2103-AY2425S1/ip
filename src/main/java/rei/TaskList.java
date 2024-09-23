@@ -17,6 +17,10 @@ public class TaskList {
         this.listOfTasks = listOfTasks;
     }
 
+    public TaskList() {
+        this.listOfTasks = new ArrayList<>();
+    }
+
 
 
     /**
