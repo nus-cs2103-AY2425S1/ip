@@ -4,7 +4,7 @@
 
 [![GitHub Release](https://img.shields.io/github/v/release/zeepheru/ip)](https://github.com/zeepheru/ip/releases)
 
-This is the chatbot `torne.ui.Torne`, short for `Torment Nexus`.
+This is the chatbot `TORNE`, short for `Torment Nexus`.
 
 ## How to Run
 
