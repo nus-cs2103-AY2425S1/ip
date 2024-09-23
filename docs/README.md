@@ -1,13 +1,10 @@
 # Jeriel User Guide
 
-// Update the title above to match the actual product name
 Welcome to Jeriel, your personal task assistant! This guide will help you understand how to use Jeriel to manage your tasks efficiently.
 
 
-// Product screenshot goes here
 ![ChatBot UI](Ui.png)
 
-// Product intro goes here
 
 ## Commands
 
@@ -101,24 +98,23 @@ bye - Exits the program
 // Feature details -->
 
 ```
-   Hello from
-        _  ____  ___   _  ____  _      
-       | || ___|| _ \ | || ___|| |     
-       | |||___ ||_> || |||___ | |     
-    _  | || ___||  _/ | || ___|| |     
-   | |_| |||___ ||\\  | |||___ | |____ 
-    \___/ |____||| \\ |_||____||______|
-   
-   ____________________________________________________________
-    Hello! I'm Jeriel
-    What can I do for you?
-   ____________________________________________________________
+Hello from
+     _  ____  ___   _  ____  _      
+    | || ___|| _ \ | || ___|| |     
+    | |||___ ||_> || |||___ | |     
+ _  | || ___||  _/ | || ___|| |     
+| |_| |||___ ||\\  | |||___ | |____ 
+ \___/ |____||| \\ |_||____||______|
+
+____________________________________________________________
+ Hello! I'm Jeriel
+ What can I do for you?
+____________________________________________________________
 ```
 
 
 ## Project Directory Structure
-
-```plaintext
+```
 ├── .gradle
 ├── app
 ├── build
