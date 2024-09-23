@@ -22,7 +22,7 @@ public class EventState extends State {
         switch (state) {
         case NAME:
             name = input;
-            state = State.END_TIME;
+            state = State.START_TIME;
             return "What is the start time?\n";
         case START_TIME:
             assert name != null;

@@ -1,5 +1,7 @@
 package makima.task;
 
+import java.util.ArrayList;
+
 /**
  * Abstract class task
  */
@@ -16,6 +18,13 @@ public abstract class Task {
     private String name = "";
     private boolean isDone = false;
     private PriorityLevel priorityLevel = PriorityLevel.LOW;
+
+    /**
+     * Instantiates an empty task, used for load purposes. All fields are either set to NULL or their default values.
+     */
+    Task() {
+
+    }
 
     public Task(String name) {
         this.name = name;
@@ -93,6 +102,28 @@ public abstract class Task {
      */
     public PriorityLevel getPriority() {
         return this.priorityLevel;
+    }
+
+    /**
+     * Helper function to load from a string representing the task.
+     *
+     * @param data - List of strings representing the task
+     * @return if loading was successful
+     */
+    boolean load(ArrayList<String> data) {
+        name = data.get(0);
+        isDone = Boolean.parseBoolean(data.get(1));
+        switch (data.get(2)) {
+        case "HIGH":
+            priorityLevel = Task.PriorityLevel.HIGH;
+            break;
+        case "LOW":
+            priorityLevel = Task.PriorityLevel.LOW;
+            break;
+        default:
+            return false;
+        }
+        return true;
     }
 
 }
