@@ -4,6 +4,11 @@
 
 Jude the chatbot, a personal assistant that will help you manage your tasks. 
 
+## Prerequisite
+Go to the [latest release page](https://github.com/Judy1x4/ip/releases), and download jude.jar file in an empty folder in your local computer. 
+
+Then, open a terminal to navigate to the jar location, then run the `java -jar "JAR_FILE_NAME"` command.
+
 ## Adding tasks
 
 * You can add three different types of tasks:
@@ -20,7 +25,7 @@ Jude the chatbot, a personal assistant that will help you manage your tasks.
   - `deadline [description] /by [date_and_time]`
   - `event [description] /from [date_and_time] /to [date_and_time]`
 
-    where date_and_time = `d/M/yyyy HHmm`
+    where date_and_time has a format `d/M/yyyy HHmm`
 
 
 * Example input: 
@@ -32,8 +37,7 @@ event Lecture /from 29/9/2020 1600 /to 29/9/2020 1800
 ```
 
 ## Commands
-> [!NOTE]
-> refer to Detailed Explanations section below for more detailed explanation of some commands.
+> Refer to Detailed Explanations section below for more detailed explanation of some commands.
 
 `list`: shows the current tasklist status.
 
