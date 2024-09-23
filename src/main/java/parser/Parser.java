@@ -39,7 +39,8 @@ public class Parser {
      * @throws UnknownWordException if the command is unknown
      * @throws IncompleteDescException if the command is not fully completed in the right format
      */
-    public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException {
+    public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException,
+            InvalidDeadlineException {
         /*if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";*/
 
@@ -89,6 +90,11 @@ public class Parser {
 
             }
 
+        } else if (checkIncompleteDeadlineCommand(command)) {
+
+            String str = "Please specify a deadline for deadline or event tasks.";
+            throw new InvalidDeadlineException(str);
+
         } else if (!checkUnknownCommand(command)) {
 
             String exc = "Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
@@ -118,6 +124,21 @@ public class Parser {
         String[] split = cmd.trim().split(" ", 2);
         return split.length == 1;
     }
+
+    public static boolean checkIncompleteDeadlineCommand(String cmd) {
+        assert cmd != null : "Command should not be null.";
+        if (cmd.startsWith("deadline")) {
+            return !(cmd.contains("/by"));
+        } else if (cmd.startsWith("event")) {
+            boolean hasFrom = cmd.contains("/from");
+            boolean hasTo = cmd.contains("/to");
+            boolean both = cmd.contains("/from") && cmd.contains("/to");
+            return (!hasFrom && !hasTo) || (hasFrom && !hasTo) || (!hasFrom && hasTo);
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Checks if command starts with a task type

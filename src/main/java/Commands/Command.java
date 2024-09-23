@@ -1,5 +1,9 @@
 package Commands;
 
+import exception.IncompleteDescException;
+import exception.InvalidDeadlineException;
+import exception.UnknownWordException;
+
 public abstract class Command {
 
     public String cmd;

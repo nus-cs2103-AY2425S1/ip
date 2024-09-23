@@ -1,6 +1,7 @@
 package prince;
 
 import exception.IncompleteDescException;
+import exception.InvalidDeadlineException;
 import exception.UnknownWordException;
 import parser.Parser;
 import storage.Storage;
@@ -106,7 +107,7 @@ public class Prince {
             assert response != null : "Response should not be null";
             Storage.pushTasksToFile(TaskList.getList());
             return response;
-        } catch (IncompleteDescException | UnknownWordException e) {
+        } catch (IncompleteDescException | UnknownWordException | InvalidDeadlineException e) {
             return ui.printErrorMessage(e.getMessage());
         }
     }
