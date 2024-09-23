@@ -20,6 +20,7 @@ ZBot is a task management application that helps you keep track of your tasks ef
   - [Saving the data](#saving-the-data)
   - [Command summary](#command-summary)
   - [Known issues](#known-issues)
+  - [Version updates](#version-updates)
 
 ## Quickstart
 1. Ensure you have Java `17` or above installed in your Computer.
@@ -201,4 +202,14 @@ ZBot data are saved in the hard disk automatically after any command that change
 
 ## Known issues
 
-1. Using comma `,` in task description and note. As the tasks data are stored with `,` delimiter, using `,` in task description or note will cause subsequent text to be lost or parsed as a note upon relaunching of app. As solving the problem requires the non-trivial task of reformating existing storage data, users are advised againsts using `,` in task description of notes until future releases. Instead, keep task description short and include further information by utilising the `note` feature.
+1. Using comma `|` in task description and note. As the tasks data are stored with `|` delimiter, using `|` in task description or note will cause subsequent text to be lost or parsed as a note upon relaunching of app. As solving the problem requires the non-trivial task of reformating existing storage data, users are advised againsts using `|` in task description of notes until future releases. Instead, keep task description short and include further information by utilising the `note` feature. 
+
+2. Corrupted data file. Corrupted data file will cause unexpected error in the application. Users are **advised against** manually editing the data file. If the file is corrupted by any unintentional actions, delete the `./data/tasks.txt` file and restart the app. Note that lost data cannot be retrieved.
+
+## Version updates
+
+> In version 1.0
+> 
+> Issue 1: Using comma `,` in task description and note. As the tasks data are stored with `,` delimiter, using `,` in task description or note will cause subsequent text to be lost or parsed as a note upon relaunching of app. As solving the problem requires the non-trivial task of reformating existing storage data, users are advised againsts using `,` in task description of notes until future releases. Instead, keep task description short and include further information by utilising the `note` feature. 
+
+Fix: The tasks data are now delmited by `|` which is a less used character in english writing. It is noted, however, that similar issue persists if user includes `|` in the task's description and/or note. Refer to [issue #1](#known-issues) for more details.
