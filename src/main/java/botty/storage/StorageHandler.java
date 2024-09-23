@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -79,7 +78,7 @@ public class StorageHandler {
                 e.printStackTrace();
             }
         }
-        
+
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
 
