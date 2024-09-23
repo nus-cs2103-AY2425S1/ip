@@ -1,5 +1,7 @@
 package alexer.ui;
 
+import javafx.animation.Animation;
+import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -49,6 +52,25 @@ public class MessageBox extends HBox {
     private void setColor(Response.ResponseType type) {
         if (type == Response.ResponseType.ERROR) text.getStyleClass().add("error");
     }
+
+    public void animateText() {
+        String content = text.getText();
+        int duration = content.length() > 300 ? 3000 : content.length() > 80 ? 1500 : 750;
+        final Animation animation = new Transition() {
+            {
+                setCycleDuration(Duration.millis(duration));
+            }
+
+            protected void interpolate(double frac) {
+                final int length = content.length();
+                final int n = Math.round(length * (float) frac);
+                text.setText(content.substring(0, n));
+            }
+        };
+
+        animation.play();
+    }
+
 
     /**
      * Creates a message box originating from the user (user input).
