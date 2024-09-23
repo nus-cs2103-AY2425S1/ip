@@ -58,15 +58,18 @@ public class TaskList {
 
     public String find(String keyword) {
         boolean hasMatch = false;
-        int i = 1;
+        int i = 0;
         String message = "Here are the matching tasks in your list:";
+
         for (Task task : this.tasks) {
-            if (task.hasMatch(keyword)) {
-                hasMatch = true;
-                message += "\n" + i + ". " + task;
-            }
             i++;
+            if (! task.hasMatch(keyword)) {
+                continue;
+            }
+            hasMatch = true;
+            message += "\n" + i + ". " + task;
         }
+
         if (!hasMatch) {
             message = "There were no matching tasks in your list.";
         }

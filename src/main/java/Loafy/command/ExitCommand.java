@@ -9,10 +9,11 @@ import loafy.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Prints the exit message.
+     * Returns the exit message.
      *
      * @param tasks Task list used in the program.
-     * @param ui User interface which will print the message.
+     * @param ui User interface which will generate the exit message.
+     * @return The exit message.
      */
     public String execute(TaskList tasks, Ui ui) {
         return ui.showExit();

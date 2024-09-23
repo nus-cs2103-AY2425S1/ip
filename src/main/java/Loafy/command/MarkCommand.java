@@ -24,11 +24,12 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the task with the task id as done or undone in the task list.
-     * Prints a message to confirm marking of the task.
+     * Returns a message to confirm marking of the task.
      * If the task id is invalid, an error message is shown to inform the user.
      *
      * @param tasks Task list on which the task will be marked.
-     * @param ui User interface which will print the message.
+     * @param ui User interface which will format the error message.
+     * @return The message to be viewed by the user.
      */
     public String execute(TaskList tasks, Ui ui) {
         if (tasks.isValid(this.taskId)) {

@@ -22,10 +22,11 @@ public class AddCommand extends Command {
 
     /**
      * Adds the task in this command to the end of the specified task list.
-     * Prints a message to confirm the addition of the task.
+     * Returns a message to confirm the addition of the task.
      *
      * @param tasks Task list to which the task will be added to.
-     * @param ui User interface which will print the message.
+     * @param ui User interface.
+     * @return The message to confirm the addition of the task.
      */
     public String execute(TaskList tasks, Ui ui) {
         return tasks.add(this.task);

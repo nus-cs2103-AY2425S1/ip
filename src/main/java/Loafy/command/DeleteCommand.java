@@ -21,11 +21,12 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes the task with the task id in this command from the specified task list.
-     * Prints a message to confirm the deletion of the task.
-     * If the task id is invalid, an error message is shown to inform the user.
+     * Returns a message to confirm the deletion of the task.
+     * If the task id is invalid, an error message is returned to inform the user.
      *
      * @param tasks Task list from which the task will be deleted from.
-     * @param ui User interface which will print the message.
+     * @param ui User interface which will format the error message.
+     * @return The message to be viewed by the user.
      */
     public String execute(TaskList tasks, Ui ui) {
         if (tasks.isValid(this.taskId)) {
