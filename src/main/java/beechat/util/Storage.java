@@ -46,6 +46,9 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
+        assert file.exists() : "Task file should exist when loading tasks";
+        assert file.canRead() : "Task file should be readable";
+
         try {
             if (!file.exists()) {
                 new File(file.getParent()).mkdirs();
