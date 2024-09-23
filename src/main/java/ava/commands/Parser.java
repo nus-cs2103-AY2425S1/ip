@@ -24,7 +24,11 @@ public class Parser {
      * @return Command corresponding to user's input.
      */
     public static Command parseCommand(String command) {
-        if (command.equals("list")) {
+        command = command.toLowerCase();
+
+        if (command.startsWith("help")) {
+            return Command.HELP;
+        } else if (command.startsWith("list")) {
             return Command.LIST;
         } else if (command.startsWith("mark")) {
             return Command.MARK;
