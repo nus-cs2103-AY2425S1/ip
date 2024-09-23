@@ -45,6 +45,11 @@ public class Ui {
                 + "    " + t;
     }
 
+    public String snooze(Task t) {
+        return "  Oh, the task is delayed? Do you need any help?\n"
+                + "    " + t;
+    }
+
     public String delete(Task t, TaskList taskList) {
         return "  I've removed this task:\n"
                 + "    " + t + "\n"
