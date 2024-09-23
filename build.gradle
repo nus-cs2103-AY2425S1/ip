@@ -35,8 +35,12 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Jeriel"
     archiveClassifier = null
+    archiveVersion = '1.0'
+    manifest {
+        attributes 'Main-Class': 'jeriel.ui.Main'
+    }
 }
 
 jar {
@@ -51,6 +55,7 @@ jar {
 }
 
 run {
+    enableAssertions = true
     jvmArgs += [
         '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',  // Update this path
         '--add-modules', 'javafx.controls,javafx.fxml'
