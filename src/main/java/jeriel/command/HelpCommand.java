@@ -16,7 +16,8 @@ public class HelpCommand extends Command {
             + "7. delete <task number> - Deletes a task\n"
             + "8. find <keyword> - Finds tasks that contain the keyword\n" // Added find command
             + "9. help - Shows this help message\n"
-            + "10. bye - Exits the program";
+            + "10. bye - Exits the program\n"
+            + "Let’s get to work! 💪";
         
         return helpMessage;
     }

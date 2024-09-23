@@ -39,10 +39,10 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: #D9FDD3; -fx-padding: 10px; -fx-background-radius: 10;");
+        db.setStyle("-fx-background-color: #FFD700; -fx-padding: 10px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10;"); // Fun, playful style
         db.setAlignment(Pos.CENTER_RIGHT);
         ObservableList<Node> children = FXCollections.observableArrayList(db.getChildren());
-        FXCollections.reverse(children); // Ensure user image is on the right
+        FXCollections.reverse(children); 
         db.getChildren().setAll(children);
         return db;
     }
@@ -52,7 +52,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getBotDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: #EFEFEF; -fx-padding: 10px; -fx-background-radius: 10;");
+        db.setStyle("-fx-background-color: #B0E0E6; -fx-padding: 10px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10;"); // Fun, playful style
         db.setAlignment(Pos.CENTER_LEFT);
         return db;
     }

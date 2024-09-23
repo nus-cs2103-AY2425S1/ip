@@ -24,7 +24,7 @@ public class MainWindowController {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        // Handle enter key press
+        dialogContainer.getChildren().add(DialogBox.getBotDialog("Hey there! I'm Jeriel!", botImage.getImage()));
         userInput.setOnAction(event -> handleUserInput());
     }
 
