@@ -16,7 +16,6 @@ public class DeleteCommand extends Command {
      *                  Typically, this would include the index of the task to be deleted.
      */
     public DeleteCommand(String[] arguments) {
-        super(false);
         super.arguments = arguments;
     }
 

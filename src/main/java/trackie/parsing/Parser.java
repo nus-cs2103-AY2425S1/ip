@@ -18,11 +18,10 @@ public class Parser {
             return new FindCommand(arguments);
         case "ls":
             return new ListCommand();
-        case "bye":
-            return new ExitCommand();
+        case "help":
+            return new HelpCommand();
         default:
             return new InvalidCommand();
-
         }
     }
 

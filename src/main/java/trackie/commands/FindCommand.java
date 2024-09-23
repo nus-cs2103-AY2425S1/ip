@@ -13,7 +13,6 @@ public class FindCommand extends Command {
     private StringBuilder retriever = new StringBuilder();
 
     public FindCommand(String[] arguments) {
-        super(false);
         this.arguments = arguments;
     }
 

@@ -26,7 +26,6 @@ public class AddCommand extends Command {
      * @param arguments An array of Strings storing the arguments provided by the user.
      */
     public AddCommand(String[] arguments) {
-        super(false);
         super.arguments = arguments;
     }
 

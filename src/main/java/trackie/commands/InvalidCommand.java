@@ -8,13 +8,6 @@ import trackie.storage.TaskList;
  */
 public class InvalidCommand extends Command {
     /**
-     * Creates an InvalidCommand.
-     */
-    public InvalidCommand() {
-        super(false);
-    }
-
-    /**
      * Executes the invalid command.
      * Notifies the user that the command that they have typed in is invalid.
      *

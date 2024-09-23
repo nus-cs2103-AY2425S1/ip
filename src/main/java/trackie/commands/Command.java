@@ -10,25 +10,6 @@ import trackie.ui.TrackieException;
  */
 public abstract class Command {
     protected String[] arguments;
-    private boolean isExit;
-
-    /**
-     * Constructs a new Command with the specified exit status.
-     *
-     * @param isExit true if this command should cause the program to exit, false otherwise
-     */
-    public Command(boolean isExit) {
-        this.isExit = isExit;
-    }
-
-    /**
-     * Checks if this command should cause the program to exit.
-     *
-     * @return true if this command should cause the program to exit, false otherwise
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
 
     public String fetchDescription() throws TrackieException {
 

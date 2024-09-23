@@ -6,7 +6,6 @@ import trackie.ui.TrackieException;
 
 public class UnmarkCommand extends Command {
     public UnmarkCommand(String[] arguments) {
-        super(false);
         super.arguments = arguments;
     }
     /**
