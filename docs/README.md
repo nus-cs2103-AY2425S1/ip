@@ -141,10 +141,11 @@ Oct 1 2024)?
 enter: "[part to change] [new value]"
 
 #### parts
-* name
-* by
-* start
-* end
+* name (all task type)
+* by (deadline)
+* start (event)
+* end (event)
+
 
 Example:`edit 2`
 
