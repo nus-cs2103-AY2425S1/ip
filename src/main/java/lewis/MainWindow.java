@@ -1,5 +1,8 @@
 package lewis;
 
+import static java.lang.Thread.sleep;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -30,8 +34,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Lewis lewis) {
+    /** Injects the Lewis instance */
+    public void setLewis(Lewis lewis) {
         this.lewis = lewis;
     }
 
@@ -43,6 +47,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = lewis.getResponse(input);
+        if (response.equals("BYE")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(ByeCommand.getString(), lewisImage)
+            );
+            try {
+                sleep(3000);
+                Platform.exit();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, lewisImage)

@@ -7,29 +7,18 @@ import java.util.Set;
 class Parser {
     /** A set of valid commands for Lewis to execute */
     public static final Set<String> VALID_COMMANDS = Set.of("help", "mark", "unmark", "echo",
-            "todo", "deadline", "event", "bye", "hello", "list", "delete", "exit");
-    /** The singular instance of Parser */
-    private static final Parser PARSER = new Parser();
+            "todo", "deadline", "event", "bye", "hello", "list", "delete", "exit", "find");
+
     /** Private constructor for Parser */
     private Parser() {
     }
-
-
-    /**
-     * Factory method for creating a Parser.
-     * @return The singular instance of Parser.
-     */
-    public static Parser of() {
-        return PARSER;
-    }
-
     /**
      * Gets the command from the input string, compares it against the set of valid commands
      * and returns it if it is valid.
      * @param input the input string
      * @return the command if it is a valid command line. Otherwise, returns null.
      */
-    private String getCommand(String input) {
+    private static String getCommand(String input) {
         for (String command : VALID_COMMANDS) {
             if (input.startsWith(command)) {
                 return command;
@@ -44,7 +33,7 @@ class Parser {
      * @return a Command corresponding to the input
      * @throws LewisException if the command is not recognised.
      */
-    Command parseCommand(String input) throws LewisException {
+    public static Command parseCommand(String input) throws LewisException {
         String command = getCommand(input);
         if (command == null) {
             throw new LewisException("Hey, I don't recognise that command. Try \"help\""
@@ -88,6 +77,9 @@ class Parser {
         }
         case "delete" -> {
             return DeleteCommand.of(input);
+        }
+        case "find" -> {
+            return FindCommand.of(input);
         }
         default -> {
             //fall through

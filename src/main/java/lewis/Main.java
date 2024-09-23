@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Lewis lewis = new Lewis();
+    private Lewis lewis = Lewis.of();
 
     @Override
     public void start(Stage stage) {
@@ -22,8 +22,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(lewis); //inject the Lewis instance
+            fxmlLoader.<MainWindow>getController().setLewis(lewis); //inject the Lewis instance
+            stage.setResizable(false);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

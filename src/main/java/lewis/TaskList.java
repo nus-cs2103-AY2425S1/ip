@@ -108,7 +108,7 @@ public class TaskList {
      * @param tasksToRead an array of strings representing tasks in csv format.
      */
     @SuppressWarnings("checkstyle:MissingSwitchDefault")//Class names are effectively enum
-    private static void load(ArrayList<String> tasksToRead) {
+    protected static void load(ArrayList<String> tasksToRead) {
         for (String taskToParse : tasksToRead) {
             String[] tokens = taskToParse.split(",");
             //To handle the different types of tasks separately.

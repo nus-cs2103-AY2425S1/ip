@@ -42,6 +42,14 @@ public class ByeCommand extends Command {
     }
 
     /**
+     * Gets the goodbye message
+     * @return The ASCII art of the goodbye message
+     */
+    public static String getString() {
+        return GOODBYE_MESSAGE;
+    }
+
+    /**
      * This is a special command that tells Lewis to exit
      * Override the isExit flag to be true
      * @return the boolean true
