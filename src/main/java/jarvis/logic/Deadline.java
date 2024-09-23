@@ -9,11 +9,14 @@ public class Deadline extends Task {
     String deadline;
     public Deadline(String name, String deadline) throws NullPointerException{
         super(name);
+        if(name.trim().equals("")){
+            throw new NullPointerException();
+        }
         if(deadline.equals("")){
             throw new NullPointerException();
         }
         try {
-            this.dateDeadline = LocalDate.parse(deadline);
+            this.dateDeadline = LocalDate.parse(deadline.trim());
         } catch(DateTimeParseException e){
             this.deadline = deadline;
         }
@@ -21,8 +24,8 @@ public class Deadline extends Task {
 
     public String getDeadline() {
         return deadline == null
-                ? "by: " + dateDeadline.toString()
-                : deadline;
+                ? "by: " + dateDeadline.toString() + " (" + dateDeadline.getDayOfWeek() + ")"
+                : "by: " + deadline;
     }
     @Override
     public String toString(){

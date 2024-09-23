@@ -11,6 +11,11 @@ public class Event extends Task {
     LocalDate dateEnd;
     public Event(String name, String start, String end) throws NullPointerException{
         super(name);
+        start = start.trim();
+        end = end.trim();
+        if(name.trim().equals("")){
+            throw new NullPointerException();
+        }
         if(start.equals("") || end.equals("")) {
             throw new NullPointerException();
         }
@@ -28,17 +33,17 @@ public class Event extends Task {
 
     public String getStart() {
         return start == null
-                ? "from: " + dateStart.toString()
+                ? "from: " + dateStart +  " (" + dateStart.getDayOfWeek() +")"
                 : "from: " + start;
     }
     public String getEnd() {
         return end == null
-                ? "end: " + dateEnd.toString()
-                : "end: " + end;
+                ? "to: " + dateEnd +  " (" + dateEnd.getDayOfWeek() +")"
+                : "to: " + end;
     }
     public String toString(){
         String checkbox = this.isDone() ? "[X]" : "[ ]";
-        String result = String.format(" %s %s  from: %s, to %s\n",
+        String result = String.format(" %s %s\n %s\n %s\n",
                 checkbox, this.getName(), this.getStart(), this.getEnd());
         return "[E]" + result;
     }
