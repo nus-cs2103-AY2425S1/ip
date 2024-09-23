@@ -42,6 +42,11 @@ AVA has the personality of a helpful young woman.
 
 ## Features
 
+* Commands are case insensitive but values passed are case sensitive.
+
+* Extraneous parameters for commands that do not take in parameters (such as help, list and bye) will be ignored.
+e.g. if the command specifies help 123, it will be interpreted as help
+
 ### List 
 
 Shows a list of all the tasks AVA remembers.
@@ -56,87 +61,102 @@ list
 
 ### Todo
 
-Shows a list of all the tasks AVA remembers.
+Stores a Todo item.
 
-* ####  Command : `LIST`
+* ####  Command : `TODO <task>`
 
 * #### Example:
 
 ```
-list
+todo homework
 ```
+Creates a new task with the description "homework".
 
 ### Event
 
-Shows a list of all the tasks AVA remembers.
+Creates and stores an event item.
 
-* ####  Command : `LIST`
+* ####  Command : `EVENT <task> /from <date> /to <date>`
 
 * #### Example:
 
 ```
-list
+Meeting /from 2023-10-01T10:00 /to 2023-10-01T12:00
 ```
+
+Creates a new task with the description "Meeting" 
+and the date from 10:00 to 12:00 on 1st October 2023.
 
 ### Deadline
 
-Shows a list of all the tasks AVA remembers.
+Creates and stores a deadline item.
 
-* ####  Command : `LIST`
+* ####  Command : `DEADLINE <task> /by <date>`
 
 * #### Example:
 
 ```
-list
+Assignment /by 2023-10-01T23:59
 ```
+
+Creates a new task with the description "Assignment" 
+and the deadline at 23:59 on 1st October 2023.
 
 ### Delete
 
-Shows a list of all the tasks AVA remembers.
+Deletes an item by id.
 
-* ####  Command : `LIST`
+* ####  Command : `DELETE <id>`
 
 * #### Example:
 
 ```
-list
+delete 1
 ```
+
+Deletes the first task.
 
 ### Mark
 
-Shows a list of all the tasks AVA remembers.
+Marks a task as done.
 
-* ####  Command : `LIST`
+* ####  Command : `MARK <id>`
 
 * #### Example:
 
 ```
-list
+mark 1
 ```
+
+Marks the first task as done.
 
 ### Unmark
 
-Shows a list of all the tasks AVA remembers.
+Marks a task as not done.
 
-* ####  Command : `LIST`
+* ####  Command : `UNMARK <id>`
 
 * #### Example:
 
 ```
-list
+unmark 1
 ```
+
+Marks the first task as not done.
 
 ### Find
 
-Shows a list of all the tasks AVA remembers.
+Finds all tasks that contain the given keyword.
 
-* ####  Command : `LIST`
+* ####  Command : `FIND <keyword>`
 
 * #### Example:
 
 ```
-list
+find homework
 ```
+
+Finds all tasks that contain the keyword "homework".
 
 ### Bye
 
