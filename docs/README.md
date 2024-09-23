@@ -1,14 +1,10 @@
----
-layout: page
-title: RizzBOT User Guide
----
+
 
 # RizzBOT User Guide
 
-![img.png](img.png)
+![UI Picture](./Ui.png)
 
-
-> “CS students can't get Women. Let us help you!” – this guy probably [(source)](https://www.youtube.com/watch?v=2qBlE2-WL60)
+> “CS students can't get women. Let us help you!” – this guy probably [(source)](https://www.youtube.com/watch?v=2qBlE2-WL60)
 
 RizzBOT frees your mind of having to remember your dates and things to do for yo girl. It’s,
 - Text-based
@@ -27,13 +23,14 @@ RizzBOT frees your mind of having to remember your dates and things to do for yo
     * [Delete](#Delete-tasks)
     * [Find](#Finding-keywords-in-tasks)
     * [Undo](#Undo-tasks)
-    * [Bye](#Bye - Bye!)
+    * [Bye](#Bye-Bye)
 - [Features](#features)
     * [Saving & Loading of tasks](#Save-and-load-tasks)
+- [Acknowlegement](#acknowledgement-section)
 
 # Quick-start
 Ensure you have Java 17 or above installed in your Computer.
-1. **Download** the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. **Download** the latest `.jar` file from [here](https://github.com/saajidshaik02/ip/releases).
 
 
 2. **Save** `rizz.jar` file to the folder you want to use as the _home folder_.
@@ -57,7 +54,7 @@ Ensure you have Java 17 or above installed in your Computer.
      * `bye` : Exits application
        
 
-6.  **Refer** to the [Features](#features) below for details of each command.
+6.  **Refer** to the [Commands](#commands) below for details of each command.
 
     
 
@@ -65,7 +62,6 @@ Ensure you have Java 17 or above installed in your Computer.
 > Note:
 > Curly brackets `{}` refer to the input string for the arguments of the command. Do not type them in the command itself.
 > The `/` is used as a marker to parse subsequent inputs, avoid using `/` in input.
-------------------------------------------------------------------------------------------------------------------------
 
 
 | **No.** |      **Command**      |                 **Description**                  |                    **Format**                    |                    **Example**                    |
@@ -81,7 +77,6 @@ Ensure you have Java 17 or above installed in your Computer.
 |    9    |       **Undo**        |              Undo previous command.              |                      `undo`                      |                      `undo`                       |
 |    9    |        **Bye**        |                Exits the program.                |                      `bye`                       |                       `bye`                       |
 
-------------------------------------------------------------------------------------------------------------------------
 
 ### Create Todo
 A ToDo is a subclass of the abstract class `Task`. It has no start date and no deadline.
@@ -123,7 +118,7 @@ Command example: `event date with girlfriend 2025-02-14 1000 1200`
 Expected Output:
 ```
 New Event Added!!
-    [E][] date with girlfriend  (from: Feb 12 2025 1000-1200)
+    [E][] date with girlfriend (from: Feb 12 2025 1000-1200)
 ```
 
 Additional details: In hindsight, each event can be longer than a day so would be better to include end date too.
@@ -200,7 +195,7 @@ I found some! Here are the matching tasks in your list:
 1. [D][ ] do her homework and submit (by: Feb 12 2025)
 ```
 
-# Undo-tasks
+### Undo-tasks
 Users can revert the last action made, whether it is adding, deleting, marking, or editing a task. This is useful if you accidentally make changes to the task list and want to restore the previous state.
 
 Whenever a task is added, deleted, marked, or unmarked, the current state of the task list is saved. Using the undo command will revert the task list to the previous saved state
@@ -230,11 +225,10 @@ The application automatically saves all tasks to the hard disk after every comma
 
 The tasks are stored in a text file, which is automatically reloaded when you start the application, allowing you to seamlessly continue from where you left off.
 
-**How saving works:**
-
-After every command that adds, deletes, or modifies a task (such as add, delete, mark, unmark), the application updates the task list in the save file.
-The save file ensures that when you reopen the application, all your previous tasks are loaded and available, along with their respective statuses (completed, deadlines, events, etc.).
-Loading on startup:
+> **How saving works:** <br>
+ After every command that adds, deletes, or modifies a task (such as add, delete, mark, unmark), the application updates the task list in the save file.
+ The save file ensures that when you reopen the application, all your previous tasks are loaded and available, along with their respective statuses (completed, deadlines, events, etc.).
+ Loading on startup:
 
 When the application is launched, it automatically loads all saved tasks from the last session.
 Tasks that were marked as done will remain marked, and all task deadlines or events will also be loaded correctly.
@@ -247,14 +241,17 @@ In addition to saving and loading tasks, the application also supports an Undo f
 
 The Undo feature works by saving the state of the task list before any modification is made. Each time you execute a command, the previous state is saved so that you can revert back if needed.
 
-**How the Undo feature works:**
-
+> **How the Undo feature works:** <br>
 Every time you modify the task list (e.g., add, delete, mark, or unmark), the current state of the task list is saved before the change.
 The previous state can be restored with the undo command, reverting the list to what it was before the last change.
 
 
 This feature is especially useful for accidental deletions or incorrect modifications.
 This combination of task-saving, autoloading, and state management for undo ensures that users have a seamless and forgiving experience, with no risk of losing data or accidental changes.
+
+
+### Acknowledgement Section
+- This MarkDown UserGuide was inspired from given [Template AB3](https://github.com/se-edu/addressbook-level3/blob/master/docs/UserGuide.md) and [Siddardar](https://github.com/Siddardar/ip/blob/master/docs/README.md?plain=1) with permission and multiple modifications made to this guide. Thank You!
 
 
 
