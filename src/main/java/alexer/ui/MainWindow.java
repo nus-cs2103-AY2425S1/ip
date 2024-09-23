@@ -1,6 +1,7 @@
 package alexer.ui;
 
 import alexer.Alexer;
+import alexer.Prompter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -26,11 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/aUser.png"));
 
     /** Image for the chatbot/Alexer **/
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/aAlexer.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/aAlexer.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(MessageBox.createBotDialog(Prompter.buildGreeting(), botImage));
     }
 
     /**
@@ -44,11 +46,13 @@ public class MainWindow extends AnchorPane {
 
         // ensure our images are not null
         assert userImage != null;
-        assert dukeImage != null;
+        assert botImage != null;
 
         dialogContainer.getChildren().add(MessageBox.createUserDialog(input, userImage));
         if (response != null) {
-            dialogContainer.getChildren().add(MessageBox.createBotDialog(response.toString(), dukeImage));
+            MessageBox message = MessageBox.createBotDialog(response, botImage);
+            dialogContainer.getChildren().add(message);
+            message.animateText();
         }
         userInput.clear();
     }

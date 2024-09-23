@@ -81,7 +81,7 @@ public class Alexer {
             System.exit(0);
             return null;
         } else {
-            return new Response(Prompter.MESSAGE_COMMAND_NOT_FOUND);
+            return new Response(Prompter.MESSAGE_COMMAND_NOT_FOUND, Response.ResponseType.ERROR);
         }
     }
 
@@ -101,14 +101,6 @@ public class Alexer {
     }
 
     /**
-     * Starts the chatbot, load all the necessary
-     * data and prepares the chatbot for operation.
-     */
-    public void start() {
-
-    }
-
-    /**
      * Starts the console chatbot routine for text-based usage
      */
     public void promptConsole() {
@@ -119,7 +111,6 @@ public class Alexer {
 
     public static void main(String[] args) {
         Alexer alexer = new Alexer();
-        alexer.start();
         alexer.promptConsole();
     }
 }
