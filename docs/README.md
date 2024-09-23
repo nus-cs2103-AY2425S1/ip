@@ -21,7 +21,6 @@ Makima implements the following type of tasks:
     - [prioritise](#prioritise)
     - [return](#return)
     - [bye](#bye)
-- [Command Summary](#command-summary)
 - [Credits](#credits)
 
 
@@ -103,6 +102,8 @@ Format: `todo \n TASK_NAME`
 Adds a deadline.
 
 Format: `deadline \n TASK_NAME \n END_DATE`
+- DATES are in the format YYYY-MM-DDTHH:MM
+- The bot will reprompt you if your input does not follow the specified format.
 
 <details>
 <summary>Examples</summary>
@@ -117,6 +118,8 @@ Format: `deadline \n TASK_NAME \n END_DATE`
 Adds an event.
 
 Format: `event \n EVENT_NAME \n START_DATE \n END_DATE`
+- DATES are in the format YYYY-MM-DDTHH:MM
+- The bot will reprompt you if your input does not follow the specified format.
 
 <details>
 <summary>Examples</summary>
@@ -131,6 +134,8 @@ Format: `event \n EVENT_NAME \n START_DATE \n END_DATE`
 Deletes a task.
 
 Format: `delete \n TASK_INDEX`
+- TASK_INDEX are 1-indexed.
+- The bot will reprompt you if TASK_INDEX is out of range.
 
 <details>
 <summary>Examples</summary>
@@ -144,6 +149,8 @@ Format: `delete \n TASK_INDEX`
 Marks a task as complete.
 
 Format: `mark \n TASK_INDEX`
+- TASK_INDEX are 1-indexed.
+- The bot will reprompt you if TASK_INDEX is out of range.
 
 <details>
 <summary>Examples</summary>
@@ -157,6 +164,8 @@ Format: `mark \n TASK_INDEX`
 Unmarks a task.
 
 Format: `unmark \n TASK_INDEX`
+- TASK_INDEX are 1-indexed.
+- The bot will reprompt you if TASK_INDEX is out of range.
 
 <details>
 <summary>Examples</summary>
@@ -195,6 +204,10 @@ Format: `find \n SEARCH_TERM`
 Prioritises the selected task.
 
 Format: `prioritise \n TASK_INDEX \n PRIORITY`
+- TASK_INDEX are 1-indexed.
+- PRIORITY is either the value "high" or "low", case insensitive.
+- The bot will reprompt you if TASK_INDEX is out of range or PRIORITY does not follow the
+  specified format.
 
 <details>
 <summary>Examples</summary>
@@ -226,21 +239,6 @@ Format: `bye`
 
 - `bye`
 </details>
-
-## Command Summary
-| Command     | Description                                      | Format                                     |
-|-------------|--------------------------------------------------|--------------------------------------------|
-| `todo`      | Adds a todo                                     | `todo \n TASK_NAME`                       |
-| `deadline`  | Adds a deadline                                 | `deadline \n TASK_NAME \n DATE`           |
-| `event`     | Adds an event                                   | `event \n EVENT_NAME \n START_DATE \n END_DATE` |
-| `delete`    | Deletes a task                                  | `delete \n TASK_INDEX`                    |
-| `mark`      | Marks a task as complete                        | `mark \n TASK_INDEX`                      |
-| `unmark`    | Unmarks a task                                  | `unmark \n TASK_INDEX`                    |
-| `list`      | Displays the list of tasks                      | `list`                                     |
-| `find`      | Finds tasks by name containing a string         | `find \n SEARCH_TERM`                     |
-| `prioritise`| Prioritises a task                              | `prioritise \n TASK_INDEX \n PRIORITY`   |
-| `return`    | Exits the current command                       | `return`                                   |
-| `bye`       | Exits the program                               | `bye`                                      |
 
 ## Credits
 Image credits: 
