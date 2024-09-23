@@ -16,7 +16,8 @@ public class InvalidCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {
-        return "Invalid command, bozo.";
+        return "I don't know what command that is m8...\n\n" +
+                "Try typing \"help\" to find out what are the available commands =)";
     }
 
 }
