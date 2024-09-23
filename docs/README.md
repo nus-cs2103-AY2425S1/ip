@@ -44,7 +44,7 @@ For instance:\
 `t some random task`\
 \
 will result in the bot displaying:\
-\
+
 > Added: some random task
 
 ## Listing Tasks
@@ -62,7 +62,7 @@ You can choose to mark/unmark tasks by typing "mark x" where x is the
 index of the task you want to mark/unmark **according to the list shown
 by the list command.**
 
-Examples:\
+Examples:
 
 `mark 1`: 
 > Gratz, you've completed: task 1
