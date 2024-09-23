@@ -16,6 +16,6 @@ public class AddToDoCommand extends SaveableCommand {
         }
         ToDo newToDo = new ToDo(this.description, false);
         tasks.addTask(newToDo);
-        return "ToDo added: " + newToDo.toString();
+        return "New ToDo added!!\n" + newToDo.toString();
     }
 }

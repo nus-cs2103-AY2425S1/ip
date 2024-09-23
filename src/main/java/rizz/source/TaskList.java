@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import rizz.task.Task;
 import java.util.Arrays;
 import java.util.List;
+//@@author ChatGPT -> prompted to use Stream collectors instead of toList to generate result
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +27,7 @@ public class TaskList {
      *
      * @param other The TaskList to copy from.
      */
+    //@@author ChatGPT
     public TaskList(TaskList other) {
         this.tasks = new ArrayList<>();
         for (Task task : other.tasks) {
@@ -87,6 +89,7 @@ public class TaskList {
                 .filter(task -> task.getText().contains(keyword))
                 .toList();
         //Need Casting, TaskList <: List
+        //@@author ChatGPT -> prompted to match type TaskList -> realised this just CS2030S type conversion :0
         return new TaskList((ArrayList<Task>) matchingTasks);
     }
 
