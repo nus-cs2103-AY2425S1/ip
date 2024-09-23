@@ -2,7 +2,7 @@
 
 ![Torne icon. Credits: me](./src/main/resources/images/torne_icon.png)
 
-[![GitHub Release](https://img.shields.io/github/v/release/AY2425S1-CS2103T-F14B-2/tp)](https://github.com/AY2425S1-CS2103T-F14B-2/tp/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/zeepheru/ip)](https://github.com/zeepheru/ip/releases)
 
 This is the chatbot `torne.ui.Torne`, short for `Torment Nexus`.
 
