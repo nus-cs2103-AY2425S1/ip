@@ -15,7 +15,7 @@ public class TaskList {
     }
 
     /**
-     * Add a task to the list
+     * Adds a task to the list
      *
      * @param task Task that to be added
      */
@@ -24,7 +24,7 @@ public class TaskList {
     }
 
     /**
-     * Change the status of a task
+     * Changes the status of a task
      *
      * @param index index of the task in the list
      * @param status updated status
@@ -36,7 +36,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a task
+     * Deletes a task
      *
      * @param index index of the task in the list
      * @return the task that is deleted
@@ -48,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * Return a <code>String</code> that is readable and writeable by <code>Storage</code>
+     * Returns a <code>String</code> that is readable and writeable by <code>Storage</code>
      *
      * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
      */
@@ -72,7 +72,7 @@ public class TaskList {
     }
 
     /**
-     * Return the size of the list of task
+     * Returns the size of the list of task
      *
      * @return the size of the list of task
      */

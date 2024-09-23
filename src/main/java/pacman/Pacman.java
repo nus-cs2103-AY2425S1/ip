@@ -6,7 +6,6 @@ public class Pacman {
     private final Ui ui = new Ui();
 
     public String getResponse(String userInput) {
-
         boolean isExit = Parser.execute(userInput, list, ui);
         if (isExit) {
             ui.showBye();
