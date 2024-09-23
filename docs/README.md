@@ -22,7 +22,11 @@ AVA has the personality of a helpful young woman.
   9. [Leave - `BYE`](#bye)
   10. [Get help - `HELP`](#help)
 
-## Adding deadlines
+<hr>
+
+## Quick Start
+1. Ensure you have Java `17` or above installed in your Computer.
+2. Download the latest `ava.jar` file from [here](https://github.com/Timenikhil/ip/releases/latest/download/ava.jar)
 
 // Describe the action and its outcome.
 
