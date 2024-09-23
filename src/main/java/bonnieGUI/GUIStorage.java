@@ -14,19 +14,22 @@ import java.util.regex.Pattern;
 public class GUIStorage {
 
     static private File f;
-    static private String filePath = "src/main/java/Files/tasks.txt";
+    static private String filePath = "./tasklist.txt";
 
     // Prepare the file for reading and writing
     protected static void init() {
         f = new File(filePath);
+
         try {
             if (!f.exists()) {
-                f.createNewFile();
+                f.createNewFile();  // Create the file if it doesn't exist
+                System.out.println("Creating file " + f.getAbsolutePath());
             } else {
-                initialiseFile(f);
+                initialiseFile(f);  // Load the file if it exists
+                System.out.println("Initialising file");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred when creating file..");
+            System.out.println("An error occurred when creating the file.");
             e.printStackTrace();
         }
     }
