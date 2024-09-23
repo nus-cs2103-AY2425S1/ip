@@ -150,7 +150,6 @@ public class Parser {
         String description = parts[0].substring(6).trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
-
         Task newTask = new Event(description, from, to);
         record.addTask(newTask);
         return ui.taskAdded(newTask, record.getSizeOfRecord());

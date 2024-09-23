@@ -41,11 +41,11 @@ public class Deadline extends Task {
             throw new OptimusException("Date-time string cannot be null or empty.");
         }
         DateTimeFormatter[] formats = {
+                // Different acceptable formats to be parsed
                 DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("d-MM-yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy/MM/d HH:mm")
-                // Different acceptable formats to be parsed
         };
 
         for (DateTimeFormatter diffFormat : formats) {
