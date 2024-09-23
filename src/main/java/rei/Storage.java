@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,26 +38,42 @@ public class Storage {
      */
     public List<Task> load() {
         List<Task> listOfTasks = new ArrayList<>();
+        String storedTask;
         String taskPrompt;
 
         for (int i = 0; i < fileContent.size(); i++) {
-            taskPrompt = fileContent.get(i);
+            storedTask = fileContent.get(i);
+            taskPrompt = storedTask.substring(0, storedTask.lastIndexOf("|") - 1);
+            List<String> tags = Arrays.asList(storedTask.substring(storedTask.lastIndexOf(":") + 1).split(" "));
+
             if (taskPrompt.startsWith("T ")) {
-                listOfTasks.add(Task.createToDo(taskPrompt.substring(8)));
+
+                Task task = Task.createToDo(taskPrompt.substring(8));
+                task.addTags(tags);
+                listOfTasks.add(task);
+
                 if (taskPrompt.charAt(4) == '1') {
                     listOfTasks.get(i).markAsDone();
                 }
             } else if (taskPrompt.startsWith("D ")) {
-                listOfTasks.add(Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
-                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2))));
+                Task task = Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
+                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2)));
+                task.addTags(tags);
+                listOfTasks.add(task);
+
                 if (taskPrompt.charAt(4) == '1') {
                     listOfTasks.get(i).markAsDone();
                 }
             } else if (taskPrompt.startsWith("E ")) {
-
-                listOfTasks.add(Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
+                Task task = Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
                         LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf("to") - 1)),
-                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf("to") + 3))));
+                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf("to") + 3)));
+                task.addTags(tags);
+                listOfTasks.add(task);
+
+                if (taskPrompt.charAt(4) == '1') {
+                    listOfTasks.get(i).markAsDone();
+                }
             } else {
                 // do nothing
             }

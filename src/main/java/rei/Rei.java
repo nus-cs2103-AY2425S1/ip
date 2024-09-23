@@ -29,7 +29,7 @@ public class Rei {
     public String getResponse(String prompt) {
         try {
             Parser.Prompt promptType = Parser.parse(prompt);
-            String output;
+            String output = "";
             int taskIndex;
             switch (promptType) {
                 case LIST:
@@ -67,7 +67,7 @@ public class Rei {
                     output = "annyeong";
                     break;
                 default:
-                    assert false : "switch-case should never reach this"
+                    assert false : "switch-case should never reach this";
                     break;
             }
             storage.save(tasks);

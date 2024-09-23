@@ -16,12 +16,13 @@ public class Parser {
     private static final int EVENT_COMMAND_LENGTH = 5;
     private static final int DELETE_COMMAND_LENGTH = 6;
     private static final int FIND_COMMAND_LENGTH = 4;
+    private static final int TAG_COMMAND_LENGTH = 3;
 
     // Solution below inspired by https://github.com/1st2GetThisName/ip/blob/master/src/main/java/vecrosen/Parser.java
     /**
      * Different prompt types REI understands
      */
-    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, ANNYEONG};
+    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, TAG, ANNYEONG};
 
     /**
      * Checks if a string only contains whitespace
@@ -120,6 +121,31 @@ public class Parser {
                 }
 
                 return Prompt.FIND;
+            case "tag":
+//                // Read the rest of the line after "tag"
+//                prompt = prompt.substring(TAG_COMMAND_LENGTH).trim();
+//
+//                if (prompt.isEmpty()) {
+//                    throw new ReiException("Please state the tag!");
+//                } else if (!prompt.startsWith("#")) {
+//                    throw new ReiException("Use '#' to find the tag!")
+//                }
+//
+//                prompt = prompt.substring(1).trim(); // remove the #
+//
+//                String[] words = prompt.split(" ");
+//
+//                if (words.length != 1) {
+//                    throw new ReiException("Only include one tag!")
+//                }
+//
+//                if (prompt.isEmpty()) {
+//                    throw new ReiException("Please state the tag!");
+//                } else if (prompt.contains("#")) {
+//                    throw new ReiException("A tag must not contain another '#'!")
+//                }
+//                return Prompt.TAG;
+
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:
