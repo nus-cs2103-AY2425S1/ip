@@ -11,7 +11,6 @@ import java.util.Scanner;
  * Represents the CLI version of the user interface.
  */
 public class TextUi extends Ui {
-    
     private final static String GREETING_MESSAGE = """
             /\\_/\\     ____________________
             >^,^<    / Hi, I'm Mittens!   \\
@@ -24,7 +23,6 @@ public class TextUi extends Ui {
              / \\      -------------
             (___)_/""";
 
-    private final Scanner in;
     private final PrintStream out;
 
     /**
@@ -41,7 +39,7 @@ public class TextUi extends Ui {
      * @param out The output stream
      */
     public TextUi(InputStream in, PrintStream out) {
-        this.in = new Scanner(in);
+        super(new Scanner(in));
         this.out = out;
     }
 
@@ -102,7 +100,13 @@ public class TextUi extends Ui {
 
         this.out.println(uiMessage);
     }
-    
+
+    @Override
+    public String getUserInput() {
+        this.out.print("> ");
+        return this.in.nextLine();
+    }
+
     @Override
     public void showGreetingMessage() {
         this.printBlankLine();
@@ -127,11 +131,6 @@ public class TextUi extends Ui {
     }
 
     @Override
-    public void showRegularMessage(String... messages) {
-        showRegularMessage(List.of(messages));
-    }
-
-    @Override
     public void showMittensMessage(List<String> messages) {
         this.printBlankLine();
         for (String message : messages) {
@@ -145,11 +144,5 @@ public class TextUi extends Ui {
         this.printBlankLine();
         this.printErrorMessage(e);
         this.printBlankLine();
-    }
-
-    @Override
-    public String getUserInput() {
-        this.out.print("> ");
-        return this.in.nextLine();
     }
 }
