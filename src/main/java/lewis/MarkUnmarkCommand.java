@@ -16,6 +16,8 @@ public class MarkUnmarkCommand extends Command {
      * @param input a string input propagated from the standard input stream
      */
     public MarkUnmarkCommand(String input) {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         if (input.startsWith("mark")) {
             this.updatedStatus = Task.Status.DONE;
             String[] tokens = input.split("mark");

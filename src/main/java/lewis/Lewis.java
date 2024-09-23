@@ -40,6 +40,9 @@ public class Lewis {
      */
     public String getResponse(String input) {
         try {
+            //
+            assert input != null : "Input cannot be null";
+
             /* If the input field is empty, return the hello message */
             Command command;
             if (input.isEmpty()) {

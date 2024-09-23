@@ -15,8 +15,7 @@ import java.util.ArrayList;
  * (ii) load
  */
 public class Storage {
-    /** The singular instance of storage.*/
-    private static final Storage STORAGE = new Storage();
+
     /** The default file path for storing and writing data */
     private static final Path FILE_PATH = Path.of("./data/tasks.csv");
     /** The default directory path for storing and writing data */
@@ -24,16 +23,6 @@ public class Storage {
     /** Private constructor for Storage */
     private Storage() {
     }
-
-    /**
-     * Default factory method of Storage. Returns the singular instance
-     * STORAGE, with the default file and directory paths
-     * @return The singular instance of storage
-     */
-    public static Storage of() {
-        return STORAGE;
-    }
-
     /**
      * Saves the current TaskList to file. The tasks are converted into csv
      * representations as per their .toCsv() methods, and written to a file
@@ -45,11 +34,10 @@ public class Storage {
             try {
                 Files.createDirectories(DIRECTORY_PATH);
             } catch (IOException e) {
-                System.out.println("""
+                Ui.printString("""
                         Oh no! I can't create the file directory.
                         Check out the error message to see what went wrong
                         """);
-                e.printStackTrace();
             }
         }
         //Checks if the save file already exists. If not, creates the file.
@@ -57,7 +45,7 @@ public class Storage {
             try {
                 Files.createFile(FILE_PATH);
             } catch (IOException e) {
-                System.out.println("""
+                Ui.printString("""
                         Oh no! I can't create your save file.
                         Check out the error message to see what went wrong
                         """);
@@ -73,7 +61,7 @@ public class Storage {
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Oh no! I can't save your file. \n "
+            Ui.printString("Oh no! I can't save your file. \n "
                     + "Check out the error message to see what went wrong");
             e.printStackTrace();
         }

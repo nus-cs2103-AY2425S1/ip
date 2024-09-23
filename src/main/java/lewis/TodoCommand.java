@@ -13,6 +13,8 @@ public class TodoCommand extends Command {
      * @param input a string propagated from the standard input stream
      */
     TodoCommand(String input) {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         String[] arguments = input.split("todo");
         String todoDescription = arguments[1].trim();
         this.newTodo = new Todo(todoDescription);

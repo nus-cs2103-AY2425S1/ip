@@ -14,6 +14,8 @@ public class EchoCommand extends Command {
      * @throws LewisException if the user tries to echo nothing
      */
     public EchoCommand(String input) throws LewisException {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         String[] tokens = input.split("echo", 2);
         this.echoString = tokens[1].trim();
         if (this.echoString.isEmpty()) {
