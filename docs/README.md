@@ -19,7 +19,8 @@ Welcome to Jeriel, your personal task assistant! This guide will help you unders
 - **Usage**: `deadline <task_description> /by <date>`
 - **Description**: Adds a task with a deadline, including the due date.
 - **Example**: `deadline Submit report /by 2024-09-21`
-- **Expected output**: Got it. I've added this task: [D][ ] Submit report (by: Sep 21 2024) Now you have 2 tasks in the list.
+- **Expected output**: `Got it. I've added this task: [D][ ] Submit report (by: Sep 21 2024)
+ Now you have 2 tasks in the list.`
 
 
 ### 3. **event**: Adds an event task
