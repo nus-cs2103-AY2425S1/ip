@@ -15,19 +15,8 @@ public class Deadline extends Task {
      * @param name Name of the deadline task.
      * @param dueDate Deadline of the deadline task.
      */
-    public Deadline(String name, LocalDateTime dueDate) {
-        super(name);
-        this.dueDate = dueDate;
-    }
-
-    /**
-     * Overloaded constructor for a deadline task.
-     * @param name Name of the deadline task.
-     * @param dueDate Deadline of the deadline task.
-     * @param isCompleted Completion status of the task.
-     */
-    public Deadline(String name, LocalDateTime dueDate, boolean isCompleted) {
-        super(name, isCompleted);
+    public Deadline(String name, LocalDateTime dueDate, boolean isMarked) {
+        super(name, isMarked);
         this.dueDate = dueDate;
     }
 
@@ -61,12 +50,13 @@ public class Deadline extends Task {
     @Override
     public String toParseableString() {
         String s = "d,";
-        if (this.isCompleted()) {
+        String due = this.dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm"));
+        if (this.isMarked()) {
             s += "m,";
         } else {
             s += "u,";
         }
-        s += this.getName() + "," + this.dueDate;
+        s += this.getName() + " /by " + due;
         return s;
     }
 }

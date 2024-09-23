@@ -12,26 +12,14 @@ public class Event extends Task {
     private String end;
 
     /**
-     * Constructor for Event task.
+     * Constructor method
      * @param name Name of the task.
      * @param start Start time of the task.
      * @param end End time of the task.
+     * @param isMarked Task completion status.
      */
-    public Event(String name, String start, String end) {
-        super(name);
-        this.start = start;
-        this.end = end;
-    }
-
-    /**
-     * Overloaded constructor method
-     * @param name Name of the task.
-     * @param start Start time of the task.
-     * @param end End time of the task.
-     * @param isCompleted Task completion status.
-     */
-    public Event(String name, String start, String end, boolean isCompleted) {
-        super(name, isCompleted);
+    public Event(String name, String start, String end, boolean isMarked) {
+        super(name, isMarked);
         this.start = start;
         this.end = end;
     }
@@ -65,12 +53,12 @@ public class Event extends Task {
     @Override
     public String toParseableString() {
         String s = "e,";
-        if (this.isCompleted()) {
+        if (this.isMarked()) {
             s += "m,";
         } else {
             s += "u,";
         }
-        s += this.getName() + "," + this.start + "," + this.end;
+        s += this.getName() + " /from " + this.start + " /to " + this.end;
         return s;
     }
 }

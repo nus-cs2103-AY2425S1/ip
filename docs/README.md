@@ -2,8 +2,20 @@
 
 ![my ui](/docs/Ui.png)
 
-This is meeerkatbot! It can log tasks for you, display what you have on your tasklist
+This is meeerkatbot! It can log tasks for you, display what you have on your tasklist,
 and you can remove them as and when you like! 
+
+## Quick Start
+1. Ensure that you have Java 17 or above installed on your device. 
+2. Download the jar file here 
+3. Run the jar file straight away, or from the terminal by typing
+```
+java -jar meerkatbot.jar
+```
+
+## Greeting
+Meerkatbot loves saying hello to you! Whenever you click on anywhere on the app,
+meerkat will say hi to you! Just don't click too many times....
 
 ## Creating Todo Tasks
 
@@ -74,7 +86,7 @@ __________________________________________________
 
 ## Listing your tasks
 
-// By using the "list" keyword, you can instruct the chatbot to display the list of all the tasks
+By using the "list" keyword, you can instruct the chatbot to display the list of all the tasks
 that have been input so far, across the 3 different types of tasks
 
 Here are some examples of how to utilise this function
@@ -94,7 +106,7 @@ __________________________________________________
 
 ## Marking a task
 
-// By using the "mark" keyword, you can instruct the chatbot to mark a task as done, the same instruction
+By using the "mark" keyword, you can instruct the chatbot to mark a task as done, the same instruction
 for all 3 types of task. The task is specified using its index in the tasklist.
 
 Here are some examples of how to utilise this function
@@ -112,7 +124,7 @@ __________________________________________________
 
 ## Unmarking a task
 
-// Similar to the mark function, by using the "unmark" keyword, you can instruct the chatbot to mark a task
+Similar to the mark function, by using the "unmark" keyword, you can instruct the chatbot to mark a task
 as done, the same instruction for all 3 types of task. The task is specified using its index in the tasklist.
 
 Here are some examples of how to utilise this function
@@ -130,7 +142,7 @@ __________________________________________________
 
 ## Deleting a task
 
-// Like other list edit commands, by using the "delete" keyword, you can instruct the
+Like other list edit commands, by using the "delete" keyword, you can instruct the
 chatbot to delete a task from the tasklist, the same instruction for all 3 types of
 task. The task is specified using its index in the tasklist.
 
@@ -149,7 +161,7 @@ __________________________________________________
 
 ## Finding a task
 
-// Like other list commands, by using the "find" keyword, you can instruct the
+Like other list commands, by using the "find" keyword, you can instruct the
 chatbot to search for a task in the tasklist, based on the search parameters received.
 Any tasks with names that contain that keyword will be displayed in a list.
 
@@ -168,7 +180,7 @@ __________________________________________________
 
 ## Detecting Duplicates in TaskList
 
-// When creating a task to be added to the tasklist, the chatbot will inform you if there
+When creating a task to be added to the tasklist, the chatbot will inform you if there
 is already an identical task present in the list. Tasks are identical if:
 - it shares the same name (todo task)
 - it shares the same name and due date (deadline task)
@@ -186,6 +198,14 @@ stop trolling, the task is already present
 __________________________________________________
 ```
 
-## Feature XYZ
+## Bye bye!
+When you're done with your managing of the tasklist, just type bye to let
+meerkat know you're done! And the application will close.
 
-// Feature details
+Example: `bye`
+```
+expected output
+__________________________________________________
+bye bye! was nice meeting you!
+__________________________________________________
+```

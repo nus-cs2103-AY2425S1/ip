@@ -10,13 +10,10 @@ public class Todo extends Task {
     /**
      * Constructor for
      * @param name
+     * @param isMarked
      */
-    public Todo(String name) {
-        super(name);
-    }
-
-    public Todo(String name, boolean isCompleted) {
-        super(name, isCompleted);
+    public Todo(String name, boolean isMarked) {
+        super(name, isMarked);
     }
 
     @Override
@@ -48,7 +45,7 @@ public class Todo extends Task {
     @Override
     public String toParseableString() {
         String s = "t,";
-        if (this.isCompleted()) {
+        if (this.isMarked()) {
             s += "m,";
         } else {
             s += "u,";

@@ -75,21 +75,31 @@ public class Ui {
      * Shows message to indicate that more information is required to create Todo task.
      */
     public String showNeedMoreInfoTodoMessage() {
-        return (LINES + "\nbruh. i need more info to create your todo task.\n" + LINES);
+        return (LINES + "\nbruh. i need more info to create your todo task.\n" +
+                "in this format: todo [name]\n" + LINES);
     }
 
     /**
      * Shows message to indicate that more information is required to create Deadline task.
      */
     public String showNeedMoreInfoDeadlineMessage() {
-        return (LINES + "\nbruh. i need more info to create your deadline task.\n" + LINES);
+        return (LINES + "\nbruh. i need more info to create your deadline task.\n" +
+                "in this format: deadline [name] /by YYYY-MM-DD HHmm\n" + LINES);
     }
 
     /**
      * Shows message to indicate that more information is required to create Event task.
      */
     public String showNeedMoreInfoEventMessage() {
-        return (LINES + "\nbruh. i need more info to create your event task.\n" + LINES);
+        return (LINES + "\nbruh. i need more info to create your event task.\n" +
+                "in this format: event [name] /from [start] /to [end]\n" + LINES);
+    }
+
+    /**
+     * Shows message to indicate that more information is required to create general task.
+     */
+    public String showNeedMoreInfoMessage() {
+        return (LINES + "\nbruh. i need more info to create your task.\n" + LINES);
     }
 
     public String showDuplicateDetectedMessage() {
@@ -111,7 +121,7 @@ public class Ui {
      */
     public String showGoodbyeMessage() {
         return (LINES + "\n" + """
-                Goodnight, sleep tight, Hope I don't ever see you again!
+                bye bye! was nice meeting you!
                 """ + LINES);
     }
 
@@ -120,6 +130,13 @@ public class Ui {
      */
     public String showTaskNonUnmarkableMessage() {
         return (LINES + "\nThis task does not exist! Unable to unmark.\n" + LINES);
+    }
+
+    /**
+     * Shows message to indicate that the deadline given cannot be parsed
+     */
+    public String showDateTimeUnparseableMessage() {
+        return (LINES + "\nPlease input a valid date in the format: YYYY-MM-DD HHmm\n" + LINES);
     }
 
     /**

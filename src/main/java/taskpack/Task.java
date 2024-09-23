@@ -6,34 +6,29 @@ import java.time.LocalDateTime;
  * Parent class for tasks, has its own subclass tasks.
  */
 public class Task {
-    private boolean isCompleted;
+    private boolean isMarked;
     private String name;
 
     /**
      * Constructor for Task, usually gets called by subclasses.
      * @param name Name of the task.
      */
-    public Task(String name) {
-        this.isCompleted = false;
-        this.name = name;
-    }
-
-    public Task(String name, boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public Task(String name, boolean isMarked) {
+        this.isMarked = isMarked;
         this.name = name;
     }
 
     protected void markAsCompleted() {
-        this.isCompleted = true;
+        this.isMarked = true;
     }
 
     protected void markAsIncomplete() {
-        this.isCompleted = false;
+        this.isMarked = false;
     }
     @Override
     public String toString() {
         String box;
-        if (this.isCompleted) {
+        if (this.isMarked) {
             box = "[X]";
         } else {
             box = "[ ]";
@@ -45,8 +40,8 @@ public class Task {
      * Returns task completion status.
      * @return Boolean value on whether task is completed.
      */
-    public boolean isCompleted() {
-        return this.isCompleted;
+    public boolean isMarked() {
+        return this.isMarked;
     }
 
     /**

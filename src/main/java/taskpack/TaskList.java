@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Used to store a list of Tasks.
@@ -38,48 +39,21 @@ public class TaskList {
     }
 
     /**
-     * Creates a todo Task and adds it to the ArrayList of tasks. Also
-     * writes to the save file in storage as there is a change in the taskList.
-     * Prints UI creation message only if the file is created during the run instead
-     * of when reading tasks from save file.
-     * @param name The name of the task.
-     * @param markedStatus Completion status of the task
-     * @throws IOException If there are any errors in reading or writing the file.
-     */
-    public void createTodoTask(String name, boolean markedStatus) throws IOException {
-        Task thisTask = new Todo(name, markedStatus);
-        listOfTasks.add(thisTask);
-        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
-    }
-
-    /**
-     * Overloaded creator for todo Task and adds it to the ArrayList of tasks. Also
+     * Creator for todo Task and adds it to the ArrayList of tasks. Also
      * writes to the save file in storage as there is a change in the taskList.
      * Prints UI creation message only if the file is created during the run instead
      * of when reading tasks from save file.
      * @param name The name of the task.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public String createTodoTask(String name) throws IOException {
-        Task thisTask = new Todo(name);
+    public String createTodoTask(String name, boolean isMarked) throws IOException {
+        Task thisTask = new Todo(name, isMarked);
+        if (detectDuplicateTask(thisTask)) {
+            return ui.showDuplicateDetectedMessage();
+        }
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         return ui.showTaskCreationMessage(thisTask, this);
-    }
-
-    /**
-     * Creates an Event Task and adds it to the ArrayList of tasks. Also
-     * writes to the save file in storage as there is a change in the taskList.
-     * Prints UI creation message only if the file is created during the run instead
-     * of when reading tasks from save file.
-     * @param name The name of the task.
-     * @param markedStatus The completion status of the task.
-     * @throws IOException If there are any errors in reading or writing the file.
-     */
-    public void createEventTask(String name, String start, String end, boolean markedStatus) throws IOException {
-        Task thisTask = new Event(name, start, end, markedStatus);
-        listOfTasks.add(thisTask);
-        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
     }
 
     /**
@@ -92,8 +66,11 @@ public class TaskList {
      * @param end The end date of the task.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public String createEventTask(String name, String start, String end) throws IOException {
-        Task thisTask = new Event(name, start, end);
+    public String createEventTask(String name, String start, String end, boolean isMarked) throws IOException {
+        Task thisTask = new Event(name, start, end, isMarked);
+        if (detectDuplicateTask(thisTask)) {
+            return ui.showDuplicateDetectedMessage();
+        }
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         return ui.showTaskCreationMessage(thisTask, this);
@@ -106,26 +83,13 @@ public class TaskList {
      * of when reading tasks from save file.
      * @param name The name of the task.
      * @param dueDate The deadline of the task.
-     * @param markedStatus The completion status of the task.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public void createDeadlineTask(String name, LocalDateTime dueDate, boolean markedStatus) throws IOException {
-        Task thisTask = new Deadline(name, dueDate, markedStatus);
-        listOfTasks.add(thisTask);
-        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
-    }
-
-    /**
-     * Creates a Deadline Task and adds it to the ArrayList of tasks. Also
-     * writes to the save file in storage as there is a change in the taskList.
-     * Prints UI creation message only if the file is created during the run instead
-     * of when reading tasks from save file.
-     * @param name The name of the task.
-     * @param duedate The deadline of the task.
-     * @throws IOException If there are any errors in reading or writing the file.
-     */
-    public String createDeadlineTask(String name, LocalDateTime duedate) throws IOException {
-        Task thisTask = new Deadline(name, duedate);
+    public String createDeadlineTask(String name, LocalDateTime dueDate, boolean isMarked) throws IOException {
+        Task thisTask = new Deadline(name, dueDate, isMarked);
+        if (detectDuplicateTask(thisTask)) {
+            return ui.showDuplicateDetectedMessage();
+        }
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         return ui.showTaskCreationMessage(thisTask, this);
@@ -200,20 +164,6 @@ public class TaskList {
     }
 
     /**
-     * Sets the most recently created task to have either marked or unmarked status.
-     * Used during creation of tasks from reading save file.
-     * @param bool Determines whether to mark task as completed
-     */
-    public void setMostRecentTaskCompletionStatus(boolean bool) {
-        int size = getSize();
-        if (bool) {
-            listOfTasks.get(size - 1).markAsCompleted();
-        } else {
-            listOfTasks.get(size - 1).markAsIncomplete();
-        }
-    }
-
-    /**
      * Searches for tasks based on keyword name.
      * @param name Keyword given to find matching tasks.
      * @return List of Tasks that match keyword.
@@ -229,44 +179,13 @@ public class TaskList {
     }
 
     /**
-     * Detects duplicate todo tasks based on name.
-     * @param name The name of the task to check for equality.
+     * Detects duplicate todo tasks based on name and marked status.
+     * @param newTask The new task to be checked against
      * @return Boolean indicating if duplicate is detected
      */
-    public boolean detectDuplicateTask(String name) {
-        for (Task task : listOfTasks) {
-            if (task.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Detects duplicate deadline tasks based on name and dueDate.
-     * @param name The name of the task to check for equality.
-     * @param dueDate The dueDate of the task to check for equality.
-     * @return Boolean indicating if duplicate is detected.
-     */
-    public boolean detectDuplicateTask(String name, LocalDateTime dueDate) {
-        for (Task task : listOfTasks) {
-            if (task.getName().equals(name) && task.getDueDate().equals(dueDate)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Detects duplicate deadline tasks based on name, start and end period.
-     * @param name The name of the task to check for equality.
-     * @param start The string of the start period.
-     * @param end The string of the end period.
-     * @return Boolean indicating if duplicate is detected.
-     */
-    public boolean detectDuplicateTask(String name, String start, String end) {
-        for (Task task : listOfTasks) {
-            if (task.getName().equals(name) && task.getStart().equals(start) && task.getEnd().equals(end)) {
+    public boolean detectDuplicateTask(Task newTask) {
+        for (Task iterTask : listOfTasks) {
+            if (iterTask.toString().equals(newTask.toString())) {
                 return true;
             }
         }

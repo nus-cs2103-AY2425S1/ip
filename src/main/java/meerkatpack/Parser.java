@@ -3,6 +3,7 @@ package meerkatpack;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import taskpack.Task;
 import taskpack.TaskList;
@@ -32,36 +33,20 @@ public class Parser {
      * @param thisTask Takes in a String that represents a task in the save file.
      */
     protected static void parseSaveFile(String thisTask) {
-        String[] strArray = thisTask.split(",", 5);
-        switch (strArray.length) {
-        case 3:
-            try {
-                taskList.createTodoTask(strArray[2], convertTaskCompletedStatus(strArray[1]));
-            } catch (IOException e) {
-                ui.showErrorWritingFileMessage();
+        String[] taskTypeArr = thisTask.split(",", 3);
+        switch (taskTypeArr[0]) {
+            case "t":
+                parseTodoTask(taskTypeArr[2], taskTypeArr[1].equalsIgnoreCase("m"));
+                break;
+            case "d":
+                parseDeadlineTask(taskTypeArr[2], taskTypeArr[1].equalsIgnoreCase("m"));
+                break;
+            case "e":
+                parseEventTask(taskTypeArr[2], taskTypeArr[1].equalsIgnoreCase("m"));
+                break;
+            default:
                 assert false;
-            }
-            break;
-        case 4:
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
-                taskList.createDeadlineTask(strArray[2], LocalDateTime.parse(strArray[3], formatter), convertTaskCompletedStatus(strArray[1]));
-            } catch (IOException e) {
-                ui.showErrorWritingFileMessage();
-                assert false;
-            }
-            break;
-        case 5:
-            try {
-                taskList.createEventTask(strArray[2], strArray[3], strArray[4], convertTaskCompletedStatus(strArray[1]));
-            } catch (IOException e) {
-                ui.showErrorWritingFileMessage();
-                assert false;
-            }
-            break;
-        default:
-            ui.showNoIdeaMessage();
-            assert false : strArray.length;
+                ui.showNoIdeaMessage();
         }
     }
 
@@ -72,16 +57,24 @@ public class Parser {
     protected String parse(String taskName) {
         String[] strArray = taskName.split(" ", 2);
 
-
         // create new todo task
         if (strArray[0].equalsIgnoreCase("todo")) {
-            return parseTodoTask(strArray[1]);
+            if (strArray.length < 2) {
+                return ui.showNeedMoreInfoMessage();
+            }
+            return parseTodoTask(strArray[1], false);
             // create new deadline task
         } else if (strArray[0].equalsIgnoreCase("deadline")) {
-            return parseDeadlineTask(taskName);
+            if (strArray.length < 2) {
+                return ui.showNeedMoreInfoMessage();
+            }
+            return parseDeadlineTask(strArray[1], false);
             // create new event task
         } else if (strArray[0].equalsIgnoreCase("event")) {
-            return parseEventTask(taskName);
+            if (strArray.length < 2) {
+                return ui.showNeedMoreInfoMessage();
+            }
+            return parseEventTask(strArray[1], false);
             // to end program
         } else if (taskName.equalsIgnoreCase("bye")) {
             return ui.showGoodbyeMessage();
@@ -107,9 +100,9 @@ public class Parser {
         }
     }
 
-    private String parseTodoTask(String taskName) {
+    public static String parseTodoTask(String taskName, boolean isMarked) {
         try {
-            return taskList.detectDuplicateTask(taskName) ? ui.showDuplicateDetectedMessage() : taskList.createTodoTask(taskName);
+            return taskList.createTodoTask(taskName, isMarked);
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoTodoMessage();
         } catch (IOException e) {
@@ -118,16 +111,14 @@ public class Parser {
         }
     }
 
-    private String parseDeadlineTask(String taskName) {
+    public static String parseDeadlineTask(String taskName, boolean isMarked) {
         try {
-            String[] todoStringArray = taskName.split(" /by ");
-            String dueDateString = todoStringArray[1];
-            String name = todoStringArray[0].split(" ", 2)[1];
+            String[] dueDateStringArray = taskName.split(" /by ");
+            String dueDateString = dueDateStringArray[1];
+            String name = dueDateStringArray[0];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
             LocalDateTime dueDate = LocalDateTime.parse(dueDateString, formatter);
-            return taskList.detectDuplicateTask(name, dueDate)
-                    ? ui.showDuplicateDetectedMessage()
-                    : taskList.createDeadlineTask(name, dueDate);
+            return taskList.createDeadlineTask(name, dueDate, isMarked);
         }
         catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoDeadlineMessage();
@@ -135,18 +126,20 @@ public class Parser {
             assert false;
             return ui.showErrorWritingFileMessage();
         }
+        catch (DateTimeParseException e) {
+            assert false;
+            return ui.showDateTimeUnparseableMessage();
+        }
     }
 
-    private String parseEventTask(String taskName) {
+    public static String parseEventTask(String taskName, boolean isMarked) {
         try {
             String[] eventStringArray = taskName.split(" /from ");
             String[] duration = eventStringArray[1].split(" /to ");
-            String name = eventStringArray[0].split(" ", 2)[1];
+            String name = eventStringArray[0];
             String start = duration[0];
             String end = duration[1];
-            return taskList.detectDuplicateTask(name, start, end)
-                    ? ui.showDuplicateDetectedMessage()
-                    : taskList.createEventTask(name, start, end);
+            return taskList.createEventTask(name, start, end, isMarked);
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoEventMessage();
         } catch (IOException e) {
@@ -186,9 +179,5 @@ public class Parser {
             assert false;
             return ui.showErrorWritingFileMessage();
         }
-    }
-
-    private static boolean convertTaskCompletedStatus(String completionStatus) {
-        return completionStatus.equalsIgnoreCase("m");
     }
 }
