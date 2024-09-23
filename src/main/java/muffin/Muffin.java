@@ -1,5 +1,8 @@
 package muffin;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
@@ -64,7 +67,7 @@ public class Muffin {
 
             switch (command) {
             case HI, HEY, HELLO:
-                return "Hi there! My name is Muffin!!";
+                return "Hi there! My name is Muffin!! \n How can I help you today?";
 
             case BYE:
                 // Pause for 3 seconds before exiting
@@ -101,17 +104,37 @@ public class Muffin {
                         + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
             case DEADLINE:
+                String formatMsgDeadline = "Use this format: \n deadline do something /by 2024-12-31";
+
                 if (parts.length < 3) {
-                    throw new MuffinException("Oh no! You must have a description and a deadline for a deadline task!");
+                    throw new MuffinException("Oh no! You must have a description and a deadline for a deadline task! "
+                            + formatMsgDeadline);
                 }
+
+                try {
+                    LocalDate.parse(parts[2]);
+                } catch (DateTimeParseException e) {
+                    return "The date format for your task was wrong! " + formatMsgDeadline;
+                }
+
                 list.add(len, new Deadline(parts[1], parts[2]));
-                return String.format("Ok. Added this task:\n \t %s \n"
+                return String.format("Ok. Added this task: \n \t %s \n"
                         + "Now you have %d tasks in your list.", list.get(len), len + 1);
 
             case EVENT:
+                String formatMsgEvent = "Use this format: \n event do something /from 2024-12-01 /to 2024-12-31";
                 if (parts.length < 4) {
-                    throw new MuffinException("Oh no! You must have a description and a timeframe for an event task!");
+                    throw new MuffinException("Oh no! You must have a description and a timeframe for an event task! "
+                            + formatMsgEvent);
                 }
+
+                try {
+                    LocalDate.parse(parts[2]);
+                    LocalDate.parse(parts[3]);
+                } catch (DateTimeParseException e) {
+                    return "The date format for your task was wrong! " + formatMsgEvent;
+                }
+
                 list.add(len, new Event(parts[1], parts[2], parts[3]));
                 return String.format("Ok. Added this task:\n \t %s \n"
                         + "Now you have %d tasks in your list.", list.get(len), len + 1);
