@@ -1,0 +1,103 @@
+package edith.command;
+
+import edith.Ui;
+import edith.Storage;
+import edith.EdithException;
+import edith.task.Task;
+import edith.task.ToDo;
+import edith.task.Deadline;
+import edith.task.Event;
+import edith.task.TaskList;
+
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a command to add a task to the task list.
+ * The AddCommand class parses a user instruction to create and add a new task
+ * to the task list. It supports adding ToDo, Deadline, and Event tasks.
+ */
+public class AddCommand extends Command {
+    private String instruction;
+
+    /**
+     * Constructs an AddCommand with the specified instruction.
+     *
+     * @param instruction The instruction provided by the user for adding a task.
+     */
+    public AddCommand(String instruction) {
+        this.instruction = instruction;
+    }
+
+    /**
+     * Executes the AddCommand by creating a task based on the user instruction,
+     * adding it to the task list, and saving the updated task list.
+     * A message will be displayed to confirm the addition and the updated number of tasks.
+     *
+     * @param tasks The TaskList to which the task should be added.
+     * @param ui The Ui used to display exit or date/time error messages.
+     * @param storage The Storage used to save the updated task list.
+     * @return A string message confirming the task has been added, or an error message if saving fails.
+     * @throws EdithException If the user instruction uses an invalid date/time format.
+     */
+    @Override
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
+        Task task = addTaskHelper();
+
+        try {
+            tasks.addTask(task);
+            storage.save(tasks.getListOfTasks());
+
+            StringBuilder response = new StringBuilder();
+            response.append("Got it. I've added this task:\n")
+                    .append(task.toString()).append("\n")
+                    .append("There are now ").append(tasks.getNumOfTasks()).append(" tasks in your list.");
+
+            return response.toString();
+        } catch (DateTimeParseException e) {
+            throw new EdithException(ui.invalidDateTimeError(), 1);
+        } catch (IOException e) {
+            return "An error occurred while saving updated Edith.task list.";
+        }
+    }
+
+    /**
+     * Helper method to Create a ToDo, Deadline, or Event task based on the user instruction provided.
+     * It will throw an EdithException if the instruction is invalid or incomplete.
+     *
+     * @return The respective Task object based on the user instruction provided.
+     * @throws EdithException If the user instruction is invalid or incomplete.
+     */
+    public Task addTaskHelper() throws EdithException {
+        Task task;
+
+        if (instruction.startsWith("todo ") || instruction.startsWith("t ")) {
+            String taskString = instruction.substring(instruction.indexOf(' ') + 1).trim();
+            if (taskString.isEmpty()) {
+                throw new EdithException("Invalid task as no description for this todo was provided.");
+            }
+            task = new ToDo(taskString);
+        } else if (instruction.startsWith("deadline ") || instruction.startsWith("d ")) {
+            String[] parts = instruction.substring(instruction.indexOf(' ') + 1).split(" /by ");
+            if (parts.length != 2) {
+                throw new EdithException("Deadlines must have both a description and a due date.");
+            }
+            String taskString = parts[0].trim();
+            String dueDate = parts[1].trim();
+            task = new Deadline(taskString, dueDate);
+        } else if (instruction.startsWith("event ") || instruction.startsWith("e ")) {
+            String[] parts = instruction.substring(instruction.indexOf(' ') + 1).split(" /from | /to ");
+            if (parts.length != 3) {
+                throw new EdithException("Event must have a description, start time, and end time.");
+            }
+            String taskString = parts[0].trim();
+            String startTime = parts[1].trim();
+            String endTime = parts[2].trim();
+            task = new Event(taskString, startTime, endTime);
+        } else {
+            throw new EdithException("Invalid command for adding tasks.");
+        }
+
+        return task;
+    }
+}

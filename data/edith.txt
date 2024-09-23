@@ -1,0 +1,4 @@
+[T] | [ ] | borrow book
+[D] | [X] | read book /by 29/9/2024 1800
+[E] | [X] | meeting /from 22/9/2024 1200 /to 22/9/2024 1400
+[D] | [ ] | return book /by 30/10/2024 1500
