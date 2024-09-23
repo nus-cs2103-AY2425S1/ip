@@ -1,3 +1,4 @@
 T | 0 | visit yo girl @NUS
 E | 0 | treat girlfriend dinner | 2025-02-12 1800 2000
 D | 0 | do her homework and submit | 2025-02-12 2359
+T | 0 | sleep

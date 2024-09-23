@@ -23,13 +23,13 @@ RizzBOT frees your mind of having to remember your dates and things to do for yo
     * [Deadline](#Create-Deadline)
     * [Event](#Create-Event)
     * [List](#Display-list)
-    * [Mark](#Marking-&-Unmarking-tasks)
+    * [Mark](#Marking-and-Unmarking-tasks)
     * [Delete](#Delete-tasks)
     * [Find](#Finding-keywords-in-tasks)
     * [Undo](#Undo-tasks)
-    * [Bye](#Bye-Bye!)
+    * [Bye](#Bye - Bye!)
 - [Features](#features)
-    * [Saving & Loading of tasks](#save-load-tasks)
+    * [Saving & Loading of tasks](#Save-and-load-tasks)
 
 # Quick-start
 Ensure you have Java 17 or above installed in your Computer.
@@ -144,7 +144,7 @@ Here's your list buddy!!
 5. [T][ ] sleep
 ```
 
-### Marking & Unmarking tasks
+### Marking and Unmarking tasks
 Marking tasks allows users to mark tasks as done.
 
 Command format: `mark {task index...}`
@@ -200,6 +200,18 @@ I found some! Here are the matching tasks in your list:
 1. [D][ ] do her homework and submit (by: Feb 12 2025)
 ```
 
+# Undo-tasks
+Users can revert the last action made, whether it is adding, deleting, marking, or editing a task. This is useful if you accidentally make changes to the task list and want to restore the previous state.
+
+Whenever a task is added, deleted, marked, or unmarked, the current state of the task list is saved. Using the undo command will revert the task list to the previous saved state
+
+Command format: `undo`
+
+Expected output:
+```
+Alright! I have undone the previous command!
+```
+
 ### Bye Bye!
 Users can exit the chatbot with the `bye` command. After 3.5 seconds, the app will automatically close.
 
@@ -212,7 +224,7 @@ Bye bye!
 
 # Features
 
-### Save & load tasks
+### Save and load tasks
 
 The application automatically saves all tasks to the hard disk after every command that modifies the task list. This ensures that no data is lost, even when you close the application. 
 
