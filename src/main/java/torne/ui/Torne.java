@@ -77,9 +77,9 @@ public class Torne {
      * Note: the parser does not handle "bye" and other exit commands.
      *
      * @param input String input command.
-     * @return output of command.
+     * @return output of command as a {@link ChatResponse} object.
      */
-    public String getResponse(String input) {
+    public ChatResponse getResponse(String input) {
         // currently how this works is that it gets parser to execute the command
         // then just takes the response from chatOutput
         try {
@@ -101,9 +101,9 @@ public class Torne {
     /**
      * Gets the instance of Torne to initialise and show the start message, then returns the start message.
      *
-     * @return start message.
+     * @return start message as a {@link ChatResponse} object.
      */
-    public String getStartMessage() {
+    public ChatResponse getStartMessage() {
         output.showGreeting();
         return output.getCurrentOut();
     }

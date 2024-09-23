@@ -28,7 +28,8 @@ public class MainWindow extends AnchorPane {
     private Torne torne;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image torneImage = new Image(this.getClass().getResourceAsStream("/images/torne_transparent_400.png"));
+    private final Image torneImage = new Image(this.getClass().getResourceAsStream("/images/torne_transparent.png"));
+    private final Image torneErrorImage = new Image(this.getClass().getResourceAsStream("/images/torne_transparent_error.png"));
 
     @FXML
     public void initialize() {
@@ -43,7 +44,7 @@ public class MainWindow extends AnchorPane {
 
         // create greeting dialog
         dialogContainer.getChildren().addAll(
-                DialogBox.getTorneDialog(torne.getStartMessage(), torneImage)
+                DialogBox.getTorneDialog(torne.getStartMessage().getTitle(), torneImage)
         );
     }
 
@@ -62,11 +63,21 @@ public class MainWindow extends AnchorPane {
             Platform.exit();
         }
 
-        String response = torne.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTorneDialog(response, torneImage)
-        );
+        ChatResponse response = torne.getResponse(input);
+        String responseText = response.getTitle();
+
+        if (response.isErrorResponse()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getErrorDialog(responseText, torneErrorImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getTorneDialog(responseText, torneImage)
+            );
+        }
+
         userInput.clear();
     }
 }

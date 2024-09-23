@@ -52,13 +52,50 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Formats this dialog box for an error message.
+     */
+    private void formatAsError() {
+        dialog.getStyleClass().add("error-dialog"); // add CSS class with error formatting
+    }
+
+    /**
+     * Creates a standard dialog box for the user. Right-aligned.
+     *
+     * @param text text content of the dialog box.
+     * @param img image to be shown alongside the dialog box.
+     * @return {@link DialogBox} object.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a standard dialog box for Torne (the bot). Left-aligned.
+     *
+     * @param text text content of the dialog box.
+     * @param img image to be shown alongside the dialog box.
+     * @return {@link DialogBox} object.
+     */
     public static DialogBox getTorneDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    /**
+     * Creates an error dialog box for Torne (the bot). Left-aligned.
+     * <br>
+     * Has additional error formatting.
+     *
+     * @param text error text content of the dialog box.
+     * @param img image to be shown alongside the dialog box.
+     * @return {@link DialogBox} object.
+     */
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.formatAsError();
         return db;
     }
 }

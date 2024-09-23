@@ -19,6 +19,15 @@
     -fx-border-radius: 1em 1em 0 1em;
 }
 
+.error-dialog {
+    -fx-background-color: primary-dark-color;
+    -fx-border-color: text-color;
+    -fx-font: 12px "CaskaydiaCove NF SemiBold";
+    -fx-text-fill: white;
+    -fx-padding: 1em;
+    -fx-border-width: 0px;
+}
+
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;

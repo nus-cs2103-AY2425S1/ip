@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 
 /**
@@ -16,6 +17,10 @@ public class Main extends Application {
 
     // note that if you need to have a constructor with arguments, create an **overloaded** constructor with no args
     // that calls the original constructor. (Check tutorial pt 1)
+
+    public Main() {
+        Font.loadFont(getClass().getResourceAsStream("/fonts/CaskaydiaCoveNerdFont-SemiBold"), 18);
+    }
 
     private final Torne torne = new Torne(); // Init Torne
 
