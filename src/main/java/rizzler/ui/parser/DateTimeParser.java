@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Parser for any datetime objects input by the user.
+ * Represents a parser for any datetime objects input by the user.
  */
 public class DateTimeParser {
 
     /**
-     * Handles conversion of a string in <code>YYYY-MM-DD</code> format to a datetime object.
+     * Converts a string in <code>YYYY-MM-DD</code> format to a datetime object.
      * @param inputStr String representing a date in <code>YYYY-MM-DD</code> format.
      * @return <code>LocalDate</code> object representing the same date provided by the user.
      */

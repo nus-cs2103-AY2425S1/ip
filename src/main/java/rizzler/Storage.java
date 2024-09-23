@@ -16,7 +16,7 @@ import rizzler.task.TaskLog;
 import rizzler.task.ToDo;
 
 /**
- * Storage object to handle reading and writing between TaskLogs and files.
+ * Represents a storage object to handle reading and writing between TaskLogs and files.
  * Default directory is <code>taskStorage/taskLog.tsv</code>, relative to where <code>Rizzler</code> is run.
  */
 public class Storage {
@@ -24,7 +24,7 @@ public class Storage {
     private final File file;
 
     /**
-     * Constructor for a <code>Storage</code> object.
+     * Constructs a <code>Storage</code> object.
      */
     protected Storage() {
         File file = new File(STORAGE_PATH.toString());
