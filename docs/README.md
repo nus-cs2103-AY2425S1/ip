@@ -1,6 +1,6 @@
 # Alexer User Guide
 
-// Product screenshot goes here
+![Alexer Screenshot](Ui.png)
 
 Alexer is a powerful companion that allows you to:
 - Create different types of tasks for all your important activites, such as deadlines and events
