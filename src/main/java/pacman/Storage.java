@@ -23,7 +23,7 @@ public class Storage {
     }
 
     /**
-     * Load a file from <code>filePath</code> and convert it to <code>ArrayList</code> object
+     * Loads a file from <code>filePath</code> and convert it to <code>ArrayList</code> object
      * If file is not found, create a file corresponds the <code>filePath</code>
      *
      * @return an <code>ArrayList</code> that corresponds to the file in the <code>filePath</code>
@@ -69,7 +69,7 @@ public class Storage {
     }
 
     /**
-     * Write a file to <code>filePath</code> based on <code>list</code>
+     * Writes a file to <code>filePath</code> based on <code>list</code>
      *
      * @param list a <code>String</code> that to be written
      */

@@ -62,7 +62,7 @@ public class Parser {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * If the command add, delete, or mark the tasks, <code>execute</code> use <code>list</code>'s method
      * If the command return an output, <code>execute</code> use <code>ui</code>'s method
      * If the command ask to exit, return true

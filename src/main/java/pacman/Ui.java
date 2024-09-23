@@ -18,7 +18,7 @@ public class Ui {
     }
 
     /**
-     * Output a greeting to the user
+     * Outputs a greeting to the user
      */
     public void showGreet() {
         System.out.println("  " + GREET);
@@ -27,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Output a bye to the user
+     * Outputs a bye to the user
      */
     public void showBye() {
         System.out.println("  " + BYE);
@@ -36,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * Output the result of the command
+     * Outputs the result of the command
      *
      * @param result a <code>String</code> corresponds to the result
      */
@@ -53,7 +53,7 @@ public class Ui {
     }
 
     /**
-     * Read an input from the user
+     * Reads an input from the user
      *
      * @return a <code>String</code> corresponds to the input from the user
      */

@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import pacman.gui.DialogBox;
 
 public class MainWindow extends AnchorPane {
-
     @FXML
     private ScrollPane scrollPane;
     @FXML

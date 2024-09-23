@@ -19,7 +19,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return a <code>String</code> that is readable and writeable by <code>Storage</code>
+     * Returns a <code>String</code> that is readable and writeable by <code>Storage</code>
      *
      * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
      */
