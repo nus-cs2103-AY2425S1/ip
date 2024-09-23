@@ -18,12 +18,14 @@ public class Parser {
     private static final int FIND_COMMAND_LENGTH = 4;
     private static final int TAG_COMMAND_LENGTH = 3;
     private static final int UNTAG_COMMAND_LENGTH = 5;
+    private static final int VIEWTAGS_COMMAND_LENGTH = 8;
+
 
     // Solution below inspired by https://github.com/1st2GetThisName/ip/blob/master/src/main/java/vecrosen/Parser.java
     /**
      * Different prompt types REI understands
      */
-    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, TAG, UNTAG, ANNYEONG};
+    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, TAG, UNTAG, VIEWTAGS, ANNYEONG};
 
     /**
      * Checks if a string only contains whitespace
@@ -161,11 +163,21 @@ public class Parser {
                 }
 
                 return Prompt.UNTAG;
+            case "viewtags":
+                // Read the rest of the line after "view"
+                taskDetails = prompt.substring(VIEWTAGS_COMMAND_LENGTH).trim();
+
+                // Check if the rest of the line is an integer
+                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
+                    throw new ReiException("State the task number!");
+                }
+
+                return Prompt.VIEWTAGS;
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:
                 throw new ReiException("I don't understand what you want me to do. \n" +
-                        "Available commands : todo deadline event list delete mark unmark find tag untag annyeong");
+                        "Available commands : todo deadline event list delete mark unmark find tag untag viewtags annyeong");
         }
     }
 

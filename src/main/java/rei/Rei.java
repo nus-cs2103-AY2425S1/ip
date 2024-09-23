@@ -83,6 +83,10 @@ public class Rei {
                     taskIndex = Integer.parseInt(details[0]);
                     output = tasks.deleteTag(taskIndex, details[1]);
                     break;
+                case VIEWTAGS:
+                    taskIndex = Integer.parseInt(prompt.substring(8).trim());
+                    output = tasks.viewTags(taskIndex);
+                    break;
                 default:
                     assert false : "switch-case should never reach this";
                     break;

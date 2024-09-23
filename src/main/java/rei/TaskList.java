@@ -150,6 +150,19 @@ public class TaskList {
     }
 
     /**
+     * Shows all the tags assigned to a Task
+     * @param taskIndex the Task index
+     * @return the tags in String representation
+     */
+    public String viewTags(int taskIndex) {
+        if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
+            return "No task found. Please retry!";
+        }
+
+        return "tags:" + listOfTasks.get(taskIndex - 1).allTagsToString();
+    }
+
+    /**
      * Returns the list of Tasks in String
      * @return the message and the list of Tasks in String
      */
