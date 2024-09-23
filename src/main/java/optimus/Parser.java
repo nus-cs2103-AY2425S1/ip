@@ -63,13 +63,18 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new OptimusException("The task number provided is empty. Please provide a valid task number.");
         }
-        int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
-            throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
+                throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
+            }
+            Task taskToDelete = record.getTask(taskNumber);
+            record.deleteTask(taskNumber);
+            return ui.taskDeleted(taskToDelete, record.getSizeOfRecord());
+        } catch (NumberFormatException e) {
+            throw new OptimusException("Please enter a valid task number which is numerical");
         }
-        Task taskToDelete = record.getTask(taskNumber);
-        record.deleteTask(taskNumber);
-        return ui.taskDeleted(taskToDelete, record.getSizeOfRecord());
     }
 
     private static String handleMarkCommand(String text, TaskList record, Ui ui) throws OptimusException {
@@ -77,13 +82,18 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new OptimusException("The task number provided is empty. Please provide a valid task number.");
         }
-        int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
-            throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
+                throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
+            }
+            Task taskToMark = record.getTask(taskNumber);
+            taskToMark.setDone();
+            return ui.TaskMarked(taskToMark);
+        } catch (NumberFormatException e) {
+            throw new OptimusException("Please enter a valid task number which is numerical");
         }
-        Task taskToMark = record.getTask(taskNumber);
-        taskToMark.setDone();
-        return ui.TaskMarked(taskToMark);
     }
 
     private static String handleUnmarkCommand(String text, TaskList record, Ui ui) throws OptimusException {
@@ -91,13 +101,18 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new OptimusException("The task number provided is empty. Please provide a valid task number.");
         }
-        int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
-            throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
+                throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
+            }
+            Task taskToUnmark = record.getTask(taskNumber);
+            taskToUnmark.setNotDone();
+            return ui.TaskUnmarked(taskToUnmark);
+        } catch (NumberFormatException e) {
+            throw new OptimusException("Please enter a valid task number which is numerical.");
         }
-        Task taskToUnmark = record.getTask(taskNumber);
-        taskToUnmark.setNotDone();
-        return ui.TaskUnmarked(taskToUnmark);
     }
 
     private static String handleTodoCommand(String text, TaskList record, Ui ui) throws OptimusException {
