@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Nebula using FXML.
  */
 public class Main extends Application {
 
@@ -32,7 +32,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setNebula(nebula);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setNebula(nebula);  // inject the Nebula instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
