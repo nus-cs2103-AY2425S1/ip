@@ -17,7 +17,7 @@ import ava.task.TaskManager;
  */
 public class AVA {
 
-    private static final String USER_GUIDE_URL = "";
+    private static final String USER_GUIDE_URL = "https://timenikhil.github.io/ip/";
 
     //CHECKSTYLE.ON: AbbreviationAsWordInName
     /**
@@ -76,8 +76,8 @@ public class AVA {
             switch (userInput) {
             case HELP: {
                 out.println("Here are the commands I understand for now:");
-                out.println("1. list - Lists all tasks");
-                out.println("Please visit the user guide at ehe following link for more commands.");
+                out.println("List, Mark, Unmark, Delete, Todo, Event, Deadline, Find");
+                out.println("Please visit the user guide at the following link for more commands.");
                 out.println(USER_GUIDE_URL);
                 break;
             }
