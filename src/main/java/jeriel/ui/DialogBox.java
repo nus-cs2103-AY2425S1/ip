@@ -14,69 +14,56 @@ import javafx.scene.shape.Circle;
  * Custom control that represents the dialog boxes for user and bot.
  */
 public class DialogBox extends HBox {
+    private Label text;
+    private ImageView displayPicture;
 
-    private static final double IMAGE_SIZE = 50.0;
-    private static final double CIRCLE_RADIUS = 25.0;
-
-    private final Label text;
-    private final ImageView displayPicture;
-
-    /**
-     * Constructor for the dialog box, initializes the text and image.
-     * @param text The text to display.
-     * @param img The image to display.
-     */
     private DialogBox(String text, Image img) {
         this.text = new Label(text);
-        this.displayPicture = createImageView(img);
+        this.displayPicture = new ImageView(img);
+
+        // Customize the image view (rounded corners)
+        displayPicture.setFitWidth(40);
+        displayPicture.setFitHeight(40);
+
+        // Crop the image to a circular shape
+        Circle clip = new Circle(20, 20, 20);
+        displayPicture.setClip(clip);
+
+        // Styling and adding children
         this.getChildren().addAll(displayPicture, this.text);
+        this.setSpacing(10); // Spacing between image and text
     }
 
     /**
-     * Helper method to create an ImageView with predefined size and circular clip.
-     * @param img The image to be displayed.
-     * @return Configured ImageView.
-     */
-    private ImageView createImageView(Image img) {
-        ImageView imageView = new ImageView(img);
-        imageView.setFitWidth(IMAGE_SIZE);
-        imageView.setFitHeight(IMAGE_SIZE);
-        Circle clip = new Circle(CIRCLE_RADIUS, CIRCLE_RADIUS, CIRCLE_RADIUS);
-        imageView.setClip(clip);
-        return imageView;
-    }
-
-    /**
-     * Creates a dialog box for the user message (aligned to the right).
-     * @param text The user message text.
-     * @param img The user's display picture.
-     * @return Configured DialogBox aligned to the right.
+     * Creates a dialog box for the user message (right-aligned).
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        DialogBox dialogBox = new DialogBox(text, img);
-        dialogBox.setAlignment(Pos.CENTER_RIGHT); // Align text to the right
-        dialogBox.flip(); // Flip text and image position
-        return dialogBox;
+        DialogBox db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #D9FDD3; -fx-padding: 10px; -fx-background-radius: 10;");
+        db.setAlignment(Pos.CENTER_RIGHT);
+        ObservableList<Node> children = FXCollections.observableArrayList(db.getChildren());
+        FXCollections.reverse(children); // Ensure user image is on the right
+        db.getChildren().setAll(children);
+        return db;
     }
 
     /**
-     * Creates a dialog box for the bot message (aligned to the left).
-     * @param text The bot message text.
-     * @param img The bot's display picture.
-     * @return Configured DialogBox aligned to the left.
+     * Creates a dialog box for the bot message (left-aligned).
      */
     public static DialogBox getBotDialog(String text, Image img) {
-        DialogBox dialogBox = new DialogBox(text, img);
-        dialogBox.setAlignment(Pos.CENTER_LEFT); // Align text to the left
-        return dialogBox;
+        DialogBox db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #EFEFEF; -fx-padding: 10px; -fx-background-radius: 10;");
+        db.setAlignment(Pos.CENTER_LEFT);
+        return db;
     }
 
     /**
-     * Flips the positions of text and image for the user dialog box.
+     * Creates a dialog box for an error message (left-aligned, in red).
      */
-    private void flip() {
-        ObservableList<Node> nodes = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(nodes); // Flip the order (text on the right, image on the left)
-        this.getChildren().setAll(nodes);
+    public static DialogBox getErrorDialog(String errorMessage) {
+        DialogBox db = new DialogBox(errorMessage, null);
+        db.setStyle("-fx-background-color: #FFB6B6; -fx-text-fill: red; -fx-padding: 10px; -fx-background-radius: 10;");
+        db.setAlignment(Pos.CENTER_LEFT);
+        return db;
     }
 }

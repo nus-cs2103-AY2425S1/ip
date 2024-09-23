@@ -24,8 +24,8 @@ public class MainWindowController {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        // Adding event listener to listen for 'Enter' key press in userInput TextField
-        userInput.setOnAction(event -> handleUserInput());  // Handles enter key press in text field
+        // Handle enter key press
+        userInput.setOnAction(event -> handleUserInput());
     }
 
     public void setJeriel(Jeriel j) {
@@ -34,17 +34,19 @@ public class MainWindowController {
 
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText().trim(); // Trim to remove unnecessary spaces
-        if (!input.isEmpty()) {  // Only process input if it's not empty
-            String response = jeriel.getResponse(input);
-
-            // Add user and bot dialog to the dialog container
-            dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage.getImage()), 
-                DialogBox.getBotDialog(response, botImage.getImage())
-            );
-
-            userInput.clear();  // Clear the text field after handling input
+        String input = userInput.getText().trim();
+        if (!input.isEmpty()) {
+            try {
+                String response = jeriel.getResponse(input);
+                dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage.getImage()),
+                    DialogBox.getBotDialog(response, botImage.getImage())
+                );
+            } catch (Exception e) {
+                dialogContainer.getChildren().add(DialogBox.getErrorDialog(e.getMessage()));
+            } finally {
+                userInput.clear();
+            }
         }
     }
 }
