@@ -109,11 +109,11 @@ Got it! I have updated the following task:
 
 ## Exiting
 
-Use this command to get a goodbye message from botty
+Use this command to exit the application
 
 Example: `bye`
 
-Botty will give you a goodbye message
+Botty will give you a goodbye message and close the application
 
 ```
 Goodbye! Thanks for your continued patronage.
