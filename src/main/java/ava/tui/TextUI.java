@@ -22,25 +22,9 @@ public class TextUI {
         Scanner scanner = new Scanner(System.in);
         AVA ava = new AVA(); //default ava.ava object
 
-        //CHECKSTYLE.OFF: Regexp
         // Greet the user
-        System.out.println("""
-                        Hiii,  I'm AVA (Assimilated Virtual Assistant). 🎀
-                       I am a virtual personal assistant created by Nikhil.
-                                   Its sooo nice to meet you 🌸.
-                                   
-                        I am currently a toddler and can't do much 🙁 but
-                          don't worry I should soon be very capable 💖.
-                
-                ----------------------------------------------------------------
-                             I am here to help you and hope that'll
-                               we'll have lots of fun together 🎀.
-                               
-                        If you get lost just say help and I'll help you out
-                           but if you wanna leave you can just say bye. 🙂
-                ----------------------------------------------------------------
-                """);
-        //CHECKSTYLE.ON: Regexp
+        System.out.println(ava.welcomeUser());
+
         ava.tellAva(scanner.nextLine());
         // Process user input until user says bye
         while (ava.isRunning()) {
@@ -48,10 +32,7 @@ public class TextUI {
             ava.tellAva(scanner.nextLine());
         }
         //Exit
-        System.out.println("""
-                                         Byeee!! It was really nice talking to you.💖
-                                                 Hope to see you again soon.
-                              """);
+        System.out.println(ava.bye());
 
     }
 

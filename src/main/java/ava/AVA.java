@@ -1,6 +1,8 @@
 package ava;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import ava.commands.Command;
@@ -56,7 +58,6 @@ public class AVA {
         currentInput = s;
     }
 
-    //todo:have a non printstream version
     /**
      * Prints AVA's response to given PrintStream.
      * TODO:refactor mark and unmark to remove redundancy
@@ -150,10 +151,65 @@ public class AVA {
         }
     }
 
+    /**
+     * Responds to the current input as a String.
+     *
+     * @return the response to the user input.
+     */
+    public String respond() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(outputStream);
+        respond(ps);
+        // the output stream acts as a buffer to convert the response to
+        // a string
+        return outputStream.toString(StandardCharsets.UTF_8);
+    }
 
+    /**
+     * Streams the response to the output.
+     */
     public void streamResponse() {
         //TODO: implement
         //stream a response to output
     }
+
+    //CHECKSTYLE.OFF: Regexp
+    /**
+     * Welcomes the user.
+     *
+     * @return welcome message for user.
+     */
+    public String welcomeUser() {
+        return """
+                       Hiii,  I'm AVA (Assimilated Virtual Assistant). 🎀
+                       I am a virtual personal assistant created by Nikhil.
+                                   Its sooo nice to meet you 🌸.
+                                   
+                        I am currently a toddler and can't do much 🙁 but
+                          don't worry I should soon be very capable 💖.
+                
+                ----------------------------------------------------------------
+                             I am here to help you and hope that'll
+                               we'll have lots of fun together 🎀.
+                               
+                        If you get lost just say help and I'll help you out
+                           but if you wanna leave you can just say bye. 🙂
+                ----------------------------------------------------------------
+                """;
+    }
+
+
+    /**
+     * Says goodbye to the user.
+     *
+     * @return goodbye message for user.
+     */
+    public String bye() {
+        return """
+                       Byeee!! It was really nice talking to you.💖
+                               Hope to see you again soon.
+                """;
+    }
+    //CHECKSTYLE.ON: Regexp
 }
 
