@@ -23,21 +23,21 @@ public class MainWindow extends AnchorPane {
 
     private Bob bob;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user_avatar.jpg"));
+    private Image bobImage = new Image(this.getClass().getResourceAsStream("/images/Bob_avatar.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Bob instance */
     public void setBob(Bob b) {
         bob = b;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Bob's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         String response = bob.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBobDialog(response, dukeImage)
+                DialogBox.getBobDialog(response, bobImage)
         );
         userInput.clear();
     }
