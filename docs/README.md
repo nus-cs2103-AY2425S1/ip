@@ -1,6 +1,6 @@
 # CancelGPT User Guide
 
-![Ui.png](Ui.png)
+![Ui.png](UI.png)
 
 # Keep track of tasks, deadlines, events, and fixed duration tasks!
 Introducing **CancelGPT**!
