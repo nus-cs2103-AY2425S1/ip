@@ -3,6 +3,8 @@ package Naega.Command;
 import Naega.Storage.Storage;
 import Naega.Task.TaskList;
 import Naega.Ui.Ui;
+import javafx.application.Platform;
+
 
 /**
  * Represents a command to exit the application.
@@ -20,6 +22,9 @@ public class ExitCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage)  {
         storage.save(tasks.getTasks());  // Save tasks to storage
+
+        // Call Platform.exit() to close the JavaFX application
+        Platform.exit();
 
         return ui.showLine() + "\nBye. Hope to see you again soon!\n" + ui.showLine();  // Return the message with lines
     }
