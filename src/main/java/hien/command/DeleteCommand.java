@@ -33,6 +33,7 @@ public class DeleteCommand extends Command {
         String msg = "";
         if (isValidIndex(tasks, index)) {
             int i = Integer.parseInt(index);
+            assert i >= 1 && i <= tasks.size();
             Task removedTask = tasks.getTask(i - 1);
             tasks.deleteTask(i - 1);
             storage.save(tasks);
