@@ -90,3 +90,9 @@ Last of all, if you do need help at any point while using **Rizzler** and you wi
 All you have to do is key in `help` and a list of all commands will show up!
 
 If you want more information about the format of any other command, you can simply type in the command you want more information about, and **Rizzler** will let you know what the command format is like, and show you examples.
+
+## Bye
+
+And if you're done talking to **Rizzler** and are heading off, you can use the `bye` command to exit **Rizzler**!
+
+Do avoid closing **Rizzler** without saying `bye`: it hurts **Rizzler**'s feelings!
