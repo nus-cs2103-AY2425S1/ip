@@ -2,11 +2,12 @@ package edith;
 
 import edith.command.Command;
 import edith.task.TaskList;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Represents the main class for the EDITH chatbot application.
@@ -60,7 +61,11 @@ public class Edith {
             Command command = parser.parse(userInput);
             response.append(command.execute(tasks, ui, storage));
             if (command.isExit()) {
-                Platform.exit();
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(event -> {
+                    Platform.exit();
+                });
+                delay.play();
             }
         } catch (DateTimeParseException e) {
             response.append(ui.invalidDateTimeError());
