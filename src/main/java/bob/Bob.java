@@ -15,6 +15,7 @@ public class Bob {
     private final Parser parser;
     private TaskList tasks;
     private String commandType = "";
+    private boolean isExit = false;
 
     /**
      * Constructs a Bob instance that stores data at the given filePath.
@@ -31,11 +32,10 @@ public class Bob {
             ui.printError(e.getMessage());
             tasks = new TaskList();
         }
+        ui.printGreeting();
     }
 
     public void run() {
-        ui.printGreeting();
-        boolean isExit = false;
         while (!isExit) {
             try {
                 String input = ui.readInput();
@@ -48,8 +48,20 @@ public class Bob {
         }
     }
 
+    /**
+     * Cleanup function when this Bob instance exits.
+     */
+    public void exit() {
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
         new Bob("data/Bob.txt").run();
+
     }
 
     /**
@@ -60,10 +72,18 @@ public class Bob {
             Command c = parser.parse(input);
             c.execute(tasks, ui, storage);
             commandType = c.getClass().getSimpleName();
+            isExit = c.isExit();
         } catch (BobException e) {
             ui.printError(e.getMessage());
             commandType = "Error";
         }
+        return ui.getLastMessage();
+    }
+
+    /**
+     * Returns the last message of this Bob instance.
+     */
+    public String getLastMessage() {
         return ui.getLastMessage();
     }
 
@@ -74,5 +94,14 @@ public class Bob {
      */
     public String getCommandType() {
         return commandType;
+    }
+
+    /**
+     * Checks if the previous executed command triggers a program exit.
+     *
+     * @return true if the command triggers a program exit, false otherwise
+     */
+    public boolean isExit() {
+        return isExit;
     }
 }

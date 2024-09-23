@@ -1,6 +1,7 @@
 package bob.gui;
 
 import bob.Bob;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -34,6 +35,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Bob instance */
     public void setBob(Bob b) {
         bob = b;
+        String greeting = bob.getLastMessage();
+        if (!greeting.isBlank()) {
+            dialogContainer.getChildren().add(DialogBox.getBobDialog(greeting, bobImage, ""));
+        }
     }
 
     /**
@@ -50,5 +55,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBobDialog(response, bobImage, commandType)
         );
         userInput.clear();
+        if (bob.isExit()) {
+            Platform.exit();
+        }
     }
 }
