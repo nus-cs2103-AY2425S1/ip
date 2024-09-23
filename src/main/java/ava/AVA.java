@@ -16,6 +16,9 @@ import ava.task.TaskManager;
  * Creates a model AVA which follows commands.
  */
 public class AVA {
+
+    private static final String USER_GUIDE_URL = "";
+
     //CHECKSTYLE.ON: AbbreviationAsWordInName
     /**
      * Current user input being processed by AVA.
@@ -41,8 +44,6 @@ public class AVA {
     /**
      * Decides if AVA is running or not.
      *
-     * TODO: switch to a state based system like Operating System Threads
-     *
      * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise.
      */
     public final boolean isRunning() {
@@ -60,7 +61,6 @@ public class AVA {
 
     /**
      * Prints AVA's response to given PrintStream.
-     * TODO:refactor mark and unmark to remove redundancy
      *
      * @param out PrintStream to print AVA's response to.
      */
@@ -74,6 +74,13 @@ public class AVA {
         }
         try {
             switch (userInput) {
+            case HELP: {
+                out.println("Here are the commands I understand for now:");
+                out.println("1. list - Lists all tasks");
+                out.println("Please visit the user guide at ehe following link for more commands.");
+                out.println(USER_GUIDE_URL);
+                break;
+            }
             case LIST: {
                 List<Task> list = taskManager.getTasks();
                 out.println("Here are your tasks:");
@@ -163,14 +170,6 @@ public class AVA {
         // the output stream acts as a buffer to convert the response to
         // a string
         return outputStream.toString(StandardCharsets.UTF_8);
-    }
-
-    /**
-     * Streams the response to the output.
-     */
-    public void streamResponse() {
-        //TODO: implement
-        //stream a response to output
     }
 
     //CHECKSTYLE.OFF: Regexp

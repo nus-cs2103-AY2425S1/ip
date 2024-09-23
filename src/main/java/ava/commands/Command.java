@@ -12,4 +12,6 @@ public enum Command {
     MARK,
     UNMARK,
     FIND,
+    HELP
 }
+
