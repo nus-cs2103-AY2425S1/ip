@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents an Event task that extends the Task class.
  * An Event task includes a start date and an end date for the event.
  */
-public class Event extends Task {
+public class Event extends Task implements Snoozable{
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -49,4 +49,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public void snooze(LocalDate newDate) {
+        this.startDate = newDate;  // Update the event start date
+    }
+
 }

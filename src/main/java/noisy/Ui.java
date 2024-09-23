@@ -1,6 +1,7 @@
 package noisy;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -72,5 +73,14 @@ public class Ui {
 
         return result.toString();
     }
+
+    public String printSnooze(Task task, LocalDate newDate) {
+        return "____________________________________________________________\n" +
+                "Got it. I've snoozed this task:\n" +
+                task + "\n" +
+                "New date: " + newDate + "\n" +
+                "____________________________________________________________\n";
+    }
+
 
 }

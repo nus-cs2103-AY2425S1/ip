@@ -59,6 +59,19 @@ public class Parser {
                     Integer index = Integer.parseInt(deleteParts[1]);
                     taskList.deleteFromList(index - 1);
                     return ui.printDelete(index - 1, taskList);
+                case "snooze":
+                    String[] snoozeParts = input.split(" ");
+                    Integer snoozeIndex = Integer.parseInt(snoozeParts[1]);
+                    LocalDate newDate = this.parseDate(snoozeParts[2]);
+
+                    Task taskToSnooze = taskList.getTask(snoozeIndex - 1);
+
+                    // Snooze the task without using instanceof
+                    if (taskToSnooze instanceof Snoozable) {
+                        ((Snoozable) taskToSnooze).snooze(newDate);
+                        storage.saveTasks(taskList.getTasks());
+                        return ui.printSnooze(taskToSnooze, newDate);
+                    }
                 default:
                     throw new NoisyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
