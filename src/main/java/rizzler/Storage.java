@@ -98,18 +98,18 @@ public class Storage {
         Task newTask;
         assert tsvFields.length > 0 : "Invalid tsv fields";
         switch (tsvFields[0]) {
-        case "ToDo":
+        case ToDo.TYPE_STRING:
             boolean todoIsDone = Boolean.parseBoolean(tsvFields[1]);
             String todoDesc = tsvFields[2];
             newTask = new ToDo(todoDesc, todoIsDone);
             break;
-        case "Deadline":
+        case Deadline.TYPE_STRING:
             boolean deadlineIsDone = Boolean.parseBoolean(tsvFields[1]);
             String deadlineDesc = tsvFields[2];
             String deadlineTime = tsvFields[3];
             newTask = new Deadline(deadlineDesc, deadlineTime, deadlineIsDone);
             break;
-        case "Event":
+        case Event.TYPE_STRING:
             boolean eventIsDone = Boolean.parseBoolean(tsvFields[1]);
             String eventDesc = tsvFields[2];
             String eventStart = tsvFields[3];

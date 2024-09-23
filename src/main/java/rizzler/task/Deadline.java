@@ -7,6 +7,7 @@ import rizzler.ui.parser.DateTimeParser;
  * that it should be finished by.
  */
 public class Deadline extends Task {
+    public static final String TYPE_STRING = "Deadline";
     private final String deadlineTime;
 
     /**
@@ -44,7 +45,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getType() {
-        return "Deadline";
+        return TYPE_STRING;
     }
 
     /**

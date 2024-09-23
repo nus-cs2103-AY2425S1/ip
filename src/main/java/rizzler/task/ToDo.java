@@ -4,9 +4,11 @@ package rizzler.task;
  * Represents a ToDo: a task that the user has to do.
  */
 public class ToDo extends Task {
+    public static final String TYPE_STRING = "ToDo";
 
     /**
      * Constructs a ToDo object.
+     *
      * @param todoDesc Text description of the task to be completed.
      */
     public ToDo(String todoDesc) {
@@ -15,8 +17,9 @@ public class ToDo extends Task {
 
     /**
      * Constructs a ToDo object.
+     *
      * @param todoDesc Text description of the task to be completed.
-     * @param isDone Boolean to indicate if the task being created has been marked as done.
+     * @param isDone   Boolean to indicate if the task being created has been marked as done.
      */
     public ToDo(String todoDesc, boolean isDone) {
         super(todoDesc, isDone);
@@ -36,7 +39,7 @@ public class ToDo extends Task {
      */
     @Override
     public String getType() {
-        return "ToDo";
+        return TYPE_STRING;
     }
 
     /**

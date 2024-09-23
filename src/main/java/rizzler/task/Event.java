@@ -8,6 +8,7 @@ import rizzler.ui.parser.DateTimeParser;
  * Represents an Event with the addition of an <code>eventStart</code> and an <code>eventEnd</code>.
  */
 public class Event extends Task {
+    public static final String TYPE_STRING = "Event";
     private final String eventStart;
     private final String eventEnd;
 
@@ -48,7 +49,7 @@ public class Event extends Task {
      */
     @Override
     public String getType() {
-        return "Event";
+        return TYPE_STRING;
     }
 
     /**
