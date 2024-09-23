@@ -1,4 +1,4 @@
-package maga;
+package maga.middleware;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

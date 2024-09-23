@@ -1,4 +1,4 @@
-package maga;
+package maga.commands;
 
 /**
  * The {@code Command} class represents a generic command issued by the user.

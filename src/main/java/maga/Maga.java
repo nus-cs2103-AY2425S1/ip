@@ -1,5 +1,6 @@
 package maga;
 
+import maga.middleware.Controller;
 import maga.task.TaskList;
 import maga.task.TaskManager;
 

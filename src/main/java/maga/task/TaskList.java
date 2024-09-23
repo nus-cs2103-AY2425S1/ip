@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import maga.Command;
+import maga.commands.Command;
 
 
 /**

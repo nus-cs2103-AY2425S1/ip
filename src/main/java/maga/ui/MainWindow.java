@@ -1,6 +1,4 @@
-package maga.java;
-
-import java.util.Objects;
+package maga.ui;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package maga.java;
+package maga.ui;
 
 import javafx.application.Application;
 

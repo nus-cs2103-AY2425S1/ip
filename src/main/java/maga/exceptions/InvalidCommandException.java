@@ -1,4 +1,4 @@
-package maga;
+package maga.exceptions;
 
 /**
  * {@code InvalidCommandException} is a custom exception that is thrown when an invalid
