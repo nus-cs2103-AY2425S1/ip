@@ -3,6 +3,8 @@ package ava.commands;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import ava.errors.ErrorHandler;
+import ava.errors.InputError;
 import ava.task.Task;
 import ava.task.TaskManager;
 
@@ -63,7 +65,8 @@ public class Parser {
         String todo = command.substring(TODO_LENGTH);
 
         if (todo.isEmpty()) {
-            System.out.println("The description of a todo cannot be empty.");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "The description of a todo cannot be empty.");
             throw new IllegalArgumentException("Empty todo description");
         }
 
@@ -84,19 +87,22 @@ public class Parser {
         String deadline = command.substring(DEADLINE_LENGTH);
         String[] arguments = deadline.split("/by");
         if (arguments.length != 2) {
-            System.out.println("Invalid deadline format. Please use /by to separate the description and time");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "Invalid deadline format. Please use /by to separate the description and time");
             throw new IllegalArgumentException("Invalid deadline format");
         }
 
         String description = arguments[0].trim();
         if (description.isEmpty()) {
-            System.out.println("The description of a deadline cannot be empty.");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "The description of a deadline cannot be empty.");
             throw new IllegalArgumentException("Empty deadline description");
         }
 
         String time = arguments[1].trim();
         if (time.isEmpty()) {
-            System.out.println("You need to provide a time for the task.");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "You need to provide a time for the task.");
             throw new IllegalArgumentException("No time provided");
         }
 
@@ -104,7 +110,8 @@ public class Parser {
         try {
             taskManager.addTask(description, time);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
+            ErrorHandler.handle(InputError.InvalidDateTimeFormat,
+                    "Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
             throw new IllegalArgumentException("Invalid deadline format");
         }
         return description + " by " + time;
@@ -127,32 +134,37 @@ public class Parser {
         String[] arguments = event.split("/");
 
         if (arguments.length != 3) {
-            System.out.println("Invalid event format. Please use /from and /to to separate the description and time");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "Invalid event format. Please use /from and /to to separate the description and time");
             throw new IllegalArgumentException("Invalid event format");
         }
 
         String description = arguments[0].trim();
         if (description.isEmpty()) {
-            System.out.println("The description of an event cannot be empty.");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "The description of an event cannot be empty.");
             throw new IllegalArgumentException("Empty event description");
         }
 
         String startTime = arguments[1].substring(FROM_LENGTH).trim();
         if (startTime.isEmpty()) {
-            System.out.println("You need to provide a start time for the task.");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "You need to provide a start time for the task.");
             throw new IllegalArgumentException("No time provided");
         }
 
         String endTime = arguments[2].substring(TO_LENGTH).trim();
         if (endTime.isEmpty()) {
-            System.out.println("You need to provide an endTime for the task.");
+            ErrorHandler.handle(InputError.InvalidTaskSyntax,
+                    "You need to provide an endTime for the task.");
             throw new IllegalArgumentException("No time provided");
         }
 
         try {
             taskManager.addTask(description, startTime, endTime);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
+            ErrorHandler.handle(InputError.InvalidDateTimeFormat,
+                    "Invalid date format. Please use the format yyyy-mm-ddThh:mm:ss");
             throw new IllegalArgumentException("Invalid deadline format");
         }
         return description + " from " + startTime + " to " + endTime;
@@ -170,7 +182,8 @@ public class Parser {
         try {
             taskId = Integer.parseInt(command.substring(MARK_LENGTH));
         } catch (NumberFormatException e) {
-            System.out.println("I am sorry, but you need to provide me a task id to mark something.");
+            ErrorHandler.handle(InputError.InvalidTaskId,
+                    "I am sorry, but you need to provide me a task id to mark something.");
             throw new IllegalArgumentException("No task id provided");
         }
         return taskId;
@@ -188,7 +201,8 @@ public class Parser {
         try {
             taskId = Integer.parseInt(command.substring(UNMARK_LENGTH));
         } catch (NumberFormatException e) {
-            System.out.println("I am sorry, but you need to provide me a task id to unmark something.");
+            ErrorHandler.handle(InputError.InvalidTaskId,
+                    "I am sorry, but you need to provide me a task id to unmark something.");
             throw new IllegalArgumentException("No task id provided");
         }
         return taskId;
@@ -206,7 +220,8 @@ public class Parser {
         try {
             taskId = Integer.parseInt(command.substring(DELETE_LENGTH));
         } catch (NumberFormatException e) {
-            System.out.println("I am sorry, but you need to provide me a task id to delete something.");
+            ErrorHandler.handle(InputError.InvalidTaskId,
+                    "I am sorry, but you need to provide me a task id to delete something.");
             throw new IllegalArgumentException("No task id provided");
         }
         return taskId;
@@ -223,7 +238,8 @@ public class Parser {
         final int FIND_LENGTH = 5;
         String keyword = command.substring(FIND_LENGTH);
         if (keyword.isEmpty()) {
-            System.out.println("I am sorry, but you need to provide me a keyword to search for.");
+            ErrorHandler.handle(InputError.InvalidSearchSyntax,
+                    "I am sorry, but you need to provide me a keyword to search for.");
             throw new IllegalArgumentException("No keyword provided");
         }
         return taskManager.getTasks(keyword);

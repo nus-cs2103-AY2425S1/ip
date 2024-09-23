@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import ava.errors.Error;
+import ava.errors.ErrorHandler;
 import ava.task.Task;
 import ava.task.TaskList;
 
@@ -56,24 +58,21 @@ public class FileManager {
         try {
             boolean isDirCreated = file.getParentFile().mkdirs();
             if (isDirCreated) {
-                //TODO: log info
                 System.out.println("new dir created");
             }
             boolean isFileCreated = file.createNewFile();
             if (!isFileCreated) {
-                // TODO: log error
-                // System.out.println("new file created");
+                System.out.println("new file created");
             }
 
         } catch (IOException | SecurityException e) {
-            //TODO: use error system
-            System.out.println("Invalid path");
+            ErrorHandler.handle(Error.InvalidPath, "Invalid file path");
         }
 
         try {
             reader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
-            System.out.println("File corrupted or not found.");
+            ErrorHandler.handle(Error.CorruptedData, "File corrupted or not found.");
         }
 
         // default Task handler
@@ -112,8 +111,8 @@ public class FileManager {
             }
 
         } catch (IOException e) {
-            //TODO: deal with this
-            // throw new Ill(e);
+            ErrorHandler.handle(Error.CorruptedData, "File corrupted or not found.");
+            throw new IllegalArgumentException("Corrupted file");
         }
 
         return taskList;
@@ -133,7 +132,7 @@ public class FileManager {
         try {
             writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
         } catch (IOException e) {
-            System.out.println("File corrupted or not found.");
+            ErrorHandler.handle(Error.CorruptedData, "File corrupted or not found.");
         }
 
         tasks.stream().map(DataManager::serialize).forEachOrdered(writer::println);

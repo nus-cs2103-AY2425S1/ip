@@ -155,6 +155,10 @@ public class AVA {
              * as the error has already been handled
              */
             return;
+        } catch (IndexOutOfBoundsException e) {
+            out.println("I am sorry, but I couldn't find the task you were looking for.");
+        } catch (IllegalStateException e) {
+            out.println("Oops, something went wrong. Please restart me.");
         }
     }
 

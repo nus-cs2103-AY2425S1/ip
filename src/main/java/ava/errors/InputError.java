@@ -7,4 +7,6 @@ public enum InputError {
     UnrecognizedCommand,
     InvalidTaskId,
     InvalidDateTimeFormat,
+    InvalidTaskSyntax,
+    InvalidSearchSyntax
 }
