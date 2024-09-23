@@ -1,7 +1,6 @@
 package rizzler.ui.parser;
 
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import rizzler.command.ByeCommand;
@@ -16,36 +15,16 @@ import rizzler.command.MarkCommand;
 import rizzler.command.NullCommand;
 import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
-import rizzler.ui.RizzlerException;
 
 /**
- * Parser to take in user input and process it into the appropriate command type.
- * Also logs all past user inputs.
+ * Represents a parser that takes in user input and processes it into the appropriate command type.
  */
 public class Parser {
-    private ArrayList<String> pastInputs;
 
     /**
-     * Constructor for a <code>Parser</code> object that can parse user input strings.
-     * Initialises <code>pastInputs</code> as an <code>ArrayList</code> of strings.
+     * Constructs a <code>Parser</code> object that can parse user input strings.
      */
     public Parser() {
-        pastInputs = new ArrayList<String>();
-    }
-
-    private Command parseHelp(String[] userInputArr) {
-        Command outputCommand;
-        try {
-            String commandToHelpWith = userInputArr[1].trim().toLowerCase();
-            outputCommand = new HelpCommand(commandToHelpWith);
-        } catch (IndexOutOfBoundsException e) {
-            outputCommand = new HelpCommand();
-        } catch (RizzlerException e) {
-            // unrecognised command
-            // constructor cannot yet throw this exception, but will be enabled
-            outputCommand = new NullCommand("unrecognised command, apologies!");
-        }
-        return outputCommand;
     }
 
     private Command parseFind(String[] userInputArr) {
@@ -186,22 +165,34 @@ public class Parser {
     }
 
     /**
+     * Parses user input and returns a command indicating the input is not understood.
+     * @param userInput Exact string input by the user for output
+     * @return NullCommand conveying to the user that the input is not understood.
+     */
+    private Command parseUnknown(String userInput) {
+        return new NullCommand("sincerest apologies darlin', i'm not sure"
+                + " how to interpret \"" + userInput + "\".");
+    }
+
+    /**
      * Takes in input as a given input <code>String</code>, returning the appropriate command.
-     * Also adds the given user input to a log of all past user inputs.
      * @param userInput <code>String</code> entered by the user.
      * @return Command of varying types depending on user input.
      */
     public Command parseInput(String userInput) {
-        pastInputs.add(userInput);
-        String[] userInputArr = userInput.split(" ");
+        String trimmedUserInput = userInput.trim();
+        String[] userInputArr = trimmedUserInput.split(" ");
+        if (userInputArr.length == 0) {
+            return parseUnknown(userInput);
+        }
         Command outputCommand;
-        String userInputFirstWord = userInputArr[0].trim().toLowerCase();
+        String userInputFirstWord = userInputArr[0].trim();
         switch (userInputFirstWord) {
         case "bye":
             outputCommand = new ByeCommand();
             break;
         case "help":
-            outputCommand = parseHelp(userInputArr);
+            outputCommand = new HelpCommand();
             break;
         case "list":
             outputCommand = new ListCommand();
@@ -228,7 +219,7 @@ public class Parser {
             outputCommand = parseEvent(userInputArr);
             break;
         default:
-            outputCommand = new NullCommand("sincerest apologies darlin', i don't recognise that command.");
+            outputCommand = parseUnknown(userInput);
             break;
         }
         return outputCommand;
