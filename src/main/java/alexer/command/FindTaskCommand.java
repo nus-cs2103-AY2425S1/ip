@@ -33,6 +33,10 @@ public class FindTaskCommand extends Command {
         assert taskManager != null; // ensure that we definitely have a task manager
 
         List<Task> tasks = taskManager.findTask(keyword);
+        if (tasks.isEmpty()) {
+            return new Response("Hmm, I don't think I can find anything as you don't have any tasks!\n" +
+                    "Why not start by adding one first?");
+        }
 
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
