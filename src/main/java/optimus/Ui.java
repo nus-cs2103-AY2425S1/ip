@@ -35,15 +35,6 @@ public class Ui {
     }
 
     /**
-     * Reads a command input from the user.
-     *
-     * @return the command input as a string.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Displays a message indicating that a task has been added to the list.
      *
      * @param task the task that has been added.
@@ -118,13 +109,4 @@ public class Ui {
         return message;
     }
 
-    /**
-     * Returns a response message to display in the GUI.
-     *
-     * @param response the response message to display.
-     * @return the response message as a string.
-     */
-    public String printResponse(String response) {
-        return response;
-    }
 }

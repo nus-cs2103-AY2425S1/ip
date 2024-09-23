@@ -21,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Optimus optimus;
-    private Ui ui;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/images.png"));
     private Image optimusImage = new Image(this.getClass().getResourceAsStream("/images/350px-Optimusg1.png"));
 

@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents an event task with a specific start and end date/time.
  */
+//GPT helped to refine documentation reducing my time needed to write a very comprehensive one
 public class Event extends Task {
 
     private String from;  // The string representation of the event start time.

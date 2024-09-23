@@ -8,8 +8,6 @@ import java.io.IOException;
  * The Optimus class initializes the necessary components and runs the application.
  */
 public class Optimus {
-
-    private static final String FILE_PATH = "./data/optimus.txt";  // Default file path for storing tasks.
     private Storage storage;  // Handles loading and saving tasks.
     private TaskList tasks;  // Manages the list of tasks.
     private Ui ui;  // Handles user interaction.
@@ -43,6 +41,11 @@ public class Optimus {
             return e.getMessage();
         }
     }
+
+    /**
+     * Used to retrieve ui from this class
+     * @return ui
+     */
 
     public Ui getUi () {
         return ui;

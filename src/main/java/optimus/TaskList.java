@@ -3,7 +3,7 @@ package optimus;
 import java.util.List;
 import java.util.ArrayList;
 
-//help of chatGPT to generate
+//help of chatGPT to generate better documentation
 /**
  * The {@code TaskList} class manages a list of {@code Task} objects.
  * It supports adding, deleting, retrieving tasks, and finding tasks that match a specific keyword.
