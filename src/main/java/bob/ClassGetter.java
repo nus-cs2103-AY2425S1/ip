@@ -27,6 +27,10 @@ class ClassGetter {
      * @return the set of classes in the package
      */
     public static Set<Class<?>> getClassesFromPackage(String packageName) {
+        if (packageName == null) {
+            return Set.of();
+        }
+
         if (isRunningFromJar()) {
             // If program is running from a JAR file
             String classPath;
@@ -44,7 +48,7 @@ class ClassGetter {
             try {
                 return getAllClassesJar(new File(classPath), packageName);
             } catch (IOException e) {
-                return Set.<Class<?>>of();
+                return Set.of();
             }
         } else {
             // If program is not running from a JAR file
@@ -60,6 +64,7 @@ class ClassGetter {
     private static boolean isRunningFromJar() {
         String className = ClassGetter.class.getName().replace('.', '/');
         URL classUrl = ClassGetter.class.getResource("/" + className + ".class");
+        assert classUrl != null : "classUrl should not be null";
         String protocol = classUrl.getProtocol();
 
         return protocol.equals("jar");
@@ -75,8 +80,14 @@ class ClassGetter {
      * @return the set of classes in the package
      */
     private static Set<Class<?>> getAllClassesNotJar(String packageName) {
+        assert packageName != null : "packageName should not be null";
+
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         InputStream stream = classLoader.getResourceAsStream(packageName.replaceAll("[.]", "/"));
+
+        if (stream == null) {
+            return Set.of();
+        }
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         return reader.lines()
                 .filter(filename -> filename.endsWith(".class"))
@@ -103,6 +114,9 @@ class ClassGetter {
      * @throws IOException if the JarFile cannot be opened
      */
     private static Set<Class<?>> getAllClassesJar(File file, String packageName) throws IOException {
+        assert file != null : "file should not be null";
+        assert packageName != null : "packageName should not be null";
+
         return getClassNamesFromJar(file).stream()
                 .filter(className -> className.startsWith(packageName))
                 .map(ClassGetter::getClass)
@@ -111,12 +125,16 @@ class ClassGetter {
     }
 
     private static Set<String> getClassNamesFromJar(File file) throws IOException {
+        assert file != null : "file should not be null";
+
         JarFile jarFile = new JarFile(file);
         Enumeration<JarEntry> jarEntries = jarFile.entries();
         Set<String> set = new HashSet<>();
 
         while (jarEntries.hasMoreElements()) {
             JarEntry entry = jarEntries.nextElement();
+            assert entry != null : "jar entry should not be null";
+
             String entryName = entry.getName();
             if (!entryName.endsWith(".class")) {
                 continue;

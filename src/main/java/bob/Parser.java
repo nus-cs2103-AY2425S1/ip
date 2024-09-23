@@ -28,6 +28,7 @@ public class Parser {
 
         // Get all classes from the bob.command package
         Set<Class<?>> allClasses = ClassGetter.getClassesFromPackage(Command.class.getPackageName());
+        assert allClasses != null : "The set of all classes should not be null";
 
         // Iterate through the classes in the bob.command package
         for (Class<?> clazz : allClasses) {

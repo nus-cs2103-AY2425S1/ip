@@ -48,6 +48,8 @@ public class Storage {
      * @throws IllegalArgumentException if the given string does not follow any of the formats
      */
     private Task decode(String encodedString) {
+        assert encodedString != null : "Encoded string should not be null";
+
         Task task;
         int n;
         String desc;
@@ -99,6 +101,7 @@ public class Storage {
      * @return the encoded string. Returns an empty string with linebreak the given task is not of a known class.
      */
     private String encode(Task task) {
+        assert task != null : "task should not be null";
         StringBuilder str = new StringBuilder();
 
         if (task instanceof Todo) {

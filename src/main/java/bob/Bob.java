@@ -37,10 +37,19 @@ public class Bob {
     }
 
     public void run() {
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
+        assert parser != null : "parser should not be null";
+        assert tasks != null : "tasks should not be null";
+
         while (!isExit) {
             try {
                 String input = ui.readInput();
+
+                assert input != null : "input should not be null";
                 Command c = parser.parse(input);
+
+                assert c != null : "command should not be null";
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (BobException e) {
@@ -53,6 +62,8 @@ public class Bob {
      * Cleanup function when this Bob instance exits.
      */
     public void exit() {
+        assert storage != null : "storage should not be null";
+
         try {
             storage.save(tasks);
         } catch (IOException e) {
@@ -68,6 +79,11 @@ public class Bob {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
+        assert parser != null : "parser should not be null";
+        assert tasks != null : "tasks should not be null";
+
         try {
             Command c = parser.parse(input);
             c.execute(tasks, ui, storage);
@@ -84,6 +100,7 @@ public class Bob {
      * Returns the last message of this Bob instance.
      */
     public String getLastMessage() {
+        assert ui != null : "ui should not be null";
         return ui.getLastMessage();
     }
 
