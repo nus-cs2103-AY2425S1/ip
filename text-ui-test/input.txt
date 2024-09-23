@@ -1,0 +1,7 @@
+todo study
+deadline call friend /by Sunday
+event meeting /from Mon 2pm /to 4pm
+list
+mark 1
+unmark 2
+bye
