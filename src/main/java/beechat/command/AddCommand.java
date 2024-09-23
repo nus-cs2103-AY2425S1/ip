@@ -42,6 +42,9 @@ public class AddCommand extends Command {
         String[] words = fullCommand.split(" ", 2);
         String taskType = words[0];
 
+        // Assert that a description exists for the task
+        assert words.length > 1 : "The command must have a non-empty description part";
+
         if (taskType.equals("todo")) {
             String description = words[1];
             TodoTask todo = new TodoTask(description);

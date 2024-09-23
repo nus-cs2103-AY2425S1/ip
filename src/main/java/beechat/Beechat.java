@@ -36,6 +36,7 @@ public class Beechat {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
+            assert tasks != null : "TaskList should be not null after loading";
         } catch (IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
