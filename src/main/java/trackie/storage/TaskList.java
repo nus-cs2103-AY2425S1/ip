@@ -58,7 +58,7 @@ public class TaskList {
     /**
      * Marks a task as not completed.
      */
-    public void unmarkTask(int index) throws TrackieException {
+    public void unmarkTask(int index) {
         tasks.get(index).markUndone();
     }
 

@@ -16,7 +16,7 @@ public class InvalidCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist, Storage storage) {
-        return "Invalid command, bozo.";
+        return "Invalid command, bozo";
     }
 
 }

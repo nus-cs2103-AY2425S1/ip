@@ -39,7 +39,12 @@ public class FindCommand extends Command {
                 return "No tasks matched your query.";
             }
 
-           return String.format("%d matching task(s) found\n", results.size());
+            StringBuilder listOfMatchingTasks = new StringBuilder();
+            for (Task t : results) {
+                listOfMatchingTasks.append(t.toString()).append(System.lineSeparator());
+            }
+           return String.format("%d matching task(s) found\n\n" +
+                   listOfMatchingTasks.toString(), results.size());
 
 
         } catch (TrackieException e) {

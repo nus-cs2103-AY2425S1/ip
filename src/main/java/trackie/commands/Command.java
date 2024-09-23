@@ -11,6 +11,10 @@ import trackie.ui.TrackieException;
 public abstract class Command {
     protected String[] arguments;
 
+    public String[] getArguments() {
+        return this.arguments;
+    }
+
     public String fetchDescription() throws TrackieException {
 
         StringBuilder descFetcher = new StringBuilder();
@@ -64,7 +68,7 @@ public abstract class Command {
             ptr++;
         }
         if (startTimeFetcher.isEmpty()) {
-            throw new TrackieException("Start time cannot be empty");
+            throw new TrackieException("Cmon gimme a start time");
         }
         return startTimeFetcher.substring(0, startTimeFetcher.length() - 1);
     }
@@ -83,7 +87,7 @@ public abstract class Command {
             ptr++;
         }
         if (endTimeFetcher.isEmpty()) {
-            throw new TrackieException("End time cannot be empty");
+            throw new TrackieException("Cmon gimme an end time");
         }
         return endTimeFetcher.substring(0, endTimeFetcher.length() - 1);
     }
