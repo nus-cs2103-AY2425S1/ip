@@ -35,7 +35,7 @@ public class FindCommand extends Command {
      * @param ui The UI object used for displaying messages to the user.
      * @throws HienException If the search keyword is empty.
      */
-    private void findTasks(TaskList tasks, UI ui) throws HienException {
+    private String findTasks(TaskList tasks, UI ui) throws HienException {
         if (keyword.isEmpty()) {
             throw new HienException("☹ OOPS!!! The search keyword cannot be empty.");
         }
@@ -46,12 +46,16 @@ public class FindCommand extends Command {
                 .toList();
 
         if (matchingTasks.isEmpty()) {
-            ui.showMessage("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            ui.showMessage("Here are the matching tasks in your list:");
+            String msg = "";
+            msg += "Here are the matching tasks in your list:\n";
+//            ui.showMessage("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.showMessage((i + 1) + "." + matchingTasks.get(i));
+                msg += (i + 1) + "." + matchingTasks.get(i) + "\n";
+//                ui.showMessage((i + 1) + "." + matchingTasks.get(i));
             }
+            return msg;
         }
     }
 
@@ -59,13 +63,14 @@ public class FindCommand extends Command {
      * Executes the find command.
      * This method searches for tasks containing the keyword and displays the results.
      *
-     * @param tasks The TaskList containing all tasks.
-     * @param ui The UI object used for displaying messages to the user.
+     * @param tasks   The TaskList containing all tasks.
+     * @param ui      The UI object used for displaying messages to the user.
      * @param storage The Storage object used for saving tasks (not used in this command).
+     * @return String the returned message
      * @throws HienException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
-        findTasks(tasks, ui);
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HienException {
+        return findTasks(tasks, ui);
     }
 }

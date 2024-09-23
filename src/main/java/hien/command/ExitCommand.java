@@ -11,8 +11,10 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HienException {
+        String goodbyeMessage = "____________________________________________________________\n"
+                + " Bye. Hope to see you again soon!";
+        return goodbyeMessage;
 
     }
 

@@ -20,8 +20,9 @@ public class EventCommand extends Command {
         this.input = input;
     }
 
-    private void addEvent(TaskList tasks, String input, Storage storage, UI ui) throws HienException {
+    private String addEvent(TaskList tasks, String input, Storage storage, UI ui) throws HienException {
         String[] parts = input.substring(5).split(" /from | /to ");
+        String msg = "";
         if (parts.length == 3) {
             try {
                 LocalDateTime startTime = LocalDateTime.parse(parts[1].trim(), INPUT_DATE_FORMAT);
@@ -29,9 +30,16 @@ public class EventCommand extends Command {
                 Event event = new Event(parts[0].trim(), startTime, endTime);
                 tasks.addTask(event);
                 storage.save(tasks);
-                ui.showMessage(" Got it. I've added this task:");
-                ui.showMessage("   " + event);
-                ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+                msg += " Got it. I've added this task:";
+                msg += System.lineSeparator();
+                msg += "   " + event;
+                msg += System.lineSeparator();
+                msg += " Now you have " + tasks.size() + " tasks in the list.";
+                msg += System.lineSeparator();
+                return msg;
+//                ui.showMessage(" Got it. I've added this task:");
+//                ui.showMessage("   " + event);
+//                ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
             } catch (DateTimeParseException e) {
                 throw new HienException("☹ OOPS!!! The date format is incorrect. Please use: yyyy-MM-dd HHmm");
             }
@@ -43,7 +51,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
-        addEvent(tasks, input, storage, ui);
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HienException {
+        return addEvent(tasks, input, storage, ui);
     }
 }

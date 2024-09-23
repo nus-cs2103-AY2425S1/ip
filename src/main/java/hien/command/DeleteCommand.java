@@ -28,33 +28,41 @@ public class DeleteCommand extends Command {
             return true;
         }
     }
-    private void deleteTask(TaskList tasks, String input, Storage storage, UI ui) throws HienException {
+    private String deleteTask(TaskList tasks, String input, Storage storage, UI ui) throws HienException {
         String index = input.substring(6).trim();
+        String msg = "";
         if (isValidIndex(tasks, index)) {
             int i = Integer.parseInt(index);
             Task removedTask = tasks.getTask(i - 1);
             tasks.deleteTask(i - 1);
             storage.save(tasks);
-            ui.showMessage(" Got it. I've deleted this task:");
-            ui.showMessage("   " + removedTask);
-            ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+            msg += " Got it. I've deleted this task:";
+            msg += System.lineSeparator();
+            msg += "   " + removedTask;
+            msg += System.lineSeparator();
+            msg += " Now you have " + tasks.size() + " tasks in the list.";
+//            ui.showMessage(" Got it. I've deleted this task:");
+//            ui.showMessage("   " + removedTask);
+//            ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
         }
+        return msg;
     }
 
-    private void deleteAllTasks(TaskList tasks, UI ui, Storage storage) throws HienException {
+    private String deleteAllTasks(TaskList tasks, UI ui, Storage storage) throws HienException {
         tasks.clear();
-        ui.showMessage(" Got it. I've deleted all the tasks");
+//        ui.showMessage(" Got it. I've deleted all the tasks");
         storage.save(tasks);
+        return " Got it. I've deleted all the tasks";
 
     }
 
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HienException {
         if (isDeleteAll) {
-            deleteAllTasks(tasks, ui, storage);
+            return deleteAllTasks(tasks, ui, storage);
         } else {
-            deleteTask(tasks, input, storage, ui);
+            return deleteTask(tasks, input, storage, ui);
         }
 
     }

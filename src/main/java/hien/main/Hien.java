@@ -55,8 +55,15 @@ public class Hien {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-
-        return "   Hien heard: " + input;
+        String msg = "";
+        try {
+            Command c = Parser.parse(input);
+            String temp = c.execute(tasks, ui, storage);
+            msg = temp;
+        } catch (HienException e) {
+            msg = e.getMessage();
+        }
+        return msg;
     }
 
 }

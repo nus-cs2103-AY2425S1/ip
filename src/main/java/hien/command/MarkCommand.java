@@ -31,24 +31,29 @@ public class MarkCommand extends Command {
         }
     }
 
-    private void markTask(TaskList tasks, String input, boolean isDone, Storage storage, UI ui) throws HienException {
+    private String markTask(TaskList tasks, String input, boolean isDone, Storage storage, UI ui) throws HienException {
         String index = isDone ? input.substring(4).trim() : input.substring(6).trim();
         boolean isValidIndex = isValidIndex(index, tasks);
+        String msg = "";
         if (isValidIndex) {
             int i = Integer.parseInt(index);
             if (isDone) {
-                ui.showMessage(" Nice! I've marked this task as done:");
+//                ui.showMessage(" Nice! I've marked this task as done:");
+                msg += " Nice! I've marked this task as done:\n";
             } else {
-                ui.showMessage(" OK, I've marked this task as not done yet:");
+//                ui.showMessage(" OK, I've marked this task as not done yet:");
+                msg += " OK, I've marked this task as not done yet:\n";
             }
             tasks.markTask(i - 1, isDone);
-            ui.showMessage("   " + tasks.getTask(i - 1));
+//            ui.showMessage("   " + tasks.getTask(i - 1));
+            msg += "   " + tasks.getTask(i - 1);
             storage.save(tasks);
         }
+        return msg;
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
-        this.markTask(tasks, input, isDone, storage, ui);
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HienException {
+        return this.markTask(tasks, input, isDone, storage, ui);
     }
 }

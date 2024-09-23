@@ -10,7 +10,7 @@ public abstract class Command {
     public Command(boolean isExit) {
         this.isExit = isExit;
     }
-    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws HienException;
+    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws HienException;
     public boolean isExit() {
         return isExit;
     }

@@ -13,24 +13,29 @@ public class TodoCommand extends Command {
         super(isExit);
         this.input = input;
     }
-    private void addTodo(TaskList tasks, String input, Storage storage, UI ui) throws HienException {
+    private String addTodo(TaskList tasks, String input, Storage storage, UI ui) throws HienException {
         String description = input.substring(4).trim();
+        String msg = "";
         if (description.isEmpty()) {
             throw new HienException("☹ OOPS!!! The description of todo cannot be empty");
         }
-        ui.showMessage("description: " + description);
+//        ui.showMessage("description: " + description);
         Todo todo = new Todo(description);
         tasks.addTask(todo);
         storage.save(tasks);
-        ui.showMessage(" Got it. I've added this task:");
-        ui.showMessage("   " + todo);
-        ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+        msg += " Got it. I've added this task:\n";
+        msg += "   " + todo + "\n";
+        msg += " Now you have " + tasks.size() + " tasks in the list.";
+//        ui.showMessage(" Got it. I've added this task:");
+//        ui.showMessage("   " + todo);
+//        ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+        return msg;
 
     }
 
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HienException {
-        this.addTodo(tasks, input, storage, ui);
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HienException {
+        return this.addTodo(tasks, input, storage, ui);
     }
 }
