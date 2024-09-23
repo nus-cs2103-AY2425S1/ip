@@ -46,7 +46,7 @@ java --version
 java -jar makima.jar
 ```
 
-![GUI](Ui.png)
+![GUI](docs/Ui.png)
 
 ## Command Help
 
@@ -71,7 +71,7 @@ The command formats are then specified as follows:
 <details>
 <summary>Example</summary>
 
-![GUI](Ui2.png)
+![GUI](docs/Ui2.png)
 </details>
 
 <details>
