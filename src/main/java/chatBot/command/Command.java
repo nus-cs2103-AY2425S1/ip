@@ -15,8 +15,10 @@ import chatbot.bot.Ui;
 public abstract class Command {
     Command() {}
 
+    /** Execute the command */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
+    /** Identify whether to stop the loop */
     public boolean isExit() {
         return false;
     }

@@ -7,6 +7,7 @@ import chatbot.command.Command;
 import chatbot.command.DeleteCommand;
 import chatbot.command.ExitCommand;
 import chatbot.command.FindCommand;
+import chatbot.command.HelpCommand;
 import chatbot.command.ListCommand;
 import chatbot.command.MarkCommand;
 import chatbot.command.UnmarkCommand;
@@ -94,7 +95,7 @@ public class Parser {
     static Command parse(String fullCommand) {
         String action = fullCommand.split(" ")[0];
         String desc = fullCommand.substring(fullCommand.indexOf(" ") + 1);
-        if (fullCommand.indexOf(" ") == -1) {
+        if (!fullCommand.contains(" ")) {
             desc = "";
         }
         Command c = null;
@@ -119,6 +120,8 @@ public class Parser {
             c = new ExitCommand();
         } else if (action.equals("find")) {
             c = new FindCommand(desc);
+        } else if (action.equals("help")) {
+            c = new HelpCommand(desc);
         } else {
             try {
                 throw new InvalidCommandException();

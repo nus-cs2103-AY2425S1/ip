@@ -68,6 +68,7 @@ public class Bword {
                 output = "commands accepted: todo , deadline ,"
                         + " event , list, mark , unmark , bye , delete, find";
             }
+            System.out.println(output);
         } catch (Exception e) {
             this.ui.showError(e.getMessage());
         } finally {
