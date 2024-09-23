@@ -17,6 +17,7 @@ public class Parser {
     private static final int DELETE_COMMAND_LENGTH = 6;
     private static final int FIND_COMMAND_LENGTH = 4;
 
+    // Solution below inspired by https://github.com/1st2GetThisName/ip/blob/master/src/main/java/vecrosen/Parser.java
     /**
      * Different prompt types REI understands
      */
