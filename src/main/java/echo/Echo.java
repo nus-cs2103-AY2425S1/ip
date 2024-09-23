@@ -64,38 +64,29 @@ public class Echo {
             case "bye":
                 storage.save(tasks.getTasks());
                 return ui.showGoodbyeMessage();
-            //return;
             case "list":
                 return ui.showTaskList(tasks.getTasks());
-            //break;
             case "mark":
                 tasks.markTask(Integer.parseInt(parts[1]));
                 return ui.showMarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
-            //break;
             case "unmark":
                 tasks.unmarkTask(Integer.parseInt(parts[1]));
                 return ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
-            //break;
             case "todo":
                 Todo todo = tasks.addTodo(parts[1]);
                 return ui.showTaskAdded(todo, tasks.getTasks().size());
-            //break;
             case "deadline":
                 Deadline deadline = tasks.addDeadline(parts[1]);
                 return ui.showTaskAdded(deadline, tasks.getTasks().size());
-            //break;
             case "event":
                 Events event = tasks.addEvent(parts[1]);
                 return ui.showTaskAdded(event, tasks.getTasks().size());
-            //break;
             case "delete":
                 Task removedTask = tasks.deleteTask(Integer.parseInt(parts[1]));
                 return ui.showTaskRemoved(removedTask, tasks.getTasks().size());
-            //break;
             case "find":
                 String toFind = parts[1];
                 return tasks.find(toFind);
-            //break;
             case "edit":
                 // Ask the user for further input (follow-up question)
                 awaitingEditInput = true; // Set to true to track that we're waiting for input
@@ -111,17 +102,6 @@ public class Echo {
 
 
     }
-
-
-//    /**
-//     * The main method that creates an instance of Echo and starts the application.
-//     *
-//     * @param args Command line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        Echo echo = new Echo(DOCS_TASKS_TXT);
-//        //echo.run();
-//    }
 
 
 }
