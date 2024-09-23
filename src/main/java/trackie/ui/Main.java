@@ -17,15 +17,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private static final String DEFAULT_FILE_PATH = "src";
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private Trackie trackie = new Trackie(DEFAULT_FILE_PATH);
-
 
     public Main(String filepath) {
         new Trackie(filepath);
@@ -45,7 +37,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setTrackie(trackie);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTrackie(trackie);  // inject the Trackie instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
