@@ -34,7 +34,6 @@ public class Kafka {
         return output;
     }
 
-    public static void main(String[] args) {
-        System.out.println(Ui.greet());
-    }
+//    public static void main(String[] args) {
+//    }
 }

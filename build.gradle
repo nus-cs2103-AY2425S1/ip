@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '17.0.1'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -48,7 +48,7 @@ application {
 
 shadowJar {
     archiveBaseName = "kafka"
-    mainClassName = "kafka.Kafka"
+    mainClassName = "kafka.KafkaLauncher"
     archiveClassifier = null
 }
 

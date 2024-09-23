@@ -18,7 +18,7 @@ public class Main extends Application {
 
     {
         try {
-            kafka = new Kafka("data/Kafka.txt");
+            kafka = new Kafka("./data/Kafka.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
