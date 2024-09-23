@@ -1,5 +1,2 @@
-D|0|walk the dog|20200807 0000
-D|0|d|20200910 1234
-D|0|d|20200919 0405
-D|0|do finish this project|20200710 0700
-T|0|something
+T|0|walk my dog
+D|1|some assignment|20210909 2359

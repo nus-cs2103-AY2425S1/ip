@@ -43,7 +43,7 @@ public class FindCommand extends Command {
             for (Task t : results) {
                 listOfMatchingTasks.append(t.toString()).append(System.lineSeparator());
             }
-           return String.format("%d matching task(s) found\n\n" +
+           return String.format("%d matching task(s) found:\n\n" +
                    listOfMatchingTasks.toString(), results.size());
 
 
