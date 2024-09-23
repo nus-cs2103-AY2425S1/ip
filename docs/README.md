@@ -99,3 +99,83 @@ bye - Exits the program
 ## Feature XYZ
 
 // Feature details -->
+
+```
+   Hello from
+        _  ____  ___   _  ____  _      
+       | || ___|| _ \ | || ___|| |     
+       | |||___ ||_> || |||___ | |     
+    _  | || ___||  _/ | || ___|| |     
+   | |_| |||___ ||\\  | |||___ | |____ 
+    \___/ |____||| \\ |_||____||______|
+   
+   ____________________________________________________________
+    Hello! I'm Jeriel
+    What can I do for you?
+   ____________________________________________________________
+```
+
+
+## Project Directory Structure
+
+```plaintext
+├── .gradle
+├── app
+├── build
+│   ├── classes
+│   ├── generated
+│   ├── libs
+│   ├── tmp
+├── data
+├── docs
+│   └── README.md
+├── gradle
+│   └── wrapper
+├── src
+│   └── main
+│       └── java
+│           ├── data
+│           └── jeriel
+│               ├── command
+│               │   ├── AddDeadlineCommand.java
+│               │   ├── AddEventCommand.java
+│               │   ├── AddTodoCommand.java
+│               │   ├── Command.java
+│               │   ├── DeleteCommand.java
+│               │   ├── ExitCommand.java
+│               │   ├── FindCommand.java
+│               │   ├── ListCommand.java
+│               │   ├── MarkCommand.java
+│               │   └── UnmarkCommand.java
+│               ├── task
+│               │   ├── Deadline.java
+│               │   ├── Event.java
+│               │   ├── Task.java
+│               │   └── Todo.java
+│               ├── ui
+│               │   ├── Main.java
+│               │   ├── MainWindowController.java
+│               └── util
+│               │   ├── JerielException.java
+│               │   ├── Parser.java
+│               │   ├── Storage.java
+│               │   ├── TaskList.java 
+│               │   ├── Ui.java 
+│               └── Jeriel.java
+│   └── resources
+│       └── view
+│           └── MainWindow.fxml
+├── test
+│   └── java
+│       └── jeriel
+│           └── task
+│               ├── EventTest.java
+│               └── TodoTest.java
+├── .gitignore
+├── build.gradle
+├── checkstyle.xml
+├── CONTRIBUTORS.md
+├── gradlew
+├── gradlew.bat
+├── README.md
+├── settings.gradle
