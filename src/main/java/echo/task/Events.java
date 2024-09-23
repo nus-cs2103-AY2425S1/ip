@@ -15,15 +15,6 @@ public class Events extends Task {
     private LocalDate end;
 
 
-    public LocalDate getStart() {
-        return start;
-    }
-
-
-    public LocalDate getEnd() {
-        return end;
-    }
-
     /**
      * Constructs an Events task with the specified description, start date, and end date.
      *
@@ -37,6 +28,16 @@ public class Events extends Task {
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
 
     /**
      * Returns a string representation of the Events task.
