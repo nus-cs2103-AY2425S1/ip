@@ -1,0 +1,70 @@
+todo wake up
+deadline get out of bed /by 2012-11-13
+todo get to the bathroom
+event brush teeth /from 2023-09-01 /to 2023-09-01
+todo decide what to eat for breakfast
+event brush tongue /from iunno whenver ig /to when im doen bruh
+mark 1
+list
+todo head out of the house
+deadline call the lift to head downstairs /by 2023-09-01
+mark 2
+mark 3
+list
+event order food /from 2024-09-03 /to 2024-09-03
+list
+unmark 2
+event
+event do something /from a /to b
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 2
+todo
+todo 57 /from
+todo eat up
+list
+mark 5
+mark 5
+mark 5
+unmark 6
+mark 5
+unmark 5
+unmark 5
+cool
+todo
+todo read book
+deadline
+deadline hi
+deadline /by
+deadline hi /by
+delete 2
+delete
+delete 1002
+delete 1 33 5 2
+deadline hi/by
+deadlinehi/by
+deadline hi/byerr
+deadline hi/by errea
+deadline hi /by errear
+event
+event hello
+event hello /from
+event hello /helloFor
+event meeting /from 6pm /to 8pm
+list
+mark 2
+mark -4
+mark 554
+mark 8
+unmark 3
+unmark 9
+delete 4
+delete -10
+delete 50
+list
+bye

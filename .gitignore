@@ -13,5 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Task Storage to be saved and tracked locally
+taskStorage/
+
+# My own ideas for extension
+src/main/java/extensionFeatures.txt
+
+
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
