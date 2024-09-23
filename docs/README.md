@@ -40,10 +40,36 @@ Example:
 
 You can list all tasks you have stored in Mittens by typing `list`.
 
+Each task is displayed in the following format:
+> `[<task-type>][<done-status>] <description>`
+
+For example, a done deadline task will be displayed as:
+> `[D][X] Submit work (due Sep 30 2024)`
+
 Format: `list`
 
 ## Mark tasks as done or not done: `mark`, `unmark`
 
 You can mark a certain task as done or not done using `mark` and `unmark`.
 
-Format: `mark <task-number>`, `unmark <task-number>`
+Format:
+- `mark <task-number>`
+- `unmark <task-number>`
+
+## Delete tasks: `delete`
+
+You can delete a certain task using `delete`.
+
+Format: `delete <task-number>`
+
+## Find tasks: `find`
+
+You can find tasks that contain a certain keyword using `find`.
+
+Format: `find <keyword>`
+
+## Exit the app: `bye`
+
+You can exit the app by typing `bye`. Or, you can just exit through the window's close button.
+
+Format: `bye`
