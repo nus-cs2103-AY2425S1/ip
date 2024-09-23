@@ -15,3 +15,5 @@ delete 0
 DELETE 100
 DELETE 2
 LIST
+event test /from 23-09-2024 /to 25-10-2024
+deadline test2 /by 21-01-2025
