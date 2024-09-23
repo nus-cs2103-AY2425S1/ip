@@ -175,9 +175,13 @@ public class Parser {
         String fromString = parts[1];
         String toString = parts[2];
         try {
-            LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            return new Event(description, from, to);
+            LocalDate date1 = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate date2 = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            if (userInput.indexOf(" /from ") < userInput.indexOf(" /to ")) {
+                return new Event(description, date1, date2);
+            } else {
+                return new Event(description, date2, date1);
+            }
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
         }
