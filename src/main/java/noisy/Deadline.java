@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task that extends the Task class.
  * A Deadline task includes a deadline by which the task must be completed.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Snoozable{
 
     private LocalDate deadline;
 
@@ -44,5 +44,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+    }
+
+    public void snooze(LocalDate newDate) {
+        this.deadline = newDate;  // Update the deadline date
     }
 }
