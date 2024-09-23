@@ -156,4 +156,8 @@ public class Ui {
                 + "8. `help` - Show this help page\n"
                 + "9. `exit` - Exit the app\n";
     }
+
+    public String showDeletedAll() {
+        return "All tasks have been deleted.";
+    }
 }

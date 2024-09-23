@@ -108,4 +108,8 @@ public class TaskList {
         }
         return sb.toString();
     }
+
+    public void clear() {
+        tasks.clear();
+    }
 }
