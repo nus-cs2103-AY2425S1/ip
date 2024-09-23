@@ -23,6 +23,18 @@ public class ArchiveListCommand {
 
     }
 
+    public static void createArchiveFile() {
+        File file = new File("archive.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("Archive file created");
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating archive file");
+        }
+    }
+
     /**
      * Executes the command to retrieve and display archived tasks.
      * @return string representing the archived list in a human-readable format

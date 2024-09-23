@@ -31,9 +31,7 @@ public class ParserTest {
         Parser parser = new Parser();
 
         // Initializing the TaskList
-        if (TaskList.getList() == null) {
-            TaskList.setList(new ArrayList<>());
-        }
+        TaskList.setList(new ArrayList<>());
 
         // Act
         String result = parser.parseConversation("todo Buy milk");
