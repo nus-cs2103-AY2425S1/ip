@@ -24,6 +24,7 @@ public class MessageParserImpl implements MessageParser {
      */
     public MessageParserImpl(TaskStorage storage) {
         assert storage != null : "Storage cannot be null";
+
         this.storage = storage;
     }
 
