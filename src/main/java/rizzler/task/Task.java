@@ -4,7 +4,7 @@ package rizzler.task;
  * Represents the abstract Task for subclassing.
  */
 public abstract class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     protected Task(String description) {
@@ -73,7 +73,7 @@ public abstract class Task {
      */
     public String toTsv() {
         return isDone + "\t" + description;
-    };
+    }
 
     /**
      * Formats the entire task for printing out to the user.
