@@ -79,6 +79,7 @@ public class LoafyException extends Exception {
         return new LoafyException(
                 "That is not in my vocabulary yet. ?_?\n" +
                 "These are the list of commands I can understand:\n" +
+                "\n" +
                 "todo [TASK NAME]\n" +
                 "deadline [TASK NAME] /by [DEADLINE]\n" +
                 "event [TASK NAME] /from [START DATE] /to [END DATE]\n" +
@@ -87,7 +88,7 @@ public class LoafyException extends Exception {
                 "delete [TASK NUMBER]\n" +
                 "find [KEYWORD]\n" +
                 "list\n" +
-                "bye");
+                "bye\n");
     }
 
     /**
