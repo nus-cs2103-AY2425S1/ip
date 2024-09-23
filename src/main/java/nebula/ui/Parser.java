@@ -43,6 +43,8 @@ public class Parser {
      * @throws NebulaException If the command is invalid or improperly formatted.
      */
     public static Command parse(String command) throws NebulaException {
+        assert command != null : "Command input should not be null";
+
         if(command.equals("bye")) {
             return new ByeCommand(command);
         }
@@ -70,6 +72,8 @@ public class Parser {
 
             TaskType taskType = parseTaskType(command);
 
+            assert taskType != TaskType.UNKNOWN : "TaskType should not be UNKNOWN";
+
             switch (taskType) {
                 case TODO:
                     return new AddTodoCommand(command);
@@ -81,6 +85,7 @@ public class Parser {
                     return new AddEventCommand(command);
             }
         }
+        assert false : "Command should be handled in one of the cases";
         return null;
     }
 
@@ -91,6 +96,8 @@ public class Parser {
      * @throws NebulaException if the command is invalid or improperly formatted
      */
     public static void validateCommand(String command) throws NebulaException {
+        assert command != null && !command.isEmpty() : "Command should not be null or empty";
+
         Ui ui = new Ui();
 
         if (command.isEmpty()) {
@@ -109,6 +116,7 @@ public class Parser {
             }
             try {
                 int taskIndex = Integer.parseInt(parts[1].trim()) - 1;
+                assert taskIndex >=0 : "Task index must be non-negative";
                 if (taskIndex < 0 || taskIndex >= TaskList.getTaskListLength()) {
                     throw new NebulaException(ui.displayNonexistentTaskNumberException());
                 }
@@ -122,6 +130,7 @@ public class Parser {
             }
 
             String[] keywords = parts[1].trim().split("\\s+");
+            assert keywords.length == 1 : "Find command should have exactly one keyword";
             if (keywords.length != 1) {
                 throw new NebulaException(ui.displayOneKeywordException());
             }
@@ -140,6 +149,7 @@ public class Parser {
                     // Extract the date after "/by"
                     String[] parts2 = description.split("/by");
                     String dueDate = parts2[1].trim();
+                    assert dueDate != null : "Deadline date should not be null";
 
                     // Validate the due date format
                     if (!isValidDate(dueDate)) {
@@ -155,7 +165,7 @@ public class Parser {
                     String[] parts2 = description.split("/from");
                     String timingPart = parts2[1].trim();
                     String[] dates = timingPart.split("/to");
-
+                    
                     if (dates.length < 2) {
                         throw new NebulaException(ui.displayUnknownEventTimingException());
                     }
