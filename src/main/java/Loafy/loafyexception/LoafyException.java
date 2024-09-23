@@ -83,8 +83,11 @@ public class LoafyException extends Exception {
                 "deadline [TASK NAME] /by [DEADLINE]\n" +
                 "event [TASK NAME] /from [START DATE] /to [END DATE]\n" +
                 "mark [TASK NUMBER]\n" +
-                "unmark [TASK NUMBER}\n" +
-                "list");
+                "unmark [TASK NUMBER]\n" +
+                "delete [TASK NUMBER]\n" +
+                "find [KEYWORD]\n" +
+                "list\n" +
+                "bye");
     }
 
     /**
