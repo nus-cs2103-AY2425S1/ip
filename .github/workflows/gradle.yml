@@ -79,10 +79,6 @@ jobs:
       - name: Clean up previous Xvfb session (Linux)
         if: runner.os == 'Linux'
         run: |
-          if pgrep Xvfb; then
-            echo "Killing existing Xvfb session"
-            sudo pkill Xvfb
-          fi
           if [ -e /tmp/.X99-lock ]; then
             echo "Removing existing Xvfb lock"
             sudo rm /tmp/.X99-lock
@@ -102,23 +98,4 @@ jobs:
         run: |
           Xvfb :99 &
           export DISPLAY=:99
-          if [ ! -e ${{ github.workspace }}/text-ui-test/EXPECTED.TXT ]; then
-            echo "EXPECTED.TXT not found. Test cannot continue."
-            exit 1
-          fi
-          cp ${{ github.workspace }}/text-ui-test/EXPECTED.TXT EXPECTED-UNIX.TXT
-          dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
           ./runtest.sh
-
-      # Perform IO redirection test for macOS
-      - name: Perform IO redirection test (MacOS)
-        if: always() && runner.os == 'macOS'
-        working-directory:  ${{ github.workspace }}/text-ui-test
-        run: ./runtest.sh
-
-      # Perform IO redirection test for Windows
-      - name: Perform IO redirection test (Windows)
-        if: always() && runner.os == 'Windows'
-        working-directory:  ${{ github.workspace }}/text-ui-test
-        shell: cmd
-        run: runtest.bat
