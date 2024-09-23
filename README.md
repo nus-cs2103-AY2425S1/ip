@@ -1,6 +1,6 @@
 # Sammy User Guide
 
-![img.png](img.png)
+![img.png]([img.png](https://github.com/zienxu/ip/blob/master/docs/img.png?raw=true))
 
 Welcome to **Sammy**! Sammy is a personal chatbot that helps you keep track of your daily tasks. You can add
 different types of tasks, mark them as done, or tag them for easy reference. Sammy can also help you manage deadlines 
