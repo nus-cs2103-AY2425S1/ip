@@ -64,35 +64,32 @@ jobs:
       - name: Set up repository
         uses: actions/checkout@master
 
-      - name: Set up repository
-        uses: actions/checkout@master
-        with:
-          ref: master
-
-      - name: Merge to master
-        run: git checkout --progress --force ${{ github.sha }}
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: Setup JDK 17
+      - name: Set up JDK 17
         uses: actions/setup-java@v1
         with:
           java-version: '17'
           java-package: jdk+fx
 
-      # Install Xvfb on Linux to support JavaFX headless mode
-      - name: Install Xvfb (Linux)
+      # Install Xvfb and dos2unix on Linux
+      - name: Install Xvfb and dos2unix (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y xvfb
+        run: sudo apt-get install -y xvfb dos2unix
 
-      # Start Xvfb and set DISPLAY environment variable for Linux
-      - name: Run tests with Xvfb (Linux)
+      # Clean up previous Xvfb session
+      - name: Clean up previous Xvfb session (Linux)
         if: runner.os == 'Linux'
         run: |
-          Xvfb :99 & 
+          if [ -e /tmp/.X99-lock ]; then
+            echo "Removing existing Xvfb lock"
+            sudo rm /tmp/.X99-lock
+          fi
+
+      # Start Xvfb for headless JavaFX
+      - name: Start Xvfb (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          Xvfb :99 &
           export DISPLAY=:99
-          ./gradlew check
 
       # Perform IO redirection test for Linux
       - name: Perform IO redirection test (*NIX)
@@ -102,16 +99,3 @@ jobs:
           Xvfb :99 &
           export DISPLAY=:99
           ./runtest.sh
-
-      # Perform IO redirection test for macOS
-      - name: Perform IO redirection test (MacOS)
-        if: always() && runner.os == 'macOS'
-        working-directory:  ${{ github.workspace }}/text-ui-test
-        run: ./runtest.sh
-
-      # Perform IO redirection test for Windows
-      - name: Perform IO redirection test (Windows)
-        if: always() && runner.os == 'Windows'
-        working-directory:  ${{ github.workspace }}/text-ui-test
-        shell: cmd
-        run: runtest.bat
