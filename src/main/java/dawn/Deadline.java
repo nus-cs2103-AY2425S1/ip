@@ -21,7 +21,7 @@ public class Deadline extends Task {
                     "For example: time submit assignment1 /by 2024-09-16 2pm");
         }
         if (!super.isValidDate(strings[1])) {
-            throw new DawnException("Invalid date entered! Please enter a valid deadline");
+            throw new DawnException("Invalid date entered! Please enter a valid deadline in the form of yyyy-mm-dd");
         }
         this.time = strings[2];
         this.date = LocalDate.parse(strings[1]);
