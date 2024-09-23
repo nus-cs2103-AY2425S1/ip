@@ -114,5 +114,5 @@ Terminates the application.
 
 Example: `bye`
 
-Expected outcome: The application is closed.
+Expected outcome: The application is terminated.
 
