@@ -57,16 +57,16 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img, "label");
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        text = text + "\n";
-        var db = new DialogBox(text, img, "duke-label");
+    public static DialogBox getRapgodDialog(String text, Image img) {
+        text = text + "\n\n\n";
+        var db = new DialogBox(text, img, "rapgod-label");
         db.flip();
         return db;
     }
 
     public static DialogBox getInitialDialog(String text, Image img) {
         text = text + "\n\n\n\n";
-        var db = new DialogBox(text, img, "duke-label");
+        var db = new DialogBox(text, img, "rapgod-label");
         db.flip();
         return db;
     }

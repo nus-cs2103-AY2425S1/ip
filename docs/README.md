@@ -36,7 +36,7 @@ Task "Buy groceries" has been added. ✅
 To specify a deadline for a task, use:
 
 ```
-/BY z
+/BY <time>
 ```
 **Example:**
 ```
@@ -51,52 +51,52 @@ Task "Finish report" with deadline 01/10/2024 has been added.
 To create an event from x to y, use:
 
 ```
-/FROM x /TO y
+/FROM <time1> /TO <time2>
 ```
 **Example:**
 ```
-ADD Meeting /FROM 09:00 /TO 10:00
+ADD Meeting /FROM 23/08/2024 1900 /TO 23/08/2024 2100
 ```
 **Expected outcome:**
 ```
-Event "Meeting" from 09:00 to 10:00 has been scheduled.
+Event "Meeting" from Aug 23 2024 7:00pm to Aug 23 2024 9:00pm has been scheduled.
 ```
 
-### Snooze a Deadline
-To snooze the nth task's deadline, use:
+### Reschedule a Deadline
+To reschedule the nth task's deadline, use:
 
 ```
-SNOOZE n /by x
+RESCHEDULE n /BY <new time>
 ```
 **Example:**
 ```
-SNOOZE 1 /by 2 days
+RESCHEDULE 1 /BY 23/08/2024 1900
 ```
 **Expected outcome:**
 ```
-Task 1 deadline has been snoozed by 2 days.
+Task Meeting has been rescheduled to be by Aug 23 2024 7:00pm
 ```
 
 ### Change Event Schedule
 To change the schedule of the nth event task, use:
 
 ```
-SNOOZE n /from x /to y
+RESCHEDULE n /from <new time 1> /to <new time 2>
 ```
 **Example:**
 ```
-SNOOZE 1 /from 10:00 /to 11:00
+RESCHEDULE 1 /FROM 23/08/2024 1900 /TO 23/08/2024 2200
 ```
 **Expected outcome:**
 ```
-Event 1 has been rescheduled from 10:00 to 11:00.
+Task Meeting has been rescheduled to be from Aug 23 2024 7:00pm to Aug 23 2024 10:00pm
 ```
 
 ## Time Format 🕒
 Use the following format for deadlines and events:
 
 - **Date:** dd/MM/yyyy
-- **Date and Time:** dd/MM/yyyy HH:mm
+- **Date and Time:** dd/MM/yyyy HHmm
 
 ## Viewing Tasks 👀
 

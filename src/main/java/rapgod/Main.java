@@ -11,7 +11,7 @@ import rapgod.bot.RapGod;
 import rapgod.ui.MainWindow;
 
 /**
- * A GUI for rapgod.Duke using FXML.
+ * A GUI for rapgod.RapGod using FXML.
  */
 public class Main extends Application {
 
@@ -27,7 +27,7 @@ public class Main extends Application {
             stage.setTitle("RAP-BOT");
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setDuke(rapGod);
+            fxmlLoader.<MainWindow>getController().setRapGod(rapGod);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

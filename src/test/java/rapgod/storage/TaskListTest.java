@@ -10,7 +10,6 @@ import rapgod.tasks.Deadline;
 import rapgod.tasks.Event;
 import rapgod.tasks.Task;
 import rapgod.tasks.ToDo;
-import rapgod.utils.Parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -25,10 +25,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private RapGod duke;
+    private RapGod rapGod;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image rapgodImage = new Image(this.getClass().getResourceAsStream("/images/DaRapgod.png"));
 
     /**
      * Initializes the controller for the dialog interface.
@@ -47,30 +47,30 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getInitialDialog(RapGod.getInitialMessage(), dukeImage)
+                DialogBox.getInitialDialog(RapGod.getInitialMessage(), rapgodImage)
         );
     }
 
-    /** Injects the rapgod.Duke instance */
-    public void setDuke(RapGod d) {
-        duke = d;
+    /** Injects the rapgod.RapGod instance */
+    public void setRapGod(RapGod d) {
+        rapGod = d;
     }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing rapgod.
-     * Duke's reply and then appends them to      * the dialog container. Clears the user input after processing.
+     * RapGod's reply and then appends them to      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = rapGod.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getRapgodDialog(response, rapgodImage)
         );
         userInput.clear();
 
-        if (response.equals("Bye! Hope to see you again soon!")) {
+        if (response.equals("Peace out! Catch you on the flip side!")) {
 
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> closeCurrentStage());

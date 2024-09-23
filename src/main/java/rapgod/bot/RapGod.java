@@ -58,10 +58,10 @@ public class RapGod {
                 'UNMARK n'                - This marks the nth task as not done.
                 'DELETE n'                - Get rid of the nth task. Poof, it's gone.\n
                 '/BY z'                   - Got a deadline? Specify it with '/BY z'.
-                '/FROM x /TO y'           - Set up an event from x to y with this.
-                'SNOOZE n /by x'          - Snooze that deadline on the nth task.
-                'SNOOZE n /from x /to y'  - Change the schedule on the nth event task.
-                 Time Format:              - Use dd/MM/yyyy or dd/MM/yyyy HH:mm to keep things in check.
+                '/FROM x /TO y'              - Set up an event from x to y with this.
+                'RESCHEDULE n /by x'         - Snooze that deadline on the nth task.
+                'RESCHEDULE n /from x /to y' - Change the schedule on the nth event task.
+                 Time Format:             - Use dd/MM/yyyy or dd/MM/yyyy HHmm to keep things in check.
                 """;
 
         return initialise;
@@ -207,7 +207,7 @@ public class RapGod {
             } else if (input.toLowerCase().startsWith("snooze ")
                     && input.toLowerCase().contains("/by")) {
                 return SNOOZE_DEADLINE;
-            } else if (input.toLowerCase().startsWith("snooze ")
+            } else if (input.toLowerCase().startsWith("reschedule ")
                         && input.toLowerCase().contains("/from")
                         && input.toLowerCase().contains("/to")) {
                 return SNOOZE_EVENT;

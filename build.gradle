@@ -33,6 +33,6 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "javafx-tutorial-duke"
+    archiveBaseName = "javafx-tutorial-rapgod"
     archiveClassifier = null
 }
