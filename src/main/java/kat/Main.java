@@ -1,16 +1,19 @@
-package chatbot;
+package kat;
 
 import java.io.IOException;
 
-import chatbot.impl.KatChatBotImpl;
-import chatbot.impl.MessageParserImpl;
-import chatbot.impl.TaskStorageImpl;
-import chatbot.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import kat.chatbot.ChatBot;
+import kat.chatbot.MessageParser;
+import kat.chatbot.TaskStorage;
+import kat.chatbot.impl.KatChatBotImpl;
+import kat.chatbot.impl.MessageParserImpl;
+import kat.chatbot.impl.TaskStorageImpl;
+import kat.ui.MainWindow;
 
 /**
  * The Main class contains the entry point of the application.

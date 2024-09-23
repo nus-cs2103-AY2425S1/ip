@@ -1,4 +1,4 @@
-package chatbot.impl;
+package kat.chatbot.impl;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import chatbot.Task;
-import chatbot.TaskStorage;
-import chatbot.impl.tasks.AbstractTask;
+import kat.chatbot.TaskStorage;
+import kat.tasks.Task;
+import kat.tasks.impl.AbstractTask;
 
 /**
  * Implements the TaskStorage interface to manage tasks in a custom file-based storage system.
@@ -38,7 +38,6 @@ public class TaskStorageImpl implements TaskStorage {
                 tasks.add(AbstractTask.deserialize(line));
             }
         } catch (IOException e) {
-            // Todo: Proper exception handling
             e.printStackTrace();
         }
     }
@@ -128,7 +127,6 @@ public class TaskStorageImpl implements TaskStorage {
      * This method serializes each task and writes it to the file.
      */
     private void saveTasks() {
-        // Todo: Optimization
         try {
             List<String> serializedTasks = tasks
                     .stream()

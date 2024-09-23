@@ -1,4 +1,4 @@
-package chatbot;
+package kat;
 
 import javafx.application.Application;
 

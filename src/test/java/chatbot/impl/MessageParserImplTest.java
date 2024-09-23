@@ -15,12 +15,13 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import chatbot.Task;
-import chatbot.TaskStorage;
-import chatbot.exceptions.InvalidMessageException;
-import chatbot.impl.tasks.DeadlineTask;
-import chatbot.impl.tasks.EventTask;
-import chatbot.impl.tasks.TodoTask;
+import kat.chatbot.TaskStorage;
+import kat.chatbot.impl.MessageParserImpl;
+import kat.exceptions.InvalidMessageException;
+import kat.tasks.Task;
+import kat.tasks.impl.DeadlineTask;
+import kat.tasks.impl.EventTask;
+import kat.tasks.impl.TodoTask;
 
 public class MessageParserImplTest {
 

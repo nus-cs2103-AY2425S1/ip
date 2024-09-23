@@ -1,6 +1,5 @@
-package chatbot.ui;
+package kat.ui;
 
-import chatbot.ChatBot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import kat.chatbot.ChatBot;
 
 /**
  * Controller for the main GUI.

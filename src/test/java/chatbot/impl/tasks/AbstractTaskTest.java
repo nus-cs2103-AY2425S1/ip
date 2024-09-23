@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import chatbot.Task;
+import kat.tasks.Task;
+import kat.tasks.impl.AbstractTask;
+import kat.tasks.impl.DeadlineTask;
+import kat.tasks.impl.EventTask;
+import kat.tasks.impl.TodoTask;
 
 public class AbstractTaskTest {
 

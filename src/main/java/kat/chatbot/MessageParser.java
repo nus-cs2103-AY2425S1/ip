@@ -1,6 +1,6 @@
-package chatbot;
+package kat.chatbot;
 
-import chatbot.exceptions.InvalidMessageException;
+import kat.exceptions.InvalidMessageException;
 
 /**
  * Represents a parser capable of handling various types of user messages.

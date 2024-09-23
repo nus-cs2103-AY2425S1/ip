@@ -1,8 +1,8 @@
-package chatbot.impl.tasks;
+package kat.tasks.impl;
 
 import java.time.format.DateTimeFormatter;
 
-import chatbot.Task;
+import kat.tasks.Task;
 
 /**
  * Provides a base implementation of the Task interface.

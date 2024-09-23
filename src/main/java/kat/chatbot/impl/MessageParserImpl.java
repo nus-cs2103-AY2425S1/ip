@@ -1,14 +1,14 @@
-package chatbot.impl;
+package kat.chatbot.impl;
 
 import java.util.List;
 
-import chatbot.MessageParser;
-import chatbot.Task;
-import chatbot.TaskStorage;
-import chatbot.exceptions.InvalidMessageException;
-import chatbot.impl.tasks.DeadlineTask;
-import chatbot.impl.tasks.EventTask;
-import chatbot.impl.tasks.TodoTask;
+import kat.chatbot.MessageParser;
+import kat.chatbot.TaskStorage;
+import kat.exceptions.InvalidMessageException;
+import kat.tasks.Task;
+import kat.tasks.impl.DeadlineTask;
+import kat.tasks.impl.EventTask;
+import kat.tasks.impl.TodoTask;
 
 /**
  * Implements the MessageParser interface to handle various types of user messages.

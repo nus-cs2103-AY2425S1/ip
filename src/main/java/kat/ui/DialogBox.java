@@ -1,4 +1,4 @@
-package chatbot.ui;
+package kat.ui;
 
 import java.io.IOException;
 import java.util.Collections;

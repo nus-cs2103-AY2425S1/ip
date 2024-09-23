@@ -1,4 +1,4 @@
-package chatbot.exceptions;
+package kat.exceptions;
 
 /**
  * Custom exception class for handling invalid messages in the chat bot application.

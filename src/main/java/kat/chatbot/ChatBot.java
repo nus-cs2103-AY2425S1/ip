@@ -1,4 +1,4 @@
-package chatbot;
+package kat.chatbot;
 
 /**
  * Represents a chatbot capable of handling user interactions.

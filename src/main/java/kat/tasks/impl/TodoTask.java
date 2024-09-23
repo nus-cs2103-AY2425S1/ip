@@ -1,4 +1,4 @@
-package chatbot.impl.tasks;
+package kat.tasks.impl;
 
 /**
  * Represents a simple todo task without a specific time or date.
@@ -34,7 +34,6 @@ public class TodoTask extends AbstractTask {
         return todoTask;
     }
 
-    // Todo: Handle case where '|' is part of description
     @Override
     public String serialize() {
         return String.format("T | %d | %s", isDone ? 1 : 0, description);

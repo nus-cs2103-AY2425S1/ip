@@ -1,4 +1,4 @@
-package chatbot;
+package kat.tasks;
 
 /**
  * Represents a task in the chatbot system.

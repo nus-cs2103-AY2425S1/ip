@@ -1,9 +1,9 @@
-package chatbot.impl.tasks;
+package kat.tasks.impl;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import chatbot.exceptions.InvalidMessageException;
+import kat.exceptions.InvalidMessageException;
 
 /**
  * Represents a task with a start and end time.
@@ -26,7 +26,6 @@ public class EventTask extends AbstractTask {
         super(description);
 
         try {
-            // Todo: Add date validation and support for time
             this.startTime = LocalDate.parse(startTime);
             this.endTime = LocalDate.parse(endTime);
         } catch (DateTimeParseException e) {

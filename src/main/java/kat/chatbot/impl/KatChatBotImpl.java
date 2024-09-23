@@ -1,8 +1,8 @@
-package chatbot.impl;
+package kat.chatbot.impl;
 
-import chatbot.ChatBot;
-import chatbot.MessageParser;
-import chatbot.exceptions.InvalidMessageException;
+import kat.chatbot.ChatBot;
+import kat.chatbot.MessageParser;
+import kat.exceptions.InvalidMessageException;
 
 /**
  * Implements the ChatBot interface representing a chatbot named Kat.
