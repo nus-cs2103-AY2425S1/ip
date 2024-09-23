@@ -78,7 +78,7 @@ public class DateParser {
         Map<String, LocalDate> map = new HashMap<>();
         LocalDate today = LocalDate.now();
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 8; i++) {
             LocalDate date = today.plusDays(i);
             String dayOfWeek = date.getDayOfWeek().name().toLowerCase();
             map.put(dayOfWeek, date);

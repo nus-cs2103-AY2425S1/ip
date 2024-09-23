@@ -12,7 +12,10 @@ public class InvalidDateTimeInputException extends ElysiaException {
      */
     public InvalidDateTimeInputException(String input) {
         super("Oh dear! I think you might have made some mistakes in the date-time input.\n"
-                + "The " + input + " is in the past.\n");
+                + "\n"
+                + "The " + input + " is in the past.\n"
+                + "\n"
+                + "Enter the year explicitly if the date is not in the current year, such as 23 Sep 2025.");
     }
 
     /**

@@ -45,7 +45,7 @@ public class DeadlineCommand extends Command {
         // Sort the tasks by deadline if they are instances of Deadline
         tasks.sort((task1, task2) -> {
             if (task1 instanceof Deadline && task2 instanceof Deadline) {
-                return ((Deadline) task1).getBy().compareTo(((Deadline) task2).getBy());
+                return ((Deadline) task1).getDeadline().compareTo(((Deadline) task2).getDeadline());
             }
             return 0; // Handle non-Deadline tasks if necessary
         });
