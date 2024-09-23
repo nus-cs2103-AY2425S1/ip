@@ -42,12 +42,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-//        Scanner scanner = new Scanner(System.in);
-//        TaskStorage taskStorage = new TaskStorageImpl();
-//        MessageParser messageParser = new MessageParserImpl(taskStorage);
-//        ChatBot chatBot = new KatChatBotImpl(scanner, messageParser);
-//
-//        chatBot.start();
     }
 
 }

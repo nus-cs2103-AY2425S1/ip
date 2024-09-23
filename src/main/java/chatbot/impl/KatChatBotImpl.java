@@ -20,6 +20,12 @@ public class KatChatBotImpl implements ChatBot {
             |_|\\_\\____|\\__|
             """;
 
+    private static final String GREETING_RESPONSE = "Hi! I'm Kat.\nHow can I help?";
+
+    private static final String ENDING_COMMAND = "bye";
+
+    private static final String ENDING_RESPONSE = "See you!";
+
     private final Scanner scanner;
 
     private final MessageParser messageParser;
@@ -39,12 +45,12 @@ public class KatChatBotImpl implements ChatBot {
     public void start() {
         System.out.println("Hello from\n" + LOGO);
 
-        respond("Hi! I'm Kat.\nHow can I help?");
+        respond(GREETING_RESPONSE);
         while (true) {
             System.out.println("> Me");
             String input = scanner.nextLine().trim();
 
-            if (input.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase(ENDING_COMMAND)) {
                 break;
             }
 
@@ -56,18 +62,17 @@ public class KatChatBotImpl implements ChatBot {
             }
         }
 
-        respond("See you!");
+        respond(ENDING_RESPONSE);
     }
 
     @Override
     public String getResponse(String input) {
-        if (input.equalsIgnoreCase("bye")) {
-            return "See you!";
+        if (input.equalsIgnoreCase(ENDING_COMMAND)) {
+            return ENDING_RESPONSE;
         }
 
         try {
-            String response = messageParser.handleMessage(input);
-            return response;
+            return messageParser.handleMessage(input);
         } catch (InvalidMessageException e) {
             return e.getMessage();
         }

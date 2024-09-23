@@ -72,7 +72,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleMark(String[] inputParts) throws InvalidMessageException {
-        // Todo: Potential combine these 2 methods?
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             storage.setTaskAsDone(taskIdx);
