@@ -8,7 +8,6 @@ public class NoosyException extends Throwable {
 
     /**
      * Constructs a new NoosyException with the specified error message.
-     * Constructs a new NoosyException with the specified error message.
      *
      * @param errorMessage The detail message for this exception.
      */

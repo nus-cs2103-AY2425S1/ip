@@ -1,5 +1,7 @@
 package noosy.task;
 
+import noosy.exception.NoosyDuplicateException;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -63,8 +65,11 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void add(Task task) {
-        this.tasks.add(task);
+    public void add(Task task) throws NoosyDuplicateException {
+        if (tasks.contains(task)) {
+            throw new NoosyDuplicateException();
+        }
+        tasks.add(task);
     }
 
     /**
@@ -98,8 +103,8 @@ public class TaskList {
     public String toString() {
         String str = "";
         for (int i = 0; i < tasks.size(); i++) {
-            String newTask = (i + 1) + ". " + tasks.get(i) + "\n";
-            str += newTask;
+            String task = (i + 1) + ". " + tasks.get(i) + "\n";
+            str += task;
         }
         return str;
     }
