@@ -19,11 +19,12 @@ public class EventCommand extends Command {
 
     /**
      * Constructs an EventCommand that also creates an Event object during initialisation.
+     *
      * @param eventDesc Text description of the event.
      * @param eventStart Date of event start in <code>YYYY-MM-DD</code> format.
-     *                   Can also be in any other date or non-date format.
+     *         Can also be in any other date or non-date format.
      * @param eventEnd Date of event end in <code>YYYY-MM-DD</code> format.
-     *                 Can also be in any other date or non-date format.
+     *         Can also be in any other date or non-date format.
      */
     public EventCommand(String eventDesc, String eventStart, String eventEnd) throws RizzlerException {
         super();
@@ -33,6 +34,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates an <code>Event</code> object and adds it to the taskLog, and updates storage.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Lines to be printed in response to creation of an <code>Event</code> object.

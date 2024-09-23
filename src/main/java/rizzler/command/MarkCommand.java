@@ -19,6 +19,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructs a <code>MarkCommand</code>.
+     *
      * @param taskToMark The number of the task to mark, as shown in <code>list</code>.
      */
     public MarkCommand(int taskToMark) {
@@ -28,6 +29,7 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the given task as completed in taskLog. If no such task exists, an error message is printed.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Strings representing the outcome of attempting to mark the task.

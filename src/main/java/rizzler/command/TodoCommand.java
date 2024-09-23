@@ -19,6 +19,7 @@ public class TodoCommand extends Command {
 
     /**
      * Constructs a TodoCommand. Also initialises a ToDo.
+     *
      * @param todoDesc Text description of the task to be done.
      */
     public TodoCommand(String todoDesc) throws RizzlerException {
@@ -29,6 +30,7 @@ public class TodoCommand extends Command {
 
     /**
      * Adds the created ToDo item to the taskLog, and also updates the storage file.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Lines representing the created ToDo for user verification.

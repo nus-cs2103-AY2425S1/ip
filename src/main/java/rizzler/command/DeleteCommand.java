@@ -19,6 +19,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructs a <code>DeleteCommand</code> object.
+     *
      * @param commandToDelete Number representing the task to be deleted under <code>list</code>
      */
     public DeleteCommand(int commandToDelete) {
@@ -29,6 +30,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the command number given from the taskLog and storage. If the number given
      * does not correspond to any task, nothing is done and an error message is printed.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Lines to be printed in response to the delete command for user verification.

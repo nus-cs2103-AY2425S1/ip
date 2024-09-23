@@ -17,12 +17,13 @@ public class FindCommand extends Command {
             Examples:
             find dinner
             find meeting tonight""";
-    private static final String NO_MATCHES_RESPONSE = "our list is empty right now dear, no tasks to search through!";
+    private static final String NO_MATCHES_RESPONSE = "sorry, none of the tasks in the list match your search term!";
     private static final int TASK_LIST_START_INDEX = 1;
     private final String taskListHeader = "here are the tasks that match \"" + getTextInput() + "\".";
 
     /**
      * Constructs a FindCommand object.
+     *
      * @param strToMatch String that the user wants to search for within all tasks.
      */
     public FindCommand(String strToMatch) throws RizzlerException {
@@ -32,6 +33,7 @@ public class FindCommand extends Command {
 
     /**
      * Executes the search throughout all tasks in taskLog for those with descriptions that match the search term.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Multiple lines of input of a numbered list of all tasks that satisfy the user's search.
@@ -48,12 +50,10 @@ public class FindCommand extends Command {
         }
 
         StringBuilder output = new StringBuilder();
-        output.append(taskListHeader);
-        output.append("\n");
+        output.append(taskListHeader).append("\n");
+
         for (int i = 0; i < tasksMatching.length; i++) {
-            output.append(i + TASK_LIST_START_INDEX);
-            output.append(". ");
-            output.append(tasksMatching[i]);
+            output.append(i + TASK_LIST_START_INDEX).append(". ").append(tasksMatching[i]);
             output.append("\n");
         }
         return output.toString().split("\n");

@@ -14,6 +14,7 @@ public class Event extends Task {
 
     /**
      * Constructs an <code>Event</code> object.
+     *
      * @param eventDesc Text description of the event.
      * @param eventStart <code>String</code> describing the event start time/date.
      * @param eventEnd <code>String</code> describing the event end time/date.
@@ -24,6 +25,7 @@ public class Event extends Task {
 
     /**
      * Constructs an <code>Event</code> object.
+     *
      * @param eventDesc Text description of the event.
      * @param eventStart <code>String</code> describing the event start time/date.
      * @param eventEnd <code>String</code> describing the event end time/date.

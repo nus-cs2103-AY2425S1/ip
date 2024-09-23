@@ -19,6 +19,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructs an UnmarkCommand, given a task number they wish to unmark.
+     *
      * @param taskToUnmark Task number to be unmarked, as shown in <code>list</code>.
      */
     public UnmarkCommand(int taskToUnmark) {
@@ -29,6 +30,7 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks the given task number. If the task number is not found in the taskLog,
      * an error message is printed instead.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Message updating the user on the result of the unmarking operation.

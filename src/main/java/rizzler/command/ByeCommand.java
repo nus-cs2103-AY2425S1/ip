@@ -17,6 +17,7 @@ public class ByeCommand extends Command {
 
     /**
      * Sets the flag for the program to halt with this command.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Nothing to be printed, functions as a null placeholder.

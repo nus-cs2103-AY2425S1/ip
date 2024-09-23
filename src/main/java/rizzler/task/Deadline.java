@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a <code>Deadline</code> object.
+     *
      * @param deadlineDesc <code>String</code> describing the deadline task.
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      */
@@ -21,6 +22,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a <code>Deadline</code> object.
+     *
      * @param deadlineDesc <code>String</code> describing the deadline task.
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      * @param isDone Boolean to indicate if the task being created has been marked as done.

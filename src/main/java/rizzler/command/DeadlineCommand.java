@@ -19,9 +19,10 @@ public class DeadlineCommand extends Command {
 
     /**
      * Constructs a DeadlineCommand object. Also creates a <code>Deadline</code> object.
+     *
      * @param deadlineDesc Text description of the task.
      * @param deadlineTime Date of the deadline in <code>YYYY-MM-DD</code> format.
-     *                     Can also be in any other date or non-date format.
+     *         Can also be in any other date or non-date format.
      */
     public DeadlineCommand(String deadlineDesc, String deadlineTime) throws RizzlerException {
         super();
@@ -33,6 +34,7 @@ public class DeadlineCommand extends Command {
      * Executes the necessary actions in creating this Event object.
      * Adds the Deadline object to <code>taskLog</code>, and stores
      * the updated <code>taskLog</code> in <code>storage</code>.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Lines of output to be printed in response to creation of a new Deadline.

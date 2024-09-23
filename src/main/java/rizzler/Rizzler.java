@@ -26,6 +26,7 @@ public class Rizzler {
     /**
      * Passes in an input to the Rizzler object, and returns its response.
      * Also updates <code>isUserDone</code> based on the output of the command.
+     *
      * @param userInput Whatever the user has typed in as input.
      * @return Rizzler's output in response to user input.
      */
@@ -50,6 +51,7 @@ public class Rizzler {
     /**
      * Informs <code>MainWindow</code> whether the user is done with the Rizzler.
      * In the event that the user is done, the application may then be closed.
+     *
      * @return Whether the user is done or not.
      */
     public boolean shouldEnd() {
