@@ -135,7 +135,7 @@ Your task has been archive bro:
 
 Displays the entire archive list of tasks.
 
-Example: `archivelist`
+Example: `listarchive`
 
 The bot will then display your full archive list including description, deadline (if applicable) and duration (if applicable).
 

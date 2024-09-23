@@ -29,7 +29,9 @@ public class TaskManager {
     public void saveTasks(List<Task> tasks) {
         try {
             File file = new File(FILE_PATH);
-            file.getParentFile().mkdirs(); // Create directories if they don't exist
+            if (file.getParentFile() != null) {
+                file.getParentFile().mkdirs(); // Create directories if they don't exist
+            }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (Task task : tasks) {
