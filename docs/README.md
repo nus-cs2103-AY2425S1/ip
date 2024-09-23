@@ -158,6 +158,42 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 ---
+#### `update`
+Updates the description or date of a task through an interactive process.
+
+**Format**: `update <index>`
+
+**Example**:
+
+**User's Input**:
+```
+update 2
+```
+**Spike's Response**:
+```
+What would you like to update? Enter '1', '2' or '3'.
+1. Description     
+2. Event start date and time
+3. Event end date and time
+```
+**User's Input**:
+```
+1
+```
+**Spike's Response**:
+```
+Please enter the new description:
+```
+**User's Input**:
+```
+World Championship
+```
+**Spike's Response**:
+```
+Got it. I've updated this task:
+[E][ ] World Championship (from: 20 Sep 2024 00:00 to: 30 Sep 2024 16:00)
+```
+---
 ## Hope you enjoy using Spike! :smile:
 
 ---
