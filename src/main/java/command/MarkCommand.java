@@ -1,14 +1,14 @@
 package command;
 
-import fridayException.FridayException;
-import fridayException.InvalidMarkArgument;
+import java.io.IOException;
+
+import fridayexception.FridayException;
+import fridayexception.InvalidMarkArgument;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
 import ui.UiGui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark a task as completed.

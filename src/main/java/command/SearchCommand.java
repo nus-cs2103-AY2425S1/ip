@@ -1,11 +1,11 @@
 package command;
 
+import java.time.LocalDate;
+
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 import ui.UiGui;
-
-import java.time.LocalDate;
 
 /**
  * Represents a command to search for tasks on a specific date.
@@ -18,7 +18,7 @@ public class SearchCommand extends Command {
      *
      * @param searchDate The date to search for tasks on.
      */
-    public  SearchCommand(LocalDate searchDate) {
+    public SearchCommand(LocalDate searchDate) {
         this.searchDate = searchDate;
     }
 
@@ -46,7 +46,7 @@ public class SearchCommand extends Command {
      * @return The list of tasks on the specified date.
      */
     @Override
-    public String executeGui(TaskList tasks,UiGui gui, Storage storage) {
+    public String executeGui(TaskList tasks, UiGui gui, Storage storage) {
         return gui.showSearchList(tasks.getTasks(), searchDate);
     }
 

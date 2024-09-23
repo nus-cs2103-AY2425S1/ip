@@ -1,13 +1,34 @@
 package parser;
 
-import command.*;
-import fridayException.*;
-import org.junit.jupiter.api.Test;
-import parser.Parser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.SearchCommand;
+import command.SortDeadlineCommand;
+import command.UnmarkCommand;
+import fridayexception.FridayException;
+import fridayexception.InvalidDeadlineArgument;
+import fridayexception.InvalidDeleteArgument;
+import fridayexception.InvalidEventArgument;
+import fridayexception.InvalidFindArgument;
+import fridayexception.InvalidFridayCommand;
+import fridayexception.InvalidMarkArgument;
+import fridayexception.InvalidSearchArgument;
+import fridayexception.InvalidTodoArgument;
+import fridayexception.InvalidUnmarkArgument;
+
 
 public class ParserTest {
 
@@ -156,3 +177,4 @@ public class ParserTest {
         assertTrue(command instanceof ListCommand);
     }
 }
+

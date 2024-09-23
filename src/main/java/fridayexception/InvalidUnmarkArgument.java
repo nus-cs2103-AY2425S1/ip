@@ -1,9 +1,13 @@
-package fridayException;
+package fridayexception;
 
 /**
  * Represents an exception where the unmark argument is invalid.
  */
 public class InvalidUnmarkArgument extends FridayException {
+
+    /**
+     * Constructs an InvalidUnmarkArgument exception.
+     */
     public InvalidUnmarkArgument() {
         super("Please key in a valid task number to unmark as done." + "\n"
                 + "     Please enter a valid unmark command: unmark <task number>" + "\n"

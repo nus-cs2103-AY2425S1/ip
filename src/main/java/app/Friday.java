@@ -1,14 +1,15 @@
 package app;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import command.Command;
-import controller.DialogBox;
 import controller.MainWindow;
-import fridayException.FridayException;
+import fridayexception.FridayException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -16,9 +17,6 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 import ui.UiGui;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents the Friday application that manages tasks for the user.
@@ -60,7 +58,7 @@ public class Friday extends Application {
                 Command command = Parser.parseUserInput(commandRaw);
                 command.execute(tasks, ui, storage);
                 isEndScanner = command.isEndScanner();
-            } catch (FridayException | DateTimeParseException e ) {
+            } catch (FridayException | DateTimeParseException e) {
                 if (e instanceof DateTimeParseException) {
                     ui.showError("Please enter a valid date in the format yyyy-mm-dd.");
                 } else {
@@ -113,11 +111,8 @@ public class Friday extends Application {
     public void start(Stage stage) {
         assert stage != null : "Stage should not be null in the start method";
         Thread thread = new Thread(this::run);
-
         assert thread != null : "Thread should be initialized to run CLI";
-        
         thread.start();
         runGui(stage);
-
     }
 }

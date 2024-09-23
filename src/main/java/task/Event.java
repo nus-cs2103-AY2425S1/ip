@@ -1,9 +1,9 @@
 package task;
 
-import fridayException.FridayException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import fridayexception.FridayException;
 
 /**
  * Represents an event task.

@@ -1,12 +1,13 @@
 package command;
-import fridayException.FridayException;
+
+import java.io.IOException;
+
+import fridayexception.FridayException;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
 import ui.UiGui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to add a task to the task list.

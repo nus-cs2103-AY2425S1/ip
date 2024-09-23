@@ -1,12 +1,14 @@
 package ui;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
+
 
 /**
  * Represents the user interface of the application.

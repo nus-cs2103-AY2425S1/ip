@@ -1,11 +1,11 @@
 package ui;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
-
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Represents the user interface of the application.
@@ -146,7 +146,8 @@ public class UiGui {
     public String showSearchList(List<Task> tasks, LocalDate searchDate) {
         StringBuilder sb = new StringBuilder();
         sb.append("    _______________________________________________________\n");
-        sb.append("     BO$$, here are the deadlines/events in your list that's due/occurring on ").append(searchDate).append(":\n");
+        sb.append("     BO$$, here are the deadlines/events in your list that's due/occurring on ")
+                .append(searchDate).append(":\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline deadline) {
                 if (deadline.getDeadline().equals(searchDate)) {

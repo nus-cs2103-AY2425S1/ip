@@ -3,7 +3,7 @@ package controller;
 import java.time.format.DateTimeParseException;
 
 import command.Command;
-import fridayException.FridayException;
+import fridayexception.FridayException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,8 +35,6 @@ public class MainWindow extends AnchorPane {
     private UiGui gui;
     private Storage storage;
     private TaskList tasks;
-//    private Ui ui;
-//    private Thread cliThread;
 
     /**
      * Initializes the main window.
@@ -74,7 +72,7 @@ public class MainWindow extends AnchorPane {
      * @param tasks The task list to be modified by the commands.
      * @return The main window object for easy chaining of the other setter methods
      */
-    public MainWindow setTasks(TaskList tasks){
+    public MainWindow setTasks(TaskList tasks) {
         this.tasks = tasks;
         return this;
     }

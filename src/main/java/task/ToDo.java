@@ -10,7 +10,7 @@ public class ToDo extends Task {
      *
      * @param taskName The task name.
      */
-    public ToDo(String taskName){
+    public ToDo(String taskName) {
         super(taskName);
     }
 
@@ -20,7 +20,7 @@ public class ToDo extends Task {
      * @param taskName The task name.
      * @param isCompleted The completion status.
      */
-    public ToDo(String taskName, boolean isCompleted){
+    public ToDo(String taskName, boolean isCompleted) {
         super(taskName, isCompleted);
 
     }

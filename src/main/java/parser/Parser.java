@@ -1,5 +1,7 @@
 package parser;
 
+import java.time.LocalDate;
+
 import command.AddCommand;
 import command.Command;
 import command.DeleteCommand;
@@ -10,21 +12,19 @@ import command.MarkCommand;
 import command.SearchCommand;
 import command.SortDeadlineCommand;
 import command.UnmarkCommand;
-import fridayException.FridayException;
-import fridayException.InvalidDeadlineArgument;
-import fridayException.InvalidDeleteArgument;
-import fridayException.InvalidEventArgument;
-import fridayException.InvalidFindArgument;
-import fridayException.InvalidFridayCommand;
-import fridayException.InvalidMarkArgument;
-import fridayException.InvalidSearchArgument;
-import fridayException.InvalidTodoArgument;
-import fridayException.InvalidUnmarkArgument;
+import fridayexception.FridayException;
+import fridayexception.InvalidDeadlineArgument;
+import fridayexception.InvalidDeleteArgument;
+import fridayexception.InvalidEventArgument;
+import fridayexception.InvalidFindArgument;
+import fridayexception.InvalidFridayCommand;
+import fridayexception.InvalidMarkArgument;
+import fridayexception.InvalidSearchArgument;
+import fridayexception.InvalidTodoArgument;
+import fridayexception.InvalidUnmarkArgument;
 import task.Deadline;
 import task.Event;
 import task.ToDo;
-
-import java.time.LocalDate;
 
 /**
  * Represents a parser that parses the user input.
@@ -70,7 +70,7 @@ public class Parser {
         case "event":
             //assert parts.length > 5 : "Event command must have sufficient arguments";
             //assert userInput.contains("/from")
-                    //&& userInput.contains("/to") : "Event command must contain both '/from' and '/to'";
+            //&& userInput.contains("/to") : "Event command must contain both '/from' and '/to'";
 
             if (parts.length <= 5 || !userInput.contains("/from") || !userInput.contains("/to")) {
                 throw new InvalidEventArgument();

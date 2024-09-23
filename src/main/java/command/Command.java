@@ -1,5 +1,5 @@
 package command;
-import fridayException.FridayException;
+import fridayexception.FridayException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;

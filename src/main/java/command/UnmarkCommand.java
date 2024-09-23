@@ -1,14 +1,14 @@
 package command;
 
-import fridayException.FridayException;
-import fridayException.InvalidUnmarkArgument;
+import java.io.IOException;
+
+import fridayexception.FridayException;
+import fridayexception.InvalidUnmarkArgument;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
 import ui.UiGui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to unmark a task as not completed.
@@ -39,10 +39,10 @@ public class UnmarkCommand extends Command {
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 throw new InvalidUnmarkArgument();
             }
-            Task taskToUnmark = tasks.getTask(taskIndex);  // Get the task to be unmarked
-            tasks.unmarkTask(taskIndex);  // Unmark the task as not completed
-            ui.showTaskUnmarked(taskToUnmark);  // Show the user that the task was unmarked
-            storage.saveTasksToFile(tasks.getTasks());  // Save the updated task list to the file
+            Task taskToUnmark = tasks.getTask(taskIndex); // Get the task to be unmarked
+            tasks.unmarkTask(taskIndex); // Unmark the task as not completed
+            ui.showTaskUnmarked(taskToUnmark); // Show the user that the task was unmarked
+            storage.saveTasksToFile(tasks.getTasks()); // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
@@ -59,19 +59,19 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String executeGui(TaskList tasks, UiGui gui, Storage storage) throws FridayException {
-        Task taskToUnmark = tasks.getTask(taskIndex);  // Get the task to be unmarked
+        Task taskToUnmark = tasks.getTask(taskIndex); // Get the task to be unmarked
         try {
             if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 throw new InvalidUnmarkArgument();
             }
-            tasks.unmarkTask(taskIndex);  // Unmark the task as not completed
+            tasks.unmarkTask(taskIndex); // Unmark the task as not completed
             gui.showTaskUnmarked(taskToUnmark);
 
-            storage.saveTasksToFile(tasks.getTasks());  // Save the updated task list to the file
+            storage.saveTasksToFile(tasks.getTasks()); // Save the updated task list to the file
         } catch (IOException e) {
             throw new FridayException("Error saving tasks to file.");
         }
-        return  gui.showTaskUnmarked(taskToUnmark);  // Show the user that the task was unmarked
+        return gui.showTaskUnmarked(taskToUnmark); // Show the user that the task was unmarked
     }
 
     public int getIndex() {
