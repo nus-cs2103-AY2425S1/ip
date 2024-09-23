@@ -37,6 +37,7 @@ public class MarkCommand extends Command {
         String msg = "";
         if (isValidIndex) {
             int i = Integer.parseInt(index);
+            assert i >= 1 && i <= tasks.size();
             if (isDone) {
                 msg += ui.showMessage(" Nice! I've marked this task as done:");
             } else {
