@@ -7,8 +7,6 @@ import edith.task.Deadline;
 import edith.task.Event;
 import edith.task.TaskList;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,31 +32,25 @@ public class ListOnDateCommandTest {
         tasks.addTask(new Event("Meeting", "2/11/2024 1800", "2/11/2024 2200"));
         ListOnDateCommand command = new ListOnDateCommand("2/11/2024");
 
-        String output = captureOutput(() -> {
-            try {
-                command.execute(tasks, ui, storage);
-            } catch (EdithException e) {
-                fail("Exception should not be thrown for a valid date.");
-            }
-        });
-
-        assertTrue(output.contains("Return book"));
-        assertTrue(output.contains("Meeting"));
+        try {
+            String output = command.execute(tasks, ui, storage);
+            assertTrue(output.contains("Return book"));
+            assertTrue(output.contains("Meeting"));
+        } catch (EdithException e) {
+            fail("Exception should not be thrown for a valid date.");
+        }
     }
 
     @Test
     public void execute_validDateNoTasks_success() {
         ListOnDateCommand command = new ListOnDateCommand("2/11/2024");
 
-        String output = captureOutput(() -> {
-            try {
-                command.execute(tasks, ui, storage);
-            } catch (EdithException e) {
-                fail("Exception should not be thrown for a valid date.");
-            }
-        });
-
-        assertTrue(output.contains("NOTHING"));
+        try {
+            String output = command.execute(tasks, ui, storage);
+            assertTrue(output.contains("NOTHING"));
+        } catch (EdithException e) {
+            fail("Exception should not be thrown for a valid date.");
+        }
     }
 
     @Test
@@ -70,17 +62,5 @@ public class ListOnDateCommandTest {
         } catch (EdithException e) {
             assertEquals("Invalid date/time format. Please use 'day/month/year HHmm' (e.g '13/9/2024 1800').", e.getMessage());
         }
-    }
-
-    private String captureOutput(Runnable task) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-        try {
-            task.run();
-        } finally {
-            System.setOut(originalOut);
-        }
-        return outputStream.toString();
     }
 }

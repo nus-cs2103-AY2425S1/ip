@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeadlineTest {
     private String taskDescription = "Return book";
     private String dueDateString = "2/11/2024 1800";
-    private String invalidDueDateString = "2 Nov 2024 1800";
 
     @Test
     public void constructor_validDate_success() {

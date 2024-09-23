@@ -11,7 +11,6 @@ public class EventTest {
     private String taskDescription = "Meeting";
     private String startTimeString = "10/10/2024 1400";
     private String endTimeString = "10/10/2024 1600";
-    private String invalidStartTimeString = "10 Oct 2024 1400";
 
     @Test
     public void constructor_validTimes_success() {
