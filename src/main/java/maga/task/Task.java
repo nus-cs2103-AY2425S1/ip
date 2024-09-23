@@ -79,7 +79,7 @@ public abstract class Task {
 
     /**
      * Creates a {@code Task} object from a string representation of the task.
-     * The string format is: "type | status | description | date".
+     * The string format is: "type | status | description | date | tag".
      * Only called when parsing string representation of tasks from the Maga data file by {@code TaskManager}.
      *
      * @param taskString The string representation of the task.
