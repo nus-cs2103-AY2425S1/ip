@@ -81,10 +81,21 @@ public class Deadline extends Task {
      * A deadline has a defined "deadline" and should show the earliest deadline
      * so that the user doesn't miss it.
      * @param task the task to be compared.
-     * @return
+     * @return -1 if this has a higher priority
+     *          0 if the two tasks have equal priority
+     *          1 if this task has a lower priority
      */
     @Override
     public int compareTo(Task task) {
+        //If the two tasks have different statuses
+        if (this.status != task.status) {
+            if (this.status == Status.DONE) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+        //If the two tasks have the same status
         if (task instanceof Todo) {
             return 1;
         } else if (task instanceof Deadline) {

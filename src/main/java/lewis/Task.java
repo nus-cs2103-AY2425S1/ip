@@ -52,7 +52,7 @@ public abstract class Task implements Comparable<Task> {
         }
         changelog.append("\nNew: ");
         changelog.append(this);
-        System.out.println(changelog);
+        Ui.printString(changelog.toString());
     }
 
     /**
