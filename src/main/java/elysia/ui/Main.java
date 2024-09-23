@@ -25,6 +25,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(elysia); // inject the Duke instance
             fxmlLoader.<MainWindow>getController().showWelcome();
             fxmlLoader.<MainWindow>getController().showFileMessage();
+            stage.setTitle("Elysia");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

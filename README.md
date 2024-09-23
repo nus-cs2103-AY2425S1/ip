@@ -1,24 +1,50 @@
-# Duke project template
+# Elysia User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![](docs/Ui.png)
 
-## Setting up in Intellij
+This chatbot will manage your tasks for you! Personality heavily inspired by Elysia from Honkai Impact 3.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Commands
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+
+1. list 
+   - lists all the current tasks in the tasklist
+   - Example: ```list```
+2. find
+   - finds the task based on the string given(will match description)
+   - Usage: find [string]
+   - Example: ```find test```
+3. mark
+   - marks the task as completed. An [x] will be shown when listed
+   - Usage: mark [task number]
+   - Example: ```mark 2```
+4. unmark
+   - unmarks the task as uncompleted. A [ ] will be shown when listed
+   - Usage: umark [task number]
+   - Example: ```unmark 2```
+5. delete
+   - removes the task from the list
+   - Usage: delete [task number]
+   - Example: ```delete 3```
+6. todo
+   - adds a todo task with only a description to the list
+   - use r tag to indicate recurring task
+   - Usage: todo [OPTIONAL: r] [description]
+   - Example: ```todo r finish ip```
+7. event
+   - adds an event with description, start date, and end date
+   - use r tag to indicate recurring task
+   - Date formats accepted: YYYY-MM-DD
+   - Usage: event [OPTIONAL: r] [description] /from [START_DATE] /to [END_DATE]
+   - Example: ```event Midterms everyday... /from 2024-09-1 /to 2024-09-10```
+8. deadline
+   - adds a deadline with description and date
+   - use r tag to indicate recurring task
+   - Date formats accepted: YYYY-MM-DD
+   - Usage: deadline [OPTIONAL: r] [description] /by [BY_DATE]
+   - Example: ```deadline r finish 2100 quiz /by 2024-08-23```
+9. bye
+   - Saves the current list of tasks in data.txt
+   - Currently does not close the application
+   - Example: ```bye```
