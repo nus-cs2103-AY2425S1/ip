@@ -3,7 +3,8 @@
 ![Ui.png](Ui.png)
 
 Echo is a task management application that helps you organize your tasks, deadlines, and events. It supports multiple
-task types and features like adding, marking, and deleting tasks, with a clean, easy-to-use interface.
+task types and features like adding, marking, and deleting tasks, with a clean, easy-to-use interface. It is
+interactive and feels like a real work buddy.
 
 
 
