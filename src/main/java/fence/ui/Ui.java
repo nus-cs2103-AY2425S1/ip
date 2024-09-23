@@ -80,7 +80,25 @@ public class Ui {
      * @return Error message for data file with invalid format.
      */
     public String printLoadingError() {
-        return "Data file corrupted";
+        return "Data file corrupted. Any changes will not be saved";
+    }
+
+    /**
+     * Returns the error message for an IO error, usually if the program lacks the necessary permission to verify,
+     * create, delete or otherwise modify a file or directory.
+     * @return Error message for insufficient permissions.
+     */
+    public String printPermissionError() {
+        return "fence couldn't check if data file already exists/create, open or modify the file. "
+                + "Changes may be reflected in the tasklist but not saved. Please check the necessary permissions";
+    }
+
+    /**
+     * Returns the error message for an index that is outside of the range of current tasklist.
+     * @return Error message if the given index is outside the range of current tasklist.
+     */
+    public String printInvalidIndexError() {
+        return "fence couldn't find that task";
     }
 
     /**

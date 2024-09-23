@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setFence(fence); // inject the Fence instance
             fxmlLoader.<MainWindow>getController().initializeGreetingDialog();
+            stage.setTitle("Fence");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

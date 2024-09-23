@@ -9,6 +9,9 @@ import fence.task.Event;
 import fence.task.Task;
 import fence.task.Todo;
 
+/**
+ * Represents the parser that the chatbot Fence uses to parse any form of inputs.
+ */
 public class Parser {
 
     private Task taskResult;
@@ -141,6 +144,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the corresponding task from parsing a line of data from the txt file.
+     * @param command One line of string representing one task stored in the data file.
+     * @return Task stored in data file.
+     */
     public Task parseTxt(String command) {
         st = new StringTokenizer(command);
         String firstWord = st.nextToken();
@@ -159,6 +167,11 @@ public class Parser {
         return taskResult;
     }
 
+    /**
+     * Returns the corresponding string from parsing a line of command from the user input.
+     * @param command Command that user inputted.
+     * @return Corresponding string representation of that command type.
+     */
     public String parseInput(String command) {
         st = new StringTokenizer(command);
         String firstWord = st.nextToken();
