@@ -1,30 +1,76 @@
 # Vecrosen User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of application](Ui.png)
 
-// Product screenshot goes here
+Vecrosen is a simple memo app you can use to keep track of your tasks.
 
-// Product intro goes here
+## Adding todos, deadlines, and/or clients
 
-## Adding deadlines
+Entering todo/deadline/event followed by a sentence adds a deadline or event to the list of tasks.
+Entering client adds the info of a client to the list of clients.
 
-// Describe the action and its outcome.
+In the case of deadline, one additional argument has to be supplied: by.
 
-// Give examples of usage
+In the case of event, two additional arguments have to be supplied: begin and end.
 
-Example: `keyword (optional arguments)`
+In the case of client, one additional argument has to be supplied: address.
 
-// A description of the expected outcome goes here
+In all cases, extra arguments are specified by writing the name of the argument following a slash
+before the argument.
 
+Example:
 ```
-expected output
+todo Chores
+deadline Homework /by 2024-11-26
+event Marathon /begin 2024-10-14 /end 2024-10-17
+client Mary Smith /address 1 Apple St.
 ```
 
-## Feature ABC
+Result:
+```
+Todo added: Chores
+Deadline added: Homework
+Event added: Marathon
+Client added: Mary Smith
+```
 
-// Feature details
+## Deleting tasks
 
+Entering "delete" followed by the task number will delete the task at that position on the list.
 
-## Feature XYZ
+Example: `delete 1`
 
-// Feature details
+Result:
+```
+Removing task: Chores
+You now have 1 tasks left in record.
+```
+
+## Marking tasks as complete/incomplete
+
+Entering "mark" or "unmark" followed by the index of the task to update marks the selected task as complete/incomplete.
+
+Example: `mark 1`
+
+Result:
+```
+Task marked as complete: Homework
+```
+
+## Viewing the lists
+
+Entering "list" displays the contents of both lists.
+
+Example can be seen in the image above.
+
+## Filtering the task list
+
+Entering "find" followed by a search term shows only tasks which have said term as a substring.
+
+Example: `find mew`
+
+Result:
+```
+Here are the matching tasks:
+1.[D][X] Homework (by: 26 Nov 2024)
+```
