@@ -24,7 +24,7 @@ Makima implements the following type of tasks:
 - [Credits](#credits)
 
 
-## Quick Start
+# Quick Start
 
 1. Ensure you have Java `17` or above installed.
 
@@ -47,7 +47,7 @@ java -jar makima.jar
 
 ![GUI](Ui.png)
 
-## Command Help
+# Command Help
 
 <details>
 <summary>Note on command syntax </summary>
@@ -83,7 +83,7 @@ at any stage of the command, you may do so. See [return](#return).
 
 </details>
 
-### todo
+## todo
 
 Adds a todo.
 
@@ -97,7 +97,7 @@ Format: `todo \n TASK_NAME`
 - `todo \n Call the dentist`
 </details>
 
-### deadline
+## deadline
 
 Adds a deadline.
 
@@ -113,7 +113,7 @@ Format: `deadline \n TASK_NAME \n END_DATE`
 - `deadline \n Prepare for meeting \n 2024-09-25T09:30`
 </details>
 
-### event
+## event
 
 Adds an event.
 
@@ -129,7 +129,7 @@ Format: `event \n EVENT_NAME \n START_DATE \n END_DATE`
 - `event \n Project kickoff \n 2024-09-28T10:00 \n 2024-09-28T11:30`
 </details>
 
-### delete
+## delete
 
 Deletes a task.
 
@@ -144,7 +144,7 @@ Format: `delete \n TASK_INDEX`
 - `delete \n 3` (Deletes the third task)
 </details>
 
-### mark
+## mark
 
 Marks a task as complete.
 
@@ -159,7 +159,7 @@ Format: `mark \n TASK_INDEX`
 - `mark \n 1` (Marks the first task as complete)
 </details>
 
-### unmark
+## unmark
 
 Unmarks a task.
 
@@ -174,7 +174,7 @@ Format: `unmark \n TASK_INDEX`
 - `unmark \n 3` (Unmarks the third task)
 </details>
 
-### list
+## list
 
 Displays the list of tasks.
 
@@ -186,7 +186,7 @@ Format: `list`
 - `list` (This will show all tasks)
 </details>
 
-### find
+## find
 
 Finds the task with name containing the specified string.
 
@@ -199,7 +199,7 @@ Format: `find \n SEARCH_TERM`
 - `find \n groceries` (Finds tasks containing "groceries")
 </details>
 
-### prioritise
+## prioritise
 
 Prioritises the selected task.
 
@@ -216,7 +216,7 @@ Format: `prioritise \n TASK_INDEX \n PRIORITY`
 - `prioritise \n 1 \n low` (Sets the priority of the first task to low)
 </details>
 
-### return
+## return
 
 Exits out the current command.
 
@@ -228,7 +228,7 @@ Format: `return`
 - `return`
 </details>
 
-### bye
+## bye
 
 Exits out the program.
 
@@ -240,7 +240,7 @@ Format: `bye`
 - `bye`
 </details>
 
-## Credits
+# Credits
 Image credits: 
 -  [Bot profile](https://www.pixiv.net/en/artworks/103412000)
 -  [User profile](https://yorushika.lnk.to/Moonbath)
