@@ -22,12 +22,9 @@ public class Ui {
     private static final String UNKNOWN_DESCRIPTION = "The command requires a description.";
     private static final String UNKNOWN_DEADLINE = "The deadline task description " +
             "must contain '/by' followed by the deadline date.";
-
     private static final String UNKNOWN_EVENT_TIMING = "The event task description " +
             "must contain '/from' and '/to' with the respective start and end times.";
-
     private static final String ONE_KEYWORD = "Please enter exactly one keyword for the 'find' command.";
-
     private static final String NO_MATCHING_TASKS = "No matching tasks found.";
 
     /**
@@ -73,7 +70,9 @@ public class Ui {
     public String displayList() {
         String displayList = "Here are the tasks in your list:" + "\n";
         int taskLength = TaskList.getTaskListLength();
+
         ArrayList<Task> list = TaskList.getTaskList();
+
         if(taskLength == 0) {
             return "Your task list is empty!";
         }
@@ -196,9 +195,7 @@ public class Ui {
     public String displayNoMatchingTasks() {return NO_MATCHING_TASKS;}
 
     public String displayMatchingTasks(ArrayList<Task> matchingTasks) {
-        String displayList = "";
-
-        displayList += "Here are the matching tasks in your list:" + "\n";
+        String displayList = "Here are the matching tasks in your list:" + "\n";
 
         for (int i = 0; i < matchingTasks.size(); i++) {
             displayList += (i + 1) + ". " + matchingTasks.get(i).toString();
