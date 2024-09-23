@@ -2,6 +2,8 @@ package ava.task;
 
 import java.util.List;
 
+import ava.errors.ErrorHandler;
+import ava.errors.InputError;
 import ava.files.FileManager;
 import ava.task.tasks.Deadline;
 import ava.task.tasks.Event;
@@ -107,7 +109,8 @@ public class TaskManager {
             item = tasks.get(taskId - 1);
             tasks.remove(taskId - 1);
         } else {
-            System.out.println("Sorry, I could not find the task you wanted me to remove 😢.");
+            ErrorHandler.handle(InputError.InvalidTaskId,
+                    "Sorry, I could not find the task you wanted me to remove 😢.");
             throw new IllegalArgumentException("Trying to delete nonexistent task");
         }
 
