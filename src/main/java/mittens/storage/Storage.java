@@ -54,6 +54,8 @@ public class Storage {
                             task.getDescription(),
                             ((Event) task).getFrom(),
                             ((Event) task).getTo());
+                } else {
+                    assert false : "Unknown task type";
                 }
                 encodedTasks.add(taskEncoding);
             }

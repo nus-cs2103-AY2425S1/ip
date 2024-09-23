@@ -57,6 +57,7 @@ public class Mittens {
             throw new RuntimeException("Error occurred during initialization");
         }
 
+        assert temp != null : "Task list should not be null here";
         this.taskList = temp;
     }
 
