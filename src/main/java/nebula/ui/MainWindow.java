@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Nebula nebula;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image nebulaImage = new Image(this.getClass().getResourceAsStream("/images/DaNebula.jpeg"));
 
     @FXML
     public void initialize() {
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         // Display the greeting message at startup
         String greeting = nebula.start();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greeting, dukeImage)
+                DialogBox.getDukeDialog(greeting, nebulaImage)
         );
     }
 
@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
         String response = nebula.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, nebulaImage)
         );
         userInput.clear();
     }
