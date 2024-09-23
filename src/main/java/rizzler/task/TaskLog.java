@@ -3,7 +3,7 @@ package rizzler.task;
 import rizzler.ui.RizzlerException;
 
 /**
- * Log to keep track of all the tasks on the user's list.
+ * Represents a log of all tasks to keep track of the tasks on the user's list.
  */
 public class TaskLog {
     private Task[] log;
@@ -15,7 +15,7 @@ public class TaskLog {
     }
 
     /**
-     * Constructor for creation of a new empty TaskLog.
+     * Constructs a new empty TaskLog.
      */
     public TaskLog() {
         this(new Task[100]);
@@ -40,17 +40,18 @@ public class TaskLog {
         this.log = newLog;
     }
 
+    /**
+     * Returns a Task at position <code>pos</code>.
+     * If this <code>pos</code> does not correspond to any particular task, an exception is thrown.
+     * @param pos Integer representing the task ID.
+     * @return Task at position pos.
+     * @throws RizzlerException Exception explaining that no task corresponds to the given <code>pos</code>.
+     */
     protected Task getTask(int pos) throws RizzlerException {
-        if (pos >= this.numTasks) {
+        if (pos >= this.numTasks || pos < 0) {
             throw new RizzlerException("there ain't no task " + (pos + 1) + " darlin'");
-        } else if (pos < 0) {
-            throw new RizzlerException("pumpkin, why you tryna give me problems?");
         }
         return this.log[pos];
-    }
-
-    public Task lastTask() throws RizzlerException {
-        return this.getTask(this.numTasks - 1);
     }
 
     /**
