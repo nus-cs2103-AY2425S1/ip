@@ -21,7 +21,7 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Beechat beechat = new Beechat("data/beechat.txt");
+    private final Beechat beechat = new Beechat("data/beechat.txt");
 
     @Override
     public void start(Stage stage) {
