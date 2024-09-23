@@ -41,7 +41,8 @@ public class AddDeadlineCommand extends Command {
         try {
             dateTime = LocalDateTime.parse(by, dateTimeFormat);
         } catch (DateTimeException e) {
-            return new Response("Uh-oh, I failed to understand what is the task deadline!");
+            return new Response("Uh-oh, I failed to understand what is the task deadline!",
+                    Response.ResponseType.ERROR);
         }
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();

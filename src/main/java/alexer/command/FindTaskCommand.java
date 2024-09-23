@@ -23,7 +23,8 @@ public class FindTaskCommand extends Command {
     @Override
     public Response run(String... arguments) {
         if (arguments.length == 0) {
-            return null;
+            return new Response("Oops, did you forget to tell me what tasks to find for?",
+                    Response.ResponseType.ERROR);
         }
 
         String keyword = arguments[0];
