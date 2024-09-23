@@ -48,7 +48,7 @@ public class Event extends Task {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    protected String getType() {
         return TYPE_STRING;
     }
 

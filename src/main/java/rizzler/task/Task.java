@@ -61,7 +61,7 @@ public abstract class Task {
      * Returns the type of this particular task in a representative string.
      * @return String representation of the task type.
      */
-    public abstract String getType();
+    protected abstract String getType();
 
     /**
      * Converts the task to a custom tsv format for file storage.
