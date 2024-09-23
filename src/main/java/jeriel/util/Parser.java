@@ -10,10 +10,17 @@ public class Parser {
      * @throws JerielException if the command is invalid
      */
     public static Command parse(String fullCommand) throws JerielException {
+        // Use assertion to ensure the input is valid
+        assert fullCommand != null : "Command cannot be null";
+        assert !fullCommand.trim().isEmpty() : "Command cannot be empty";
+        
         String[] commandAndArgs = fullCommand.split(" ", 2);
         String command = commandAndArgs[0];
         String arguments = commandAndArgs.length > 1 ? commandAndArgs[1] : "";
 
+        // Ensure that command is not empty after trimming
+        assert !command.isEmpty() : "Command part is empty after trimming";
+        
         switch (command) {
             case "list":
                 return new ListCommand();
