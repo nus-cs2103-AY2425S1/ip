@@ -77,6 +77,19 @@ public class Ui {
     }
 
     /**
+     * Displays the bye message when the user is leaving the application.
+     */
+    public void showHelp() {
+        latestResponse = "Help\n\n Add tasks using todo, deadline or event\n" +
+                "Delete tasks using delete <index>\n" +
+                "Find tasks using find <keyword>\n" +
+                "Leave using bye\n" +
+                "List tasklist using list\n" +
+                "Mark/unmark tasks as done using mark/unmark <index>";
+        System.out.println(latestResponse);
+    }
+
+    /**
      * Displays all tasks in the task list to the user.
      *
      * @param tasks The TaskList object containing all tasks.
