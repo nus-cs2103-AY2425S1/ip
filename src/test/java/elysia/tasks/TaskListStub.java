@@ -34,11 +34,12 @@ public class TaskListStub extends TaskList{
      * @throws IndexOutOfBoundsException If the task number is -1.
      */
     @Override
-    public void markTask (int taskNumber) {
+    public boolean markTask (int taskNumber) {
         if (taskNumber == -1) {
             throw new IndexOutOfBoundsException("task not in tasklist");
         }
         this.taskNumber = taskNumber;
+        return false;
     }
 
     /**
@@ -71,11 +72,11 @@ public class TaskListStub extends TaskList{
         if (index == -1) {
             throw new IndexOutOfBoundsException();
         }
-        return new Task("");
+        return new Task("", false);
     }
 
     /**
-     * Overrides the {@link TaskList#size()} method to track if it is called.
+     * Overrides the {@link TaskList#getSizeAsString()} method to track if it is called.
      * Sets the {@code isSizeCalled} flag to {@code true} and returns an empty string.
      *
      * @return An empty string.

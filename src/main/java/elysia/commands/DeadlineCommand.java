@@ -16,10 +16,10 @@ import java.util.Objects;
  * Extends the {@code Command} class and handles the parsing and validation of deadline task arguments.
  */
 public class DeadlineCommand extends Command {
-    private String[] args;
 
     /**
      * Constructs a {@code DeadlineCommand} with the specified task list, file reader/writer, and command arguments.
+     * Command format: deadline [optional: r] [DESCRIPTION] /by [BY_DATE]
      *
      * @param taskList the task list to which the deadline will be added.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
@@ -49,21 +49,38 @@ public class DeadlineCommand extends Command {
             throw new EmptyTaskArgumentsException(args[0]);
         }
 
-        String[] deadlineArgs = args[1].split(" /by ", 2);
+        String[] splitArgs = args[1].split(" ", 2);
+        boolean isRecurring;
+        String otherArgs;
+        if (Objects.equals(splitArgs[0], "r")) {
+            isRecurring = true;
+            if (splitArgs.length == 1) {
+                throw new EmptyTaskArgumentsException(args[0]);
+            }
+            otherArgs = splitArgs[1];
+        } else {
+            isRecurring = false;
+            otherArgs = args[1];
+        }
+
+        String[] deadlineArgs = otherArgs.split(" /by ", 2);
         if (deadlineArgs.length != 2) {
             throw new ArgumentFormatException(args[0]);
+        }
+        for (String s: deadlineArgs) {
+            System.out.println(s);
         }
 
         Deadline deadline;
         try {
-            deadline = new Deadline(deadlineArgs[0], DateTimeParser.parseDate(deadlineArgs[1]));
+            deadline = new Deadline(deadlineArgs[0], DateTimeParser.parseDate(deadlineArgs[1]), isRecurring);
         } catch (DateTimeParseException e) {
             throw new WrongArgumentException("date");
         }
 
         taskList.addTask(deadline);
         assert(!Objects.equals(taskList.getSizeAsString(), "0"));
-        output.append("Added the task below to your list~\n").append(deadline.toString()).append("\n");
+        output.append("Added the task below to your list~\n").append(deadline).append("\n");
         output.append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
         return output.toString();
     }

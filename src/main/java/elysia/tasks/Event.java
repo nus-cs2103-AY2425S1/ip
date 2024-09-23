@@ -14,9 +14,10 @@ public class Event extends Task {
      * @param description The description of the event task.
      * @param from The start time of the event.
      * @param to The end time of the event.
+     * @param isRecurring Whether the task is recurring.
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, boolean isRecurring) {
+        super(description, isRecurring);
         this.from = from;
         this.to = to;
     }

@@ -13,6 +13,7 @@ public abstract class Command {
 
     protected TaskList taskList;
     protected FileReaderWriter fileReaderWriter;
+    protected String args[];
 
     /**
      * Constructs a new {@code Command} object with the specified task list and file reader/writer.

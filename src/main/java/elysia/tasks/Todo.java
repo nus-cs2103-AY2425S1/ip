@@ -10,9 +10,10 @@ public class Todo extends Task{
      * Constructs a ToDo task with the given description.
      *
      * @param description The description of the ToDo task.
+     * @param isRecurring Whether the task is recurring.
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, boolean isRecurring) {
+        super(description, isRecurring);
     }
 
     /**

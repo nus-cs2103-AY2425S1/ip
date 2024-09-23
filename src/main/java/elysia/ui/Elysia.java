@@ -45,9 +45,9 @@ public class Elysia {
         } catch (EmptyArgumentException e) {
             response = "Hmph! What do you even want me to " + e.getDetails() + "?";
         } catch (EmptyTaskArgumentsException e) {
-            response = "Hmph! You don't expect me to read our mind for this " + e.getDetails() + ", do you?";
+            response = "Hmph! You don't expect me to read your mind for this " + e.getDetails() + ", do you?";
         } catch (WrongArgumentException e) {
-            response = "This doesn't look like a " + e.getDetails() + " to me...";
+            response = "This doesn't look like a proper " + e.getDetails() + " argument to me...";
         } catch (ElysiaException e) {
             response = "Uh oh you made a big oopsie(or maybe my maker did), I'm need to leave now...";
         }

@@ -42,9 +42,10 @@ public class TaskList {
      * @param taskNumber The 1-based index of the task to be marked as done.
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > list.size()).
      * @throws NullPointerException If the task at the given index is null.
+     * @return Boolean representing whether the task is recurring.
      */
-    public void markTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
-        list.get(taskNumber-1).updateStatus(true);
+    public boolean markTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
+        return list.get(taskNumber-1).updateStatus(true);
     }
 
     /**

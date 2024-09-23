@@ -11,7 +11,6 @@ import elysia.tasks.TaskList;
  * Extends the {@code Command} class and handles the parsing and validation of delete task arguments.
  */
 public class DeleteCommand extends Command {
-    private String[] args;
 
     /**
      * Constructs a {@code DeleteCommand} with the specified task list, file reader/writer, and command arguments.
@@ -52,7 +51,7 @@ public class DeleteCommand extends Command {
             Task deletedTask = taskList.deleteTask(taskNumber);
             output = "You don't need this task below anymore? Ok deleting it~\n";
             output += deletedTask.toString();
-            output += "Wow! You now have " + taskList.getSizeAsString() + " tasks in your list!";
+            output += "\nWow! You now have " + taskList.getSizeAsString() + " tasks in your list!";
         } catch (IndexOutOfBoundsException e) {
             output = "Uh oh, this task number does not exist...";
         }

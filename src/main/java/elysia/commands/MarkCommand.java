@@ -50,10 +50,14 @@ public class MarkCommand extends Command {
         }
 
         try {
-            taskList.markTask(taskNumber);
+            boolean isRecurring = taskList.markTask(taskNumber);
             output.append("Amazing! You've completed this task! \n");
             output.append(taskList.printTask(taskNumber));
             assert(!Objects.equals(taskList.getSizeAsString(), "0"));
+            if (isRecurring) {
+                taskList.unmarkTask(taskNumber);
+                output.append("\n Since this task is recurring... I added it back to your tasks!");
+            }
         } catch (IndexOutOfBoundsException e) {
             output.append("Uh oh, this task number does not exist...");
         } catch (NullPointerException e) {

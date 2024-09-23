@@ -30,7 +30,7 @@ public class TaskListTest {
      */
     @Test
     void addTask_correctTask_taskAdded() {
-        Task newTask = new Task("task");
+        Task newTask = new Task("task", false);
         taskList.addTask(newTask);
         assertEquals(1, taskList.list.size());
         assertEquals(newTask, taskList.list.get(0));
@@ -42,7 +42,7 @@ public class TaskListTest {
      */
     @Test
     void deleteTask_correctIndex_taskDeleted() {
-        Task newTask = new Task("task");
+        Task newTask = new Task("task", false);
         taskList.addTask(newTask);
         assertEquals(newTask, taskList.deleteTask(1));
         assertEquals(0, taskList.list.size());

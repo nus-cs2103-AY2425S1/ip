@@ -12,9 +12,10 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline task.
      * @param by The date and/or time by which the task is to be completed.
+     * @param isRecurring Whether the task is recurring.
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, boolean isRecurring) {
+        super(description, isRecurring);
         this.by = by;
     }
 

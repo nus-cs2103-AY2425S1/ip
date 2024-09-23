@@ -85,21 +85,23 @@ public class FileReaderWriter {
                 String[] taskParts = taskInput.split("\\|");
                 switch(taskParts[0]) {
                 case "T":
-                    Todo newTodo = new Todo(taskParts[2]);
+                    Todo newTodo = new Todo(taskParts[3], Objects.equals(taskParts[2], "r"));
                     if (Objects.equals(taskParts[1], "1")) {
                         newTodo.updateStatus(true);
                     }
                     taskList.addTask(newTodo);
                     break;
                 case "D":
-                    Deadline newDeadline = new Deadline(taskParts[2], taskParts[3]);
+                    Deadline newDeadline = new Deadline(taskParts[3], taskParts[4],
+                            Objects.equals(taskParts[2], "r"));
                     if (Objects.equals(taskParts[1], "1")) {
                         newDeadline.updateStatus(true);
                     }
                     taskList.addTask(newDeadline);
                     break;
                 case "E":
-                    Event newEvent = new Event(taskParts[2], taskParts[3], taskParts[4]);
+                    Event newEvent = new Event(taskParts[3], taskParts[4], taskParts[5],
+                            Objects.equals(taskParts[2], "r"));
                     if (Objects.equals(taskParts[1], "1")) {
                         newEvent.updateStatus(true);
                     }
