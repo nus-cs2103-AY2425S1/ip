@@ -192,7 +192,8 @@ public class Parser {
      * @return NullCommand conveying to the user that the input is not understood.
      */
     private Command parseUnknown(String userInput) {
-        String response = joinErrorMessages(WRONG_ARGUMENT_RESPONSE, userInput + UNRECOGNISED_COMMAND_RESPONSE);
+        String modifiedUserInput = "\"" + userInput + "\"";
+        String response = joinErrorMessages(WRONG_ARGUMENT_RESPONSE, modifiedUserInput + UNRECOGNISED_COMMAND_RESPONSE);
         return new NullCommand(response);
     }
 }
