@@ -31,7 +31,7 @@ public class TaskListTest {
         assertEquals(1, taskList.size());
         assertEquals("Read a book", todo.getTaskDes());
     }
-    
+
 
     @Test
     public void addDeadline_invalidDateFormat_throwsEchoException() {
