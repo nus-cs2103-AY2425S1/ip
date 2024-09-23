@@ -48,3 +48,8 @@ This chatbot will manage your tasks for you! Personality heavily inspired by Ely
    - Saves the current list of tasks in data.txt
    - Currently does not close the application
    - Example: ```bye```
+
+## Resources
+elysia image: https://i.pinimg.com/736x/cd/0e/0d/cd0e0dbb19f35e33bb6e68b4f47d0db8.jpg
+captain image: https://static.wikia.nocookie.net/houkai3rd/images/c/cd/Captain_Hyperion.jpg/revision/latest?cb=20180516154002
+background image: https://upload-os-bbs.hoyolab.com/upload/2024/03/18/389611819/e648d4bfbec6d9e98084a8ccd469229c_3486531063307202938.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70
