@@ -11,7 +11,7 @@ public class Kafka {
     private TaskList taskList;
     private Ui ui;
 
-    public Kafka(String filePath) throws FileNotFoundException{
+    public Kafka(String filePath) throws FileNotFoundException {
         ui = new Ui();
         storage = new Storage(filePath);
         try {

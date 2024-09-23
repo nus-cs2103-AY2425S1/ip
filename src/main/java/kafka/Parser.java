@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 public class Parser {
 
-    private static final String BY_DELIMITER = "/by ";
-    private static final String FROM_TO_DELIMITER = "/from | /to ";
+    private static final String BY_DELIMITER = " /by ";
+    private static final String FROM_TO_DELIMITER = " /from | /to ";
 
     /**
      * Parses the given user input and executes the appropriate command.
@@ -35,7 +35,7 @@ public class Parser {
 
         String command = splitInput[0].toLowerCase();
         String arguments = splitInput.length > 1 ? splitInput[1] : "";
-        String output = "";
+        String output;
 
         try {
             output = switch (command) {
@@ -43,6 +43,7 @@ public class Parser {
                 case "list" -> executeListCommand(taskList, ui);
                 case "mark" -> executeMarkCommand(arguments, taskList, storage, ui);
                 case "unmark" -> executeUnmarkCommand(arguments, taskList, storage, ui);
+                case "snooze" -> executeSnoozeCommand(arguments, taskList, storage, ui);
                 case "delete" -> executeDeleteCommand(arguments, taskList, storage, ui);
                 case "find" -> executeFindCommand(arguments, taskList, ui);
                 case "todo" -> executeTodoCommand(arguments, taskList, storage, ui);
@@ -52,11 +53,10 @@ public class Parser {
                         throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
             };
         } catch (IOException e) {
-            ui.showError(e);
+            output = ui.showError(e);
         } catch (DateTimeParseException e) {
-            ui.incorrectDateDetails();
+            output = ui.incorrectDateDetails();
         }
-
         return output;
     }
 
@@ -91,7 +91,8 @@ public class Parser {
      * @return A message indicating the task has been marked as completed.
      * @throws IOException If there's an error writing to the storage.
      */
-    private static String executeMarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
+    private static String executeMarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        checkForEmptyArguments(arguments);
         int taskNumberMark = Integer.parseInt(arguments);
         Task taskToMark = taskList.tasks.get(taskNumberMark - 1);
         taskList.mark(taskToMark);
@@ -109,12 +110,58 @@ public class Parser {
      * @return A message indicating the task has been marked as incomplete.
      * @throws IOException If there's an error writing to the storage.
      */
-    private static String executeUnmarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
+    private static String executeUnmarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        checkForEmptyArguments(arguments);
         int taskNumberUnmark = Integer.parseInt(arguments);
         Task taskToUnmark = taskList.tasks.get(taskNumberUnmark - 1);
         taskList.unmark(taskToUnmark);
         storage.writeToFile(taskList.tasks);
         return ui.unmark(taskToUnmark);
+    }
+
+    /**
+     * Executes the "snooze" command, which reschedules a specified task to a later time.
+     *
+     * @param arguments The task number and new time for the task (separated by "by" or "from" and "to").
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been snoozed.
+     * @throws IOException If there's an error writing to the storage.
+     * @throws KafkaException If there's an error in the snoozing process.
+     */
+    private static String executeSnoozeCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        checkForEmptyArguments(arguments);
+        if (arguments.contains("/by")) {
+            String[] taskParts = arguments.split(BY_DELIMITER);
+            int taskNumber = Integer.parseInt(taskParts[0]);
+            Task taskToSnooze = taskList.tasks.get(taskNumber - 1);
+            LocalDateTime by = LocalDateTimeConverter.getLocalDateTime(taskParts[1]);
+            if (!(taskToSnooze instanceof Deadline deadline)) {
+                throw new KafkaException("  Looks like this is not a deadline task, mind using /from and /to?");
+            }
+            deadline.snooze(by);
+            storage.writeToFile(taskList.tasks);
+            return ui.snooze(taskToSnooze);
+        } else if (arguments.contains("/from")) {
+            String[] taskParts = arguments.split(FROM_TO_DELIMITER);
+            int taskNumber = Integer.parseInt(taskParts[0]);
+            Task taskToSnooze = taskList.tasks.get(taskNumber - 1);
+            LocalDateTime from = LocalDateTimeConverter.getLocalDateTime(taskParts[1]);
+            if (!(taskToSnooze instanceof Event event)) {
+                throw new KafkaException("  Looks like this is not a event task, mind using /by?");
+            }
+            if (taskParts.length < 3) {
+                event.snooze(from);
+            } else {
+                LocalDateTime to = LocalDateTimeConverter.getLocalDateTime(taskParts[2]);
+                event.snooze(from, to);
+            }
+            storage.writeToFile(taskList.tasks);
+            return ui.snooze(taskToSnooze);
+        } else {
+            throw new KafkaException("  Looks like this is not a task that can be snoozed, mind trying other tasks?");
+        }
     }
 
     /**
@@ -127,7 +174,8 @@ public class Parser {
      * @return A message indicating the task has been deleted.
      * @throws IOException If there's an error writing to the storage.
      */
-    private static String executeDeleteCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
+    private static String executeDeleteCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        checkForEmptyArguments(arguments);
         if (taskList.tasks.isEmpty()) {
             return "";
         }
@@ -189,8 +237,8 @@ public class Parser {
     private static String executeDeadlineCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
         checkForEmptyArguments(arguments);
         String[] deadlineParts = arguments.split(BY_DELIMITER);
-        if (deadlineParts.length < 2) {
-            throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
+        if (deadlineParts.length != 2 || deadlineParts[0] == null) {
+            throw new KafkaException("It appears the details for this deadline task are off. Let's try adding descriptions, shall we?");
         }
         LocalDateTime by = LocalDateTimeConverter.getLocalDateTime(deadlineParts[1]);
         Task deadline = new Deadline(deadlineParts[0], by, false);
@@ -213,7 +261,7 @@ public class Parser {
     private static String executeEventCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
         checkForEmptyArguments(arguments);
         String[] eventParts = arguments.split(FROM_TO_DELIMITER);
-        if (eventParts.length < 3) {
+        if (eventParts.length != 3 || eventParts[0] == null) {
             throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
         }
         LocalDateTime from = LocalDateTimeConverter.getLocalDateTime(eventParts[1]);

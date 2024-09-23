@@ -1,5 +1,7 @@
 package kafka;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task with a description and a completion status.
  */
@@ -50,6 +52,8 @@ public class Task {
         }
         this.isDone = false;
     }
+
+    public void snooze(LocalDateTime newTime) {}
 
     /**
      * Returns a string representation of the task.
