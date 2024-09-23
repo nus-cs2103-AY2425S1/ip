@@ -33,19 +33,19 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > list.size()).
      */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
-        return list.remove(index-1);
+        return list.remove(index - 1);
     }
 
     /**
      * Marks a task as done based on its position in the list.
      *
      * @param taskNumber The 1-based index of the task to be marked as done.
+     * @return Boolean representing whether the task is recurring.
      * @throws IndexOutOfBoundsException If the index is out of range (index < 1 or index > list.size()).
      * @throws NullPointerException If the task at the given index is null.
-     * @return Boolean representing whether the task is recurring.
      */
     public boolean markTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
-        return list.get(taskNumber-1).updateStatus(true);
+        return list.get(taskNumber - 1).updateStatus(true);
     }
 
     /**
@@ -56,7 +56,7 @@ public class TaskList {
      * @throws NullPointerException If the task at the given index is null.
      */
     public void unmarkTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
-        list.get(taskNumber-1).updateStatus(false);
+        list.get(taskNumber - 1).updateStatus(false);
     }
 
     /**
@@ -68,7 +68,7 @@ public class TaskList {
      * @throws NullPointerException If the task at the given index is null.
      */
     public String printTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
-        return list.get(taskNumber-1).toString();
+        return list.get(taskNumber - 1).toString();
     }
 
     /**
@@ -104,15 +104,21 @@ public class TaskList {
     public String toString() {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
-            output += (i+1) + "." + list.get(i).toString() + "\n";
+            output += (i + 1) + "." + list.get(i).toString() + "\n";
         }
         return output;
     }
 
+    /**
+     * Searches the task list for tasks that contain the given keyword.
+     *
+     * @param keyword The keyword to search for in tasks.
+     * @return A TaskList containing tasks that match the search criteria.
+     */
     public TaskList searchByKeyword(String keyword) {
         TaskList searchResults = new TaskList();
 
-        for (Task task: list) {
+        for (Task task : list) {
             if (task.containsString(keyword)) {
                 searchResults.addTask(task);
             }

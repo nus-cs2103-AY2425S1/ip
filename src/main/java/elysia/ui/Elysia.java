@@ -1,14 +1,12 @@
 package elysia.ui;
 
 import elysia.commands.Command;
-
 import elysia.exceptions.ArgumentFormatException;
+import elysia.exceptions.ElysiaException;
 import elysia.exceptions.EmptyArgumentException;
 import elysia.exceptions.EmptyTaskArgumentsException;
 import elysia.exceptions.WrongArgumentException;
-import elysia.exceptions.ElysiaException;
-
-import elysia.Parser.InputOutputHandler;
+import elysia.parser.InputOutputHandler;
 
 /**
  * The main class for the elysia.ui.Elysia application.
@@ -40,8 +38,8 @@ public class Elysia {
             Command command = handler.parseInput(input);
             response = command.execute();
         } catch (ArgumentFormatException e) {
-            response = "You need to speak properly to a pretty girl...\n" +
-                    "Format your " + e.getDetails() + " properly!";
+            response = "You need to speak properly to a pretty girl...\n"
+                    + "Format your " + e.getDetails() + " properly!";
         } catch (EmptyArgumentException e) {
             response = "Hmph! What do you even want me to " + e.getDetails() + "?";
         } catch (EmptyTaskArgumentsException e) {

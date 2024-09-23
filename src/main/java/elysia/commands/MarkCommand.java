@@ -1,11 +1,11 @@
 package elysia.commands;
 
+import java.util.Objects;
+
 import elysia.exceptions.EmptyArgumentException;
 import elysia.exceptions.WrongArgumentException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
-
-import java.util.Objects;
 
 /**
  * Represents a command to mark a task as completed in the task list.
@@ -19,7 +19,8 @@ public class MarkCommand extends Command {
      *
      * @param taskList the task list in which the task will be marked.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
-     * @param args the command arguments, where the first argument is the command type and the second is the task number to mark.
+     * @param args the command arguments, where the first argument is the command type and
+     *             the second is the task number to mark.
      */
     public MarkCommand(TaskList taskList, FileReaderWriter fileReaderWriter, String[] args) {
         super(taskList, fileReaderWriter);

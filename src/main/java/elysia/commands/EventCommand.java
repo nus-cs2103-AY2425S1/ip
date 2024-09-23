@@ -1,15 +1,15 @@
 package elysia.commands;
 
-import elysia.Parser.DateTimeParser;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
 import elysia.exceptions.ArgumentFormatException;
 import elysia.exceptions.EmptyTaskArgumentsException;
 import elysia.exceptions.WrongArgumentException;
+import elysia.parser.DateTimeParser;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.Event;
 import elysia.tasks.TaskList;
-
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 /**
  * Represents a command to create a new event task in the Elysia application.
@@ -23,7 +23,8 @@ public class EventCommand extends Command {
      *
      * @param taskList the task list to which the event will be added.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
-     * @param args the command arguments, where the first argument is the command type and the second contains the event details.
+     * @param args the command arguments, where the first argument is the command type and
+     *             the second contains the event details.
      */
     public EventCommand(TaskList taskList, FileReaderWriter fileReaderWriter, String[] args) {
         super(taskList, fileReaderWriter);

@@ -1,12 +1,12 @@
 package elysia.tasks;
 
-import java.lang.IndexOutOfBoundsException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 /**
  * Unit tests for the {@link TaskList} class.

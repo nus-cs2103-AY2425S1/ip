@@ -1,28 +1,26 @@
 package elysia.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Objects;
+import java.util.Scanner;
+
+import elysia.exceptions.ElysiaException;
 import elysia.tasks.Deadline;
 import elysia.tasks.Event;
 import elysia.tasks.TaskList;
 import elysia.tasks.Todo;
-
-
-import java.io.File;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-
-import java.util.Objects;
-import java.util.Scanner;
 
 /**
  * Manages reading from and writing to a file for the elysia.ui.Elysia application.
  * Supports creating a file, saving the current task list to a file, and loading tasks from a file.
  */
 public class FileReaderWriter {
-    java.nio.file.Path path;
-    TaskList taskList;
+    protected java.nio.file.Path path;
+    protected TaskList taskList;
 
     /**
      * Constructs a FileReaderWriter with a reference to the task list to be managed.
@@ -107,10 +105,14 @@ public class FileReaderWriter {
                     }
                     taskList.addTask(newEvent);
                     break;
+                default:
+                    throw new ElysiaException("Wrong file format.");
                 }
             }
             output = "I loaded your past data! Aren't I amazing? Come on praise me!";
-        } catch (FileNotFoundException ignored) {}
+        } catch (ElysiaException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return output;
     }
 

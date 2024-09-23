@@ -1,15 +1,15 @@
 package elysia.commands;
 
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
 import elysia.exceptions.ArgumentFormatException;
 import elysia.exceptions.EmptyTaskArgumentsException;
 import elysia.exceptions.WrongArgumentException;
+import elysia.parser.DateTimeParser;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.Deadline;
 import elysia.tasks.TaskList;
-import elysia.Parser.DateTimeParser;
-
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 /**
  * Represents a command to create a new deadline task in the Elysia application.
@@ -23,7 +23,8 @@ public class DeadlineCommand extends Command {
      *
      * @param taskList the task list to which the deadline will be added.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
-     * @param args the command arguments, where the first argument is the command type and the second contains the task details.
+     * @param args the command arguments, where the first argument is the command type and
+     *             the second contains the task details.
      * @throws DateTimeParseException if the date format is invalid when initializing the deadline.
      */
     public DeadlineCommand(TaskList taskList, FileReaderWriter fileReaderWriter, String[] args)

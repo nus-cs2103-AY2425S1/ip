@@ -17,7 +17,8 @@ public class DeleteCommand extends Command {
      *
      * @param taskList the task list from which the task will be deleted.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
-     * @param args the command arguments, where the first argument is the command type and the second contains the task number.
+     * @param args the command arguments, where the first argument is the command type and
+     *             the second contains the task number.
      */
     public DeleteCommand(TaskList taskList, FileReaderWriter fileReaderWriter, String[] args) {
         super(taskList, fileReaderWriter);

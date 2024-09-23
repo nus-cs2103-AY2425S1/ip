@@ -1,11 +1,11 @@
 package elysia.commands;
 
+import java.util.Objects;
+
 import elysia.exceptions.EmptyArgumentException;
 import elysia.exceptions.WrongArgumentException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
-
-import java.util.Objects;
 
 /**
  * Represents a command to unmark a task in the task list.
@@ -19,7 +19,8 @@ public class UnmarkCommand extends Command {
      *
      * @param taskList the task list from which the task will be unmarked.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
-     * @param args the command arguments, where the first argument is the command type and the second is the task number to unmark.
+     * @param args the command arguments, where the first argument is the command type and
+     *             the second is the task number to unmark.
      */
     public UnmarkCommand(TaskList taskList, FileReaderWriter fileReaderWriter, String[] args) {
         super(taskList, fileReaderWriter);

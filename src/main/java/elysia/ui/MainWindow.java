@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.awt.dnd.DragSourceMotionListener;
 
 /**
  * Controller for the main GUI.
@@ -46,8 +45,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void showWelcome() {
-        String welcome = "Hi~! I'm Elysia! As you can see, I'm a girl as beautiful as a flower!\n" +
-                "How can I help you today? I'm all ears!";
+        String welcome = "Hi~! I'm Elysia! As you can see, I'm a girl as beautiful as a flower!\n"
+                + "How can I help you today? I'm all ears!";
         dialogContainer.getChildren().addAll(DialogBox.getElysiaDialog(welcome, elysiaImage));
     }
 

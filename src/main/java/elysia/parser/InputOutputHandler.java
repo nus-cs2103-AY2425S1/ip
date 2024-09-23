@@ -1,6 +1,16 @@
-package elysia.Parser;
+package elysia.parser;
 
-import elysia.commands.*;
+import elysia.commands.ByeCommand;
+import elysia.commands.Command;
+import elysia.commands.DeadlineCommand;
+import elysia.commands.DeleteCommand;
+import elysia.commands.EventCommand;
+import elysia.commands.FindCommand;
+import elysia.commands.ListCommand;
+import elysia.commands.MarkCommand;
+import elysia.commands.TodoCommand;
+import elysia.commands.UnknownCommand;
+import elysia.commands.UnmarkCommand;
 import elysia.exceptions.ElysiaException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
@@ -11,8 +21,8 @@ import elysia.tasks.TaskList;
  * with the task list and file system through various command objects.
  */
 public class InputOutputHandler {
-    TaskList taskList;
-    FileReaderWriter fileReaderWriter;
+    protected TaskList taskList;
+    protected FileReaderWriter fileReaderWriter;
 
     /**
      * Constructs an InputOutputHandler and initializes the task list.

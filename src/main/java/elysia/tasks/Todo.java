@@ -4,7 +4,7 @@ package elysia.tasks;
  * Represents a simple task that needs to be done, without any specific date or time.
  * Extends the Task class and provides a unique identifier for ToDo tasks.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructs a ToDo task with the given description.

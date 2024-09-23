@@ -1,12 +1,12 @@
 package elysia.commands;
 
+import java.util.Objects;
+
 import elysia.exceptions.EmptyTaskArgumentsException;
 import elysia.exceptions.WrongArgumentException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
 import elysia.tasks.Todo;
-
-import java.util.Objects;
 
 /**
  * Represents a command to add a todo task to the task list.
@@ -20,7 +20,8 @@ public class TodoCommand extends Command {
      *
      * @param taskList the task list to which the todo task will be added.
      * @param fileReaderWriter the file reader/writer for saving or loading task data.
-     * @param args the command arguments, where the first argument is the command type and the second is the todo task description.
+     * @param args the command arguments, where the first argument is the command type and
+     *             the second is the todo task description.
      */
     public TodoCommand(TaskList taskList, FileReaderWriter fileReaderWriter, String[] args) {
         super(taskList, fileReaderWriter);
@@ -31,7 +32,8 @@ public class TodoCommand extends Command {
      * Executes the {@code TodoCommand} to add a new todo task to the task list.
      * Validates the command arguments and creates a new todo task with the provided description.
      *
-     * @return a string indicating the result of adding the todo task, including confirmation and the current task count.
+     * @return a string indicating the result of adding the todo task,
+     *     including confirmation and the current task count.
      * @throws EmptyTaskArgumentsException if no description is provided for the todo task.
      */
     @Override
