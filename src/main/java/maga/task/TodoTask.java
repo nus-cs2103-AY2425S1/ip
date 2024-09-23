@@ -27,9 +27,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Returns a string representation of the {@code TodoTask} object, formatted for saving to a file.
-     * The format is "T | isDone | description", where {@code isDone} is represented by 1 for true
-     * and 0 for false.
+     * Returns a formatted string representation of the event task for storage in the {@code Maga.txt} file.
      *
      * @return A string representing the {@code TodoTask} object.
      */
@@ -39,17 +37,16 @@ public class TodoTask extends Task {
         if (isDone) {
             isDoneNum = 1;
         }
-        return "T | " + isDoneNum + " | " + description;
+        return "T | " + isDoneNum + " | " + description + " | " + getTag();
     }
 
     /**
-     * Returns a formatted string for printing the task, which includes the task type, status icon,
-     * and description.
+     * Returns a formatted string representation of the event task for display purposes.
      *
      * @return A string representing the {@code TodoTask} formatted for display.
      */
     @Override
     public String printTask() {
-        return this.getTaskType() + this.getStatusIcon() + this.getDescription();
+        return getTaskType() + getStatusIcon() + getDescription() + " " + getTag();
     }
 }

@@ -45,13 +45,20 @@ public class Parser {
         return new Command<>("delete", taskNumber);
     }
 
-    private Command<Integer> exitBot(String input) {
-        return new Command<>("bye", null);
-    }
-
     private Command<String> findTask(String input) {
         String description = input.substring(5).trim();
         return new Command<>("find", description);
+    }
+
+    private Command<Integer> tagTask(String input) throws NumberFormatException {
+        String description = input.substring(4).trim();
+        String[] descriptionArray = description.split(" ");
+        int taskNumber = Integer.parseInt(descriptionArray[0]) - 1;
+        return new Command<>("tag", descriptionArray[1], taskNumber);
+    }
+
+    private Command<Integer> exitBot(String input) {
+        return new Command<>("bye", null);
     }
 
     private Command<LocalDate[]> addTodoTask(String input) {
@@ -63,11 +70,7 @@ public class Parser {
         String description = input.substring(6).trim();
         String[] descriptionArray = description.split("/");
         LocalDate[] date = new LocalDate[1];
-        try {
-            date[0] = LocalDate.parse(descriptionArray[1], FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
+        date[0] = LocalDate.parse(descriptionArray[1], FORMATTER);
         return new Command<>("event", descriptionArray[0], date);
     }
 
@@ -76,12 +79,8 @@ public class Parser {
         String[] descriptionArray = description.split("/");
         LocalDate fromDate;
         LocalDate toDate;
-        try {
-            fromDate = LocalDate.parse(descriptionArray[1], FORMATTER);
-            toDate = LocalDate.parse(descriptionArray[2], FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
+        fromDate = LocalDate.parse(descriptionArray[1], FORMATTER);
+        toDate = LocalDate.parse(descriptionArray[2], FORMATTER);
 
         LocalDate[] dateArray = {fromDate, toDate};
         return new Command<>("deadline", descriptionArray[0], dateArray);
@@ -111,6 +110,7 @@ public class Parser {
         case "todo" -> addTodoTask(input);
         case "event" -> addEventTask(input);
         case "deadline" -> addDeadlineTask(input);
+        case "tag" -> tagTask(input);
         case "bye" -> exitBot(input);
         default -> throw new InvalidCommandException();
         };

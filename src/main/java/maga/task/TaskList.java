@@ -168,11 +168,25 @@ public class TaskList {
      * @param task The {@code Task} to add to the list.
      * @return A message indicating the task has been added or an error message if the task list is full.
      */
-    public void addTask(Task task) throws LoadTaskException {
+    public void addTask(Task task) {
+        taskList.add(task);
+    }
+
+    /**
+     * Tags a message to an existing task and returns a message indicating the outcome of the action.
+     *
+     * @param command The {@code Command} object containing the tag and task number to tag it to.
+     * @return A message indicating the outcome of tagging a task
+     */
+    public String tagTask(Command<Integer> command) {
+        String commandDescription = command.getDescription();
+        Integer taskNumber = command.getContent();
         try {
-            taskList.add(task);
-        } catch (IndexOutOfBoundsException e) {
-            throw new LoadTaskException();
+            taskList.get(taskNumber).setTag(commandDescription);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            return "There is no such task!!";
         }
+
+        return "Successfully tagged task " + (taskNumber + 1) + "!";
     }
 }

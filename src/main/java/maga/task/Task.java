@@ -2,6 +2,9 @@ package maga.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import maga.exceptions.LoadTaskException;
 
 /**
  * An abstract class representing a task. A task has a description and a completion status.
@@ -9,8 +12,13 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final Integer TODOLENGTH = 4;
+    private static final Integer EVENTLENGTH = 5;
+    private static final Integer DEADLINELENGTH = 6;
+    private String tag;
     protected String description;
     protected boolean isDone;
+
 
     /**
      * Constructs a {@code Task} with the given description.
@@ -77,23 +85,33 @@ public abstract class Task {
      * @param taskString The string representation of the task.
      * @return A {@code Task} object created from the string, or a default {@code TodoTask} if string cannot be parsed.
      */
-    public static Task fromString(String taskString) {
+    public static Task fromString(String taskString) throws LoadTaskException {
         String[] parts = taskString.split(" \\| ");
-        if (parts.length == 3) {
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-            return new TodoTask(isDone, description);
-        } else if (parts.length == 4) {
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-            LocalDate dateTime = LocalDate.parse(parts[3], FORMATTER); // need handle error
-            return new EventTask(isDone, description, dateTime);
-        } else if (parts.length == 5) {
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-            LocalDate startDate = LocalDate.parse(parts[3], FORMATTER); // need handle error
-            LocalDate endDate = LocalDate.parse(parts[4], FORMATTER);
-            return new DeadlineTask(isDone, description, startDate, endDate);
+        try {
+            if (parts.length == TODOLENGTH) {
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                Task temp = new TodoTask(isDone, description);
+                temp.setTag(parts[3]);
+                return temp;
+            } else if (parts.length == EVENTLENGTH) {
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                LocalDate dateTime = LocalDate.parse(parts[3], FORMATTER);
+                Task temp = new EventTask(isDone, description, dateTime);
+                temp.setTag(parts[4]);
+                return temp;
+            } else if (parts.length == DEADLINELENGTH) {
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                LocalDate startDate = LocalDate.parse(parts[3], FORMATTER);
+                LocalDate endDate = LocalDate.parse(parts[4], FORMATTER);
+                Task temp = new DeadlineTask(isDone, description, startDate, endDate);
+                temp.setTag(parts[5]);
+                return temp;
+            }
+        } catch (DateTimeParseException e) {
+            throw new LoadTaskException();
         }
 
         return new TodoTask(false, "");
@@ -106,4 +124,22 @@ public abstract class Task {
      */
     @Override
     public abstract String toString();
+
+    /**
+     * Sets the {@code tag} field of the task to the input.
+     *
+     * @param tag A string to tag to the task.
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Retrieves the {@code tag} field of the task.
+     *
+     * @return A string representation of the task's tag.
+     */
+    public String getTag() {
+        return tag;
+    }
 }

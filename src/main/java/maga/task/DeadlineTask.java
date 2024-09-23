@@ -39,10 +39,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns a string representation of the deadline task.
-     * The format is: "E | status | description | startDate | endDate" where
-     * status is 1 if done, 0 otherwise, description is the task's description,
-     * startDate and endDate are the start and end dates of the task.
+     * Returns a formatted string representation of the event task for storage in the {@code Maga.txt} file.
      *
      * @return A string representation of the deadline task.
      */
@@ -52,14 +49,11 @@ public class DeadlineTask extends Task {
         if (isDone) {
             isDoneNum = 1;
         }
-        return "E | " + isDoneNum + " | " + description + " | " + startDate + " | " + endDate;
+        return "E | " + isDoneNum + " | " + description + " | " + startDate + " | " + endDate + " | " + getTag();
     }
 
     /**
-     * Returns a formatted string representation of the deadline task for display purposes.
-     * The format is: "[D] status description from startDate to endDate", where status is "[X]" if done,
-     * "[ ]" otherwise, description is the task's description, and startDate and endDate are the task's dates
-     * formatted as "yyyy MMM dd".
+     * Returns a formatted string representation of the event task for display purposes.
      *
      * @return A formatted string representation of the deadline task.
      */
@@ -69,6 +63,6 @@ public class DeadlineTask extends Task {
         String formattedFrom = startDate.format(formatter);
         String formattedTo = endDate.format(formatter);
         return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " from " + formattedFrom
-                + " to " + formattedTo;
+                + " to " + formattedTo + " " + getTag();
     }
 }
