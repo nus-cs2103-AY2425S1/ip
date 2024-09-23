@@ -12,10 +12,10 @@ public class Todo extends Task {
      * Creates a To-Do task.
      *
      * @param taskName String name of this task.
-     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      */
-    public Todo(String taskName, boolean taskDone) {
-        super(taskName, taskDone);
+    public Todo(String taskName, boolean isTaskDone) {
+        super(taskName, isTaskDone);
         super.setTaskType(TaskTypes.TODO);
     }
 

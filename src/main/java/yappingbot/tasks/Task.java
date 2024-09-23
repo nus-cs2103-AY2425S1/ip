@@ -52,8 +52,8 @@ public abstract class Task {
         this.taskType = taskType;
     }
 
-    public void setTaskDone(boolean taskDone) {
-        this.isTaskDone = taskDone;
+    public void setTaskDone(boolean isTaskDone) {
+        this.isTaskDone = isTaskDone;
     }
 
     public void setTaskName(String taskName) {

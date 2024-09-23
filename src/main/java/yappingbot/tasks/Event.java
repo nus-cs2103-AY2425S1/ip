@@ -30,10 +30,10 @@ public class Event extends Task {
      * Event start and end date will default to the current local date of creation.
      *
      * @param taskName String name of this task.
-     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      */
-    public Event(String taskName, boolean taskDone) {
-        super(taskName, taskDone);
+    public Event(String taskName, boolean isTaskDone) {
+        super(taskName, isTaskDone);
         super.setTaskType(TaskTypes.EVENT);
         this.startTime = LocalDate.now();
         this.endTime = LocalDate.now();
@@ -43,13 +43,13 @@ public class Event extends Task {
      * Creates a Event task.
      *
      * @param taskName String name of this task.
-     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      * @param startTime String of the start date, in format "YYYY-MM-DD".
      * @param endTime String of the end date, in format "YYYY-MM-DD".
      */
-    public Event(String taskName, boolean taskDone, String startTime, String endTime)
+    public Event(String taskName, boolean isTaskDone, String startTime, String endTime)
     throws YappingBotIncorrectCommandException  {
-        super(taskName, taskDone);
+        super(taskName, isTaskDone);
         super.setTaskType(TaskTypes.EVENT);
 
         assert startTime != null;

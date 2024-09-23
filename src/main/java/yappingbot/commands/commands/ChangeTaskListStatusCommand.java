@@ -108,14 +108,16 @@ public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatu
     /**
      * Set the necessary values needed to execute this command.
      *
-     * @param currentUserList TaskList that needs to be resetted
-     * @return this object, useful for chainning
+     * @param ui Ui that will allow Input/Output.
+     * @param currentUserList TaskList that needs to be resetted.
+     * @param isTaskDone new {@code isTaskDone} of the task.
+     * @return this object, useful for chainning.
      */
     public ChangeTaskListStatusCommand setEnvironment(Ui ui, TaskList currentUserList,
-                                                      boolean newState) {
+                                                      boolean isTaskDone) {
         this.userList = currentUserList;
         this.ui = ui;
-        this.isTaskDone = newState;
+        this.isTaskDone = isTaskDone;
         return this;
     }
 
