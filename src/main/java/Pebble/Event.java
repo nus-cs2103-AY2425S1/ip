@@ -42,6 +42,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Prints out a formatted string of event instance
+     *
+     * @return Formatted string
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "

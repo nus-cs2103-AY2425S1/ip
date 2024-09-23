@@ -1,5 +1,8 @@
 package pebble;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,9 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -45,7 +45,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box to show pebble's text and image properly.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -56,10 +56,24 @@ public class DialogBox extends HBox {
 
     }
 
+    /**
+     * Returns a dialog box with the user's text and image.
+     *
+     * @param text Text written by user to be shown within the dialog box
+     * @param img User's image
+     * @return DialogBox with the user's text and image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a dialog box with Pebble's text and image.
+     *
+     * @param text Text written by Pebble to be shown within the dialog box
+     * @param img Pebble's image
+     * @return DialogBox with Pebble's text and image
+     */
     public static DialogBox getPebbleDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

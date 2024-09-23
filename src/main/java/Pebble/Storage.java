@@ -46,8 +46,12 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            Task task = Parser.parseTaskFromString(line);
-            tasksList.add(task);
+            try {
+                Task task = Parser.parseTaskFromString(line);
+                tasksList.add(task);
+            } catch (InvalidTaskException e) {
+                System.out.println("Invalid task detected. Skipping this task.");
+            }
         }
         scanner.close();
     }

@@ -95,15 +95,16 @@ public class Parser {
      * @param line Line read from txt file.
      * @return Instance of task corresponding to the saved line.
      */
-    public static Task parseTaskFromString(String line) {
+    public static Task parseTaskFromString(String line) throws InvalidTaskException {
         if (line.startsWith("[T]")) {
             return createToDoTask(line);
         } else if (line.startsWith("[D]")) {
             return createDeadlineTask(line);
         } else if (line.startsWith("[E]")) {
             return createEventTask(line);
+        } else {
+            throw new InvalidTaskException();
         }
-        return new InvalidTask();
     }
 
     /**
@@ -131,7 +132,8 @@ public class Parser {
 
         Deadline deadline;
         try {
-            deadline = new Deadline(description, by);  // Use the stored date directly
+            // Use the stored date directly
+            deadline = new Deadline(description, by);
         } catch (DateTimeException e) {
             deadline = new Deadline(description, by);
         }
@@ -153,7 +155,8 @@ public class Parser {
 
         Event event;
         try {
-            event = new Event(description, from, to);  // Use the stored dates directly
+            // Use the stored dates directly
+            event = new Event(description, from, to);
         } catch (DateTimeException e) {
             event = new Event(description, from, to);
         }

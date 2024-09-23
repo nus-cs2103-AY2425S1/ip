@@ -1,7 +1,6 @@
 package pebble;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,26 +17,38 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Pebble pebble;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image pebbleImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window and greets the user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        this.showWelcome();
     }
 
-    /** Injects the Pebble instance */
+    /**
+     * Shows the welcome message when the application is started.
+     */
+    public void showWelcome() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getPebbleDialog("Hello! I'm Pebble, your personal chatbot."
+                        + " How can I help you today?", pebbleImage)
+        );
+    }
+
+    /**
+     * Injects the Pebble instance
+     */
     public void setPebble(Pebble p) {
         assert p != null : "Pebble object cannot be null";
         pebble = p;
     }
-
-
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing

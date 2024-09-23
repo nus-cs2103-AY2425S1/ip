@@ -1,7 +1,6 @@
 package pebble;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * A chatbot that helps to handle tasks.

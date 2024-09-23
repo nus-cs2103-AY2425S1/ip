@@ -1,8 +1,11 @@
 package pebble;
 
 import java.util.ArrayList;
-public class Ui {
 
+/**
+ * Class that manages the user interface of the application.
+ */
+public class Ui {
     /**
      * Shows a message in both CLI and GUI.
      *
@@ -16,14 +19,19 @@ public class Ui {
         return message;
     }
 
-    public String showWelcome() {
-        return showMessage("HELLO MORTAL im Pebble!");
-    }
-
+    /**
+     * Shows a goodbye message.
+     * @return The goodbye message to be displayed on GUI.
+     */
     public String showGoodbye() {
         return showMessage("Goodbye! Hope to see you again soon!");
     }
 
+    /**
+     * Shows the entire task list
+     * @param tasksList Task list to be displayed.
+     * @return The message to be displayed on GUI.
+     */
     public String showTasksList(ArrayList<Task> tasksList) {
         int tasksListSize = tasksList.size();
         StringBuilder stringBuilder = new StringBuilder();
@@ -42,6 +50,13 @@ public class Ui {
         return showMessage("OK, I've marked this task as not done yet:\n" + task);
     }
 
+    /**
+     * Shows a message when a task is added.
+     *
+     * @param task The task that was added.
+     * @param size The updated size of the tasks list.
+     * @return The message to be displayed on GUI.
+     */
     public String showAddTask(Task task, int size) {
         return showMessage("Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.");

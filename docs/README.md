@@ -100,7 +100,8 @@ In addition to `<Command 1>` -> `<Command 2>` `<Command 3>`
 
 ---
 
-Note that all commands outside the ones stated will not be recognised.
+> Note that all commands outside the ones stated will not be recognised.
+
 ![img_9.png](img_9.png)
 
 
