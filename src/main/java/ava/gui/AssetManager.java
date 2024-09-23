@@ -1,10 +1,8 @@
 package ava.gui;
 
-import javafx.application.Application;
-import javafx.scene.image.Image;
-
-import javax.print.DocFlavor;
 import java.io.InputStream;
+
+import javafx.scene.image.Image;
 
 /**
  * Manages the interaction with the
