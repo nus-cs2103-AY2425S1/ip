@@ -1,12 +1,17 @@
-# Duke User Guide
+# Makima User Guide
 
-// Update the title above to match the actual product name
+Makima is a desktop app for managing generic tasks. Makima implements the following type of tasks:
 
-// Product screenshot goes here
+- ToDo: a named task
+- Deadline: a named task with an end date
+- Event: a named task with a start and end date
 
-// Product intro goes here
+[Quick start](#quick-start)
 
-## Adding deadlines
+
+## Quick start
+
+
 
 // Describe the action and its outcome.
 
