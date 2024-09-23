@@ -1,5 +1,8 @@
 package mittens.commands;
 
+import java.util.Map;
+
+import mittens.parser.RawCommandElements;
 import mittens.storage.Storage;
 import mittens.task.TaskList;
 import mittens.ui.Ui;
@@ -8,13 +11,9 @@ import mittens.ui.Ui;
  * Represents a command that is obtained by parsing the user input.
  */
 public abstract class Command {
-    
-    /** Whether the program should exit upon execution */
-    protected boolean isExit;
 
-    public Command() {
-        this.isExit = false;
-    }
+    /** Whether the program should exit upon execution */
+    protected boolean isExit = false;
 
     /**
      * Executes the command by interacting with the task list, UI, and storage.

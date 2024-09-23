@@ -1,6 +1,8 @@
 package mittens.commands;
 
 import mittens.MittensException;
+import mittens.parser.BadInputException;
+import mittens.parser.RawCommandElements;
 import mittens.storage.Storage;
 import mittens.task.Task;
 import mittens.task.TaskList;
@@ -21,6 +23,18 @@ public class MarkCommand extends Command {
     public MarkCommand(int index) {
         super();
         this.index = index;
+    }
+
+    /**
+     * Creates a new MarkCommand object with the specified command elements.
+     * It assumes the command name corresponds with this class.
+     *
+     * @param elements The RawCommandElements object
+     * @throws BadInputException If the input is invalid
+     */
+    public MarkCommand(RawCommandElements elements) throws BadInputException {
+        assert elements.getCommand().equals("mark") : "Command name should be matching";
+        this.index = elements.getArgumentAsIntegerOrThrow();
     }
 
     @Override
