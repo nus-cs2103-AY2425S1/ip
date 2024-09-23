@@ -152,7 +152,7 @@ public class TaskList {
         }
 
         try {
-            assert task != null;
+            assert(task != null);
             taskList.add(task);
             return "Another task for the American people added:\n" + task.getTaskType()
                     + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskList.size() + " task(s) now!";
