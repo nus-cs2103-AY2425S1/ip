@@ -1,10 +1,13 @@
 # AVA User Guide
 
-// Update the title above to match the actual product name
+![UI](Ui.png)
 
-// Product screenshot goes here
+AVA is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI).  
+If you can type fast, AVA can get your task management done faster than traditional GUI apps.
 
-// Product intro goes here
+AVA has the personality of a helpful young woman.  
+
 
 ## Adding deadlines
 
