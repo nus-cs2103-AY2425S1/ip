@@ -61,13 +61,13 @@ public class Mittens {
     }
 
     /**
-     * Parses the given input and executes the command, then returns a
+     * Waits for user input and executes the command, then returns a
      * boolean indicating whether the program should exit.
      *
-     * @param input The input to process
      * @return A boolean indicating whether the program should exit
      */
-    public boolean process(String input) {
+    public boolean process() {
+        String input = ui.getUserInput();
         try {
             Command command = commandParser.parse(input);
             command.execute(this.taskList, this.ui, this.storage);
@@ -96,13 +96,11 @@ public class Mittens {
         prepare_run();
 
         while (true) {
-            String input = ui.getUserInput();
-            boolean shouldExit = process(input);
+            boolean shouldExit = process();
             if (shouldExit) {
                 break;
             }
         }
-
     }
 
     public static void main(String[] args) {

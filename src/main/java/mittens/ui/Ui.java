@@ -10,12 +10,11 @@ import java.util.Scanner;
  * Represents the user interface of the application.
  */
 public abstract class Ui {
-    /**
-     * Waits for the user to input a string command and returns that string.
-     *
-     * @return The user input
-     */
-    public abstract String getUserInput();
+    protected final Scanner in;
+
+    public Ui(Scanner in) {
+        this.in = in;
+    }
 
     /**
      * Shows the greeting message to be displayed at the start of the program.
@@ -47,6 +46,15 @@ public abstract class Ui {
      * @param e The exception to output
      */
     public abstract void showErrorMessage(MittensException e);
+
+    /**
+     * Waits for the user to input a string command and returns that string.
+     *
+     * @return The user input
+     */
+    public String getUserInput() {
+        return this.in.nextLine();
+    }
 
     /**
      * Generates a combined message formed by the given strings.

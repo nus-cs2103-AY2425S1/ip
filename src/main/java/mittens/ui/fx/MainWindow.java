@@ -1,5 +1,7 @@
 package mittens.ui.fx;
 
+import java.io.IOException;
+import java.io.PipedOutputStream;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mittens.Mittens;
 import mittens.MittensException;
+import mittens.UnknownException;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -22,10 +25,12 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Mittens mittens;
+    private PipedOutputStream userInputOutputStream;
 
     @FXML
-    public void initialize(Mittens mittens) {
+    public void initialize(Mittens mittens, PipedOutputStream userInputOutputStream) {
         this.mittens = mittens;
+        this.userInputOutputStream = userInputOutputStream;
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
@@ -39,10 +44,18 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
+        try {
+            userInputOutputStream.write((input + "\n").getBytes());
+            userInputOutputStream.flush();
+        } catch (IOException e) {
+            UnknownException newException = new UnknownException(e.getMessage());
+            printErrorMessage(newException);
+        }
+
         printUserMessage(input);
         userInput.clear();
 
-        boolean shouldExit = mittens.process(input);
+        boolean shouldExit = mittens.process();
         if (shouldExit) {
             scrollPane.getScene().getWindow().hide();
         }

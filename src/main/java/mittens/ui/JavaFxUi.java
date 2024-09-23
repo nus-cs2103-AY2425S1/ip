@@ -1,7 +1,9 @@
 package mittens.ui;
 
 import java.io.InputStream;
+import java.io.PipedInputStream;
 import java.util.List;
+import java.util.Scanner;
 
 import mittens.MittensException;
 import mittens.ui.fx.MainWindow;
@@ -9,7 +11,8 @@ import mittens.ui.fx.MainWindow;
 public class JavaFxUi extends Ui {
     private final MainWindow mainWindow;
 
-    public JavaFxUi(MainWindow mainWindow) {
+    public JavaFxUi(InputStream in, MainWindow mainWindow) {
+        super(new Scanner(in));
         this.mainWindow = mainWindow;
     }
 
@@ -36,10 +39,5 @@ public class JavaFxUi extends Ui {
     @Override
     public void showErrorMessage(MittensException e) {
         mainWindow.printErrorMessage(e);
-    }
-
-    @Override
-    public String getUserInput() {
-        return null;
     }
 }
