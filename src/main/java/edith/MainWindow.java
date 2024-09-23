@@ -58,6 +58,9 @@ public class MainWindow extends AnchorPane {
         displayGreeting();
     }
 
+    /**
+     * Displays the greeting message from Edith when the application starts.
+     */
     private void displayGreeting() {
         String greetingMessage = edith.getUi().showGreeting();
         DialogBox edithBox = DialogBox.getEdithDialog(greetingMessage, edithImage);

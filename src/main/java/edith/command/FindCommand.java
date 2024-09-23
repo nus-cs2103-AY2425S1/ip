@@ -33,12 +33,13 @@ public class FindCommand extends Command {
      * </ul>
      *
      * @param tasks The TaskList containing all tasks to be listed.
-     * @param ui The Ui used to display the tasks matching the specified keyword.
+     * @param ui The Ui used to display exit or date/time error messages (not used in this command).
      * @param storage The Storage used to save changes (not used in this command).
+     * @return A string message listing all tasks in the task list that contain the keyword.
      * @throws EdithException This method does not throw any EdithException.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
-        return tasks.findTasksByKeyword(keyword, ui);
+        return tasks.findTasksByKeyword(keyword);
     }
 }

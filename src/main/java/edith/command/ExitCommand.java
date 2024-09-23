@@ -21,6 +21,7 @@ public class ExitCommand extends Command {
      * @param tasks The TaskList associated with the current session (not used in this command).
      * @param ui The Ui used to display the exit message to the user.
      * @param storage The Storage used to save any changes (not used in this command).
+     * @return The exit message to be displayed to the user.
      * @throws EdithException This method does not throw any EdithException.
      */
     @Override

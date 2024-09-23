@@ -14,7 +14,8 @@ import java.util.Scanner;
 
 /**
  * The Storage class handles the reading and writing of tasks to and from a file.
- * It provides methods to save a list of tasks to a file and load tasks from a file.
+ * It provides methods to save a list of tasks to a file and load tasks from a file,
+ * ensuring persistence of task data between sessions of the chatbot application.
  */
 public class Storage {
     private final String filePath;
@@ -51,6 +52,7 @@ public class Storage {
 
     /**
      * Loads the list of tasks from the specified file.
+     * If the file does not exist, it creates a new file and returns an empty task list.
      *
      * @return An ArrayList of Task objects loaded from the file.
      * @throws IOException If an I/O error occurs while reading from the file.
@@ -90,6 +92,15 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * A helper method that reconstructs a Task object based on the task type and task string.
+     * This method handles different task types such as ToDo, Deadline, and Event.
+     *
+     * @param typeOfTaskString The string representing the type of task (e.g., "[T]", "[D]", "[E]").
+     * @param taskString The string containing task details specific to the task type.
+     * @return A Task object reconstructed from the task string.
+     * @throws EdithException If the task type is unrecognized or the task data is corrupted.
+     */
     public Task loadHelper(String typeOfTaskString, String taskString) throws EdithException {
         Task task;
 

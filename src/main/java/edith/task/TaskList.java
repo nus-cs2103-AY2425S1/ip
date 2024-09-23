@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 /**
  * This TaskList class manages a list of tasks.
- * It provides methods to add, delete, retrieve, and list tasks,
+ * It provides methods to add, delete, retrieve, and list tasks.
+ * It also provides methods to find tasks by a keyword,
  * as well as to list tasks that are due or starting on a specific date.
  */
 public class TaskList {
@@ -56,6 +57,7 @@ public class TaskList {
      * Deletes the task at the specified index from the list.
      *
      * @param index The index of the task to delete.
+     * @throws IndexOutOfBoundsException if the index is out of the valid range.
      */
     public void deleteTask(int index) {
         assert index >= 0 && index < listOfTasks.size() : "Index out of bounds when deleting task";
@@ -67,6 +69,7 @@ public class TaskList {
      *
      * @param index The index of the task to retrieve.
      * @return The Task at the specified index.
+     * @throws IndexOutOfBoundsException if the index is out of the valid range.
      */
     public Task getTask(int index) {
         assert index >= 0 && index < listOfTasks.size() : "Index out of bounds when retrieving task";
@@ -85,9 +88,9 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      *
-     * @param ui The Ui object used to display the tasks.
+     * @return A string representation of all tasks in the list.
      */
-    public String listTasks(Ui ui) {
+    public String listTasks() {
         if (listOfTasks.isEmpty()) {
             return "Great news, you have no outstanding tasks! Have a break!";
         } else {
@@ -105,9 +108,9 @@ public class TaskList {
      * Lists tasks that are due or starting on a specific date.
      *
      * @param date The date to filter tasks by.
-     * @param ui   The Ui object used to display the tasks.
+     * @return A string representation of tasks due or starting on the specified date.
      */
-    public String listTasksOnDate(String date, Ui ui) {
+    public String listTasksOnDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate localDate = LocalDate.parse(date, formatter);
 
@@ -123,6 +126,13 @@ public class TaskList {
         return response.toString();
     }
 
+    /**
+     * Helper method to list tasks that are due on a specific date.
+     *
+     * @param index The starting index for listing.
+     * @param response The response StringBuilder to append task details.
+     * @param localDate The date to filter tasks by.
+     */
     public void listDueTasks(int index, StringBuilder response, LocalDate localDate) {
         boolean isDue = false;
 
@@ -151,6 +161,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Helper method to list events that start on a specific date.
+     *
+     * @param index The starting index for listing.
+     * @param response The response StringBuilder to append event details.
+     * @param localDate The date to filter events by.
+     */
     public void listEventsOnDate(int index, StringBuilder response, LocalDate localDate) {
         boolean isStartingOn = false;
 
@@ -174,9 +191,9 @@ public class TaskList {
      * Finds and lists tasks that contain the specified keyword.
      *
      * @param keyword The keyword to search for.
-     * @param ui The Ui object used to display the tasks.
+     * @return A string representation of tasks matching the keyword.
      */
-    public String findTasksByKeyword(String keyword, Ui ui) {
+    public String findTasksByKeyword(String keyword) {
         List<Task> matchedTasks = listOfTasks.stream()
                 .filter(task -> task.containsKeyword(keyword))
                 .collect(Collectors.toList());

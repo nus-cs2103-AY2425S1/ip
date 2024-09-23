@@ -52,7 +52,7 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box such that the ImageView is on the left and the text is on the right.
-     * This is used for Edith's responses.
+     * This is used for Edith's responses. The method also applies specific styling for reply and error messages.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -66,6 +66,13 @@ public class DialogBox extends HBox {
         }
     }
 
+    /**
+     * Checks if the given message is an error message.
+     * This method is used to determine whether additional error styling should be applied to the reply-label.
+     *
+     * @param message The message text to be checked.
+     * @return true if the message is identified as an error message; false otherwise.
+     */
     private boolean isErrorMessage(String message) {
         return message.toLowerCase().contains("please");
     }

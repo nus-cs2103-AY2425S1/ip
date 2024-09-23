@@ -16,16 +16,17 @@ public class ListCommand extends Command {
      * <p>This method will:
      * <ul>
      *     <li>Retrieve all tasks from the TaskList.</li>
-     *     <li>Display the tasks to the user through the Ui.</li>
+     *     <li>Display the tasks to the user.</li>
      * </ul>
      *
      * @param tasks The TaskList containing all tasks to be listed.
-     * @param ui The Ui used to display the list of tasks to the user.
+     * @param ui The Ui used to display exit or date/time error messages (not used in this command).
      * @param storage The Storage used to save changes (not used in this command).
+     * @return A string message listing all tasks in the task list.
      * @throws EdithException This method does not throw any EdithException.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
-        return tasks.listTasks(ui);
+        return tasks.listTasks();
     }
 }

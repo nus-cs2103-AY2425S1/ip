@@ -34,14 +34,15 @@ public class ListOnDateCommand extends Command {
      * </ul>
      *
      * @param tasks The TaskList containing all tasks to be checked.
-     * @param ui The Ui used to display the tasks due or starting on the specified date.
+     * @param ui The Ui used to display exit or date/time error messages.
      * @param storage The Storage used to save changes (not used in this command).
+     * @return A string message listing the tasks due or starting on the specified date.
      * @throws EdithException If there is an error in parsing the date or listing tasks.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         try {
-            return tasks.listTasksOnDate(date, ui);
+            return tasks.listTasksOnDate(date);
         } catch (DateTimeParseException e) {
             throw new EdithException(ui.invalidDateTimeError(), 1);
         }

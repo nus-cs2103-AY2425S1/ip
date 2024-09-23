@@ -32,24 +32,17 @@ public class AddCommand extends Command {
     /**
      * Executes the AddCommand by creating a task based on the user instruction,
      * adding it to the task list, and saving the updated task list.
-     *
-     * <p>This method will:
-     * <ul>
-     *     <li>Create a ToDo, Deadline, or Event task based on
-     *     the instruction provided.</li>
-     *     <li>Throw an EdithException if the instruction is invalid or incomplete.</li>
-     *     <li>Update the task list and save the changes using the provided Storage.</li>
-     * </ul>
+     * A message will be displayed to confirm the addition and the updated number of tasks.
      *
      * @param tasks The TaskList to which the task should be added.
-     * @param ui The Ui used to display messages to the user.
+     * @param ui The Ui used to display exit or date/time error messages.
      * @param storage The Storage used to save the updated task list.
-     * @throws EdithException If the user instruction is invalid or if there is an issue with the date/time format.
+     * @return A string message confirming the task has been added, or an error message if saving fails.
+     * @throws EdithException If the user instruction uses an invalid date/time format.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
-        Task task = null;
-        task = addTaskHelper();
+        Task task = addTaskHelper();
 
         try {
             tasks.addTask(task);
@@ -68,6 +61,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Helper method to Create a ToDo, Deadline, or Event task based on the user instruction provided.
+     * It will throw an EdithException if the instruction is invalid or incomplete.
+     *
+     * @return The respective Task object based on the user instruction provided.
+     * @throws EdithException If the user instruction is invalid or incomplete.
+     */
     public Task addTaskHelper() throws EdithException {
         Task task;
 

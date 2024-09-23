@@ -30,9 +30,11 @@ public class Parser {
      *     <li>"unmark [index]" - Returns a UnmarkCommand with the specified task index.</li>
      *     <li>"delete [index]" - Returns a DeleteCommand with the specified task index.</li>
      *     <li>"find [keyword]" - Returns a FindCommand with the specified keyword.</li>
-     *     <li>"todo [task]" - Returns an AddCommand to add a ToDo task.</li>
-     *     <li>"deadline [task] /by [dueDate]" - Returns an AddCommand to add a Deadline task.</li>
-     *     <li>"event [task] /from [startTime] /to [endTime]" - Returns an AddCommand to add an Event task.</li>
+     *     <li>"todo [task]" or "t [task]" - Returns an AddCommand to add a ToDo task.</li>
+     *     <li>"deadline [task] /by [dueDate]" or "d [task] /by [dueDate]"
+     *             - Returns an AddCommand to add a Deadline task.</li>
+     *     <li>"event [task] /from [startTime] /to [endTime]" or "e [task] /from [startTime] /to [endTime]"
+     *             - Returns an AddCommand to add an Event task.</li>
      * </ul>
      *
      * @param userInput The raw input string from the user.

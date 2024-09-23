@@ -37,8 +37,9 @@ public class DeleteCommand extends Command {
      * </ul>
      *
      * @param tasks The TaskList from which the task will be deleted.
-     * @param ui The Ui used to display messages to the user.
+     * @param ui The Ui used to display exit or date/time error messages (not used in this command).
      * @param storage The Storage used to save the updated task list.
+     * @return A string message confirming the task has been deleted, or an error message if saving fails.
      * @throws EdithException If the index is invalid or the task to delete does not exist.
      */
     @Override
