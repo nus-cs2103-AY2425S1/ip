@@ -1,5 +1,4 @@
 # Optimus User Guide
-![Ui.png](Ui.png)
 
 ## Introduction
 _Ever wanted to note down your things?  
