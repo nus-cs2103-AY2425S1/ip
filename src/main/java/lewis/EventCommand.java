@@ -53,6 +53,8 @@ public class EventCommand extends Command {
      */
 
     public static EventCommand of(String input) throws LewisException {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         try {
             return new EventCommand(input);
         } catch (IndexOutOfBoundsException e) {

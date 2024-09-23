@@ -33,6 +33,8 @@ public class HelpCommand extends Command {
      * @return a HelpCommand to execute
      */
     public static HelpCommand of(String input) {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         if (!input.trim().equals("help")) {
             String[] arguments = input.split("help");
             String commandToSearch = arguments[1].trim();

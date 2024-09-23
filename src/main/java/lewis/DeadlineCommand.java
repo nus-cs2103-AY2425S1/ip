@@ -27,7 +27,8 @@ public class DeadlineCommand extends Command {
      * @throws LewisException if the input is in an incorrect format
      */
     public static DeadlineCommand of(String input) throws LewisException {
-
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input cannot be null";
         try {
             //Get the rest of the command input
             String[] tokens = input.split("deadline");

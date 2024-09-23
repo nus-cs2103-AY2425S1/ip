@@ -27,6 +27,8 @@ public class DeleteCommand extends Command {
      * @throws LewisException if the user tries to delete a non-existent task
      */
     public static DeleteCommand of(String input) throws LewisException {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         if (TaskList.getLength() == 0) {
             throw new LewisException("Hey, the tasklist is empty. You can't delete"
                     + "something from an empty list!");
