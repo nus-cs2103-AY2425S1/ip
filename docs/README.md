@@ -2,7 +2,6 @@
 ![Ui.png](Ui.png)
 
 ## Introduction
-****
 _Ever wanted to note down your things?  
 Ever thought that writing down important things on calendar was tiring?_  
 **Well here is my solution: Optimus**  
@@ -17,7 +16,6 @@ You can _find_ tasks with one or more words depending on how narrow you want you
 
 
 ## Features
-****
 ### Adding Todo task
 
 _Adds a Todo task in Optimus_  
