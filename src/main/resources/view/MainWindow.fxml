@@ -19,6 +19,7 @@
                    onAction="#handleUserInput"
                    prefHeight="41.0"
                    prefWidth="324.0"
+                   promptText="Type your command here..."
                    AnchorPane.bottomAnchor="1.0"
                    AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="76.0" />
