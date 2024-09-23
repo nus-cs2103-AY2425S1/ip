@@ -23,7 +23,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    private String getDescription() {
+    /** gets the description of the task */
+    public String getDescription() {
         return description;
     }
 
@@ -51,6 +52,17 @@ public abstract class Task {
     /** Returns true if there is a match of s in description, s.strip() to remove whitespaces */
     public boolean contains(String s) {
         return this.description.contains(s.strip());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Task othertask) {
+            return this.description.equals(othertask.description);
+        }
+        return false;
     }
 
     @Override

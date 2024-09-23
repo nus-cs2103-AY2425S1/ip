@@ -40,7 +40,9 @@ public class AddCommand extends Command {
             output = "Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01";
             System.out.println(output);
             return output;
-        } catch (Exception e) { // EmptyDescException message is already written nicely
+        } catch (Exception e) {
+            // EmptyDescException message is already written nicely
+            // TaskAlreadyAddedException is already written nicely
             System.out.println(e.getMessage());
             output = e.getMessage();
             return output;

@@ -2,6 +2,7 @@ package chatbot.bot;
 
 import java.util.ArrayList;
 
+import chatbot.exception.TaskAlreadyAddedException;
 import chatbot.task.Task;
 
 /** TaskList serves the purpose of storing tasks */
@@ -18,7 +19,12 @@ public class TaskList {
     }
 
     /** Adds a new Task to this.tasks */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws TaskAlreadyAddedException {
+        boolean matchingTask = this.tasks.stream()
+                .anyMatch(t -> t.equals(task));
+        if (matchingTask) {
+            throw new TaskAlreadyAddedException(task);
+        }
         this.tasks.add(task);
     }
 
