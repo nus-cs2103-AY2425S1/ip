@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setHien(hien);  // inject the Hien instance
+            fxmlLoader.<MainWindow>getController().setHien(hien); // inject the Hien instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

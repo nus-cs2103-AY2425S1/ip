@@ -36,7 +36,6 @@ public class UI {
     public String showGoodbye() {
         String goodbyeMessage = "____________________________________________________________\n"
                 + " Bye. Hope to see you again soon!";
-//        System.out.println(goodbyeMessage);
         lastMessage = goodbyeMessage;
         return goodbyeMessage;
     }
@@ -46,7 +45,6 @@ public class UI {
      */
     public String showLine() {
         String lineMessage = "____________________________________________________________";
-//        System.out.println(lineMessage);
         return lineMessage + "\n";
     }
 
@@ -74,7 +72,6 @@ public class UI {
      * @param message The error message to be displayed.
      */
     public String showError(String message) {
-//        System.out.println(message);
         lastMessage = message;
         return message + "\n";
     }
@@ -85,7 +82,6 @@ public class UI {
      * @param message The message to be displayed.
      */
     public String showMessage(String message) {
-//        System.out.println(message);
         lastMessage = message;
         return message + "\n";
     }
