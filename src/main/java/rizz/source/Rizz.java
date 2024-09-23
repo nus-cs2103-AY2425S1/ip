@@ -39,7 +39,7 @@ public class Rizz {
      * @throws IOException If an I/O error occurs when saving tasks to the file.
      */
     public String getResponse(String input) throws IOException {
-        Command command = Parser.parseCommand(input);
+        Command command = Parser.parseCommand(input, tasks);
         if (command != null) {
             if (command instanceof SaveableCommand) {
                 this.saveSnapshot();
@@ -47,8 +47,7 @@ public class Rizz {
             } else if (command instanceof UndoCommand) {
                 this.undo();
             }
-            String str = command.execute(tasks);
-            return str;
+            return command.execute(tasks);
         } else {
             return "-1";
         }

@@ -28,16 +28,10 @@ public abstract class Task {
      */
     public abstract String export();
 
-    /**
-     * Marks the task as done by setting the completion status to true.
-     */
     public void markAsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Marks the task as not done by setting the completion status to false.
-     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
@@ -52,25 +46,24 @@ public abstract class Task {
         return this.isDone ? "X" : " ";
     }
 
-    /**
-     * Returns the current completion status of the task.
-     *
-     * @return True if the task is marked as done, false otherwise.
-     */
     public boolean getStatus() {
         return this.isDone;
     }
 
-    /**
-     * Returns the description of the task.
-     *
-     * @return The task description (text).
-     */
     public String getText() {
         return text;
     }
 
-
+    /**
+     * Creates and returns a deep copy (clone) of the current Task object.
+     * This method is abstract and should be implemented by subclasses
+     * to ensure that each specific type of Task (e.g., ToDo, Event, Deadline)
+     * provides its own way of creating a copy of itself.
+     *
+     * The deep copy ensures that changes to the cloned object do not affect the original Task.
+     *
+     * @return A new Task object that is a deep copy of the current Task.
+     */
     public abstract Task cloneCopy();
 
     /**

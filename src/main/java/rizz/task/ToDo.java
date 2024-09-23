@@ -35,7 +35,6 @@ public class ToDo extends Task{
     }
 
 
-
     /**
      * Returns a string representation of the ToD0 task.
      * The format will be: "[T][X] (text)" if the task is done,
