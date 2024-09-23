@@ -1,0 +1,24 @@
+todo Read a book
+deadline Finish project
+deadline Finish project /by
+event Team meeting /from 2023-12-15 /to
+event Team meeting /from /to 2023-12-16
+event  /from 2023-12-15 /to 2023-12-16
+list
+mark 1
+mark 3
+mark 0
+unmark 2
+unmark 100
+unmark 1
+list
+todo
+event
+deadline
+event Meet /from 2023-12-15
+deadline  /by 2024-01-10
+todo Buy a book
+delete 4
+delete 2
+list
+bye
