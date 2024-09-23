@@ -44,7 +44,8 @@ public class Nebula {
         while(!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                assert fullCommand != null && !fullCommand.trim().isEmpty() : "Command should not be null or empty";
+                assert fullCommand != null && !fullCommand.trim().isEmpty()
+                        : "Command should not be null or empty";
                 Command c = Parser.parse(fullCommand);
                 assert c != null : "Parsed command should not be null";
                 c.execute(tasks, ui, storage);

@@ -73,7 +73,6 @@ public class Parser {
         else {
             validateCommand(command);
             TaskType taskType = parseTaskType(command);
-
             assert taskType != TaskType.UNKNOWN : "TaskType should not be UNKNOWN";
 
             switch (taskType) {
@@ -117,7 +116,6 @@ public class Parser {
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new NebulaException(ui.displayUnknownMessageException());
             }
-
             String description = parts[1].trim();
 
             if (command.startsWith("deadline")) {
@@ -162,19 +160,15 @@ public class Parser {
             throw new NebulaException(ui.displayUnknownDeadlineException());
         }
         else {
-            // Extract the date after "/by"s
             String[] parts2 = description.split("/by");
-
             String taskDescription = parts2[0].trim();
+
             if (taskDescription.isEmpty()) {
                 throw new NebulaException("The deadline task description cannot be empty!");
             }
-
-
             String dueDate = parts2[1].trim();
             assert dueDate != null : "Deadline date should not be null";
 
-            // Validate the due date format
             if (!isValidDate(dueDate)) {
                 throw new NebulaException("Warning: Deadline date "
                         + "is not in the correct format (yyyy-mm-dd HH:mm).");
@@ -186,14 +180,12 @@ public class Parser {
         if (!description.contains("/from") || !description.contains("/to")) {
             throw new NebulaException(ui.displayUnknownEventTimingException());
         } else {
-            // Extract dates from the description
             String[] parts2 = description.split("/from");
-
             String eventDescription = parts2[0].trim();
+
             if (eventDescription.isEmpty()) {
                 throw new NebulaException("The event description cannot be empty!");
             }
-
             String timingPart = parts2[1].trim();
             String[] dates = timingPart.split("/to");
 
@@ -203,7 +195,6 @@ public class Parser {
             String startDate = dates[0].trim();
             String endDate = dates[1].trim();
 
-            // Validate the start and end dates
             if (!isValidDate(startDate) || !isValidDate(endDate)) {
                 throw new NebulaException("Warning: Event dates"
                         + " are not in the correct format (yyyy-mm-dd HH:mm).");
