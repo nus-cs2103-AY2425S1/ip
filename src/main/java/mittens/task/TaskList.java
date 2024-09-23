@@ -3,6 +3,8 @@ package mittens.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import mittens.parser.BadInputException;
+
 /**
  * Represents a list of tasks.
  */
@@ -54,11 +56,16 @@ public class TaskList {
      * 
      * @param index The index of the task to mark as done
      * @return The task that was marked as done
+     * @throws BadInputException If the index is out of bounds
      */
-    public Task markTaskAsDone(int index) {
-        Task task = this.tasks.get(index);
-        task.markAsDone();
-        return task;
+    public Task markTaskAsDone(int index) throws BadInputException {
+        try {
+            Task task = this.tasks.get(index);
+            task.markAsDone();
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new BadInputException("Task index out of bounds");
+        }
     }
 
     /**
@@ -66,11 +73,16 @@ public class TaskList {
      * 
      * @param index The index of the task to mark as not done
      * @return The task that was marked as not done
+     * @throws BadInputException If the index is out of bounds
      */
-    public Task markTaskAsNotDone(int index) {
-        Task task = this.tasks.get(index);
-        task.markAsNotDone();
-        return task;
+    public Task markTaskAsNotDone(int index) throws BadInputException {
+        try {
+            Task task = this.tasks.get(index);
+            task.markAsNotDone();
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new BadInputException("Task index out of bounds");
+        }
     }
 
     /**
@@ -78,9 +90,14 @@ public class TaskList {
      * 
      * @param index The index of the task to delete
      * @return The task that was deleted
+     * @throws BadInputException If the index is out of bounds
      */
-    public Task deleteTask(int index) {
-        return this.tasks.remove(index);
+    public Task deleteTask(int index) throws BadInputException {
+        try {
+            return this.tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BadInputException("Task index out of bounds");
+        }
     }
 
     /**
