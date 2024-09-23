@@ -25,7 +25,7 @@ public class PriorityState extends State {
                 return "Please input a valid index!\n";
             }
         case PRIORITY_LEVEL:
-            switch (input) {
+            switch (input.toLowerCase()) {
             case "high":
                 makima.setPriority(idx, Task.PriorityLevel.HIGH);
                 makima.setState(new WaitingState());
