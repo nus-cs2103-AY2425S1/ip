@@ -31,18 +31,7 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
-    public static void addTask(Task task) {
-        Chappy.userInputArray.add(task);
-        System.out.println("Alright sir! I've added this task:");
-        System.out.println(task.toString());
-    }
-
-    public static void removeTask(int i) {
-        Task task = Chappy.userInputArray.get(i);
-        Chappy.userInputArray.remove(task);
-        System.out.println("Unfortunate.. I'll remove this task from the list..");
-        System.out.println(task.toString());
-    }
+  
 
     public JSONObject toJson() {
         JSONObject j = new JSONObject();
