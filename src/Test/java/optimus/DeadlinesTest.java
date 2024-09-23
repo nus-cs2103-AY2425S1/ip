@@ -32,7 +32,7 @@ class DeadlinesTest {
      * @throws OptimusException if the date string is invalid.
      */
     @Test
-    public void parseStringDeadline_ValidFormatD_MM_yyyyHHmm_correctDateTime() throws OptimusException {
+    public void parseStringDeadline_validFormatD_MM_yyyyHHmm_correctDateTime() throws OptimusException {
         String dateTimeInput = "15/09/2024 15:30";
         LocalDateTime expectedDateTime = LocalDateTime.of(2024, 9, 15, 15, 30);
         assertEquals(expectedDateTime, deadline.parseStringDeadline(dateTimeInput));
@@ -44,7 +44,7 @@ class DeadlinesTest {
      * @throws OptimusException if the date string is invalid.
      */
     @Test
-    public void parseStringDeadline_ValidFormatyyyy_MM_ddHHmm_correctDateTime() throws OptimusException {
+    public void parseStringDeadline_validFormatyyyy_MM_ddHHmm_correctDateTime() throws OptimusException {
         String dateTimeInput = "2024-09-15 15:30";
         LocalDateTime expectedDateTime = LocalDateTime.of(2024, 9, 15, 15, 30);
         assertEquals(expectedDateTime, deadline.parseStringDeadline(dateTimeInput));
@@ -56,7 +56,7 @@ class DeadlinesTest {
      * @throws OptimusException if the date string is invalid.
      */
     @Test
-    public void parseStringDeadline_ValidFormatD_MM_yyyyDashHHmm_correctDateTime() throws OptimusException {
+    public void parseStringDeadline_validFormatD_MM_yyyyDashHHmm_correctDateTime() throws OptimusException {
         String dateTimeInput = "15-09-2024 15:30";
         LocalDateTime expectedDateTime = LocalDateTime.of(2024, 9, 15, 15, 30);
         assertEquals(expectedDateTime, deadline.parseStringDeadline(dateTimeInput));
@@ -68,7 +68,7 @@ class DeadlinesTest {
      * @throws OptimusException if the date string is invalid.
      */
     @Test
-    public void parseStringDeadline_ValidFormatyyyy_MM_ddSlashHHmm_correctDateTime() throws OptimusException {
+    public void parseStringDeadline_validFormatyyyy_MM_ddSlashHHmm_correctDateTime() throws OptimusException {
         String dateTimeInput = "2024/09/15 15:30";
         LocalDateTime expectedDateTime = LocalDateTime.of(2024, 9, 15, 15, 30);
         assertEquals(expectedDateTime, deadline.parseStringDeadline(dateTimeInput));
@@ -79,7 +79,7 @@ class DeadlinesTest {
      * Verifies that an {@link OptimusException} is thrown.
      */
     @Test
-    public void parseStringDeadline_InvalidFormat_exceptionThrown() {
+    public void parseStringDeadline_invalidFormat_exceptionThrown() {
         String invalidInput = "15-09-2024";
         assertThrows(OptimusException.class, () -> deadline.parseStringDeadline(invalidInput));
     }
@@ -89,7 +89,7 @@ class DeadlinesTest {
      * Verifies that an {@link OptimusException} is thrown.
      */
     @Test
-    public void parseStringDeadline_EmptyString_exceptionThrown() {
+    public void parseStringDeadline_emptyString_exceptionThrown() {
         String emptyInput = "";
         assertThrows(OptimusException.class, () -> deadline.parseStringDeadline(emptyInput));
     }
@@ -99,7 +99,7 @@ class DeadlinesTest {
      * Verifies that an {@link OptimusException} is thrown.
      */
     @Test
-    public void parseStringDeadline_NullInput_exceptionThrown() {
+    public void parseStringDeadline_nullInput_exceptionThrown() {
         String nullInput = null;
         assertThrows(OptimusException.class, () -> deadline.parseStringDeadline(nullInput));
     }
@@ -131,7 +131,7 @@ class DeadlinesTest {
      * @throws OptimusException if marking the task as done fails.
      */
     @Test
-    public void toSaveString_TaskMarkedAsDone_correctSaveStringOutput() throws OptimusException {
+    public void toSaveString_taskMarkedAsDone_correctSaveStringOutput() throws OptimusException {
         deadline.setDone();  // Mark task as done
         String expectedSaveString = "D | 1 | Test deadline | 1/09/2024 12:00";
         assertEquals(expectedSaveString, deadline.toSaveString());

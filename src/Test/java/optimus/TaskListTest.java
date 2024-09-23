@@ -24,13 +24,13 @@ public class TaskListTest {
 
     // Basic tests
     @Test
-    public void testFindTasks_NoMatch() {
+    public void testFindTasks_noMatch() {
         String result = taskList.findTasks("nonexistent", ui);
         assertEquals("No matching tasks found. Try again", result);
     }
 
     @Test
-    public void testFindTasks_SingleMatch() {
+    public void testFindTasks_singleMatch() {
         String result = taskList.findTasks("Buy", ui);
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [T][ ] Buy groceries\n";
@@ -38,7 +38,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testFindTasks_MultipleMatches() {
+    public void testFindTasks_multipleMatches() {
         String result = taskList.findTasks("Submit", ui);
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [D][ ] Submit assignment (by: Oct 10 2024, 4:00pm)\n";
@@ -46,7 +46,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testFindTasks_CaseInsensitive() {
+    public void testFindTasks_caseInsensitive() {
         String result = taskList.findTasks("BUY", ui);
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [T][ ] Buy groceries\n";
@@ -54,7 +54,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testFindTasks_MultipleKeywords() {
+    public void testFindTasks_multipleKeywords() {
         String result = taskList.findTasks("project meeting", ui);
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [E][ ] Project meeting (on: Sep 20 2024, 4:00pm - Sep 21 2024, 5:00pm)\n";
@@ -62,7 +62,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testFindTasks_EmptyKeyword() {
+    public void testFindTasks_emptyKeyword() {
         String result = taskList.findTasks("", ui);
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [T][ ] Buy groceries\n"
@@ -72,7 +72,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testFindTasks_NoTasksInList() throws OptimusException {
+    public void testFindTasks_noTasksInList() throws OptimusException {
         // Set up an empty TaskList
         taskList = new TaskList(Collections.emptyList());
         String result = taskList.findTasks("Buy", ui);
@@ -80,7 +80,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testFindTasks_PartialMatch() {
+    public void testFindTasks_partialMatch() {
         String result = taskList.findTasks("gro", ui); // Partial match with "groceries"
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [T][ ] Buy groceries\n";
@@ -89,7 +89,7 @@ public class TaskListTest {
 
 
     @Test
-    public void testFindTasks_ExactMatch() {
+    public void testFindTasks_exactMatch() {
         String result = taskList.findTasks("Buy groceries", ui);
         String expected = "Here are the matching tasks in your list:\n"
                 + "1. [T][ ] Buy groceries\n";
