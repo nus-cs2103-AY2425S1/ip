@@ -1,6 +1,10 @@
 package elsa.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import elsa.ElsaException;
 
 /**
  * Manages the list of tasks in the application.
@@ -47,11 +51,19 @@ public class TaskList {
      * @param dueBy the due date and time of the elsa.task.Deadline task
      * @return A response string that confirms the successful addition of a deadline task.
      */
-    public String addDeadline(String description, String dueBy) {
-        Deadline newDeadline = new Deadline(description, false, dueBy);
-        tasks.add(newDeadline);
-        return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                + tasks.size() + " tasks in our list now.";
+    public String addDeadline(String description, String dueBy) throws ElsaException {
+        try {
+            LocalDate.parse(dueBy);
+
+            Deadline newDeadline = new Deadline(description, false, dueBy);
+            tasks.add(newDeadline);
+            return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                    + tasks.size() + " tasks in our list now.";
+        } catch (DateTimeParseException e) {
+            // Throw an exception if parsing fails
+            throw new ElsaException("Oops! It appears that this date/time does not exist in the calendar or the clock. "
+                    + "Please use a valid format (e.g., YYYY-MM-DD HH:MM).");
+        }
     }
 
     /**
@@ -75,7 +87,20 @@ public class TaskList {
      * @param index the index of the task that is to be deleted from the task list
      * @return A response string that confirms the successful deletion of a task.
      */
-    public String deleteTask(int index) {
+    public String deleteTask(int index) throws ElsaException {
+        if (index < 0 || index >= tasks.size()) {
+            if (tasks.isEmpty()) {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. The list is "
+                        + "currently empty.");
+            } else if (tasks.size() == 1) {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. There's only "
+                        + "one task currently in our list.");
+            } else {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. Please enter "
+                        + "a number between 1 and " + tasks.size() + ".");
+            }
+        }
+
         String message = "Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have "
                 + (tasks.size() - 1) + " tasks in our list now.";
 
@@ -129,7 +154,19 @@ public class TaskList {
      * @param index the index of the task to be marked as done
      * @return A response string that confirms the marking of a task.
      */
-    public String markTask(int index) {
+    public String markTask(int index) throws ElsaException {
+        if (index < 0 || index >= tasks.size()) {
+            if (tasks.isEmpty()) {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. The list is "
+                        + "currently empty.");
+            } else if (tasks.size() == 1) {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. There's only "
+                        + "one task currently in our list.");
+            } else {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. Please enter "
+                        + "a number between 1 and " + tasks.size() + ".");
+            }
+        }
         tasks.get(index).done();
         // Informs the user that the task has been marked as done
         return "Great! I've marked it as done:\n  " + tasks.get(index).toString();
@@ -141,7 +178,19 @@ public class TaskList {
      * @param index the index of the task to be unmarked
      * @return A response string that confirms that the task has been unmarked.
      */
-    public String unmarkTask(int index) {
+    public String unmarkTask(int index) throws ElsaException {
+        if (index < 0 || index >= tasks.size()) {
+            if (tasks.isEmpty()) {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. The list is "
+                        + "currently empty.");
+            } else if (tasks.size() == 1) {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. There's only "
+                        + "one task currently in our list.");
+            } else {
+                throw new ElsaException("Oops, it appears that the task number entered isn't in our list. Please enter "
+                        + "a number between 1 and " + tasks.size() + ".");
+            }
+        }
         tasks.get(index).notDone();
         // Informs the user that the task has been marked as not done
         return "Alright, I've unchecked this task:\n  " + tasks.get(index).toString();

@@ -28,17 +28,47 @@ public class Parser {
         } else if (userInput.contains("list")) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {
-            int index = Integer.parseInt(userInput.substring(5)) - 1;
-            return new MarkCommand(index);
+            // Ensure that the user input is long enough to contain a task number
+            if (userInput.length() > 5) {
+                String indexStr = userInput.substring(5).trim();
+                // Check if the input after "mark" is a number
+                if (indexStr.matches("\\d+")) {
+                    int index = Integer.parseInt(indexStr) - 1;
+                    return new MarkCommand(index);
+                } else {
+                    // The input after "mark" is not a valid number
+                    throw new ElsaException("Oops! It appears that the task number entered isn't valid. Could you "
+                            + "please try again.");
+                }
+            } else {
+                // No number provided after "mark"
+                throw new ElsaException("Oops! It appears that there was no task number entered. Could you please "
+                        + "try again.");
+            }
         } else if (userInput.startsWith("unmark")) {
-            int index = Integer.parseInt(userInput.substring(7)) - 1;
-            return new UnmarkCommand(index);
+            // Ensure that the user input is long enough to contain a task number
+            if (userInput.length() > 7) {
+                String indexStr = userInput.substring(7).trim();
+                // Check if the input after "unmark" is a number
+                if (indexStr.matches("\\d+")) {
+                    int index = Integer.parseInt(indexStr) - 1;
+                    return new UnmarkCommand(index);
+                } else {
+                    // The input after "unmark" is not a valid number
+                    throw new ElsaException("Oops! It appears that the task number entered isn't valid. Could you "
+                            + "please try again.");
+                }
+            } else {
+                // No number provided after "unmark"
+                throw new ElsaException("Oops! It appears that there was no task number entered. Could you please "
+                        + "try again.");
+            }
         } else if (userInput.startsWith("todo")) {
             // Ensure that the user input is long enough to contain a description
             String description = userInput.length() > 5 ? userInput.substring(5).trim() : "";
             if (description.isEmpty()) {
                 throw new ElsaException("Oh, it appears that the description of your "
-                        + "ToDo item is empty...");
+                        + "ToDo task is empty...");
             }
             return new TodoCommand(description);
         } else if (userInput.startsWith("deadline")) {
@@ -46,23 +76,50 @@ public class Parser {
             // Check if there are two parts and if 'by' is in the correct format
             if (parts.length < 2 || parts[1].trim().length() != 16
                     || !parts[1].trim().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}")) {
-                throw new ElsaException("Oops, the format for the elsa.task.Deadline task is "
-                        + "a bit off.\nPlease follow this format: deadline [activity] /by yyyy-mm-dd hh:mm");
+                throw new ElsaException("Oops, the format for the Deadline task is a bit off.\nPlease follow this "
+                        + "format: deadline [activity] /by yyyy-mm-dd hh:mm");
             }
             String description = parts[0].substring(9).trim();
             String dueBy = parts[1].trim();
             // Check if the description is empty
             if (description.isEmpty()) {
                 throw new ElsaException("Oh, it appears that the description of your "
-                        + "elsa.task.Deadline task is empty...");
+                        + "Deadline task is empty...");
             }
             return new DeadlineCommand(description, dueBy);
         } else if (userInput.startsWith("event")) {
             String[] parts = userInput.split(" /from | /to ");
-            return new EventCommand(parts[0].substring(6).trim(), parts[1].trim(), parts[2].trim());
+            // Ensure there are exactly three parts: event description, start time, and end time
+            if (parts.length != 3) {
+                throw new ElsaException("Oops, the format for the Event task is a bit off.\nPlease follow this "
+                        + "format: event [activity] /from [start time] /to [end time]");
+            }
+            String description = parts[0].substring(6).trim();
+            String start = parts[1].trim();
+            String end = parts[2].trim();
+            if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
+                throw new ElsaException("Oh, it appears that either the description, start or end time of your "
+                        + "Event task is empty...");
+            }
+            return new EventCommand(description, start, end);
         } else if (userInput.startsWith("delete")) {
-            int index = Integer.parseInt(userInput.substring(7)) - 1;
-            return new DeleteCommand(index);
+            // Ensure that the user input is long enough to contain a task number
+            if (userInput.length() > 7) {
+                String indexStr = userInput.substring(7).trim();
+                // Check if the input after "delete" is a number
+                if (indexStr.matches("\\d+")) {
+                    int index = Integer.parseInt(indexStr) - 1;
+                    return new DeleteCommand(index);
+                } else {
+                    // The input after "delete" is not a valid number
+                    throw new ElsaException("Oops! It appears that the task number entered isn't valid. Could you "
+                            + "please try again.");
+                }
+            } else {
+                // No number provided after "delete"
+                throw new ElsaException("Oops! It appears that there was no task number entered. Could you please "
+                        + "try again.");
+            }
         } else if (userInput.startsWith("find")) {
             // If user just enters "find" followed by blank spaces, return a ListCommand
             if (userInput.trim().length() == 4) {
