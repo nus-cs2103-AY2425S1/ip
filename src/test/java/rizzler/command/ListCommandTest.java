@@ -13,7 +13,7 @@ import rizzler.task.ToDo;
 
 public class ListCommandTest {
     private static final Storage testStorage = new Storage();
-    private static final TaskLog testTaskLog= new TaskLog();
+    private static final TaskLog testTaskLog = new TaskLog();
 
     @Test
     public void execute_emptyTasklog_emptyTasklogResponse() {
