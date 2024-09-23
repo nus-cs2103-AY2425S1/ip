@@ -52,7 +52,7 @@ application {
 shadowJar {
     archiveBaseName = "loafy"
     archiveClassifier = null
-    archiveVersion = "v0"
+    archiveVersion = "v0.1"
 }
 
 run {
