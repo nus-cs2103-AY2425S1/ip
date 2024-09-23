@@ -19,7 +19,7 @@ public class Main extends Application {
     /**
      * Instance of the Bigdog class.
      */
-    private final Bigdog bigdog = new Bigdog("src/main/java/bigdog/Bigdog.txt");
+    private final Bigdog bigdog = new Bigdog("data/bigdog.txt");
 
     /**
      * Starts the JavaFX application.

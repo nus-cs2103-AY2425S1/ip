@@ -16,9 +16,6 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    /** The file path where the tasks are stored and loaded from. */
-    private final File filePath;
-
     /** Constants for task status and types */
     private static final String MARKED_STATUS = "X";
     private static final String UNMARKED_STATUS = "O";
@@ -27,6 +24,9 @@ public class Storage {
     private static final String EVENT_TYPE = "E";
     private static final String DELIMITER = " | ";
 
+    /** The file path where the tasks are stored and loaded from. */
+    private final String filePath;
+
     /**
      * Constructs a Storage object.
      * Initializes the file path where the tasks will be stored.
@@ -34,7 +34,7 @@ public class Storage {
      * @param filePath the file path to save and load tasks.
      */
     public Storage(String filePath) {
-        this.filePath = new File(filePath);
+        this.filePath = filePath;
     }
 
     /**
@@ -45,8 +45,8 @@ public class Storage {
      * @throws BigdogException if there is an error during the saving process.
      */
     public void save(ArrayList<Task> taskList) throws BigdogException {
-        System.out.println("Saving Task to " + filePath.getAbsolutePath());
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath.getAbsolutePath()))) {
+        System.out.println("Saving Task to " + filePath);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
             for (Task task: taskList) {
                 String line = getString(task);
                 writer.write(line + "\n");
@@ -91,15 +91,21 @@ public class Storage {
      * @throws BigdogException if there is an error during the loading process,
      *     such as file corruption or file not found.
      */
-    public ArrayList<Task> load() throws BigdogException {
+    public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
+        try {
+            File newFile = new File(this.filePath);
+            if (!newFile.exists()) {
+                newFile.getParentFile().mkdirs();
+                newFile.createNewFile();
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(newFile));
             String line;
             while ((line = reader.readLine()) != null) {
                 list.add(parseLine(line));
             }
         } catch (IOException e) {
-            throw new BigdogException("Storage Error: Unable to load tasks. File Path: " + e);
+            System.out.println("Storage Error: IO Error " + e);
         }
         return list;
     }
