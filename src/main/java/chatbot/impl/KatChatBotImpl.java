@@ -10,14 +10,6 @@ import chatbot.exceptions.InvalidMessageException;
  */
 public class KatChatBotImpl implements ChatBot {
 
-    private static final String LOGO = """
-             _         _
-            | | __ ___| |_
-            | |/ / _  | __|
-            |   < (_| | |_
-            |_|\\_\\____|\\__|
-            """;
-
     private static final String GREETING_RESPONSE = "Hi! I'm Kat.\nHow can I help?";
 
     private static final String ENDING_COMMAND = "bye";
@@ -33,6 +25,11 @@ public class KatChatBotImpl implements ChatBot {
      */
     public KatChatBotImpl(MessageParser messageParser) {
         this.messageParser = messageParser;
+    }
+
+    @Override
+    public String getWelcome() {
+        return GREETING_RESPONSE;
     }
 
     /**
