@@ -62,7 +62,7 @@ jobs:
 
     steps:
       - name: Set up repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Set up JDK 17
         uses: actions/setup-java@v1
@@ -70,12 +70,12 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      # Install Xvfb and dos2unix on Linux
+      # Install dependencies on Linux
       - name: Install Xvfb and dos2unix (Linux)
         if: runner.os == 'Linux'
         run: sudo apt-get install -y xvfb dos2unix
 
-      # Clean up previous Xvfb session
+      # Clean up previous Xvfb session, if it exists
       - name: Clean up previous Xvfb session (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -84,18 +84,42 @@ jobs:
             sudo rm /tmp/.X99-lock
           fi
 
-      # Start Xvfb for headless JavaFX
+      # Start Xvfb for headless JavaFX applications
       - name: Start Xvfb (Linux)
         if: runner.os == 'Linux'
         run: |
           Xvfb :99 &
           export DISPLAY=:99
 
-      # Perform IO redirection test for Linux
-      - name: Perform IO redirection test (*NIX)
+      # Build and check with Gradle
+      - name: Build and check with Gradle
+        run: ./gradlew check
+
+      # Run IO redirection test for Linux
+      - name: Perform IO redirection test (Linux)
         if: runner.os == 'Linux'
         working-directory:  ${{ github.workspace }}/text-ui-test
         run: |
           Xvfb :99 &
           export DISPLAY=:99
+          if [ -e EXPECTED.TXT ]; then
+            cp EXPECTED.TXT EXPECTED-UNIX.TXT
+            dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+          else
+            echo "EXPECTED.TXT not found. Test cannot continue."
+            exit 1
+          fi
           ./runtest.sh
+
+      # Run IO redirection test for macOS
+      - name: Perform IO redirection test (MacOS)
+        if: always() && runner.os == 'macOS'
+        working-directory:  ${{ github.workspace }}/text-ui-test
+        run: ./runtest.sh
+
+      # Run IO redirection test for Windows
+      - name: Perform IO redirection test (Windows)
+        if: always() && runner.os == 'Windows'
+        working-directory:  ${{ github.workspace }}/text-ui-test
+        shell: cmd
+        run: runtest.bat
