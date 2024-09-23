@@ -23,6 +23,7 @@ public class TaskStorageImpl implements TaskStorage<Command> {
 
     public TaskStorageImpl(String filePathStr) {
         tasks = new ArrayList<>();
+        assert filePathStr != null: "File path cannot be null";
         FILE_PATH = Paths.get(filePathStr);
     }
 
@@ -31,6 +32,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      * @return a TaskStorageResult containing all the current tasks
      */
     public TaskStorageResult<Command> getTasks() {
+        assert tasks != null : "Tasks list should not be null";
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
@@ -50,6 +53,9 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      * @return a TaskStorageResult indicating the status of the save
      */
     public TaskStorageResult<Command> addTask(String[] inputParts, Command command) {
+        assert inputParts != null && inputParts.length > 0 : "Input parts cannot be null or empty";
+        assert command != null : "Command cannot be null";
+
         return switch (command) {
             case ToDo -> addToDo(inputParts);
             case Event -> addEvent(inputParts);
@@ -59,6 +65,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
     }
 
     private TaskStorageResult<Command> addToDo(String[] inputParts) {
+        assert inputParts != null && inputParts.length > 1 : "Input parts for ToDo must have at least 2 elements";
+
         String description = arrayJoin(inputParts, 1, inputParts.length);
         if (description.isBlank()) {
             return handleMissingDescription();
@@ -68,6 +76,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
     }
 
     private TaskStorageResult<Command> addEvent(String[] inputParts) {
+        assert inputParts != null && inputParts.length > 5 : "Input parts for Event must have at least 6 elements";
+
         int idx = Arrays.asList(inputParts).indexOf("/from");
         if (idx == -1) {
             return handleMissingFrom();
@@ -93,6 +103,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
     }
 
     private TaskStorageResult<Command> addDeadline(String[] inputParts) {
+        assert inputParts != null && inputParts.length > 3 : "Input parts for Deadline must have at least 4 elements";
+
         int idx = Arrays.asList(inputParts).indexOf("/by");
         if (idx == -1) {
             return handleMissingDeadline();
@@ -116,6 +128,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      */
     @Override
     public TaskStorageResult<Command> deleteTask(String[] inputParts) {
+        assert inputParts != null && inputParts.length > 1 : "Input parts for delete must have at least 2 elements";
+
         int index = Integer.parseInt(inputParts[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
             return handleIllegalIndex(index);
@@ -132,6 +146,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      */
     @Override
     public TaskStorageResult<Command> findTasks(String[] inputParts) {
+        assert inputParts != null && inputParts.length > 1 : "Input parts for find must have at least 2 elements";
+
         String phrase = arrayJoin(inputParts, 1, inputParts.length);
         ArrayList<Task> res = new ArrayList<>();
         for (Task task : tasks) {
@@ -149,6 +165,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      */
     @Override
     public TaskStorageResult<Command> setTaskDone(String[] inputParts, boolean status) {
+        assert inputParts != null && inputParts.length > 1 : "Input parts for setTaskDone must have at least 2 elements";
+
         int index = Integer.parseInt(inputParts[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
             return handleIllegalIndex(index);
@@ -163,6 +181,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      */
     @Override
     public TaskStorageResult<Command> saveTasks() {
+        assert tasks != null : "Tasks list should not be null when saving";
+
         // check if file exists
         // if the file does exist, write to it
         // else if file does not exist, create file and write to it
@@ -194,6 +214,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      * @return a TaskStorageResult indicating the status of the load
      */
     public TaskStorageResult<Command> loadTasks() {
+        assert FILE_PATH != null : "File path should not be null when loading tasks";
+
         try {
             File myObj = FILE_PATH.toFile();
             if (myObj.createNewFile()) {
@@ -215,6 +237,8 @@ public class TaskStorageImpl implements TaskStorage<Command> {
     }
 
     private static Task deserialize(String line) throws IOException {
+        assert line != null && !line.isEmpty() : "Line to deserialize cannot be null or empty";
+
         String[] task = line.split("\\|");
         if (task.length < 3) {
             throw new IOException("Invalid task format");
