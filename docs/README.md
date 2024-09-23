@@ -8,14 +8,14 @@ you never have to search anywhere else for your task lists again.
 
 
 ## Features
-- [Adding a todo: `todo`] (/#adding-a-todo-todo)
-- [Adding a deadline: `deadline`] (/#adding-deadline-deadline)
-- [Adding an event: `event`] (/#adding-event-event)
-- [Listing all tasks : `list`] (/#listing-all-tasks-list)
-- [Locating task by name: `find`] (/#locating-task-by-name-find)
-- [Deleting a task : `delete`] (/#deleting-a-task-delete)
-- [Exiting the program : `bye`] (/#exiting-the-program-bye)
-- [Saving the data] (/#saving-the-data)
+- [Adding a todo: `todo`] (#adding-a-todo-todo)
+- [Adding a deadline: `deadline`] (#adding-a-deadline-deadline)
+- [Adding an event: `event`] (#adding-an-event-event)
+- [Listing all tasks : `list`] (#listing-all-tasks-list)
+- [Locating task by name: `find`] (#locating-task-by-name-find)
+- [Deleting a task : `delete`] (#deleting-a-task-delete)
+- [Exiting the program : `bye`] (#exiting-the-program-bye)
+- [Saving the data] (#saving-the-data)
 
 ## Adding a todo: `todo`
 
@@ -68,7 +68,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-## Listing all tasks : `list`
+## Listing all tasks: `list`
 Lists all the tasks in the current list in the order they were added
 
 Format:
@@ -95,7 +95,7 @@ Here are the matching tasks in your list:
 2. [D][ ] submit assignment (by: 24/9/2024 2359)
 ```
 
-## Deleting a task : `delete`
+## Deleting a task: `delete`
 Deletes the task by its taskId as displayed in `list` or `find`
 
 Format:
@@ -110,7 +110,7 @@ Got it. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
-## Exiting the program : `bye`
+## Exiting the program: `bye`
 Loafy responds and exits the program. 
 ```
 byeee see you soon! ;)
