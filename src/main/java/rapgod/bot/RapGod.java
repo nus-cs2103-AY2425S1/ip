@@ -22,13 +22,15 @@ public class RapGod {
 
     public static String getInitialMessage() {
         String initialise = """
-            Yo, List Bot’s kickin' off! Here’s the lowdown:
+            Yo, Rap Bot's kickin off! Here's the lowdown:
+            
+            'ADD abc'                 - Adds a new task 'abc'
         
-            'LIST'                    - Wanna see everything? This shows the full list.
+            'LIST'                    - This shows the full list.
             'FIND abc, def'           - Searching for tasks with 'abc' or 'def'? This filters 'em out.
             
             'MARK n'                  - Mark the nth task as done. Easy peasy.
-            'UNMARK n'                - Oops, need to undo that? This marks the nth task as not done.
+            'UNMARK n'                - This marks the nth task as not done.
             'DELETE n'                - Get rid of the nth task. Poof, it's gone.
             
             '/BY z'                   - Got a deadline? Specify it with '/BY z'.
@@ -92,7 +94,7 @@ public class RapGod {
                     break;
 
                 case DEADLINE:
-                    String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
+                    String deadlineDesc = input.substring(4, input.toLowerCase().indexOf("/by"));
                     String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
                     assert !deadlineDesc.isEmpty() : "Yo! Deadline description should not be empty";
                     assert !due.isEmpty() : "Yo! Due date should not be empty";
@@ -100,7 +102,7 @@ public class RapGod {
                     break;
 
                 case EVENT:
-                    String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
+                    String eventDesc = input.substring(4, input.toLowerCase().indexOf("/from"));
                     String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
                     String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
                     assert !eventDesc.isEmpty() : "Yo! Event description should not be empty";
@@ -110,7 +112,7 @@ public class RapGod {
                     break;
 
                 case TODO:
-                    response = dataManager.getTaskList().addToDoTask(input);
+                    response = dataManager.getTaskList().addToDoTask(input.substring(4));
                     break;
 
                 case SNOOZE_DEADLINE:
@@ -157,7 +159,7 @@ public class RapGod {
      * Commands include listing tasks, marking/unmarking tasks, deleting tasks, and adding deadlines, events, or to-dos.
      */
     public enum CommandType {
-        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, SNOOZE_DEADLINE, SNOOZE_EVENT;
+        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, SNOOZE_DEADLINE, SNOOZE_EVENT, UNKNOWN;
 
         /**
          * Determines the {@link CommandType} based on the provided user input string.
@@ -184,14 +186,18 @@ public class RapGod {
                         && input.toLowerCase().contains("/from")
                         && input.toLowerCase().contains("/to")) {
                 return SNOOZE_EVENT;
-            } else if (input.toLowerCase().contains("/by")) {
+            } else if (input.toLowerCase().startsWith("add ")
+                        && input.toLowerCase().contains("/by")) {
                 return DEADLINE;
-            } else if (input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
+            } else if (input.toLowerCase().startsWith("add ")
+                    && input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
                 return EVENT;
+            } else if (input.toLowerCase().startsWith("add ")) {
+                return TODO;
             } else if (input.equalsIgnoreCase("bye")) {
                 return BYE;
             } else {
-                return TODO;
+                return UNKNOWN;
             }
         }
 
