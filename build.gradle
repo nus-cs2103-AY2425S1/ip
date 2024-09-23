@@ -51,11 +51,12 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'futureYou.jar'
     archiveBaseName = "futureYou"
+    archiveFileName = 'futureYou.jar'
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

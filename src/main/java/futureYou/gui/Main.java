@@ -31,7 +31,8 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             stage.setTitle("Future You");
-            Image img = new Image("/images/futureyou.png");
+            // Application icon
+            Image img = new Image("/images/futureYou.png");
             stage.getIcons().add(img);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
