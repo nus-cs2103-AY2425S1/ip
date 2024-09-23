@@ -9,10 +9,17 @@ import rizzler.ui.RizzlerException;
  * Represents user's command to unmark a task.
  */
 public class UnmarkCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            unmark {task ID}
+            Examples:
+            unmark 3
+            unmark 1""";
     private final int taskToUnmark;
 
     /**
-     * Constructor for an UnmarkCommand, given a task number they wish to unmark.
+     * Constructs an UnmarkCommand, given a task number they wish to unmark.
+     *
      * @param taskToUnmark Task number to be unmarked, as shown in <code>list</code>.
      */
     public UnmarkCommand(int taskToUnmark) {
@@ -23,6 +30,7 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks the given task number. If the task number is not found in the taskLog,
      * an error message is printed instead.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Message updating the user on the result of the unmarking operation.

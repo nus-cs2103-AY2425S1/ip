@@ -1,7 +1,5 @@
 package rizzler.ui.parser;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import rizzler.command.ByeCommand;
@@ -19,44 +17,67 @@ import rizzler.command.UnmarkCommand;
 import rizzler.ui.RizzlerException;
 
 /**
- * Parser to take in user input and process it into the appropriate command type.
- * Also logs all past user inputs.
+ * Represents a parser that takes in user input and processes it into the appropriate command type.
  */
 public class Parser {
-    private ArrayList<String> pastInputs;
+    private static final String MISSING_ARGUMENT_RESPONSE = "sorry dear, you're missing one or more arguments.";
+    private static final String WRONG_ARGUMENT_RESPONSE = "sorry dear, one or more of your arguments are wrong.";
+    private static final String UNKNOWN_ERROR_RESPONSE = "dreadfully sorry darlin', but there's an unexpected error.";
+    private static final String UNRECOGNISED_COMMAND_RESPONSE = " is not a recognised command.";
+
+    private static final String ERROR_MESSAGE_JOIN_CHARACTER = "\n\n";
+
+    private static final String DEADLINE_KEYWORD = "/by";
+    private static final String EVENT_START_KEYWORD = "/from";
+    private static final String EVENT_END_KEYWORD = "/to";
 
     /**
-     * Constructor for a <code>Parser</code> object that can parse user input strings.
-     * Initialises <code>pastInputs</code> as an <code>ArrayList</code> of strings.
+     * Constructs a <code>Parser</code> object that can parse user input strings.
      */
     public Parser() {
-        pastInputs = new ArrayList<String>();
     }
 
-    private Command parseHelp(String[] userInputArr) {
+    /**
+     * Takes in input as a given input <code>String</code>, returning the appropriate command.
+     * @param userInput <code>String</code> entered by the user.
+     * @return Command of varying types depending on user input.
+     */
+    public Command parseInput(String userInput) {
+        String trimmedUserInput = userInput.trim();
+        String[] userInputArr = trimmedUserInput.split(" ");
         Command outputCommand;
-        try {
-            String commandToHelpWith = userInputArr[1].trim().toLowerCase();
-            outputCommand = new HelpCommand(commandToHelpWith);
-        } catch (IndexOutOfBoundsException e) {
-            outputCommand = new HelpCommand();
-        } catch (RizzlerException e) {
-            // unrecognised command
-            // constructor cannot yet throw this exception, but will be enabled
-            outputCommand = new NullCommand("unrecognised command, apologies!");
-        }
+        String userInputFirstWord = userInputArr[0].trim();
+        outputCommand = switch (userInputFirstWord) {
+            case "bye" -> new ByeCommand();
+            case "help" -> new HelpCommand();
+            case "list" -> new ListCommand();
+            case "find" -> parseFind(userInputArr);
+            case "delete" -> parseDelete(userInputArr);
+            case "mark" -> parseMark(userInputArr);
+            case "unmark" -> parseUnmark(userInputArr);
+            case "todo" -> parseTodo(userInputArr);
+            case "deadline" -> parseDeadline(userInputArr);
+            case "event" -> parseEvent(userInputArr);
+            default -> parseUnknown(userInput);
+        };
         return outputCommand;
+    }
+
+    private String joinErrorMessages(String... values) {
+        return String.join(ERROR_MESSAGE_JOIN_CHARACTER, values);
     }
 
     private Command parseFind(String[] userInputArr) {
         Command outputCommand;
         try {
-            String stringToMatch = userInputArr[1].trim();
+            String[] stringToMatchArr = Arrays.copyOfRange(userInputArr, 1, userInputArr.length);
+            String stringToMatch = String.join(" ", stringToMatchArr).trim();
             outputCommand = new FindCommand(stringToMatch);
-        } catch (IndexOutOfBoundsException e) {
-            outputCommand = new NullCommand("we need a term to find, love.");
+        } catch (IndexOutOfBoundsException | RizzlerException e) {
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, FindCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
@@ -67,11 +88,13 @@ public class Parser {
             int taskToDelete = Integer.parseInt(userInputArr[1]);
             outputCommand = new DeleteCommand(taskToDelete);
         } catch (IndexOutOfBoundsException e) {
-            outputCommand = new NullCommand("could ya' specify the number of the task to delete?");
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, DeleteCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (NumberFormatException e) {
-            outputCommand = new NullCommand("i need a task number to delete, not a task description sugar");
+            String response = joinErrorMessages(WRONG_ARGUMENT_RESPONSE, DeleteCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
@@ -82,11 +105,13 @@ public class Parser {
             int taskToMark = Integer.parseInt(userInputArr[1]);
             outputCommand = new MarkCommand(taskToMark);
         } catch (IndexOutOfBoundsException e) {
-            outputCommand = new NullCommand("i need a task number to mark, hot stuff.");
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, MarkCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (NumberFormatException e) {
-            outputCommand = new NullCommand("i need a task number, not a description darlin'");
+            String response = joinErrorMessages(WRONG_ARGUMENT_RESPONSE, MarkCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
@@ -97,11 +122,13 @@ public class Parser {
             int taskToUnmark = Integer.parseInt(userInputArr[1]);
             outputCommand = new UnmarkCommand(taskToUnmark);
         } catch (IndexOutOfBoundsException e) {
-            outputCommand = new NullCommand("i need a task number to unmark, hot stuff.");
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, UnmarkCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (NumberFormatException e) {
-            outputCommand = new NullCommand("i need a task number, not a description darlin'");
+            String response = joinErrorMessages(WRONG_ARGUMENT_RESPONSE, UnmarkCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
@@ -110,15 +137,13 @@ public class Parser {
         Command outputCommand;
         try {
             String[] todoDescArr = Arrays.copyOfRange(userInputArr, 1, userInputArr.length);
-            if (todoDescArr.length == 0) {
-                return new NullCommand("you have to let me know what task you have to do, dearie");
-            }
             String todoDesc = String.join(" ", todoDescArr).trim();
             outputCommand = new TodoCommand(todoDesc);
-        } catch (DateTimeParseException e) {
-            outputCommand = new NullCommand(e.getMessage());
+        } catch (RizzlerException e) {
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, TodoCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
@@ -127,27 +152,16 @@ public class Parser {
         Command outputCommand;
         try {
             String[] deadlineInfoArr = Arrays.copyOfRange(userInputArr, 1, userInputArr.length);
-            if (deadlineInfoArr.length == 0) {
-                return new NullCommand("honey, deadlines require a description and a date/time.");
-            }
             String deadlineInfo = String.join(" ", deadlineInfoArr);
-            if (!deadlineInfo.contains("/by")) {
-                return new NullCommand("remember to include a \"/by [date/time]\" for the deadline!");
-            }
-            String[] deadlineInfoBySplit = deadlineInfo.split("/by");
-            if (deadlineInfoBySplit.length < 2) {
-                return new NullCommand("deadlines require both a description and a date/time dear.");
-            }
+            String[] deadlineInfoBySplit = deadlineInfo.split(DEADLINE_KEYWORD);
             String deadlineDesc = deadlineInfoBySplit[0].trim();
-            if (deadlineDesc.isEmpty()) {
-                return new NullCommand("your deadline is missing a description honey.");
-            }
             String deadlineTime = deadlineInfoBySplit[1].trim();
             outputCommand = new DeadlineCommand(deadlineDesc, deadlineTime);
-        } catch (DateTimeParseException e) {
-            outputCommand = new NullCommand(e.getMessage());
+        } catch (IndexOutOfBoundsException | RizzlerException e) {
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, DeadlineCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
@@ -156,82 +170,30 @@ public class Parser {
         Command outputCommand;
         try {
             String[] eventInfoArr = Arrays.copyOfRange(userInputArr, 1, userInputArr.length);
-            if (eventInfoArr.length == 0) {
-                return new NullCommand("honey, events require a description, start, and end.");
-            }
             String eventInfo = String.join(" ", eventInfoArr);
-            if (!eventInfo.contains("/from")) {
-                return new NullCommand("remember to include a \"/from [start]\" for this event!");
-            } else if (!eventInfo.contains("/to")) {
-                return new NullCommand("remember to include a \"/to [end]\" for this event!");
-            }
-            String[] eventInfoBySplit = eventInfo.split("/from");
+            String[] eventInfoBySplit = eventInfo.split(EVENT_START_KEYWORD);
             String eventDesc = eventInfoBySplit[0].trim();
-            if (eventDesc.isEmpty()) {
-                return new NullCommand("your event is missing a description honey.");
-            }
             String eventDuration = eventInfoBySplit[1];
-            if (eventDuration.split("/to").length < 2) {
-                return new NullCommand("events require a description, a start, and an end dear");
-            }
-            String eventStart = eventDuration.split("/to")[0].trim();
-            String eventEnd = eventDuration.split("/to")[1].trim();
+            String eventStart = eventDuration.split(EVENT_END_KEYWORD)[0].trim();
+            String eventEnd = eventDuration.split(EVENT_END_KEYWORD)[1].trim();
             outputCommand = new EventCommand(eventDesc, eventStart, eventEnd);
-        } catch (DateTimeParseException e) {
-            outputCommand = new NullCommand(e.getMessage());
+        } catch (IndexOutOfBoundsException | RizzlerException e) {
+            String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, EventCommand.COMMAND_FORMAT);
+            outputCommand = new NullCommand(response);
         } catch (Exception e) {
-            outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            outputCommand = new NullCommand(UNKNOWN_ERROR_RESPONSE);
         }
         return outputCommand;
     }
 
     /**
-     * Takes in input as a given input <code>String</code>, returning the appropriate command.
-     * Also adds the given user input to a log of all past user inputs.
-     * @param userInput <code>String</code> entered by the user.
-     * @return Command of varying types depending on user input.
+     * Parses user input and returns a command indicating the input is not understood.
+     * @param userInput Exact string input by the user for output
+     * @return NullCommand conveying to the user that the input is not understood.
      */
-    public Command parseInput(String userInput) {
-        pastInputs.add(userInput);
-        String[] userInputArr = userInput.split(" ");
-        Command outputCommand;
-        String userInputFirstWord = userInputArr[0].trim().toLowerCase();
-        switch (userInputFirstWord) {
-        case "bye":
-            outputCommand = new ByeCommand();
-            break;
-        case "help":
-            outputCommand = parseHelp(userInputArr);
-            break;
-        case "list":
-            outputCommand = new ListCommand();
-            break;
-        case "find":
-            outputCommand = parseFind(userInputArr);
-            break;
-        case "delete":
-            outputCommand = parseDelete(userInputArr);
-            break;
-        case "mark":
-            outputCommand = parseMark(userInputArr);
-            break;
-        case "unmark":
-            outputCommand = parseUnmark(userInputArr);
-            break;
-        case "todo":
-            outputCommand = parseTodo(userInputArr);
-            break;
-        case "deadline":
-            outputCommand = parseDeadline(userInputArr);
-            break;
-        case "event":
-            outputCommand = parseEvent(userInputArr);
-            break;
-        default:
-            outputCommand = new NullCommand("sincerest apologies darlin', i don't recognise that command.");
-            break;
-        }
-        return outputCommand;
-
+    private Command parseUnknown(String userInput) {
+        String modifiedUserInput = "\"" + userInput + "\"";
+        String response = joinErrorMessages(WRONG_ARGUMENT_RESPONSE, modifiedUserInput + UNRECOGNISED_COMMAND_RESPONSE);
+        return new NullCommand(response);
     }
 }

@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import rizzler.Rizzler;
 
 /**
- * Controller for the main GUI.
+ * Represents a controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -33,7 +33,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Rizzler instance */
+    /**
+     * Injects the Rizzler instance.
+     */
     public void setRizzler(Rizzler d) {
         assert d != null : "rizzler must not be null";
         assert userImage != null : "userImage must not be null";

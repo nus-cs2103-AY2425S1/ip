@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import rizzler.task.Deadline;
@@ -14,9 +13,10 @@ import rizzler.task.Event;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
 import rizzler.task.ToDo;
+import rizzler.ui.RizzlerException;
 
 /**
- * Storage object to handle reading and writing between TaskLogs and files.
+ * Represents a storage object to handle reading and writing between TaskLogs and files.
  * Default directory is <code>taskStorage/taskLog.tsv</code>, relative to where <code>Rizzler</code> is run.
  */
 public class Storage {
@@ -24,7 +24,7 @@ public class Storage {
     private final File file;
 
     /**
-     * Constructor for a <code>Storage</code> object.
+     * Constructs a <code>Storage</code> object.
      */
     protected Storage() {
         File file = new File(STORAGE_PATH.toString());
@@ -43,6 +43,7 @@ public class Storage {
 
     /**
      * Reads the tab-separated values file and parses it into a <code>TaskLog</code>.
+     *
      * @return <code>TaskLog</code> with all valid tasks read from the file
      */
     public TaskLog getTasks() {
@@ -55,12 +56,7 @@ public class Storage {
         }
         while (scanner.hasNextLine()) {
             String taskTsv = scanner.nextLine();
-            try {
-                Task newTask = tsvToTask(taskTsv);
-                taskLog.addTask(newTask);
-            } catch (DateTimeParseException e) {
-                // continue on to the next loop
-            }
+            addTaskIntoTasklog(taskTsv, taskLog);
         }
         scanner.close();
         return taskLog;
@@ -68,6 +64,7 @@ public class Storage {
 
     /**
      * Writes a <code>TaskLog</code> to a tab-separated values file for storage.
+     *
      * @param taskLog Input <code>TaskLog</code> to be written to the file.
      */
     public void storeTasks(TaskLog taskLog) {
@@ -82,9 +79,11 @@ public class Storage {
             System.out.println("Unable to write to storage file");
             System.out.println(e.getMessage());
         }
-
     }
 
+    /**
+     * Creates a new file. Returns true if successful, and false otherwise.
+     */
     private static boolean createFile(File file) {
         try {
             return file.createNewFile();
@@ -93,23 +92,45 @@ public class Storage {
         }
     }
 
-    private Task tsvToTask(String tsv) {
-        String[] tsvFields = tsv.split("\t");
+    /**
+     * Converts <code>taskTsv</code> into a <code>Task</code> and adds it into <code>TaskLog</code>.
+     * If the <code>taskTsv</code> cannot be parsed as a <code>Task</code>, it will not be added.
+     */
+    private void addTaskIntoTasklog(String taskTsv, TaskLog taskLog) {
+        try {
+            Task newTask = tsvToTask(taskTsv);
+            taskLog.addTask(newTask);
+        } catch (IndexOutOfBoundsException | RizzlerException e) {
+            // ignore this field, and do not add it to taskLog
+        }
+    }
+
+    /**
+     * Parses the provided <code>tsvLine</code> into a <code>Task</code> if possible.
+     *
+     * @param tsvLine Given input line from storage tsv file.
+     * @return A <code>Task</code> object of a specific type, based on the input.
+     * @throws RizzlerException Thrown in the event that the parameters in <code>tsvLine</code> are inappropriate
+     *         for the creation of a particular type of <code>Task</code>.
+     * @throws IndexOutOfBoundsException Thrown in the event that there are missing parameters in <code>tsvLine</code>
+     *         for the creation of a particular type of <code>Task</code>.
+     */
+    private Task tsvToTask(String tsvLine) throws RizzlerException, IndexOutOfBoundsException {
+        String[] tsvFields = tsvLine.split("\t");
         Task newTask;
-        assert tsvFields.length > 0 : "Invalid tsv fields";
         switch (tsvFields[0]) {
-        case "ToDo":
+        case ToDo.TYPE_STRING:
             boolean todoIsDone = Boolean.parseBoolean(tsvFields[1]);
             String todoDesc = tsvFields[2];
             newTask = new ToDo(todoDesc, todoIsDone);
             break;
-        case "Deadline":
+        case Deadline.TYPE_STRING:
             boolean deadlineIsDone = Boolean.parseBoolean(tsvFields[1]);
             String deadlineDesc = tsvFields[2];
             String deadlineTime = tsvFields[3];
             newTask = new Deadline(deadlineDesc, deadlineTime, deadlineIsDone);
             break;
-        case "Event":
+        case Event.TYPE_STRING:
             boolean eventIsDone = Boolean.parseBoolean(tsvFields[1]);
             String eventDesc = tsvFields[2];
             String eventStart = tsvFields[3];
@@ -117,7 +138,7 @@ public class Storage {
             newTask = new Event(eventDesc, eventStart, eventEnd, eventIsDone);
             break;
         default:
-            newTask = new ToDo("nullTask");
+            throw new RizzlerException("Invalid tsv field");
         }
         return newTask;
     }

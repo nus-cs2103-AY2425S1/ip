@@ -50,10 +50,16 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox to hold the user's message to the bot.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox to hold the bot's message to the user.
+     */
     public static DialogBox getRizzlerDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

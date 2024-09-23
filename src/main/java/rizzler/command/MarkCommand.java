@@ -9,10 +9,17 @@ import rizzler.ui.RizzlerException;
  * Represents the user's command to mark a task as done.
  */
 public class MarkCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            mark {task ID}
+            Examples:
+            mark 3
+            mark 1""";
     private final int taskToMark;
 
     /**
-     * Constructor for a mark command.
+     * Constructs a <code>MarkCommand</code>.
+     *
      * @param taskToMark The number of the task to mark, as shown in <code>list</code>.
      */
     public MarkCommand(int taskToMark) {
@@ -22,6 +29,7 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the given task as completed in taskLog. If no such task exists, an error message is printed.
+     *
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Strings representing the outcome of attempting to mark the task.

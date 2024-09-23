@@ -9,10 +9,10 @@ import rizzler.ui.parser.Parser;
  * Rizzler helps you to manage your tasks, and is definitely not interested in you.
  */
 public class Rizzler {
-    private boolean userIsDone = false;
-    private Parser parser;
-    private Storage storage;
-    private TaskLog taskLog;
+    private boolean isUserDone = false;
+    private final Parser parser;
+    private final Storage storage;
+    private final TaskLog taskLog;
 
     /**
      * Constructor for a Rizzler instance.
@@ -25,17 +25,21 @@ public class Rizzler {
 
     /**
      * Passes in an input to the Rizzler object, and returns its response.
-     * Also updates <code>userIsDone</code> based on the output of the command.
-     * @param userInput Whatever the user has typed in as input
-     * @return Rizzler's output in response to user input
+     * Also updates <code>isUserDone</code> based on the output of the command.
+     *
+     * @param userInput Whatever the user has typed in as input.
+     * @return Rizzler's output in response to user input.
      */
     public String getResponse(String userInput) {
         assert userInput != null : "userInput is null";
+
         StringBuilder response = new StringBuilder();
         Command userCommand = parser.parseInput(userInput);
         assert userCommand != null : "userCommand is null";
+
         String[] responseLines = userCommand.execute(storage, taskLog);
-        userIsDone = userCommand.shouldEnd();
+        isUserDone = userCommand.shouldEnd();
+
         for (String responseLine : responseLines) {
             assert responseLine != null : "responseLine is null";
             response.append(responseLine);
@@ -47,9 +51,10 @@ public class Rizzler {
     /**
      * Informs <code>MainWindow</code> whether the user is done with the Rizzler.
      * In the event that the user is done, the application may then be closed.
+     *
      * @return Whether the user is done or not.
      */
     public boolean shouldEnd() {
-        return userIsDone;
+        return isUserDone;
     }
 }
