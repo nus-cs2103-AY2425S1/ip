@@ -33,6 +33,8 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(words[1]));
             case "find":
                 return new FindCommand(words[1]);
+            case "help":
+                return new HelpCommand();
             case "todo":
                 return new AddCommand(fullCommand);
             case "deadline":
