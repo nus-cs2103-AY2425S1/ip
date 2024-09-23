@@ -1,30 +1,58 @@
-# Duke User Guide
+# Noisy User Guide
 
-// Update the title above to match the actual product name
 
 // Product screenshot goes here
 
-// Product intro goes here
+Introducing NoisyBot—your lively, task-managing companion! It not only helps you stay organized by adding, snoozing, and completing tasks but does so with a burst of humor and excitement.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Action: Adds a task with a deadline to your task list, specifying a due date.
 
-// Give examples of usage
+Outcome: NoisyBot will add the task and announce that it's been added to your list.
 
-Example: `keyword (optional arguments)`
+Example: `Deadline Submit_report true 2024-09-30`
+
+
+
+```
+expected output:
+Got it. I've added this task: 
+[D][X] dasd (by:Sep 30 2024)
+Now you have 1 tasks in the list.
+```
+
+## Adding todos
+
+Action: Adds a todo task to your task list.
+
+Outcome: NoisyBot will add the task and announce that it's been added to your list.
+
+Example: `todo test`
 
 // A description of the expected outcome goes here
 
 ```
-expected output
+expected output:
+Got it. I've added this task: 
+[T][] test 
+Now you have 1 tasks in the list.
 ```
 
-## Feature ABC
 
-// Feature details
+## Adding deadlines
 
+Action: Adds a task with a deadline to your task list, specifying a due date.
 
-## Feature XYZ
+Outcome: NoisyBot will add the task and announce that it's been added to your list.
 
-// Feature details
+Example: `Deadline Submit_report true 2024-09-30`
+
+// A description of the expected outcome goes here
+
+```
+expected output:
+Got it. I've added this task: 
+[D][X] dasd (by:Sep 30 2024)
+Now you have 1 tasks in the list.
+```
