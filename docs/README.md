@@ -75,6 +75,7 @@ Here are the matching tasks in your list:
 - **Description**: Shows a list of all commands with a brief description of their usage.
 - **Example**: `help`
 - **Expected output**:
+```
 Here are the available commands:
 
 todo <task description> - Adds a todo task
@@ -87,7 +88,7 @@ delete <task number> - Deletes a task
 find <keyword> - Finds tasks containing the keyword
 help - Shows this help message
 bye - Exits the program
-
+```
 <!-- ## Feature ABC
 
 // Feature details
