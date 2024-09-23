@@ -21,6 +21,8 @@ public class FindCommand extends Command {
      * @return a FindCommand with the relevant keyword
      */
     public static FindCommand of(String input) throws LewisException {
+        /* Important, Lewis shouldn't try to parse a null(not empty) string */
+        assert input != null : "Input shouldn't be null";
         try {
             String[] tokens = input.split("find", 2);
             String keyword = tokens[1].trim();
