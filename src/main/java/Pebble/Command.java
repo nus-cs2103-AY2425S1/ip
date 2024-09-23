@@ -14,6 +14,8 @@ public class Command {
      * @param arguments Additional information for command.
      */
     public Command(CommandType commandType, String arguments) {
+        assert commandType != null : "Command type should not be null";
+        assert arguments != null : "Arguments should not be null";
         this.commandType = commandType;
         this.arguments = arguments;
     }
