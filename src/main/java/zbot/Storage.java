@@ -91,14 +91,14 @@ public class Storage {
                     : task instanceof Deadline ? 'D'
                             : task instanceof Event ? 'E' : null;
             int taskStatusAsInt = task.getStatus() ? 1 : 0;
-            sb.append(taskType).append(",").append(taskStatusAsInt)
-                    .append(",").append(task.getDescription());
+            sb.append(taskType).append("|").append(taskStatusAsInt)
+                    .append("|").append(task.getDescription());
 
             if (taskType == 'D') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()));
+                sb.append("|").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()));
             } else if (taskType == 'E') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getStartDate()))
-                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()));
+                sb.append("|").append(Parser.formatDateTimeToInput(((Event) task).getStartDate()))
+                        .append("|").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()));
             } else if (taskType == 'T') {
                 // Do nothing
             }
@@ -106,7 +106,7 @@ public class Storage {
             assert taskType == 'T' || taskType == 'D' || taskType == 'E';
 
             if (!task.getNote().isEmpty()) {
-                sb.append(",").append(task.getNote().getContent());
+                sb.append("|").append(task.getNote().getContent());
             }
 
             sb.append("\n");
@@ -131,8 +131,7 @@ public class Storage {
             Scanner sc = new Scanner(new File(filePath));
 
             while (sc.hasNextLine()) {
-                String[] taskComponents = sc.nextLine().split(",");
-
+                String[] taskComponents = sc.nextLine().split("\\|", 6);
                 Task task = null;
                 if (taskComponents[0].equals("T")) {
                     assert taskComponents.length == 3 || taskComponents.length == 4;

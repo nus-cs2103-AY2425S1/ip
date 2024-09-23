@@ -81,9 +81,9 @@ public class StorageTest {
         try {
             File file = new File(tmpFilePath);
             Scanner sc = new Scanner(file);
-            assertEquals("T,0,test", sc.nextLine());
-            assertEquals("D,0,test,23/08/2021 0000", sc.nextLine());
-            assertEquals("E,0,test,23/08/2021 0000,23/08/2021 0000", sc.nextLine());
+            assertEquals("T|0|test", sc.nextLine());
+            assertEquals("D|0|test|23/08/2021 0000", sc.nextLine());
+            assertEquals("E|0|test|23/08/2021 0000|23/08/2021 0000", sc.nextLine());
             sc.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,9 +96,9 @@ public class StorageTest {
         File file = new File(tmpFilePath);
         try {
             FileWriter fw = new FileWriter(file);
-            fw.write("T,0,test\n");
-            fw.write("D,0,test,23/08/2021 0000\n");
-            fw.write("E,0,test,23/08/2021 0000,23/08/2021 0000\n");
+            fw.write("T|0|test\n");
+            fw.write("D|0|test|23/08/2021 0000\n");
+            fw.write("E|0|test|23/08/2021 0000|23/08/2021 0000\n");
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
