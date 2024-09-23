@@ -1,3 +1,13 @@
+<<<<<<< HEAD
 T| |study
 D| |homework |Nov 11 2024 11:59 pm
 E| |exam |Dec 11 2024 11:00 am|Dec 11 2024 12:00 pm
+=======
+D| |aa |Nov 11 1111 11:11 am
+T|X|read book
+T| |read book
+D| |a |Nov 11 1111 11:11 am
+T|X|read book
+E| |a |Nov 11 1111 11:11 am|Nov 11 1111 11:11 am
+T|X|lol
+>>>>>>> feb5fe9fadc91b70d7ae06ed08323e8a9137206a
