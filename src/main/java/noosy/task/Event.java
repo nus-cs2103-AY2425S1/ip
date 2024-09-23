@@ -68,8 +68,8 @@ public class Event extends Task {
      */
     @Override
     public String storeInFileAsString() {
-        String startingTime = (this.start != null) ? start.format(OUTPUT_FORMATTER) : "Invalid start date";
-        String endingTime = (this.end != null) ? end.format(OUTPUT_FORMATTER) : "Invalid end date";
+        String startingTime = (this.start != null) ? start.format(INPUT_FORMATTER) : "Invalid start date";
+        String endingTime = (this.end != null) ? end.format(INPUT_FORMATTER) : "Invalid end date";
         return String.format("E | %s | %s | %s - %s", super.storeInFileAsString(), this.name, startingTime, endingTime);
     }
 

@@ -60,7 +60,8 @@ public void showDeleted(Task deleted) {
 public void showTaskList(TaskList tasks) {
     String listMessage = "Heyo, here are the tasks we have:\n";
     dialogContainer.getChildren().
-            addAll(DialogBox.getNoosyDialog(listMessage + tasks.toString(), new Image("/images/red teletubby.jpeg")));
+            addAll(DialogBox.getNoosyDialog(listMessage +
+                    tasks.toString(), new Image("/images/red teletubby.jpeg")));
 }
 
 @Override

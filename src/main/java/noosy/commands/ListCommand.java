@@ -28,6 +28,11 @@ public class ListCommand extends Command {
         ui.showTaskList(tasks);
     }
 
+    /**
+     * Represents a method that gives the Noosy reponse after something has been executed by Noosy.
+     *
+     * @return the String of a completed execution by Noosy
+     */
     @Override
     public String getString() {
         return "Listed!";

@@ -1,10 +1,10 @@
 T | 1 | ma2104 lect
 T | 1 | cs2101
-E | 1 | work | Sept 04 2024 11:00 - Sept 04 2024 15:00
-E | 1 | boxing | Sept 04 2024 18:30 - Sept 04 2024 19:30
+E | 1 | work | 2024-09-04 1100 - 2024-09-04 1500
+E | 1 | boxing | 2024-09-04 1830 - 2024-09-04 1930
 T | 0 | laundry
 T | 0 | work
 T | 0 | tutorial
-T | 0 | ip
-E | 0 | town hall | Sept 24 2024 19:00 - Sept 24 2024 20:00
+E | 0 | town hall | 2024-09-24 1900 - 2024-09-24 2000
+D | 0 | sep application | 2024-09-27
 D | 0 | ip | 2024-09-23

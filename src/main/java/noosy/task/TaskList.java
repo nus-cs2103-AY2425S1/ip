@@ -92,13 +92,6 @@ public class TaskList {
         return new TaskList(tasksWithKeyword);
     }
 
-    /**
-     * Returns the TaskList as a Stream.
-     */
-    public Stream toStream() {
-        return this.tasks.stream();
-    }
-
     @Override
     public String toString() {
         String str = "";

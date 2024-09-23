@@ -62,8 +62,8 @@ public class Deadline extends Task {
      */
     @Override
     public String storeInFileAsString() {
-        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by Noosy";
-        return String.format("D | %s | %s | %s", super.storeInFileAsString(), this.name, this.due);
+        String formattedDate = (due != null) ? due.format(INPUT_FORMATTER) : "Date can't be processed by Noosy";
+        return String.format("D | %s | %s | %s", super.storeInFileAsString(), this.name, formattedDate);
     }
 
     /**
