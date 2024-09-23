@@ -73,9 +73,11 @@ To exist Future You just type `bye`
 
 ## Acknowledgements
 
-1. ASCII Art - https://www.asciiart.eu/text-to-ascii-art
-2. Java Input - https://www.w3schools.com/java/java_user_input.asp 
-3. Split by `|` - https://stackoverflow.com/questions/16311651/java-string-split-by
-4. Collection.sort - https://www.geeksforgeeks.org/collections-sort-java-examples/, https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property, https://stackoverflow.com/questions/62492114/how-does-comparator-works-internally
-5. Future You Icon - https://soundcloud.com/jo_el_mont/turn-it-up-jersey-club-type-beat
-6. User Icon - https://emojiisland.com/products/slightly-smiling-face-emoji-icon
+1. [ASCII Art](https://www.asciiart.eu/text-to-ascii-art)
+2. [Java Input](https://www.w3schools.com/java/java_user_input.asp )
+3. [Split by `|`](https://stackoverflow.com/questions/16311651/java-string-split-by)
+4. [Sorting Tasks Reference 1](https://www.geeksforgeeks.org/collections-sort-java-examples/)
+5. [Sorting Tasks Reference 2](https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property)
+6. [Sorting Tasks Reference 3](https://stackoverflow.com/questions/62492114/how-does-comparator-works-internally)
+5. [Future You Icon](https://soundcloud.com/jo_el_mont/turn-it-up-jersey-club-type-beat)
+6. [User Icon](https://emojiisland.com/products/slightly-smiling-face-emoji-icon)
