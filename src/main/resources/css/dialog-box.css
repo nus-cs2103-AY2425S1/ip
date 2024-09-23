@@ -17,7 +17,8 @@
 
 .error-label {
     -fx-font: italic bold 14px "Arial";
-    -fx-text-fill: #ed413b;
+    -fx-background-color: #f75c5c;
+    -fx-text-fill: #FFFFFF
 }
 
 #displayPicture {
