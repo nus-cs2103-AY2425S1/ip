@@ -15,3 +15,12 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Ignore the rizz.txt file
+/data/rizz.txt
+
+# Ignore out folder from IDE build
+/out.production.IP.rizz/
+
+# Ignore Java compiled class files
+/**/*.class
