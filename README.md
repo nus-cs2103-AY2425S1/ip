@@ -57,3 +57,5 @@ I used Github copilot in various places to help me debug my code
 and solve classpath issues.
 
 
+## User Interface
+![AVA UI](docs/Ui.png)
