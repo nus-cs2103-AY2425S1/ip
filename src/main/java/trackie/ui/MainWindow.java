@@ -38,7 +38,8 @@ public class MainWindow extends AnchorPane {
 
     public void greet() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getTrackieDialog("Yo wassup", new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"))));
+                DialogBox.getTrackieDialog("Yo wassup! Trackie here =)",
+                        new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"))));
     }
 
     /**
