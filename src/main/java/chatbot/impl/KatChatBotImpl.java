@@ -40,15 +40,16 @@ public class KatChatBotImpl implements ChatBot {
      */
     @Override
     public String getResponse(String input) {
-        if (input.equalsIgnoreCase(ENDING_COMMAND)) {
-            return ENDING_RESPONSE;
-        }
-
         try {
             return messageParser.handleMessage(input);
         } catch (InvalidMessageException e) {
             return e.getMessage();
         }
+    }
+
+    @Override
+    public boolean isTerminationCommand(String input) {
+        return input.equalsIgnoreCase(ENDING_COMMAND);
     }
 
 }

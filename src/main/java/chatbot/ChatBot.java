@@ -20,4 +20,12 @@ public interface ChatBot {
      */
     String getResponse(String input);
 
+    /**
+     * Checks if user's input is the termination command.
+     *
+     * @param input The user's input message.
+     * @return True if input message is the terminatipn command, false otherwise.
+     */
+    boolean isTerminationCommand(String input);
+
 }
