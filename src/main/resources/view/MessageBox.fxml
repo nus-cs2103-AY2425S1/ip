@@ -15,9 +15,9 @@
          stylesheets="@../css/message-box.css">
     <children>
         <Label fx:id="text" text="Label" wrapText="true" minHeight="-Infinity"/>
-        <ImageView fx:id="picture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="picture" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
     </padding>
 </fx:root>
