@@ -1,5 +1,7 @@
 package rizzler.command;
 
+import java.util.stream.Stream;
+
 import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
@@ -8,6 +10,9 @@ import rizzler.task.TaskLog;
  * Represents the user's command to find a task based on a search term.
  */
 public class FindCommand extends Command {
+    private static final String NO_MATCHING_TASKS_RESPONSE = "our list is empty right now dear, "
+            + "no tasks to search through!";
+    private final String LIST_OF_TASKS_HEADER = "here are the tasks that match \"" + getTextInput() + "\"";
 
     /**
      * Constructor for a FindCommand object.
@@ -26,24 +31,24 @@ public class FindCommand extends Command {
     @Override
     public String[] execute(Storage storage, TaskLog taskLog) {
         Task[] tasks = taskLog.getLog();
+        Task[] tasksMatching = Stream.of(tasks)
+                .filter(task -> task.getDesc().contains(getTextInput()))
+                .toArray(Task[]::new);
+
+        if (tasksMatching.length == 0) {
+            return new String[] {NO_MATCHING_TASKS_RESPONSE};
+        }
+
         StringBuilder output = new StringBuilder();
-        int numMatches = 1;
-        if (tasks.length == 0) {
-            output.append("our list is empty right now dear, no tasks to search through!\n");
-        } else {
-            output.append("here are the tasks that match \"");
-            output.append(getTextInput());
-            output.append("\":\n");
-            for (Task task : tasks) {
-                if (!task.getDesc().contains(getTextInput())) {
-                    continue;
-                }
-                output.append(numMatches);
-                output.append(". ");
-                output.append(task);
-                output.append("\n");
-                numMatches++;
-            }
+        int matchId = 1;
+        output.append(LIST_OF_TASKS_HEADER);
+        output.append("\n");
+        for (int i = 0; i < tasksMatching.length; i++) {
+            output.append(matchId);
+            output.append(". ");
+            output.append(tasksMatching[i]);
+            output.append("\n");
+            matchId++;
         }
         return output.toString().split("\n");
     }
