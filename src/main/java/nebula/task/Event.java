@@ -32,6 +32,8 @@ public class Event extends Task {
      * @return A LocalDateTime object to be assigned to the start and end fields
      */
     private LocalDateTime parseDateTimeOrDate(String dateStr) {
+        assert dateStr != null && !dateStr.isEmpty() : "Date string cannot be null or empty";
+
         try {
             // Try parsing with date and time
             return LocalDateTime.parse(dateStr, DATE_TIME_FORMAT);

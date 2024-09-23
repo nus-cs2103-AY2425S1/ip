@@ -21,6 +21,7 @@ public class TaskList {
     }
 
     public TaskList(ArrayList<Task> listOfTasks) {
+        assert listOfTasks != null : "Given list of tasks should not be null";
         taskList = listOfTasks;
         this.ui = new Ui();
     }
@@ -40,6 +41,7 @@ public class TaskList {
      * @return The number of tasks in the TaskList
      */
     public static int getTaskListLength() {
+        assert taskList != null : "Task list should not be null";
         return taskList.size();
     }
 
@@ -49,6 +51,7 @@ public class TaskList {
      * @param task The Task object to be added to the TaskList
      */
     public String addTask(Task task) {
+        assert task != null : "Task to be added should not be null";
         taskList.add(task);
         return ui.displayAddedTask(task);
     }
@@ -60,7 +63,9 @@ public class TaskList {
      * @return A string message indicating the result of the marking operation
      */
     public String markTask(int taskNum) {
+        assert taskNum > 0 && taskNum <= taskList.size() : "Task number should be within valid range";
         Task t = taskList.get(taskNum - 1);
+        assert t != null : "Task retrieved should not be null";
         if (t.isDone()){
             return ui.displayAlreadyMarkedTask();
         }
@@ -75,7 +80,9 @@ public class TaskList {
      * @return A string message indicating the result of the unmarking operation
      */
     public String unmarkTask(int taskNum) {
+        assert taskNum > 0 && taskNum <= taskList.size() : "Task number should be within valid range";
         Task t = taskList.get(taskNum - 1);
+        assert t != null : "Task to be deleted should not be null";
         if (!t.isDone()){
             return ui.displayAlreadyUnmarkedTask();
         }
@@ -89,6 +96,7 @@ public class TaskList {
      * @param taskNum The task number of the Task Object to be deleted from the TaskList
      */
     public String deleteTask(int taskNum) {
+        assert taskNum > 0 && taskNum <= taskList.size() : "Task number should be within valid range";
         System.out.println(taskNum);
         Task t = taskList.get(taskNum - 1);
         taskList.remove(taskNum - 1);
@@ -101,6 +109,7 @@ public class TaskList {
      * @param taskNum The task number of the Task Object to be returned
      */
     public Task getTask(int taskNum) {
+        assert taskNum > 0 && taskNum <= taskList.size() : "Task number should be within valid range";
         Task t = taskList.get(taskNum);
         return t;
     }
