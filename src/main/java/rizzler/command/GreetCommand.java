@@ -9,17 +9,18 @@ import rizzler.task.TaskLog;
 public class GreetCommand extends Command {
 
     /**
-     * Constructor for a greet command.
+     * Constructs a greet command.
      */
     public GreetCommand() {
         super();
     }
 
     /**
-     * No execution is done here: this serves as storage for the greeting lines.
+     * Serves as storage for the greeting lines.
+     * No execution or manipulation of storage/taskLog is done here.
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
-     * @return Welcome messages to be printed to the user.
+     * @return Lines of a welcome message to be printed to the user.
      */
     @Override
     public String[] execute(Storage storage, TaskLog taskLog) {

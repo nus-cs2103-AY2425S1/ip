@@ -9,7 +9,7 @@ import rizzler.task.TaskLog;
 public class ByeCommand extends Command {
 
     /**
-     * Constructor for an ByeCommand object.
+     * Constructs a ByeCommand object.
      */
     public ByeCommand() {
         super();

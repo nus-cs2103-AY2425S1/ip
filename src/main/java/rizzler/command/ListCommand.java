@@ -10,14 +10,14 @@ import rizzler.task.TaskLog;
 public class ListCommand extends Command {
 
     /**
-     * Constructor for ListCommand.
+     * Constructs a ListCommand.
      */
     public ListCommand() {
         super();
     }
 
     /**
-     * Runs through every task in the taskLog and prints it out for the user.
+     * Iterates through every task in the taskLog and prints it out for the user.
      * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
      * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
      * @return Numbered lines representing each task.

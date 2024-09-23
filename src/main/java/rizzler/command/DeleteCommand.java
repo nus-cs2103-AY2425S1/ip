@@ -18,9 +18,8 @@ public class DeleteCommand extends Command {
             "\"delete 1\""};
     private final int taskToDelete;
 
-
     /**
-     * Constructor for a <code>DeleteCommand</code> object.
+     * Constructs a <code>DeleteCommand</code> object.
      * @param commandToDelete Number representing the task to be deleted under <code>list</code>
      */
     public DeleteCommand(int commandToDelete) {

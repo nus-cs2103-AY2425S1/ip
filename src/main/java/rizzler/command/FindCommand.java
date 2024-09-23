@@ -10,7 +10,7 @@ import rizzler.task.TaskLog;
 public class FindCommand extends Command {
 
     /**
-     * Constructor for a FindCommand object.
+     * Constructs a FindCommand object.
      * @param strToMatch String that the user wants to search for within all tasks.
      */
     public FindCommand(String strToMatch) {

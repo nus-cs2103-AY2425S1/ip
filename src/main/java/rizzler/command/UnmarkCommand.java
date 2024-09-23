@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     private final int taskToUnmark;
 
     /**
-     * Constructor for an UnmarkCommand, given a task number they wish to unmark.
+     * Constructs an UnmarkCommand, given a task number they wish to unmark.
      * @param taskToUnmark Task number to be unmarked, as shown in <code>list</code>.
      */
     public UnmarkCommand(int taskToUnmark) {

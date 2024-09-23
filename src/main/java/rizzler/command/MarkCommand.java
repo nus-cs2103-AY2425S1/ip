@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
     private final int taskToMark;
 
     /**
-     * Constructor for a mark command.
+     * Constructs a <code>MarkCommand</code>.
      * @param taskToMark The number of the task to mark, as shown in <code>list</code>.
      */
     public MarkCommand(int taskToMark) {
