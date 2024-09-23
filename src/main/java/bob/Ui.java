@@ -26,6 +26,7 @@ public class Ui {
         '----------------' '----------------' '----------------'
         """;
     private final Scanner scanner;
+    private String lastMessage = "";
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -46,6 +47,7 @@ public class Ui {
                 + text.replace("\n", "\n ")
                 + "\n" + SEPARATOR;
         System.out.println(LINE_PREFIX + t.replace("\n", "\n" + LINE_PREFIX) + "\n");
+        lastMessage = text;
     }
 
     /**
@@ -97,7 +99,9 @@ public class Ui {
      * @param errorMessage the error message to output
      */
     public void printError(String errorMessage) {
-        printWithFormat(ANSI_RED + errorMessage + ANSI_RESET);
+        String displayedText = ANSI_RED + errorMessage + ANSI_RESET;
+        printWithFormat(displayedText);
+        lastMessage = displayedText;
     }
 
     /**
@@ -107,5 +111,14 @@ public class Ui {
      */
     public String readInput() {
         return scanner.nextLine();
+    }
+
+    /**
+     * Returns the unformatted last output of this Ui instance.
+     *
+     * @return the unformatted last output of this Ui instance.
+     */
+    public String getLastMessage() {
+        return lastMessage;
     }
 }
