@@ -98,4 +98,14 @@ public class Bigdog {
         return reply;
     }
 
+    /**
+     * The main entry point of the Bigdog application.
+     * This method is required for the JVM to run the Bigdog application.
+     * However, in this case, it does not perform any specific actions since it is not
+     * needed for typical JavaFX applications, which use the {@code Application.launch} method.
+     *
+     * @param args Command-line arguments passed to the program (not used).
+     */
+    public static void main(String[] args) {}
+
 }
