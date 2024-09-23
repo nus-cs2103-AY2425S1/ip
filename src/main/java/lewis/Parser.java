@@ -19,7 +19,7 @@ class Parser {
 
     /** A set of valid commands for Lewis to execute */
     public final static Set<String> VALID_COMMANDS = Set.of("help","mark","unmark","echo",
-            "todo","deadline","event","bye","hello","list","delete","exit");
+            "todo","deadline","event","bye","hello","list","delete","exit","find");
 
     /**
      * Gets the command from the input string, compares it against the set of valid commands
@@ -56,11 +56,7 @@ class Parser {
                 return new MarkUnmarkCommand(input);
             }
             case "echo" -> {
-                try {
-                    return new EchoCommand(input);
-                } catch (LewisException e) {
-                    Ui.printString(e.getMessage());
-                }
+                return new EchoCommand(input);
             }
             case "todo" -> {
                 return new TodoCommand(input);
@@ -69,11 +65,7 @@ class Parser {
                 return DeadlineCommand.of(input);
             }
             case "event" -> {
-                try {
-                    return EventCommand.of(input);
-                } catch (LewisException e) {
-                    Ui.printString(e.getMessage());
-                }
+                return EventCommand.of(input);
             }
             case "bye", "exit" -> {
                 return ByeCommand.of();
@@ -86,6 +78,9 @@ class Parser {
             }
             case "delete" -> {
                 return DeleteCommand.of(input);
+            }
+            case "find" -> {
+                return FindCommand.of(input);
             }
         }
         return HelpCommand.of("help");

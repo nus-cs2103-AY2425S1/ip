@@ -30,6 +30,12 @@ public class TaskList {
     private static final ArrayList<Task> TASKS = new ArrayList<>(1024);
 
     /**
+     * Container for all tasks that the user is currently viewing.
+     * By default, it will refer to all tasks.
+     */
+    private static ArrayList<Task> currentTasks = TASKS;
+
+    /**
      * Factory method for instantiating a tasklist.
      * Given an array of valid strings representing tasks in csv format,
      * load the tasks into tasklist, and return the filled tasklist.
@@ -56,7 +62,7 @@ public class TaskList {
      * @return a task
      */
     static Task getTask(int index) {
-        return TASKS.get(index);
+        return currentTasks.get(index);
     }
 
 
@@ -135,12 +141,37 @@ public class TaskList {
      */
     public static ArrayList<String> allTasksToString() {
         ArrayList<String> tasksToString = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < currentTasks.size(); i++) {
             Task taskToAdd = TaskList.getTask(i);
             String taskString = String.format("%d. %s", i + 1, taskToAdd.toString());
             tasksToString.add(taskString);
         }
         return tasksToString;
+    }
+
+    /**
+     * Resets the current tasklist to the entire tasklist.
+     * This usage should be called when calling the 'list' command.
+     */
+    public static void showAllTasks() {
+        currentTasks = TASKS;
+    }
+
+    /**
+     * Sets the current tasklist to a subset of all tasks
+     * containing the keyword in its description or date and time fields.
+     * This method can be called repeatedly to narrow the list of tasks.
+     * @param keyword the keyword to look for
+     */
+    public static void allMatchingTasks(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (int i = 0; i < currentTasks.size(); i++) {
+            Task taskToCheck = TaskList.getTask(i);
+            if (taskToCheck.toString().contains(keyword)) {
+                filteredTasks.add(taskToCheck);
+            }
+        }
+        currentTasks = filteredTasks;
     }
 
     /**

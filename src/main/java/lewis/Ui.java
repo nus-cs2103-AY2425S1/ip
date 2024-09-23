@@ -62,6 +62,9 @@ public class Ui {
     }
 
     public static void printList(ArrayList<String> listToPrint) {
+        if (listToPrint.isEmpty()) {
+            System.out.println("Hey, this list is empty. Try adding some new tasks!");
+        }
         for (String string : listToPrint) {
             System.out.println(string);
         }

@@ -21,7 +21,7 @@ public class ListCommand extends Command {
     }
 
     public static String getHelpDescription() {
-        return "Displays the current tasklist.\n" +
+        return "Displays all tasks in the current tasklist.\n" +
                 "Usage: list";
     }
     /**
@@ -29,6 +29,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute() {
+        TaskList.showAllTasks();
         ArrayList<String> tasksToPrint = TaskList.allTasksToString();
         Ui.printList(tasksToPrint);
     }
