@@ -5,6 +5,7 @@
 Welcome to **Vinegar**, your personal task manager! Vinegar helps you manage tasks such as todos, deadlines, and events directly from the command line interface. It also includes additional features like help documentation and loading sample data for first-time users.
 
 ## Getting Started
+**[Download v0.2 here](https://github.com/limjeremy496/ip/releases)**
 
 To get started with Vinegar, follow these steps:
 
