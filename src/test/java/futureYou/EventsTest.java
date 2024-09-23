@@ -1,20 +1,20 @@
 package futureyou;
 
-import org.junit.jupiter.api.Test;
-
-import futureyou.task.Events;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import futureyou.task.Events;
 
 /**
  * Tests for the {@link Events} class.
  */
 public class EventsTest {
     @Test
-    public void Events_validCommand_eventCreated() {
+    public void events_normalInput_writtenCorrectly() {
         String taskName = "Submit 2103";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d MMM yyyy - HH:mm");
         LocalDateTime startDate = LocalDateTime.of(2024, 9, 05, 14, 0);
