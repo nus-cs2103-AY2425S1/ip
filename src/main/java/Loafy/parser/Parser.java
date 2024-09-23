@@ -19,91 +19,76 @@ import loafy.task.Event;
 import loafy.task.Task;
 import loafy.task.Todo;
 
-
+/**
+ * Represents a parser to handle user commands.
+ */
 public class Parser {
-    public static Command parse(String line) throws LoafyException {
-        String[] arr = line.split(" ");
 
-        if (arr.length == 0) {
-            throw LoafyException.ofEmptyInput();
-        } else if (line.equals("bye")) {
-            return new ExitCommand();
-        } else if (line.equals("list")) {
-            return new ListCommand();
-        } else if (arr[0].equals("mark")
-                || arr[0].equals("unmark")
-                || arr[0].equals("delete")) {
-            if (arr.length != 2) {
-                throw LoafyException.ofInvalidAction();
-            } else {
-                try {
-                    int taskId = Integer.parseInt(arr[1]);
-                    if (arr[0].equals("delete")) {
-                        return new DeleteCommand(taskId);
-                    } else {
-                        boolean isDone = arr[0].equals("mark");
-                        return new MarkCommand(isDone, taskId);
-                    }
-                } catch (NumberFormatException e) {
-                    throw LoafyException.ofInvalidAction();
-                }
-            }
-        } else if (arr[0].equals("todo")) {
-            if (arr.length == 1) {
-                throw LoafyException.ofEmptyTodo();
-            } else {
-                String name = joinRange(arr, 1, arr.length);
-                Task task = new Todo(name);
-                return new AddCommand(task);
-            }
-        } else if (arr[0].equals("deadline")) {
-            int i = Arrays.asList(arr).indexOf("/by");
-            if (i == -1) {
-                throw LoafyException.ofNoDeadline();
-            } else {
-                String name = joinRange(arr, 1, i);
-                String date = joinRange(arr, i + 1, arr.length);
-                if (name.isEmpty() || date.isEmpty()) {
-                    throw LoafyException.ofNoDeadline();
-                } else {
-                    LocalDateTime dateTime = parseDate(date);
-                    Task task = new Deadline(name, dateTime);
-                    return new AddCommand(task);
-                }
-            }
-        } else if (arr[0].equals("event")) {
-            int fromIndex = Arrays.asList(arr).indexOf("/from");
-            int toIndex = Arrays.asList(arr).indexOf("/to");
-            if (fromIndex == -1 || toIndex == -1) {
-                throw LoafyException.ofNoEventDates();
-            } else {
-                String name = joinRange(arr, 1, fromIndex);
-                String startDateString = joinRange(arr, fromIndex + 1, toIndex);
-                String endDateString = joinRange(arr, toIndex + 1, arr.length);
-                if (name.isEmpty() || startDateString.isEmpty() || endDateString.isEmpty()) {
-                    throw LoafyException.ofNoEventDates();
-                } else {
-                    LocalDateTime startDate = parseDate(startDateString);
-                    LocalDateTime endDate = parseDate(endDateString);
-                    Task task = new Event(name, startDate, endDate);
-                    return new AddCommand(task);
-                }
-            }
-        } else if (arr[0].equals("find")) {
-            if (arr.length == 1) {
-                throw LoafyException.ofEmptyFind();
-            }
-            return new FindCommand(arr[1]);
-        } else {
+    /**
+     * Parses the user input into a command.
+     * Returns the relevant command.
+     * If the input is invalid, an error message is shown to inform the user.
+     *
+     * @param line User input in String format.
+     * @return A command corresponding to the user input.
+     */
+    public static Command parse(String line) throws LoafyException {
+        String[] inputArr = line.split(" ");
+        Command command;
+
+        switch (inputArr[0]) {
+        case "bye":
+            command = handleExit(inputArr);
+            break;
+        case "list":
+            command = handleList(inputArr);
+            break;
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
+            command = handleMarkUnmarkDelete(inputArr);
+            break;
+        case "todo":
+            command = handleToDo(inputArr);
+            break;
+        case "deadline":
+            command = handleDeadline(inputArr);
+            break;
+        case "event":
+            command = handleEvent(inputArr);
+            break;
+        case "find":
+            command = handleFind(inputArr);
+            break;
+        default:
             throw LoafyException.ofInvalidCommand();
         }
+
+        return command;
     }
 
+    /**
+     * Returns a substring from the specified range of the word array.
+     *
+     * @param arr An array of words of the original string.
+     * @param startIndex The index of the first word of the substring.
+     * @param endIndex The index of the last word of the substring.
+     * @return The generated substring.
+     */
     public static String joinRange(String[] arr, int startIndex, int endIndex) {
         String[] subArr = Arrays.copyOfRange(arr, startIndex, endIndex);
         return String.join(" ", subArr);
     }
 
+    /**
+     * Parses the user input into a LocalDateTime object.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param date The user input representing a date.
+     * @return The LocalDateTime object.
+     */
     public static LocalDateTime parseDate(String date) throws LoafyException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -111,5 +96,146 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw LoafyException.ofWrongDateFormat();
         }
+    }
+
+    /**
+     * Returns an exit command.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return the exit command.
+     */
+    public static Command handleExit(String[] inputArr) throws LoafyException {
+        if (inputArr.length != 1) {
+            throw LoafyException.ofInvalidCommand();
+        }
+
+        return new ExitCommand();
+    }
+
+    /**
+     * Returns a list command.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return the list command.
+     */
+    public static Command handleList(String[] inputArr) throws LoafyException {
+        if (inputArr.length != 1) {
+            throw LoafyException.ofInvalidCommand();
+        }
+
+        return new ListCommand();
+    }
+
+    /**
+     * Returns a mark or delete command corresponding to the user input.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return The mark or delete command.
+     */
+    public static Command handleMarkUnmarkDelete(String[] inputArr) throws LoafyException {
+        if (inputArr.length != 2) {
+            throw LoafyException.ofInvalidAction();
+        }
+
+        try {
+            int taskId = Integer.parseInt(inputArr[1]);
+            if (inputArr[0].equals("delete")) {
+                return new DeleteCommand(taskId);
+            } else {
+                boolean isDone = inputArr[0].equals("mark");
+                return new MarkCommand(isDone, taskId);
+            }
+        } catch (NumberFormatException e) {
+            throw LoafyException.ofInvalidAction();
+        }
+    }
+
+    /**
+     * Returns a todo command.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return the todo command.
+     */
+    public static Command handleToDo(String[] inputArr) throws LoafyException {
+        if (inputArr.length == 1) {
+            throw LoafyException.ofEmptyTodo();
+        }
+
+        String name = joinRange(inputArr, 1, inputArr.length);
+        Task task = new Todo(name);
+        return new AddCommand(task);
+    }
+
+    /**
+     * Returns a deadline command.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return the deadline command.
+     */
+    public static Command handleDeadline(String[] inputArr) throws LoafyException {
+        int i = Arrays.asList(inputArr).indexOf("/by");
+
+        if (i == -1) {
+            throw LoafyException.ofNoDeadline();
+        }
+
+        String name = joinRange(inputArr, 1, i);
+        String date = joinRange(inputArr, i + 1, inputArr.length);
+
+        if (name.isEmpty() || date.isEmpty()) {
+            throw LoafyException.ofNoDeadline();
+        }
+
+        LocalDateTime dateTime = parseDate(date);
+        Task task = new Deadline(name, dateTime);
+        return new AddCommand(task);
+    }
+
+    /**
+     * Returns an event command.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return the event command.
+     */
+    public static Command handleEvent(String[] inputArr) throws LoafyException {
+        int fromIndex = Arrays.asList(inputArr).indexOf("/from");
+        int toIndex = Arrays.asList(inputArr).indexOf("/to");
+
+        if (fromIndex == -1 || toIndex == -1) {
+            throw LoafyException.ofNoEventDates();
+        }
+
+        String name = joinRange(inputArr, 1, fromIndex);
+        String startDateString = joinRange(inputArr, fromIndex + 1, toIndex);
+        String endDateString = joinRange(inputArr, toIndex + 1, inputArr.length);
+
+        if (name.isEmpty() || startDateString.isEmpty() || endDateString.isEmpty()) {
+            throw LoafyException.ofNoEventDates();
+        }
+
+        LocalDateTime startDate = parseDate(startDateString);
+        LocalDateTime endDate = parseDate(endDateString);
+        Task task = new Event(name, startDate, endDate);
+        return new AddCommand(task);
+    }
+
+    /**
+     * Returns a find command.
+     * Throws a LoafyException if user input has an unexpected format.
+     *
+     * @param inputArr An array of words of the user input.
+     * @return the find command.
+     */
+    public static Command handleFind(String[] inputArr) throws LoafyException {
+        if (inputArr.length == 1) {
+            throw LoafyException.ofEmptyFind();
+        }
+        return new FindCommand(inputArr[1]);
     }
 }

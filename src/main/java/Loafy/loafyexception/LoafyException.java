@@ -15,16 +15,6 @@ public class LoafyException extends Exception {
     }
 
     /**
-     * Returns a Loafy Exception for empty input from user.
-     *
-     * @return A new Loafy Exception.
-     */
-    public static LoafyException ofEmptyInput() {
-        return new LoafyException(
-                "Did you want to say something?");
-    }
-
-    /**
      * Returns a Loafy Exception for unspecified/invalid task id in 'mark', 'unmark' or 'delete' commands.
      *
      * @return A new Loafy Exception.
