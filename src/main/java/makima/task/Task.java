@@ -19,14 +19,15 @@ public abstract class Task {
     }
 
     /**
-     * Instantiates a new task
+     * Instantiates a new task, used for load purposes
      *
      * @param name
      * @param isDone
      */
-    public Task(String name, boolean isDone) {
+    public Task(String name, boolean isDone, PriorityLevel priorityLevel) {
         this.name = name;
         this.isDone = isDone;
+        this.priorityLevel = priorityLevel;
     }
 
     public boolean match(String search) {
@@ -70,7 +71,7 @@ public abstract class Task {
      * @return string representing the task
      */
     public String toFileString() {
-        return String.format("%s\n%s\n", name, isDone);
+        return String.format("%s\n%s\n%s\n", name, isDone, priorityLevel);
     }
 
     /**

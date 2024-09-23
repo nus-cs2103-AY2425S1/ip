@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
+    public final static int SAVE_PARAMETERS = 6;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
@@ -31,8 +32,9 @@ public class Event extends Task {
      * @param endTime
      * @param isDone
      */
-    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isDone) {
-        super(name, isDone);
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isDone,
+                 PriorityLevel priorityLevel) {
+        super(name, isDone, priorityLevel);
         this.startTime = startTime;
         this.endTime = endTime;
     }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
 
+    public final static int SAVE_PARAMETERS = 5;
     private LocalDateTime endTime;
 
     /**
@@ -27,8 +28,8 @@ public class Deadline extends Task {
      * @param endTime
      * @param isDone
      */
-    public Deadline(String name, LocalDateTime endTime, boolean isDone) {
-        super(name, isDone);
+    public Deadline(String name, LocalDateTime endTime, boolean isDone, PriorityLevel priorityLevel) {
+        super(name, isDone, priorityLevel);
         this.endTime = endTime;
     }
 

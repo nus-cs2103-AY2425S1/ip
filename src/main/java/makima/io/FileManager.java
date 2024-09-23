@@ -3,6 +3,7 @@ package makima.io;
 import makima.command.Makima;
 import makima.task.Deadline;
 import makima.task.Event;
+import makima.task.Task;
 import makima.task.ToDo;
 
 import java.io.File;
@@ -90,56 +91,90 @@ public class FileManager {
                 LocalDateTime startTime;
                 LocalDateTime endTime;
                 boolean done;
+                Task.PriorityLevel priorityLevel;
 
                 String line = lines.get(lineNumber);
                 switch (line) {
                 case "E":
-                    if (lineNumber + 4 >= lines.size()) {
+                    if (lineNumber + Event.SAVE_PARAMETERS > lines.size()) {
                         System.out.println("The file is corrupted! Delete it before restarting the program!");
                         return false;
                     }
 
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
+                    switch (lines.get(lineNumber + 3)) {
+                    case "high":
+                        priorityLevel = Task.PriorityLevel.HIGH;
+                        break;
+                    case "low":
+                        priorityLevel = Task.PriorityLevel.LOW;
+                        break;
+                    default:
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
                     try {
-                        startTime = LocalDateTime.parse(lines.get(lineNumber + 3));
+                        startTime = LocalDateTime.parse(lines.get(lineNumber + 4));
+                        endTime = LocalDateTime.parse(lines.get(lineNumber + 5));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
+
+                    makima.addTask(new Event(name, startTime, endTime, done, priorityLevel));
+                    lineNumber += Event.SAVE_PARAMETERS;
+                    break;
+                case "D":
+                    if (lineNumber + Deadline.SAVE_PARAMETERS > lines.size()) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
+
+                    name = lines.get(lineNumber + 1);
+                    done = Boolean.parseBoolean(lines.get(lineNumber + 2));
+                    switch (lines.get(lineNumber + 3)) {
+                    case "high":
+                        priorityLevel = Task.PriorityLevel.HIGH;
+                        break;
+                    case "low":
+                        priorityLevel = Task.PriorityLevel.LOW;
+                        break;
+                    default:
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
+                    try {
                         endTime = LocalDateTime.parse(lines.get(lineNumber + 4));
                     } catch (DateTimeParseException e) {
                         System.out.println("The file is corrupted! Delete it before restarting the program!");
                         return false;
                     }
 
-                    makima.addTask(new Event(name, startTime, endTime, done));
-                    lineNumber += 5;
-                    break;
-                case "D":
-                    if (lineNumber + 3 >= lines.size()) {
-                        System.out.println("The file is corrupted! Delete it before restarting the program!");
-                        return false;
-                    }
-
-                    name = lines.get(lineNumber + 1);
-                    done = Boolean.parseBoolean(lines.get(lineNumber + 2));
-                    try {
-                        endTime = LocalDateTime.parse(lines.get(lineNumber + 3));
-                    } catch (DateTimeParseException e) {
-                        System.out.println("The file is corrupted! Delete it before restarting the program!");
-                        return false;
-                    }
-
-                    makima.addTask(new Deadline(name, endTime, done));
-                    lineNumber += 4;
+                    makima.addTask(new Deadline(name, endTime, done, priorityLevel));
+                    lineNumber += Deadline.SAVE_PARAMETERS;
                     break;
                 case "T":
-                    if (lineNumber + 2 >= lines.size()) {
+                    if (lineNumber + 2 > lines.size()) {
                         System.out.println("The file is corrupted! Delete it before restarting the program!");
                         return false;
                     }
 
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
+                    switch (lines.get(lineNumber + 3)) {
+                    case "high":
+                        priorityLevel = Task.PriorityLevel.HIGH;
+                        break;
+                    case "low":
+                        priorityLevel = Task.PriorityLevel.LOW;
+                        break;
+                    default:
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
 
-                    makima.addTask(new ToDo(name, done));
+                    makima.addTask(new ToDo(name, done, priorityLevel));
                     lineNumber += 3;
                     break;
                 case "":
