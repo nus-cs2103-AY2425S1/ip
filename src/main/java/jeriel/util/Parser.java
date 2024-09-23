@@ -14,11 +14,11 @@ public class Parser {
         assert fullCommand != null : "Command cannot be null";
         assert !fullCommand.trim().isEmpty() : "Command cannot be empty";
         
-        String[] commandAndArgs = fullCommand.split(" ", 2);
+        // String[] commandAndArgs = fullCommand.split(" ", 2);
+        String[] commandAndArgs = splitCommand(fullCommand);
         String command = commandAndArgs[0];
         String arguments = commandAndArgs.length > 1 ? commandAndArgs[1] : "";
 
-        // Ensure that command is not empty after trimming
         assert !command.isEmpty() : "Command part is empty after trimming";
         
         switch (command) {
@@ -45,5 +45,18 @@ public class Parser {
             default:
                 throw new JerielException("I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    /**
+     * Splits the input command into command and arguments.
+     *
+     * @param fullCommand the full user command
+     * @return a string array containing command and arguments
+     */
+    private static String[] splitCommand(String fullCommand) {
+        String[] commandAndArgs = fullCommand.trim().split(" ", 2);
+        String command = commandAndArgs[0];
+        String arguments = commandAndArgs.length > 1 ? commandAndArgs[1] : "";
+        return new String[]{command, arguments};
     }
 }
