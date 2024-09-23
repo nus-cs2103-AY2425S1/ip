@@ -50,7 +50,7 @@ Now you have 3 tasks in the list.
 
 ### Adding Events
 
-Adds a event that has a start date and an end date
+Adds an event that has a start date and an end date
 
 enter: "event [event name] /from [date in YYYY-MM-DD] /to [date in YYYY-MM-DD]"
 
@@ -132,6 +132,11 @@ Example: `find week`
 edits a task that already exist
 
 enter: "edit [task number as shown in list]"
+
+```dtd
+What would you like to edit in task [D] [ ] project (by:
+Oct 1 2024)?
+```
 
 enter: "[part to change] [new value]"
 
