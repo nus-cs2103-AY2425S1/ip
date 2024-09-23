@@ -28,9 +28,13 @@ public class Parser {
         } else if (userInput.contains("list")) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {
+            // Assert that the input is long enough to extract a task number
+            assert userInput.length() > 5 : "Mark command is missing a task number";
             int index = Integer.parseInt(userInput.substring(5)) - 1;
             return new MarkCommand(index);
         } else if (userInput.startsWith("unmark")) {
+            // Assert that the input is long enough to extract a task number
+            assert userInput.length() > 7 : "Unmark command is missing a task number";
             int index = Integer.parseInt(userInput.substring(7)) - 1;
             return new UnmarkCommand(index);
         } else if (userInput.startsWith("todo")) {
@@ -61,6 +65,8 @@ public class Parser {
             String[] parts = userInput.split(" /from | /to ");
             return new EventCommand(parts[0].substring(6).trim(), parts[1].trim(), parts[2].trim());
         } else if (userInput.startsWith("delete")) {
+            // Assert that the input is long enough to extract a task number
+            assert userInput.length() > 7 : "Delete command is missing a task number";
             int index = Integer.parseInt(userInput.substring(7)) - 1;
             return new DeleteCommand(index);
         } else if (userInput.startsWith("find")) {

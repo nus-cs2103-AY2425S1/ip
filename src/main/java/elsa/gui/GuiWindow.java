@@ -3,6 +3,7 @@ package elsa.gui;
 import java.util.Objects;
 
 import elsa.ui.Elsa;
+import elsa.ui.Ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
+ *
+ * @author Aaron
  */
 public class GuiWindow extends AnchorPane {
     @FXML
@@ -42,6 +45,13 @@ public class GuiWindow extends AnchorPane {
     /** Injects the Elsa instance */
     public void setElsa(Elsa e) {
         elsa = e;
+
+        // Display the welcome message
+        Ui ui = new Ui();
+        String welcomeMessage = ui.greetUser();
+        dialogContainer.getChildren().add(
+                DialogBox.getElsaDialog(welcomeMessage, elsaImage)
+        );
     }
 
     /** Injects the Stage instance to allow for closing the window */
@@ -51,14 +61,14 @@ public class GuiWindow extends AnchorPane {
 
     /**
      * Handles user input from the TextField. Generates a response from Elsa, and updates the UI.
-     * If the input contains "bye", it schedules the application to exit after 5 seconds.
+     * If the input contains "bye", it schedules the application to exit after 3 seconds.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = elsa.getResponse(input);
 
-        // If a previous pause transition is active, cancel the 5-second count-down timer and run as per normal.
+        // If a previous pause transition is active, cancel the 3-second count-down timer and run as per normal.
         if (pauseTransition != null && pauseTransition.getStatus() == PauseTransition.Status.RUNNING) {
             pauseTransition.stop();
         }
@@ -70,16 +80,16 @@ public class GuiWindow extends AnchorPane {
         );
         userInput.clear();
 
-        // If the input contains "bye", close the GUI window and exit the application after waiting for 5 seconds.
+        // If the input contains "bye", close the GUI window and exit the application after waiting for 3 seconds.
         // The ByeCommand will be executed by elsa.getResponse(input) which will save the taskList to the data file.
         if (input.trim().toLowerCase().contains("bye")) {
-            // Create a PauseTransition that waits 5 seconds before exiting
-            pauseTransition = new PauseTransition(Duration.seconds(5));
+            // Create a PauseTransition that waits 3 seconds before exiting
+            pauseTransition = new PauseTransition(Duration.seconds(3));
             pauseTransition.setOnFinished(event -> {
                 Platform.exit();
                 stage.close();
             });
-            pauseTransition.play(); // Start the 5-second timer
+            pauseTransition.play(); // Start the 3-second timer
         }
     }
 }
