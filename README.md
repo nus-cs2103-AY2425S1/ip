@@ -14,11 +14,3 @@ This is a project template for a greenfield Java project. It's named after the g
 7. Refer to the Features below for details of all commands available.
 
 ---
-### Features
-
-
-
-#### Adding a Task: `todo` `deadline` `event`
-Adds a task of type `todo`, `deadline` or `event` into the task manager.
-
-Format: `todo DESCRIPTION /by DATE `
