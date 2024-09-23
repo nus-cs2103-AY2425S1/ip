@@ -21,6 +21,10 @@ public class Parser {
      */
     public String executeCommandAndGetResponse(String userInput, TaskList tasks, Storage storage) {
         StringBuilder response = new StringBuilder();
+        if (userInput.trim().isEmpty()) {
+            return "You didn't type any command:(!\nYou may refer to the help page using the `help` command!";
+        }
+
         Commands command = parseCommand(userInput);
         assert command != null : "Parsed command should not be null";
 
