@@ -115,7 +115,6 @@ public class TaskList {
         }
 
         return "Here are the matching tasks in your list: \n" + taskList;
-
     }
 
     /**
@@ -134,8 +133,21 @@ public class TaskList {
         return "Okay! I've added the tags to this task:\n" + "    " + getTask(taskIndex - 1);
     }
 
+    /**
+     * Deletes a tag from a Task
+     * @param taskIndex the Task index
+     * @param tag the tag
+     * @return the message, whether the process succeeds or fails
+     */
+    public String deleteTag(int taskIndex, String tag) {
+        if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
+            return "No task found. Please retry!";
+        }
 
+        listOfTasks.get(taskIndex - 1).deleteTag(tag);
 
+        return "Okay! I've deleted the tag from this task:\n" + "    " + getTask(taskIndex - 1);
+    }
 
     /**
      * Returns the list of Tasks in String

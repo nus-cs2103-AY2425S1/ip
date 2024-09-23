@@ -108,16 +108,16 @@ public abstract class Task {
     public abstract String toStoringFormat();
 
     /**
-     * Adds a tag to this Task
-     * @param tag
+     * Deletes a tag of this Task
+     * @param tag the tag
      */
-    public void addTag(String tag) {
-        tags.add(tag);
+    public void deleteTag(String tag) {
+        tags.remove(tag);
     }
 
     /**
      * Adds a list of tags to this Task
-     * @param tags
+     * @param tags list of tags
      */
     public void addTags(List<String> tags) {
         this.tags.addAll(tags);

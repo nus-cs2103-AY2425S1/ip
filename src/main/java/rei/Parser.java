@@ -17,12 +17,13 @@ public class Parser {
     private static final int DELETE_COMMAND_LENGTH = 6;
     private static final int FIND_COMMAND_LENGTH = 4;
     private static final int TAG_COMMAND_LENGTH = 3;
+    private static final int UNTAG_COMMAND_LENGTH = 5;
 
     // Solution below inspired by https://github.com/1st2GetThisName/ip/blob/master/src/main/java/vecrosen/Parser.java
     /**
      * Different prompt types REI understands
      */
-    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, TAG, ANNYEONG};
+    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, TAG, UNTAG, ANNYEONG};
 
     /**
      * Checks if a string only contains whitespace
@@ -42,6 +43,7 @@ public class Parser {
 
         List<String> prompts = Arrays.asList(prompt.split(" "));
         String taskDetails;
+        String[] details;
         switch (prompts.get(0)) {
             case "list":
                 return Prompt.LIST;
@@ -124,7 +126,7 @@ public class Parser {
             case "tag":
                 // Read the rest of the line after "tag"
                 taskDetails = prompt.substring(TAG_COMMAND_LENGTH).trim();
-                String[] details = taskDetails.split(" ");
+                details = taskDetails.split(" ");
 
                 if (taskDetails.isEmpty() || details.length < 2 || !details[0].matches("\\d+")) {
                     throw new ReiException("State the task number and the tag(s)!");
@@ -134,18 +136,36 @@ public class Parser {
                     if (!details[i].startsWith("#")) {
                         throw new ReiException("All tags must start with a '#'!");
                     } else if (details[i].equals("#")) {
-                        throw new ReiException("Tags cannot be empty!" + i);
+                        throw new ReiException("Tags cannot be empty!");
                     } else if (details[i].substring(1).contains("#")) {
                         throw new ReiException("Invalid tag!");
                     }
                 }
 
                 return Prompt.TAG;
+            case "untag":
+                // Read the rest of the line after "untag"
+                taskDetails = prompt.substring(UNTAG_COMMAND_LENGTH).trim();
+                details = taskDetails.split(" ");
+
+                if (taskDetails.isEmpty() || details.length != 2 || !details[0].matches("\\d+")) {
+                    throw new ReiException("State the task number and ONE tag!");
+                }
+
+                if (!details[1].startsWith("#")) {
+                    throw new ReiException("The tag must start with a '#'!");
+                } else if (details[1].equals("#")) {
+                    throw new ReiException("The tag cannot be empty!");
+                } else if (details[1].substring(1).contains("#")) {
+                    throw new ReiException("Invalid tag!");
+                }
+
+                return Prompt.UNTAG;
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:
                 throw new ReiException("I don't understand what you want me to do. \n" +
-                        "Available commands : todo deadline event list delete mark unmark find annyeong");
+                        "Available commands : todo deadline event list delete mark unmark find tag untag annyeong");
         }
     }
 
