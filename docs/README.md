@@ -40,21 +40,15 @@ This is how it's done:\
 
 Upon adding a task, the bot should inform you of the addition.
 For instance:\
-\
-`t some random task`\
-\
-will result in the bot displaying:
+`t some random task`
 
+will result in the bot displaying:
 > Added: some random task
 
 ## Listing Tasks
-To see a list of all your tasks, simply type:
-
-`ls`
+To see a list of all your tasks, simply type `ls`.
 
 This will yield you a list of all your tasks, for instance:
-
-
 > Here are your current tasks: <br> <br> 1. [D][ ] finish project (by: 10 Jul 2020, 7:00:00am) <br> 2. [T][ ] walk the dog
 
 ## Marking/Unmarking Tasks
