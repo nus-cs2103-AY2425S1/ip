@@ -17,6 +17,8 @@ public class Gui extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
 
             stage.show();
         } catch (IOException e) {
