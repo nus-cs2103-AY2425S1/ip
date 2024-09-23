@@ -65,7 +65,7 @@ public class Torne {
 
     /**
      * Takes in an input command, sends it to the Torne parser and returns the output.
-     * To be used to communicate with Torne for GUI chatbot use.
+     * To be used to communicate with Torne for GUI chatbot use. After execution the task list is automatically saved.
      * <p></p>
      * Note: the parser does not handle "bye" and other exit commands.
      *
@@ -79,9 +79,14 @@ public class Torne {
             Command c = parser.parse(input);
             // same issue as above
 
+            storage.saveTasks(taskHandler.getTaskList());
+
             return output.getCurrentOut();
         } catch (TorneException e) {
             output.error(e.toString());
+
+            storage.saveTasks(taskHandler.getTaskList());
+
             return output.getCurrentOut();
         }
     }
