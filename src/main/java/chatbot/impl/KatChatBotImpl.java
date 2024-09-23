@@ -66,8 +66,7 @@ public class KatChatBotImpl implements ChatBot {
         }
 
         try {
-            String response = messageParser.handleMessage(input);
-            return response;
+            return messageParser.handleMessage(input);
         } catch (InvalidMessageException e) {
             return e.getMessage();
         }

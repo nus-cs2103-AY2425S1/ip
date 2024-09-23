@@ -23,6 +23,7 @@ public class MessageParserImpl implements MessageParser {
      * @param storage The TaskStorage object for managing tasks.
      */
     public MessageParserImpl(TaskStorage storage) {
+        assert storage != null : "Storage cannot be null";
         this.storage = storage;
     }
 
@@ -35,6 +36,8 @@ public class MessageParserImpl implements MessageParser {
      */
     @Override
     public String handleMessage(String input) throws InvalidMessageException {
+        assert input != null : "Input cannot be null";
+
         if (input.isEmpty()) {
             throw new InvalidMessageException("Sorry, your message cannot be empty. :(");
         }
@@ -72,7 +75,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleMark(String[] inputParts) throws InvalidMessageException {
-        // Todo: Potential combine these 2 methods?
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             storage.setTaskAsDone(taskIdx);
@@ -91,6 +95,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleUnmark(String[] inputParts) throws InvalidMessageException {
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             storage.setTaskAsNotDone(taskIdx);
@@ -109,6 +115,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task description is missing.
      */
     private String handleTodo(String[] inputParts) throws InvalidMessageException {
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             Task task = new TodoTask(inputParts[1]);
             return addTask(task);
@@ -125,6 +133,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task description or deadline is missing.
      */
     private String handleDeadline(String[] inputParts) throws InvalidMessageException {
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             String[] deadlineParts = inputParts[1].split("/by");
             Task task = new DeadlineTask(deadlineParts[0].trim(), deadlineParts[1].trim());
@@ -143,6 +153,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task description, start time, or end time is missing.
      */
     private String handleEvent(String[] inputParts) throws InvalidMessageException {
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             String[] eventParts = inputParts[1].split("/from|/to");
             Task task = new EventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
@@ -160,6 +172,8 @@ public class MessageParserImpl implements MessageParser {
      * @return A confirmation message with the added task details and current task count.
      */
     private String addTask(Task task) {
+        assert task != null : "Task cannot be null";
+
         storage.addTask(task);
         return String.format("Got it. Task saved:\n%s\n%d tasks in the list.", task, storage.getSize());
     }
@@ -173,6 +187,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleDelete(String[] inputParts) throws InvalidMessageException {
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             Task task = storage.getTask(taskIdx);
@@ -192,6 +208,8 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If keyword(s) is/are missing.
      */
     private String handleFind(String[] inputParts) throws InvalidMessageException {
+        assert inputParts.length == 2 : "Input command should have 2 parts";
+
         try {
             String keyword = inputParts[1];
             List<Task> matchingTasks = storage.findTasks(keyword);
