@@ -82,6 +82,7 @@ be in YYYY-MM-DD format and the /from date must be before the /to date.
     ```sh
     event Task 3 /from 2024-09-20 /to 2024-09-23
     ```
+   
 ### Viewing Tasks
 to view a task, run the command: list. 
 ```sh
