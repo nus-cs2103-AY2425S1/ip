@@ -28,7 +28,7 @@ This is done by issuing the following command:\
 `d finish assignment /by 20240926 2359`
 
 As a result, the bot will return:
-> Added: finish assignment (by: 26 Sep 2024, 23:59:00pm)
+> Added: finish assignment (by: 26 Sep 2024, 11:59:00pm)
 
 ## Adding an event task
 Event tasks are tasks that have both a start and end time.
