@@ -30,8 +30,8 @@ public class InputOutputHandler {
      * interact with the file storage.
      */
     public InputOutputHandler() {
-        fileReaderWriter = new FileReaderWriter(taskList);
         taskList = new TaskList();
+        fileReaderWriter = new FileReaderWriter(taskList);
     }
 
     /**
