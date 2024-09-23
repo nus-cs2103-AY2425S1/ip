@@ -80,8 +80,8 @@ public class Parser {
         case "bye" -> {
             return true;
         }
-        case "list" -> ui.showResult(list.toString());
-        case "mark" -> {
+        case "list", "l" -> ui.showResult(list.toString());
+        case "mark", "m" -> {
             try {
                 markTask(Integer.parseInt(command.split(" ")[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -90,7 +90,7 @@ public class Parser {
                 ui.showResult("I'm sorry, but it's invalid index :(");
             }
         }
-        case "unmark" -> {
+        case "unmark", "u" -> {
             try {
                 unmarkTask(Integer.parseInt(command.split(" ")[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -99,7 +99,7 @@ public class Parser {
                 ui.showResult("I'm sorry, but it's invalid index :(");
             }
         }
-        case "todo" -> {
+        case "todo", "T" -> {
             try {
                 String task = command.split(" ", 2)[1];
                 addTodo(task);
@@ -107,7 +107,7 @@ public class Parser {
                 ui.showResult("I'm sorry, but I can't find the task name :(");
             }
         }
-        case "deadline" -> {
+        case "deadline", "D" -> {
             try {
                 String task = command.split(" ", 2)[1];
                 addDeadline(task);
@@ -117,7 +117,7 @@ public class Parser {
                 ui.showResult("I'm sorry, but invalid date/time format, it should be YYYY-MM-DD");
             }
         }
-        case "event" -> {
+        case "event", "E" -> {
             try {
                 String task = command.split(" ", 2)[1];
                 addEvent(task);
@@ -127,7 +127,7 @@ public class Parser {
                 ui.showResult("I'm sorry, but invalid date/time format, it should be YYYY-MM-DD");
             }
         }
-        case "delete" -> {
+        case "delete", "d" -> {
             try {
                 deleteTask(Integer.parseInt(command.split(" ")[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -136,7 +136,7 @@ public class Parser {
                 ui.showResult("I'm sorry, but it's invalid index :(");
             }
         }
-        case "find" -> {
+        case "find", "f" -> {
             try {
                 findTask(command.split(" ", 2)[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
