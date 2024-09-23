@@ -16,4 +16,6 @@ Make sure you have Java installed and accessible from your CLI.
 
 ## User Guide
 
-[https://zeepheru.github.io/ip/](https://zeepheru.github.io/ip/)
+For a quick-reference of the available commands, use the `help` command.
+
+[User Guide](https://zeepheru.github.io/ip/)
