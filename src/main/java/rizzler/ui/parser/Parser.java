@@ -70,9 +70,10 @@ public class Parser {
     private Command parseFind(String[] userInputArr) {
         Command outputCommand;
         try {
-            String stringToMatch = userInputArr[1].trim();
+            String[] stringToMatchArr = Arrays.copyOfRange(userInputArr, 1, userInputArr.length);
+            String stringToMatch = String.join(" ", stringToMatchArr).trim();
             outputCommand = new FindCommand(stringToMatch);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | RizzlerException e) {
             String response = joinErrorMessages(MISSING_ARGUMENT_RESPONSE, FindCommand.COMMAND_FORMAT);
             outputCommand = new NullCommand(response);
         } catch (Exception e) {

@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's command to find a task based on a search term.
@@ -15,7 +16,7 @@ public class FindCommand extends Command {
             find {term in task description}
             Examples:
             find dinner
-            find Jess""";
+            find meeting tonight""";
     private static final String NO_MATCHES_RESPONSE = "our list is empty right now dear, no tasks to search through!";
     private final String LIST_OF_TASKS_HEADER = "here are the tasks that match \"" + getTextInput() + "\".";
 
@@ -23,8 +24,9 @@ public class FindCommand extends Command {
      * Constructs a FindCommand object.
      * @param strToMatch String that the user wants to search for within all tasks.
      */
-    public FindCommand(String strToMatch) {
+    public FindCommand(String strToMatch) throws RizzlerException {
         super(strToMatch);
+        checkInputValidity(strToMatch);
     }
 
     /**
@@ -56,5 +58,11 @@ public class FindCommand extends Command {
             matchId++;
         }
         return output.toString().split("\n");
+    }
+
+    private void checkInputValidity(String stringToMatch) throws RizzlerException {
+        if (stringToMatch.isEmpty()) {
+            throw new RizzlerException("missing argument");
+        }
     }
 }
