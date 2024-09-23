@@ -169,3 +169,6 @@ ____________________________________________________________
 ├── gradlew.bat
 ├── README.md
 ├── settings.gradle
+
+Running the Jeriel-1.1.jar file `java --module-path "C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" --add-modules javafx.controls,javafx.fxml -jar "C:/Users/jerie/Desktop/Jeriel-1.0.jar"
+`
