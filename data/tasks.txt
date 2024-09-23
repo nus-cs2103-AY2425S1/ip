@@ -1,4 +1,6 @@
 T | 0 | buy book
-D | 0 | read booklet | 2024-09-30 2359
+D | 1 | read booklet | 2024-09-30 2359
 E | 0 | party | 2024-09-30 2200 | 2024-09-30 2359
 T | 0 | laundry
+T | 0 | laundry
+E | 0 | party | 2024-09-23 2200 | 2024-09-23 2300
