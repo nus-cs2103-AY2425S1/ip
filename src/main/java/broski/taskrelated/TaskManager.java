@@ -22,6 +22,13 @@ public class TaskManager {
 
     private static final String FILE_PATH = "./data/broski.txt";
 
+    public void initialise() {
+        File file = new File(FILE_PATH);
+        if (file.getParentFile() != null) {
+            file.getParentFile().mkdirs(); // Create directories if they don't exist
+        }
+    }
+
     /**
      * Saves task to hard disk as txt file.
      * @param tasks list of tasks to be saved to hard disk.

@@ -33,6 +33,7 @@ public class Broski {
     public String start() {
         this.taskList = new TaskList(this.manager.loadTasks());
         this.archive = new Archive(this.archiveManager.loadTasks());
+        this.manager.initialise();
         return ui.greeting();
     }
 
