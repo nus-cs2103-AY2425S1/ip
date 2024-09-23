@@ -1,47 +1,74 @@
 package lewis;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javafx.application.Platform;
+
 
 /**
  * This class implements Lewis, a chatbot who is designed to interact with the user.
  */
 public class Lewis {
-    /** Exit flag for Lewis to close */
-    private static boolean isExit = false;
+    /**
+     * Private constructor for Lewis
+     */
+    private Lewis() {
+    }
     /**
      * Initialises the data for Lewis bot to function. This includes loading the tasklist from
      * the hard drive and the sorted command list that Lewis can parse.
      */
     private static void init() {
         ArrayList<String> savedTasks = Storage.load();
-        TaskList tasklist = TaskList.of(savedTasks);
+        TaskList.load(savedTasks);
+    }
+    /**
+     * Factory method for producing a Lewis bot. When called, Lewis will try to read
+     * the existing save file from disk.
+     * @return A Lewis bot
+     */
+    public static Lewis of() {
+        init();
+        return new Lewis();
     }
 
     /**
-     * Tells Lewis to run, accepting user input until the "bye" or "exit" command is given
+     * Parses the user input, then executes the associated command.
+     * Returns the output that Lewis should tell the user
+     * @return a string output
      */
-    public void run() {
-        Parser parser = Parser.of();
-        init();
-        Ui.printLine();
-        System.out.println("Hello! My name is Lewis, a chatbot.\nHow can I help you?");
-
-        while (!isExit) {
-            String userInput = Ui.readLine();
-            try {
-                Command command = parser.parseCommand(userInput);
-                Lewis.isExit = command.isExit();
+    public String getResponse(String input) {
+        try {
+            /* If the input field is empty, return the hello message */
+            Command command;
+            if (input.isEmpty()) {
+                command = HelloCommand.of();
                 command.execute();
-            } catch (LewisException e) {
-                Ui.printString(e.getMessage());
-            } finally {
-                Ui.printLine();
+            } else {
+                command = Parser.parseCommand(input);
+                command.execute();
             }
+
+            if (command.isExit()) {
+                Platform.exit(); //Closes the GUI window
+            }
+
+            List<String> output = Ui.flush();
+            StringBuilder response = new StringBuilder();
+
+
+
+            for (String line : output) {
+                response.append(line).append("\n");
+            }
+
+            return response.toString().trim();
+
+        } catch (LewisException e) {
+            return "Error: " + e.getMessage();
+        } catch (Exception e) {
+            return "Error: An unexpected error occured. Contact the developer with the error log";
         }
-    }
-    public static void main(String[] args) {
-        Lewis lewis = new Lewis();
-        lewis.run();
-        System.exit(0);
     }
 }

@@ -1,20 +1,14 @@
 package lewis;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 /**
- * Implements a user interface. This handles user input and passes it to
- * the parser. It also handles output to the user, via the terminal
+ * Implements a user interface. This handles user input through the dialogue box
+ * and propagates a string response through to the GUI.
  */
 public class Ui {
-    public static final String LINE = "---------------------------------------------------------";
-    /** Scanner object for reading user input*/
-    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final List<String> OUTPUT_BUFFER = new ArrayList<>();
     private Ui() {
-    }
-
-    public static void printLine() {
-        System.out.println(LINE);
     }
 
     /**
@@ -23,9 +17,8 @@ public class Ui {
      * @param task the task to be printed
      */
     public static void printTask(Task task) {
-        System.out.println("I've got it, I've added this task to your tasklist.");
-        System.out.println(task.toString());
-        printLine();
+        OUTPUT_BUFFER.add("I've got it, I've added this task to your tasklist.");
+        OUTPUT_BUFFER.add(task.toString());
     }
 
     /**
@@ -34,8 +27,8 @@ public class Ui {
      * @param task the task to be deleted
      */
     public static void printDeletedTask(Task task) {
-        System.out.println("I've obliterated this task from the list. You're welcome");
-        System.out.println(task.toString());
+        OUTPUT_BUFFER.add("I've obliterated this task from the list. You're welcome");
+        OUTPUT_BUFFER.add(task.toString());
     }
 
     /**
@@ -43,15 +36,7 @@ public class Ui {
      * @param string the string to be printed
      */
     public static void printString(String string) {
-        System.out.println(string);
-    }
-
-    /**
-     * Reads the next line of user input and returns it as a string
-     * @return a string
-     */
-    public static String readLine() {
-        return SCANNER.nextLine();
+        OUTPUT_BUFFER.add(string);
     }
 
     /**
@@ -60,11 +45,20 @@ public class Ui {
      */
     public static void printList(ArrayList<String> listToPrint) {
         if (listToPrint.isEmpty()) {
-            System.out.println("Hey, this list is empty. Try adding some new tasks!");
+            OUTPUT_BUFFER.add("Hey, this list is empty. Try adding some new tasks!");
         }
         for (String string : listToPrint) {
-            System.out.println(string);
+            OUTPUT_BUFFER.add(string);
         }
+    }
+
+    /**
+     * Flushes the output buffer
+     */
+    public static List<String> flush() {
+        List<String> output = new ArrayList<>(OUTPUT_BUFFER);
+        OUTPUT_BUFFER.clear();
+        return output;
     }
 
 
