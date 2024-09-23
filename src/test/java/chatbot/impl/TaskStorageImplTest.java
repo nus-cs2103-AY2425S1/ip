@@ -16,7 +16,7 @@ public class TaskStorageImplTest {
                 "1.[T][ ] return books\n" +
                 "2.[T][ ] buy groceries\n";
         TaskStorageResultImpl res = new TaskStorageResultImpl(actual);
-        assertEquals(storage.getTasks(), res);
+        assertEquals(storage.getTasks(false), res);
     }
 
     @Test
