@@ -75,7 +75,9 @@ public class Storage {
                     task.mark();
                 }
                 for (String tag : tags.split(" ")) {
-                    task.addTag(tag);
+                    if (!tag.equals("")) {
+                        task.addTag(tag);
+                    }
                 }
                 tasks.add(task);
             } else if (args[1].equals("D")) {
@@ -94,7 +96,9 @@ public class Storage {
                         task.mark();
                     }
                     for (String tag : tags.split(" ")) {
-                        task.addTag(tag);
+                        if (!tag.equals("")) {
+                            task.addTag(tag);
+                        }
                     }
                     tasks.add(task);
                 } catch (DateTimeParseException e) {
@@ -117,8 +121,10 @@ public class Storage {
                         task.mark();
                     }
 
-                    for (String tag : tags.split(" | #")) {
-                        task.addTag("#" + tag);
+                    for (String tag : tags.split(" ")) {
+                        if (!tag.equals("")) {
+                            task.addTag(tag);
+                        }
                     }
                     tasks.add(task);
                 } catch (DateTimeParseException e) {
