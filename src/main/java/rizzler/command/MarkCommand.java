@@ -9,6 +9,12 @@ import rizzler.ui.RizzlerException;
  * Represents the user's command to mark a task as done.
  */
 public class MarkCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            mark {task ID}
+            Examples:
+            mark 3
+            mark 1""";
     private final int taskToMark;
 
     /**

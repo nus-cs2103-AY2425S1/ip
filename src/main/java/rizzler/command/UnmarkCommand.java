@@ -9,6 +9,12 @@ import rizzler.ui.RizzlerException;
  * Represents user's command to unmark a task.
  */
 public class UnmarkCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            unmark {task ID}
+            Examples:
+            unmark 3
+            unmark 1""";
     private final int taskToUnmark;
 
     /**

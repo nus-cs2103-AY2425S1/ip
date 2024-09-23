@@ -3,11 +3,18 @@ package rizzler.command;
 import rizzler.Storage;
 import rizzler.task.Deadline;
 import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's instruction to create a deadline.
  */
 public class DeadlineCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            deadline {description} /by {time/date}
+            Examples:
+            deadline Finish Homework /by 2024-06-23
+            deadline buy birthday present for dave /by this friday!!!""";
     private final Deadline deadline;
 
     /**
@@ -16,8 +23,9 @@ public class DeadlineCommand extends Command {
      * @param deadlineTime Date of the deadline in <code>YYYY-MM-DD</code> format.
      *                     Can also be in any other date or non-date format.
      */
-    public DeadlineCommand(String deadlineDesc, String deadlineTime) {
+    public DeadlineCommand(String deadlineDesc, String deadlineTime) throws RizzlerException {
         super();
+        checkInputValidity(deadlineDesc, deadlineTime);
         this.deadline = new Deadline(deadlineDesc, deadlineTime);
     }
 
@@ -40,5 +48,11 @@ public class DeadlineCommand extends Command {
         return new String[] {"certainly, i'll keep track of this deadline for you ;)",
                 "\t" + deadline,
                 "now we have " + newNumTasks + " tasks to work on."};
+    }
+
+    private void checkInputValidity(String deadlineDesc, String deadlineTime) throws RizzlerException {
+        if (deadlineDesc.isEmpty() || deadlineTime.isEmpty()) {
+            throw new RizzlerException("missing argument");
+        }
     }
 }

@@ -3,11 +3,18 @@ package rizzler.command;
 import rizzler.Storage;
 import rizzler.task.Event;
 import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's instruction to create an event.
  */
 public class EventCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            event {task description} /from {eventStart} /to {eventEnd}
+            Examples:
+            event Molecular Biology Symposium /from 2024-10-02 /to 2024-10-05
+            event dinner with jess /from 7pm /to 9pm""";
     private final Event event;
 
     /**
@@ -18,8 +25,9 @@ public class EventCommand extends Command {
      * @param eventEnd Date of event end in <code>YYYY-MM-DD</code> format.
      *                 Can also be in any other date or non-date format.
      */
-    public EventCommand(String eventDesc, String eventStart, String eventEnd) {
+    public EventCommand(String eventDesc, String eventStart, String eventEnd) throws RizzlerException {
         super();
+        checkInputValidity(eventDesc, eventStart, eventEnd);
         this.event = new Event(eventDesc, eventStart, eventEnd);
     }
 
@@ -40,5 +48,11 @@ public class EventCommand extends Command {
         return new String[] {"certainly, i'll keep track of this event for you ;)",
                 "\t" + event,
                 "now we have " + newNumTasks + " tasks to work on."};
+    }
+
+    private void checkInputValidity(String eventDesc, String eventStart, String eventEnd) throws RizzlerException {
+        if (eventDesc.isEmpty() || eventStart.isEmpty() || eventEnd.isEmpty()) {
+            throw new RizzlerException("missing argument");
+        }
     }
 }

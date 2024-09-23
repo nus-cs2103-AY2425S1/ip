@@ -8,7 +8,6 @@ public class ToDo extends Task {
 
     /**
      * Constructs a ToDo object.
-     *
      * @param todoDesc Text description of the task to be completed.
      */
     public ToDo(String todoDesc) {
@@ -17,7 +16,6 @@ public class ToDo extends Task {
 
     /**
      * Constructs a ToDo object.
-     *
      * @param todoDesc Text description of the task to be completed.
      * @param isDone   Boolean to indicate if the task being created has been marked as done.
      */

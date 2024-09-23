@@ -8,6 +8,12 @@ import rizzler.task.TaskLog;
  * Represents the user's command to find a task based on a search term.
  */
 public class FindCommand extends Command {
+    public static final String COMMAND_FORMAT = """
+            Correct Usage:
+            find {term in task description}
+            Examples:
+            find dinner
+            find Jess""";
 
     /**
      * Constructs a FindCommand object.
