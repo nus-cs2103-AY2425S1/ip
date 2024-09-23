@@ -18,6 +18,8 @@ public class Task {
      * @throws TorneInvalidDataException for issues with loading the torne.task.Task via storage.
      */
     public static Task fromStorageString(String input) throws TorneInvalidCommandException, TorneInvalidDataException {
+        assert input != null : "input should not be null";
+
         String[] parts = input.split(" / ");
         if (parts.length < 3) {
             // min length is 3. If less than that, raise error

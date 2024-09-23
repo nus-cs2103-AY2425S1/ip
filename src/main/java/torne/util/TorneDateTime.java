@@ -29,6 +29,7 @@ public class TorneDateTime {
      * @throws TorneInvalidCommandException if the string cannot be parsed.
      */
     public static TorneDateTime parseInputDateTimeString(String input) throws TorneInvalidCommandException {
+        assert input != null : "input should not be null";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         try {
@@ -51,6 +52,7 @@ public class TorneDateTime {
      * @throws TorneInvalidCommandException if the string cannot be parsed.
      */
     public static TorneDateTime parseInputDateString(String input) throws TorneInvalidCommandException {
+        assert input != null : "input should not be null";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
@@ -71,6 +73,7 @@ public class TorneDateTime {
      * @throws TorneInvalidDataException if the string cannot be parsed.
      */
     public static TorneDateTime parseStorageString(String input) throws TorneInvalidDataException {
+        assert input != null : "input should not be null";
         try {
             long timeInSeconds = Long.parseLong(input);
             LocalDateTime parsedDateTime = LocalDateTime.ofEpochSecond(timeInSeconds, 0, ZoneOffset.UTC);
@@ -90,6 +93,7 @@ public class TorneDateTime {
      * @throws TorneInvalidDataException if the string cannot be parsed.
      */
     public static TorneDateTime parseIsoString(String input) throws TorneInvalidDataException {
+        assert input != null : "input should not be null";
         try {
             LocalDateTime parsedDateTime = LocalDateTime.parse(input, DateTimeFormatter.ISO_DATE_TIME);
             return new TorneDateTime(parsedDateTime);

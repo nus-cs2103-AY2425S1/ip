@@ -26,6 +26,7 @@ public class TaskHandler {
      * @param task torne.task.Task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "task should not be null";
         taskList.add(task);
     }
 
@@ -36,6 +37,7 @@ public class TaskHandler {
      * @return The task at the position.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < getTaskCount() : "index must be in valid range [0, n-1]";
         return taskList.get(index);
     }
 
@@ -50,6 +52,7 @@ public class TaskHandler {
      * @return Returns the removed task.
      */
     public Task removeTask(int index) {
+        assert index >= 0 && index < getTaskCount() : "index must be in valid range [0, n-1]";
         Task removed = taskList.get(index);
         taskList.remove(index);
 
@@ -83,6 +86,7 @@ public class TaskHandler {
      * @return The list of matching tasks
      */
     public List<Task> findTasksWithKeyword(String keyword) {
+        assert keyword != null : "keyword should not be null";
         return taskList
                 .stream()
                 .filter((task) -> task.name.toLowerCase().contains(keyword.toLowerCase()))
