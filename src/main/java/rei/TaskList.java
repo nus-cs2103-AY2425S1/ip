@@ -157,6 +157,8 @@ public class TaskList {
     public String viewTags(int taskIndex) {
         if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
             return "No task found. Please retry!";
+        } else if (listOfTasks.get(taskIndex - 1).allTagsToString().equals("")) {
+            return "No tags found.";
         }
 
         return "tags:" + listOfTasks.get(taskIndex - 1).allTagsToString();
