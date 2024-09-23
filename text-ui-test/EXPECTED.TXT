@@ -1,7 +1,76 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm XBot
+What can I do for you?
+Yayy!! You have no task in your list
+Oh No!! I'm sorry, but I don't know what that means :-(
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+Oh No!! I'm sorry, but I don't know what that means :-(
+Got it. I've added this task:
+[D][ ] return book 1 (by: Apr 2 2025)
+Now you have 2 tasks in the list.
+Oh No!! Invalid date input format. Please use the format: D/M/YYYY
+Oh No!! Invalid date input format. Please use the format: D/M/YYYY
+Got it. I've added this task:
+[D][ ] return book 4 (by: Apr 3 2022, 9:13am)
+Now you have 3 tasks in the list.
+Oh No!! I'm sorry, but I don't know what that means :-(
+Got it. I've added this task:
+[E][ ] welcome tea (from: Apr 3 2022, 9:13am to: Apr 4 2022, 11:34am)
+Now you have 4 tasks in the list.
+Got it. I've added this task:
+[E][ ] welcome tea (from: Apr 2 2023 to: Apr 3 2025)
+Now you have 5 tasks in the list.
+Oh No!! I'm sorry, but I don't know what that means :-(
+Oh No!! I'm sorry, but I don't know what that means :-(
+Oh No!! I'm sorry, but I don't know what that means :-(
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book 1 (by: Apr 2 2025)
+3. [D][ ] return book 4 (by: Apr 3 2022, 9:13am)
+4. [E][ ] welcome tea (from: Apr 3 2022, 9:13am to: Apr 4 2022, 11:34am)
+5. [E][ ] welcome tea (from: Apr 2 2023 to: Apr 3 2025)
+Oh No!! I'm sorry, but I don't know what that means :-(
+Nice! I've marked this task as done:
+[D][X] return book 1 (by: Apr 2 2025)
+Nice! I've marked this task as done:
+[D][X] return book 4 (by: Apr 3 2022, 9:13am)
+Oh No!! Invalid task number!
+Oh No!! This task number do not exist.
+Oh No!! Invalid task number!
+Oh No!! Invalid task number!
+Oh No!! I'm sorry, but I don't know what that means :-(
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][X] return book 1 (by: Apr 2 2025)
+3. [D][X] return book 4 (by: Apr 3 2022, 9:13am)
+4. [E][ ] welcome tea (from: Apr 3 2022, 9:13am to: Apr 4 2022, 11:34am)
+5. [E][ ] welcome tea (from: Apr 2 2023 to: Apr 3 2025)
+Oh No!! I'm sorry, but I don't know what that means :-(
+OK, I've marked this task as not done yet:
+[D][ ] return book 1 (by: Apr 2 2025)
+Oh No!! Invalid task number!
+Oh No!! This task number do not exist.
+Oh No!! Invalid task number!
+Oh No!! Invalid task number!
+Oh No!! I'm sorry, but I don't know what that means :-(
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book 1 (by: Apr 2 2025)
+3. [D][X] return book 4 (by: Apr 3 2022, 9:13am)
+4. [E][ ] welcome tea (from: Apr 3 2022, 9:13am to: Apr 4 2022, 11:34am)
+5. [E][ ] welcome tea (from: Apr 2 2023 to: Apr 3 2025)
+Oh No!! I'm sorry, but I don't know what that means :-(
+Oh No!! The task number to be deleted cannot be empty!
+Noted. I've removed this task:
+[D][ ] return book 1 (by: Apr 2 2025)
+Now you have 4 tasks in the list.
+Oh No!! Invalid task number!
+Oh No!! This task number do not exist.
+Oh No!! I'm sorry, but I don't know what that means :-(
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][X] return book 4 (by: Apr 3 2022, 9:13am)
+3. [E][ ] welcome tea (from: Apr 3 2022, 9:13am to: Apr 4 2022, 11:34am)
+4. [E][ ] welcome tea (from: Apr 2 2023 to: Apr 3 2025)
+Bye. Hope to see you again soon!

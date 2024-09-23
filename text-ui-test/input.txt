@@ -1,0 +1,40 @@
+list
+
+todo borrow book
+
+deadline return book 1 /by 2/4/2025
+deadline return book 2 /by 2022-23-01
+deadline return book 3 /by 2022-23-55
+deadline return book 4 /by 3/4/2022 0913
+
+event welcome tea /from 3/4/2022 0913 /to 4/4/2022 1134
+event welcome tea /from 2/4/2023 /to 3/4/2025
+
+something random here
+
+list
+
+mark 2
+mark 3
+mark something random
+mark 50
+mark smth
+mark
+
+list
+
+unmark 2
+unmark something random
+unmark 50
+unmark smth
+unmark
+
+list
+
+delete
+delete 2
+delete something random
+delete 100
+
+list
+bye
