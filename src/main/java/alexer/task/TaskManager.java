@@ -57,7 +57,7 @@ public class TaskManager {
      * @param index The index of the task to be removed
      * @return the task if removed
      */
-    public Task removeTask(int index) {
+    public Task removeTask(int index) throws IndexOutOfBoundsException {
         return taskList.remove(index);
     }
 
