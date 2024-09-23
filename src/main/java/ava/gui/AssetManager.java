@@ -21,6 +21,7 @@ public class AssetManager {
 
     private final Image userImage;
     private final Image AVAImage;
+    private final Image icon;
     //CHECKSTYLE.ON: AbbreviationAsWordInName
 
     /**
@@ -38,7 +39,7 @@ public class AssetManager {
      * @param imagePath relative path to the images from the assets.
      */
     public AssetManager(String assetPath, String imagePath) {
-        this(assetPath, imagePath, "user.jpg", "AVA.jpg");
+        this(assetPath, imagePath, "user_close_up.jpg", "AVA.jpg");
     }
 
 
@@ -55,13 +56,16 @@ public class AssetManager {
         this.IMAGE_PATH = ASSET_PATH + imagePath;
         this.userImageStream = Gui.class.getResourceAsStream(IMAGE_PATH + userImagePath);
         this.AVAImageStream = Gui.class.getResourceAsStream(IMAGE_PATH + avaImagePath);
+        InputStream iconImageStream = Gui.class.getResourceAsStream(IMAGE_PATH + "icon.jpg");
 
         // the image streams should not be null
         assert userImageStream != null;
         assert AVAImageStream != null;
+        assert iconImageStream != null;
 
         userImage = new Image(userImageStream);
         AVAImage = new Image(AVAImageStream);
+        icon = new Image(iconImageStream);
     }
 
     /**
@@ -83,5 +87,9 @@ public class AssetManager {
         return AVAImage;
     }
     //CHECKSTYLE.ON: AbbreviationAsWordInName
+
+    public Image getIcon() {
+        return icon;
+    }
 }
 

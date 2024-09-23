@@ -32,10 +32,7 @@ public class TextUI {
             ava.tellAva(scanner.nextLine());
         }
         //Exit
-        System.out.println("""
-                                         Byeee!! It was really nice talking to you.💖
-                                                 Hope to see you again soon.
-                              """);
+        System.out.println(ava.bye());
 
     }
 

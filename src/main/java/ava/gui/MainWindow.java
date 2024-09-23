@@ -1,6 +1,7 @@
 package ava.gui;
 
 import ava.AVA;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,8 +30,20 @@ public class MainWindow extends AnchorPane {
     private Image userImage;
     private Image avaImage;
 
+    private void renderAvaMessage(String message) {
+        dialogContainer.getChildren().add(DialogBox.getAVADialog(message, avaImage));
+    }
+
+    private void renderUserMessage(String message) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(message, userImage));
+    }
+
     private void welcomeMessage() {
-        dialogContainer.getChildren().add(DialogBox.getAVADialog(ava.welcomeUser(), avaImage));
+        renderAvaMessage(ava.welcomeUser());
+    }
+
+    private void sayGoodbye() {
+        renderAvaMessage(ava.bye());
     }
 
     /**
@@ -60,12 +74,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        renderUserMessage(input);
         ava.tellAva(input);
-        String response = ava.respond();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAVADialog(response, avaImage)
-        );
         userInput.clear();
+
+        if (!ava.isRunning()) {
+            sayGoodbye();
+            Gui.close();
+            return;
+        }
+
+        String response = ava.respond();
+        renderAvaMessage(response);
     }
 }

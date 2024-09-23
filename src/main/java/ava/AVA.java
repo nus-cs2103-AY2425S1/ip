@@ -197,6 +197,19 @@ public class AVA {
                 ----------------------------------------------------------------
                 """;
     }
+
+
+    /**
+     * Says goodbye to the user.
+     *
+     * @return goodbye message for user.
+     */
+    public String bye() {
+        return """
+                       Byeee!! It was really nice talking to you.💖
+                               Hope to see you again soon.
+                """;
+    }
     //CHECKSTYLE.ON: Regexp
 }
 
