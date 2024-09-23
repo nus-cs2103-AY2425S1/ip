@@ -1,6 +1,8 @@
 package mittens.commands;
 
 import mittens.MittensException;
+import mittens.parser.BadInputException;
+import mittens.parser.RawCommandElements;
 import mittens.storage.Storage;
 import mittens.task.Task;
 import mittens.task.TaskList;
@@ -21,6 +23,18 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int index) {
         super();
         this.index = index;
+    }
+
+    /**
+     * Creates a new UnmarkCommand object with the specified command elements.
+     * It assumes the command name corresponds with this class.
+     *
+     * @param elements The RawCommandElements object
+     * @throws BadInputException If the input is invalid
+     */
+    public UnmarkCommand(RawCommandElements elements) throws BadInputException {
+        assert elements.getCommand().equals("unmark") : "Command name should be matching";
+        this.index = elements.getArgumentAsIntegerOrThrow();
     }
 
     @Override

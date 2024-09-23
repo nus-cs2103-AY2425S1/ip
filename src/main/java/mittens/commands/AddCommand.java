@@ -1,9 +1,17 @@
 package mittens.commands;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import mittens.MittensException;
+import mittens.parser.BadInputException;
+import mittens.parser.RawCommandElements;
 import mittens.storage.Storage;
+import mittens.task.Deadline;
+import mittens.task.Event;
 import mittens.task.Task;
 import mittens.task.TaskList;
+import mittens.task.Todo;
 import mittens.ui.Ui;
 
 /**
@@ -20,6 +28,42 @@ public class AddCommand extends Command {
     public AddCommand(Task toAdd) {
         super();
         this.toAdd = toAdd;
+    }
+
+    /**
+     * Creates a new AddCommand object with the specified command elements.
+     * It assumes the command name corresponds with this class.
+     *
+     * @param elements The RawCommandElements object
+     * @throws BadInputException If the input is invalid
+     */
+    public AddCommand(RawCommandElements elements) throws BadInputException {
+        String taskType = elements.getCommand();
+        String description = elements.getArgumentOrThrow();
+
+        switch (taskType) {
+        case "todo":
+            this.toAdd = new Todo(description);
+            break;
+
+        case "deadline":
+            LocalDate by = elements.getFlagAsDateOrThrow("by");
+            this.toAdd = new Deadline(description, by);
+            break;
+
+        case "event":
+            LocalDate from = elements.getFlagAsDateOrThrow("from");
+            LocalDate to = elements.getFlagAsDateOrThrow("to");
+            if (from.isAfter(to)) {
+                throw new BadInputException("The start date cannot be after the end date");
+            }
+            this.toAdd = new Event(description, from, to);
+            break;
+
+        default:
+            assert false : "Command name should be matching";
+            break;
+        }
     }
 
     @Override

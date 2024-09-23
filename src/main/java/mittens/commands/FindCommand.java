@@ -3,6 +3,8 @@ package mittens.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import mittens.parser.BadInputException;
+import mittens.parser.RawCommandElements;
 import mittens.storage.Storage;
 import mittens.task.Task;
 import mittens.task.TaskList;
@@ -17,6 +19,18 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         super();
         this.keyword = keyword;
+    }
+
+    /**
+     * Creates a new FindCommand object with the specified command elements.
+     * It assumes the command name corresponds with this class.
+     *
+     * @param elements The RawCommandElements object
+     * @throws BadInputException If the input is invalid
+     */
+    public FindCommand(RawCommandElements elements) throws BadInputException {
+        assert elements.getCommand().equals("find") : "Command name should be matching";
+        this.keyword = elements.getArgumentOrThrow();
     }
 
     @Override

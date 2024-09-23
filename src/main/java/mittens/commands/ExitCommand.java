@@ -1,6 +1,8 @@
 package mittens.commands;
 
 import mittens.MittensException;
+import mittens.parser.BadInputException;
+import mittens.parser.RawCommandElements;
 import mittens.storage.Storage;
 import mittens.task.TaskList;
 import mittens.ui.Ui;
@@ -15,6 +17,17 @@ public class ExitCommand extends Command {
      */
     public ExitCommand() {
         super();
+        this.isExit = true;
+    }
+
+    /**
+     * Creates a new ExitCommand object with the specified command elements.
+     * It assumes the command name corresponds with this class.
+     *
+     * @param elements The RawCommandElements object
+     */
+    public ExitCommand(RawCommandElements elements) {
+        assert elements.getCommand().equals("exit") : "Command name should be matching";
         this.isExit = true;
     }
 
