@@ -67,6 +67,9 @@ public class Parser {
             validateCommand(command);
             return new FindCommand(command);
         }
+        else if(command.startsWith("help")) {
+            return new HelpCommand(command);
+        }
         else {
             validateCommand(command);
             TaskType taskType = parseTaskType(command);
@@ -103,7 +106,7 @@ public class Parser {
                 || command.startsWith("event") || command.startsWith("mark")
                 || command.startsWith("unmark") || command.startsWith("delete")
                 || command.startsWith("list") || command.startsWith("bye")
-                || command.startsWith("find"))) {
+                || command.startsWith("find") || command.startsWith("help"))) {
             throw new NebulaException(ui.displayUnknownCommandException());
         } else if (command.startsWith("mark") || command.startsWith("unmark")
                 || command.startsWith("delete")) {
