@@ -22,7 +22,7 @@ AVA has the personality of a helpful young woman.
   9. [Leave - `BYE`](#bye)
   10. [Get help - `HELP`](#help)
 
-<hr>
+***
 
 ## Quick Start
 1. Ensure you have Java `17` or above installed in your Computer.
@@ -30,16 +30,19 @@ AVA has the personality of a helpful young woman.
 3. Copy the file to the folder you want to use as the home folder for AVA.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar addressbook.jar command to run the application.   
  > Alternatively double-click the file to start the app.
-
-```
-A GUI similar to the one above should appear in a few seconds.
-```
+  ```
+   A GUI similar to the one above should appear in a few seconds.
+  ```
 5. Type the command in the command box and press Enter to execute it.
 > e.g. typing `help` and pressing Enter will show a help response.
 6. Refer to the [Features](#features) below for details of each command.
 
 
-## Feature ABC
+***
+
+## Features
+
+### Feature ABC
 
 // Describe the action and its outcome.
 
@@ -54,6 +57,6 @@ expected output
 ```
 
 
-## Feature XYZ
+### Feature XYZ
 
 // Feature details
