@@ -41,7 +41,7 @@ public class FindCommand extends Command {
         }
 
         ArrayList<Task> allTasks = tasks.getAllTasks();
-        List<Task> matchingTasks = allTasks.stream()
+        List<Task> matchingTasks = allTasks.stream() // Using stream for filtering tasks
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword))
                 .toList();
 
