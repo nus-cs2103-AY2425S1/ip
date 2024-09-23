@@ -2,7 +2,7 @@
 
 ## Overview
 **Screenshot of the product:**<br>
-![Screenshot of chatbot](/docs/Ui.png)
+![Screenshot of chatbot](Ui.png)
 
 **Summary:** Knight2103 is a chatbot that manages a record of tasks you need.  <br><br>
 **TextFile:** Users can load a text file "savedTaskList.txt" which must be located in the root directory to populate the tasks into the programme, or start from scratch (no text file). If there is no text file, a text file with the name `savedTaskList.txt` will be automatically be created which will save the tasks real-time as the programme executes its function.
