@@ -1,4 +1,4 @@
-package pacman;
+package pacman.gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import pacman.gui.DialogBox;
+import pacman.Pacman;
 
 public class MainWindow extends AnchorPane {
     @FXML
