@@ -15,16 +15,20 @@ public class MarkUnmarkCommand extends Command {
      * Public constructor for this command
      * @param input a string input propagated from the standard input stream
      */
-    public MarkUnmarkCommand(String input) {
+    public MarkUnmarkCommand(String input) throws LewisException {
         /* Important, Lewis shouldn't try to parse a null(not empty) string */
         assert input != null : "Input shouldn't be null";
-        if (input.startsWith("mark")) {
-            this.updatedStatus = Task.Status.DONE;
-            String[] tokens = input.split("mark");
-            taskIndex = Integer.parseInt(tokens[1].trim());
-        } else {
-            String[] tokens = input.split("unmark");
-            taskIndex = Integer.parseInt(tokens[1].trim());
+        try {
+            if (input.startsWith("mark")) {
+                this.updatedStatus = Task.Status.DONE;
+                String[] tokens = input.split("mark");
+                taskIndex = Integer.parseInt(tokens[1].trim());
+            } else {
+                String[] tokens = input.split("unmark");
+                taskIndex = Integer.parseInt(tokens[1].trim());
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new LewisException("Hey, give me a valid task to mark!");
         }
     }
 

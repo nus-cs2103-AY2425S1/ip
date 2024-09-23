@@ -44,14 +44,9 @@ public class Lewis {
             assert input != null : "Input cannot be null";
 
             /* If the input field is empty, return the hello message */
-            Command command;
-            if (input.isEmpty()) {
-                command = HelloCommand.of();
-                command.execute();
-            } else {
-                command = Parser.parseCommand(input);
-                command.execute();
-            }
+            Command command = Parser.parseCommand(input);
+            command.execute();
+
 
             if (command.isExit()) {
                 Platform.exit(); //Closes the GUI window
@@ -68,7 +63,7 @@ public class Lewis {
             return response.toString().trim();
 
         } catch (LewisException e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 }

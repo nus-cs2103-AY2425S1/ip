@@ -44,14 +44,14 @@ class Parser {
             return HelpCommand.of(input);
         }
         case "mark", "unmark" -> {
-            return new MarkUnmarkCommand(input);
-        }
-        case "echo" -> {
             try {
-                return new EchoCommand(input);
+                return new MarkUnmarkCommand(input);
             } catch (LewisException e) {
                 Ui.printString(e.getMessage());
             }
+        }
+        case "echo" -> {
+            return new EchoCommand(input);
         }
         case "todo" -> {
             return new TodoCommand(input);
@@ -60,11 +60,7 @@ class Parser {
             return DeadlineCommand.of(input);
         }
         case "event" -> {
-            try {
-                return EventCommand.of(input);
-            } catch (LewisException e) {
-                Ui.printString(e.getMessage());
-            }
+            return EventCommand.of(input);
         }
         case "bye", "exit" -> {
             return ByeCommand.of();

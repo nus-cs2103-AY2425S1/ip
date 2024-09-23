@@ -77,9 +77,9 @@ public class TaskList {
             throw new LewisException("Hey, you can't update an empty list. Try"
                     + "entering some tasks first!");
         }
-        if (index > length) {
+        if (index > length || index < 1) {
             throw new LewisException(String.format("Hey, enter a valid index "
-                    + "between 1 and %d!"));
+                    + "between 1 and %d!", length));
         }
         Task task = currentTasks.get(index - 1);
         task.updateStatus(status);

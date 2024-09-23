@@ -7,7 +7,6 @@ public class EchoCommand extends Command {
 
     /** The string to be echoed back to the user */
     private final String echoString;
-
     /**
      * Public constructor for this class
      * @param input a string input propagated from the command line
@@ -17,9 +16,9 @@ public class EchoCommand extends Command {
         /* Important, Lewis shouldn't try to parse a null(not empty) string */
         assert input != null : "Input shouldn't be null";
         String[] tokens = input.split("echo", 2);
-        this.echoString = tokens[1].trim();
+        echoString = tokens[1].trim();
         if (this.echoString.isEmpty()) {
-            throw new LewisException("Hey, you have to give me something to echo!");
+            throw new LewisException("Hey, you have to give me something to echo!\n");
         }
     }
 
