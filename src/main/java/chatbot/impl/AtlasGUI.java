@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class AtlasGUI implements ChatBot {
 
+    private static final String GOODBYE_MESSAGE = "Goodbye! Have a great day ahead!";
+
+
     private final MessageView<Command> messageView;
     private final TaskStorage<Command> taskStorage;
 
@@ -38,17 +41,20 @@ public class AtlasGUI implements ChatBot {
             case Find -> handleFind(inputParts);
             case ToDo, Event, Deadline -> handleAddTask(inputParts, command);
             case Unknown -> handleUnknown(inputParts);
-            default -> "this is the default enum";
         };
     }
 
     private String handleExit() {
-        return "Goodbye! Have a great day ahead!";
+        return GOODBYE_MESSAGE;
     }
 
     private String handleList() {
-        String s = "Here are the items in your list:\n";
-        return s + taskStorage.getTasks().toString();
+        try {
+            String s = "Here are the items in your list:\n";
+            return s + taskStorage.getTasks().toString();
+        } catch (Exception e) {
+            return "Error getting tasks: " + e.getMessage();
+        }
     }
 
     private String handleMark(String[] inputParts) {
@@ -60,13 +66,21 @@ public class AtlasGUI implements ChatBot {
     }
 
     private String handleMarking(String[] inputParts, boolean status) {
-        String s = taskStorage.setTaskDone(inputParts, status).toString() + "\n";
-        return s + taskStorage.saveTasks().toString();
+        try {
+            String s = taskStorage.setTaskDone(inputParts, status).toString() + "\n";
+            return s + saveTasks();
+        } catch (Exception e) {
+            return "Error marking task: " + e.getMessage();
+        }
     }
 
     private String handleDelete(String[] inputParts) {
-        String s = taskStorage.deleteTask(inputParts).toString() + "\n";
-        return s + taskStorage.saveTasks().toString();
+        try {
+            String s = taskStorage.deleteTask(inputParts).toString() + "\n";
+            return s + saveTasks();
+        } catch (Exception e) {
+            return "Error deleting task: " + e.getMessage();
+        }
     }
 
     private String handleFind(String[] inputParts) {
@@ -74,11 +88,20 @@ public class AtlasGUI implements ChatBot {
     }
 
     private String handleAddTask(String[] inputParts, Command command) {
-        String s = taskStorage.addTask(inputParts, command).toString() + "\n";
-        return s + taskStorage.saveTasks().toString();
+        try {
+            String s = taskStorage.addTask(inputParts, command).toString() + "\n";
+            return s + saveTasks();
+        } catch (Exception e) {
+            return "Error adding task: " + e.getMessage();
+        }
     }
 
     private String handleUnknown(String[] inputParts) {
         return "Unknown command: " + inputParts[0];
+    }
+
+    // ---------------------- HELPER ----------------------
+    private String saveTasks() {
+        return taskStorage.saveTasks().toString();
     }
 }
