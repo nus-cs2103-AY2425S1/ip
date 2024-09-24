@@ -3,19 +3,22 @@
 # shellcheck disable=SC2069
 if command -v rg
 then
-  GREP_PROG='rg --pcre2'
+  # GREP_PROG='rg --pcre2'
+  GREP_PROG='rg'
 else
-  GREP_PROG='grep -r --perl-regexp --color --include *.java'
+  # GREP_PROG='grep -r --perl-regexp --color --include *.java'
+  GREP_PROG='grep -r --color --include *.java'
 fi
 
 PRINT_OUTPUT=$([ "$1" == "-p" ] && echo true || echo false)
 
-BOOLEAN_VIOLATION='(?<!@) boolean [^is|^are|^has|^should]'
+# BOOLEAN_VIOLATION='(?<!@) boolean [^is|^are|^has|^should]'
+BOOLEAN_VIOLATION='^[^@]* boolean [^is|^are|^has|^should]'
 BOOLEAN_VIOLATION_COUNT=$($GREP_PROG "$BOOLEAN_VIOLATION" src | wc -l)
 [ "$PRINT_OUTPUT" == true ] && $GREP_PROG "$BOOLEAN_VIOLATION" src
 echo "$BOOLEAN_VIOLATION_COUNT" boolean naming violations found.
 
-
+# '(?<=\*) @.* .*$'
 NO_PERIOD_VIOLATION='\* @.*[^\.]$'
 NO_PERIOD_VIOLATION_COUNT=$($GREP_PROG "$NO_PERIOD_VIOLATION" src | wc -l)
 [ "$PRINT_OUTPUT" == true ] && $GREP_PROG "$NO_PERIOD_VIOLATION" src

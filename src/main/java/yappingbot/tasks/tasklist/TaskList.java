@@ -124,7 +124,6 @@ public class TaskList implements Iterable<Task> {
      * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
     public Task get(int index) throws YappingBotOobException {
-        assert tasks != null;
         assert tasks.size() == size;
         if (index < 0 || index >= size) {
             throw new YappingBotOobException(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, index);
