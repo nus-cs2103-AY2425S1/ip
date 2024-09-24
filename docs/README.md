@@ -1,7 +1,7 @@
 Lewis User Guide
 -------------------------------------------------------
 
-Lewis the chatterbox is a **command-line application** for managing tasks. It offers a
+Lewis the chatterbox is an interactive application for managing tasks. It offers a
 user-friendly and interactive way to manage to-dos, deadlines, and events. Lewis
 does the thinking for you, and keeps you on track of your **immediate priorities**.
 
