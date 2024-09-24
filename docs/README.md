@@ -1,12 +1,19 @@
 # MorganaPro User Guide
 
-![Ui](Ui.png)
+<img src="Ui.png" alt="Ui" width="500px">
 
 MorganaPro frees your mind of having to remember things you need to do. It's,
 
 - text-based
 - easy to learn
 - ~~FAST~~ _SUPER_ FAST to use
+
+## Quick Start
+
+1. Ensure you have Java 17 or later installed.
+2. Download the latest `.jar` file from [here](https://github.com/Gra7ityIC3/ip/releases).
+3. Open a command line and navigate to the folder containing the jar file.
+4. Run `java -jar morgana.jar` to start the application.
 
 ## Features
 
@@ -157,10 +164,14 @@ Expected output:
 Bye! Hope to see you again soon!
 ```
 
+### Saving the data
+
+MorganaPro automatically saves your data to the hard disk after every command that modifies the data. There's no need to save manually.
+
 ## Command Summary
 
 | Command      | Format                                        |
-|--------------|-----------------------------------------------|
+|:-------------|:----------------------------------------------|
 | **todo**     | `todo <description>`                          |
 | **deadline** | `deadline <description> /by <date>`           |
 | **event**    | `event <description> /from <date> /to <date>` |
