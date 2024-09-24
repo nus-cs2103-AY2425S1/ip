@@ -1,11 +1,11 @@
 Lewis User Guide
 -------------------------------------------------------
 
-Lewis the chatterbox is a **command-line application** for managing tasks. It offers a
+Lewis the chatterbox is an interactive application for managing tasks. It offers a
 user-friendly and interactive way to manage to-dos, deadlines, and events. Lewis
 does the thinking for you, and keeps you on track of your **immediate priorities**.
 
-![Screenshot of Lewis the Chatterbox GUI](./docs/Ui.png)
+![Screenshot of Lewis the Chatterbox GUI](./Ui.png)
 
 -------------------------------------------------------
 
@@ -22,13 +22,10 @@ does the thinking for you, and keeps you on track of your **immediate priorities
    - Search 'Terminal'<br>
    
    For  Windows users:
-   - Windows Key
+   - <kbd>![Windows Key](https://i.sstatic.net/T0oPO.png)</kbd>
    - Search 'cmd'
-1. Enter `cd [file_path]`. For example, if you put it in a folder on your desktop,<br>
-   type `cd ./Desktop/New\ Folder/`
-1. Enter `java -jar Lewis.jar`. An application window should open up...
 
-1. Start typing commands into the text box!<br> Hit enter or
+1. Type the command into the text box.<br> Hit enter or
    click the 'Send' button whenever you're ready.<br> Here are some commands you can try!
 
     * `help` : Lists all commands. <br>
@@ -190,3 +187,9 @@ You may export it for use in another program like Microsoft Excel.
 | **Help**                 | `help`                                                                                                                             |
 
 -------------------------------------------------------
+
+## Acknowledgements
+
+GUI Images for Lewis and User are created using Stable Diffusion by Stability AI
+
+Overall layout for this User Guide adapted from [@JunLongling](https://junlongling.github.io/ip/)
