@@ -37,8 +37,7 @@ public class Deadline extends Task {
         return str.toString();
     }
 
-    @Override
-    public Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
+    public static Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
         // format: D<isDone><len(desc)#4><desc><by>
         if (encodedString.charAt(0) != 'D') {
             throw new WrongTaskException();
@@ -60,7 +59,7 @@ public class Deadline extends Task {
         return task;
     }
 
-    private Task getTask(String encodedString) {
+    private static Task getTask(String encodedString) {
         int descLength = Integer.parseInt(encodedString.substring(2, 6));
         String desc = encodedString.substring(6, 6 + descLength);
         String by = encodedString.substring(6 + descLength);

@@ -1,6 +1,5 @@
 package bob.task;
 
-import bob.exception.InvalidDateTimeException;
 import bob.exception.LineCorruptedException;
 import bob.exception.WrongTaskException;
 import bob.util.DateTime;
@@ -48,8 +47,7 @@ public class Event extends Task {
         return str.toString();
     }
 
-    @Override
-    public Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
+    public static Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
         // format: E<isDone><len(desc)#4><desc><len(from)#4><from><to>
         if (encodedString.charAt(0) != 'E') {
             throw new WrongTaskException();
@@ -68,10 +66,10 @@ public class Event extends Task {
             throw new LineCorruptedException();
         }
 
-        return null;
+        return task;
     }
 
-    private Task getTask(String encodedString) {
+    private static Task getTask(String encodedString) {
         int descLength = Integer.parseInt(encodedString.substring(2, 6));
         int curr = 6 + descLength;
         String desc = encodedString.substring(6, curr);

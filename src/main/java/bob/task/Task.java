@@ -5,6 +5,12 @@ import bob.exception.WrongTaskException;
 
 /**
  * Abstract base class that all task types should inherit.
+ * All must define a <br>
+ * <code>public static decode() throws WrongTaskException, LineCorruptedException</code> <br>
+ * method that decodes corresponding encoded lines in the data file.
+ * Classes that inherit this class and is in this package is collected by the {@code Storage} to be used.
+ *
+ * @see bob.Storage
  */
 public abstract class Task {
     protected String description;
@@ -60,13 +66,16 @@ public abstract class Task {
 
     /**
      * Decodes the encoded string representation of this task in the data file.
+     * All task types must implement this method.
      *
      * @param encodedString the encoded string representation of this task
      * @return the decoded task
      * @throws WrongTaskException if the encoded string does not represent this task
      * @throws LineCorruptedException if the encoded string does not follow the encoding format of this task
      */
-    public abstract Task decode(String encodedString) throws WrongTaskException, LineCorruptedException;
+    public static Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
+        return null;
+    }
 
     @Override
     public String toString() {

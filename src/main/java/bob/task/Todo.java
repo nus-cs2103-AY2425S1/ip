@@ -14,8 +14,7 @@ public class Todo extends Task {
         return "T" + (this.isDone ? "1" : "0") + this.description;
     }
 
-    @Override
-    public Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
+    public static Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
         // format: T<isDone><desc>
         if (encodedString.charAt(0) != 'T') {
             throw new WrongTaskException();
