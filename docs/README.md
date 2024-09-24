@@ -1,6 +1,6 @@
 # Elysia User Guide
 
-![](docs/Ui.png)
+![](Ui.png)
 
 This chatbot will manage your tasks for you! Personality heavily inspired by Elysia from Honkai Impact 3.
 
