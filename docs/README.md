@@ -149,8 +149,8 @@ The application handles various exceptions, such as:
 ## Task format stored in file
 Tasks are stored automatically in the `data/fridayTaskList.txt` file in the following format:
 
-- D 0 Task 20 /by 2025-10-10
-- T 0 task21
+- D 0 Task20 /by 2025-10-10
+- T 0 task 21
 - E 1 task22 /from 2024-09-20 /to 2024-09-23
 
 ## Conclusion
