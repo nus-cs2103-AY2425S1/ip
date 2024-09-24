@@ -85,6 +85,9 @@ public class Storage {
      * @throws ElsaException If the task type is invalid or if there is an error when parsing the task.
      */
     private static Task convertStringToTask(String taskInfo) throws ElsaException {
+        // Assert that the taskInfo is not empty
+        assert !taskInfo.isEmpty() : "Task info cannot be empty";
+
         String[] parts = taskInfo.split(" \\| ");
 
         String taskType = parts[0];
@@ -97,13 +100,18 @@ public class Storage {
             return new Todo(description, isDone);
 
         case "D":
+            // Assert that the dueBy field exists for Deadline tasks
+            assert parts.length == 4 : "Invalid Deadline format in data file, missing dueBy field";
             // Create a elsa.task.Deadline task
             String dueBy = parts[3];
             return new Deadline(description, isDone, dueBy);
 
         case "E":
+            // Assert that start and end date/time exist for Event tasks
+            assert parts.length == 4 : "Invalid Event format in data file, missing start and end times";
             // Create an elsa.task.Event task
             String[] eventTimes = parts[3].split(" - ");
+            assert eventTimes.length == 2 : "Invalid Event times in data file, expecting a start and end time";
             String start = eventTimes[0].trim();
             String end = eventTimes[1].trim();
             return new Event(description, isDone, start, end);
