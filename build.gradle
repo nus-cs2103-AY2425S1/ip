@@ -28,7 +28,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("bopes.Bopes")
+    mainClass.set("bopes.Launcher")
 }
 
 test {
@@ -47,13 +47,14 @@ test {
 
 shadowJar {
     archiveBaseName = "bopes"
+    mainClassName = "bopes.Bopes"
     archiveClassifier = null
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
-
+          
 run {
     enableAssertions = true
 }
