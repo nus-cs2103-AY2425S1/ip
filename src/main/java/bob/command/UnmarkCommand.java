@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
             throw new IncorrectArgumentException("a valid index");
         }
 
-        tasks.get(index).mark();
+        tasks.get(index).unmark();
         ui.printWithFormat("OK, I've marked this task as not done:\n"
                 + tasks.get(index));
     }
