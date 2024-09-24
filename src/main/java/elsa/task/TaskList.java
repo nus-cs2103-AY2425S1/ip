@@ -15,6 +15,8 @@ public class TaskList {
      * @param tasks the initial list of tasks
      */
     public TaskList(List<Task> tasks) {
+        // Assert that the tasks reference is not null
+        assert tasks != null : "Task list cannot be null";
         this.tasks = tasks;
     }
 
@@ -34,6 +36,8 @@ public class TaskList {
      * @return A response string that confirms the successful addition of a todo task.
      */
     public String addTodo(String description) {
+        // Assert that the description is not empty
+        assert !description.isEmpty() : "Task description cannot be null or empty";
         Todo newTodo = new Todo(description, false);
         tasks.add(newTodo);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
@@ -48,6 +52,9 @@ public class TaskList {
      * @return A response string that confirms the successful addition of a deadline task.
      */
     public String addDeadline(String description, String dueBy) {
+        // Assert that the description and dueBy are not empty
+        assert !description.isEmpty() : "Task description cannot be empty";
+        assert !dueBy.isEmpty() : "Due date cannot be empty";
         Deadline newDeadline = new Deadline(description, false, dueBy);
         tasks.add(newDeadline);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
@@ -63,6 +70,10 @@ public class TaskList {
      * @return A response string that confirms the successful addition of an event task.
      */
     public String addEvent(String description, String start, String end) {
+        // Assert that the description, start and end are not empty
+        assert !description.isEmpty() : "Task description cannot be empty";
+        assert !start.isEmpty() : "Start date/time cannot be empty";
+        assert !end.isEmpty() : "End date/time cannot be empty";
         Event newEvent = new Event(description, false, start, end);
         tasks.add(newEvent);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
@@ -76,6 +87,8 @@ public class TaskList {
      * @return A response string that confirms the successful deletion of a task.
      */
     public String deleteTask(int index) {
+        // Assert that the index is valid
+        assert index >= 0 && index < tasks.size() : "Invalid index for task deletion";
         String message = "Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have "
                 + (tasks.size() - 1) + " tasks in our list now.";
 
@@ -130,6 +143,8 @@ public class TaskList {
      * @return A response string that confirms the marking of a task.
      */
     public String markTask(int index) {
+        // Assert that the index is valid
+        assert index >= 0 && index < tasks.size() : "Invalid index for marking task";
         tasks.get(index).done();
         // Informs the user that the task has been marked as done
         return "Great! I've marked it as done:\n  " + tasks.get(index).toString();
@@ -142,6 +157,8 @@ public class TaskList {
      * @return A response string that confirms that the task has been unmarked.
      */
     public String unmarkTask(int index) {
+        // Assert that the index is valid
+        assert index >= 0 && index < tasks.size() : "Invalid index for unmarking task";
         tasks.get(index).notDone();
         // Informs the user that the task has been marked as not done
         return "Alright, I've unchecked this task:\n  " + tasks.get(index).toString();
