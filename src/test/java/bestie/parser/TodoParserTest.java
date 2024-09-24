@@ -1,19 +1,20 @@
 package bestie.parser;
 
-import bestie.command.Command;
-import bestie.command.ErrorCommand;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import org.junit.jupiter.api.Test;
+
+import bestie.command.Command;
+import bestie.command.ErrorCommand;
 
 public class TodoParserTest {
 
     @Test
     void executeCommand_missingDescription_correctErrorMessage() {
         TodoParser parser = new TodoParser();
-        String expectedErrorMessage = "The description of a todo cannot be empty.\n" +
-                "Please input your todo again!";
+        String expectedErrorMessage = "The description of a todo cannot be empty.\n"
+                + "Please input your todo again!";
         Command command = parser.executeCommand("todo");
         assertInstanceOf(ErrorCommand.class, command);
         if (command instanceof ErrorCommand) {
@@ -25,8 +26,8 @@ public class TodoParserTest {
     @Test
     void executeCommand_missingDescription2_correctErrorMessage() {
         TodoParser parser = new TodoParser();
-        String expectedErrorMessage = "The description of a todo cannot be empty.\n" +
-                "Please input your todo again!";
+        String expectedErrorMessage = "The description of a todo cannot be empty.\n"
+                + "Please input your todo again!";
         Command command = parser.executeCommand("todo /priority low");
         assertInstanceOf(ErrorCommand.class, command);
         if (command instanceof ErrorCommand) {
@@ -38,8 +39,8 @@ public class TodoParserTest {
     @Test
     void executeCommand_missingPriority_correctErrorMessage() {
         TodoParser parser = new TodoParser();
-        String expectedErrorMessage = "You did not key in the priority of your task! Remember to indicate " +
-                "the priority with the command \"/priority\"";
+        String expectedErrorMessage = "You did not key in the priority of your task! Remember to indicate "
+                + "the priority with the command \"/priority\"";
         Command command = parser.executeCommand("todo quiz");
         assertInstanceOf(ErrorCommand.class, command);
         if (command instanceof ErrorCommand) {

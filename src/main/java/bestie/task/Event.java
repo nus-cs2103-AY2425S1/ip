@@ -62,7 +62,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")" +
-                ", priority: " + this.priority.toString();
+        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")"
+                + ", priority: " + this.priority.toString();
     }
 }

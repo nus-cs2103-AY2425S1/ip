@@ -1,13 +1,11 @@
 package bestie;
 
-import bestie.task.Priority;
-import bestie.task.Task;
-import bestie.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import bestie.task.Priority;
+import bestie.task.Todo;
 
 public class UiTest {
 

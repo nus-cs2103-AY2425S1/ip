@@ -1,12 +1,13 @@
 package bestie.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import org.junit.jupiter.api.Test;
+
 import bestie.command.Command;
 import bestie.command.DeleteCommand;
 import bestie.command.ErrorCommand;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class DeleteParserTest {
 

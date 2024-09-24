@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import bestie.task.*;
+import bestie.task.Deadline;
+import bestie.task.Event;
+import bestie.task.Priority;
+import bestie.task.Task;
+import bestie.task.Todo;
 
 /**
  * Deals with loading objects from the file and saving tasks in the bestie.txt file.
@@ -21,7 +25,7 @@ public class Storage {
      * @param filePath path of the bestie.txt file where users' tasks are stored.
      */
     public Storage(String filePath) {
-        assert filePath != null && !filePath.isEmpty(): "File path cannot be null or empty";
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         this.filePath = filePath;
     }
 
@@ -33,14 +37,13 @@ public class Storage {
     public void saveTasksToFile(TaskList tasks) {
 
         // want to save tasks to bestie.txt file
-        assert this.filePath != null && !filePath.isEmpty(): "Filepath has not been initialised";
+        assert this.filePath != null && !filePath.isEmpty() : "Filepath has not been initialised";
         try {
             File f = new File(this.filePath);
             FileWriter fw = new FileWriter(f);
 
             for (Task task: tasks.getTasks()) {
-                /** Stores each task in its correct format for saving */
-                assert task != null: "Task in task list is null";
+                assert task != null : "Task in task list is null";
                 fw.write(task.toSaveFormat() + System.lineSeparator());
             }
             // Call close() method of filewriter object for writing operation to be completed
@@ -71,10 +74,9 @@ public class Storage {
                 assert nextTask != "" : "Next task is empty";
                 String[] parts = nextTask.split(" \\| ");
                 String taskType = parts[0]; // either T, D, or E, depending on task
-                
                 // Checks whether task had been completed
-                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E"):
-                        "Invalid task type";
+                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E")
+                        : "Invalid task type";
                 boolean isCompleted = parts[1].equals("1");
                 String description = parts[2]; // description of task
                 Task newTask = null;

@@ -4,9 +4,16 @@ import bestie.command.Command;
 import bestie.command.ErrorCommand;
 import bestie.command.FindCommand;
 
-import java.lang.reflect.Array;
-
+/**
+ * Creates an instance of the find parser to parse a find command.
+ */
 public class FindParser {
+    /**
+     * Parses find command for execution.
+     *
+     * @param userInput User find command input.
+     * @return Find command if parse successful, Error command if unsuccessful.
+     */
     public Command executeFindCommand(String userInput) {
         try {
             String[] parts = userInput.split(" ");

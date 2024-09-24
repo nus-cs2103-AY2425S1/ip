@@ -53,7 +53,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.formattedDeadline + "), priority: " + this.priority.toString();
+        return "[D]" + super.toString() + " (by: " + this.formattedDeadline + "), priority: "
+                + this.priority.toString();
     }
 
 }

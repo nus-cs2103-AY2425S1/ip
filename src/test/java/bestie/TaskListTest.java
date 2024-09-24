@@ -2,9 +2,9 @@ package bestie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import bestie.task.Priority;
 import org.junit.jupiter.api.Test;
 
+import bestie.task.Priority;
 import bestie.task.Task;
 import bestie.task.Todo;
 

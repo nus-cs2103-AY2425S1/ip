@@ -1,6 +1,10 @@
 package bestie.parser;
 
-import bestie.command.*;
+
+import bestie.command.Command;
+import bestie.command.ExitCommand;
+import bestie.command.InvalidCommand;
+import bestie.command.ListCommand;
 
 /**
  * Creates an instance of the parser to understand user input and executes command.

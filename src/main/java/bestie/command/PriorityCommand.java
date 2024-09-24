@@ -8,7 +8,7 @@ import bestie.task.Priority;
 /**
  * Creates a command that will display all tasks of a particular priority to the user.
  */
-public class PriorityCommand extends Command{
+public class PriorityCommand extends Command {
 
     private Priority priority;
 

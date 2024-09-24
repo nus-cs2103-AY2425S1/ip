@@ -4,8 +4,17 @@ import bestie.command.Command;
 import bestie.command.ErrorCommand;
 import bestie.command.MarkCommand;
 
+/**
+ * Parser to parse the mark command.
+ */
 public class MarkParser {
 
+    /**
+     * Parses the mark command for execution.
+     *
+     * @param userInput User mark command input.
+     * @return Mark command if parse successful, Error command if error occurs.
+     */
     public Command executeMarkCommand(String userInput) {
         try {
             String[] parts = userInput.split(" ");

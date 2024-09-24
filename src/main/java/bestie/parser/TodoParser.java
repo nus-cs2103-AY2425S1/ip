@@ -6,9 +6,17 @@ import bestie.command.ErrorCommand;
 import bestie.task.Priority;
 import bestie.task.Todo;
 
+/**
+ * Creates an instance of the Todo parser to parse a todo command.
+ */
 public class TodoParser {
 
-
+    /**
+     * Executes the todo command.
+     *
+     * @param userInput User command input.
+     * @return Add command to add a new task if successful, Error command if an error occurs.
+     */
     public Command executeCommand(String userInput) {
         try {
             String[] partsOfTodo = userInput.split(" /priority");
@@ -18,14 +26,14 @@ public class TodoParser {
             Priority priority = Priority.valueOf(priorityString);
             return new AddCommand(new Todo(description, priority));
         } catch (StringIndexOutOfBoundsException e) {
-            return new ErrorCommand("The description of a todo cannot be empty.\n" +
-                    "Please input your todo again!");
+            return new ErrorCommand("The description of a todo cannot be empty.\n"
+                    + "Please input your todo again!");
         } catch (IllegalArgumentException e) {
-            return new ErrorCommand("Invalid priority :(." +
-                    " Please specify as 'high', 'medium' or 'low'.");
+            return new ErrorCommand("Invalid priority :(."
+                    + " Please specify as 'high', 'medium' or 'low'.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new ErrorCommand("You did not key in the priority of your task! " +
-                    "Remember to indicate the priority with the command \"/priority\"");
+            return new ErrorCommand("You did not key in the priority of your task! "
+                    + "Remember to indicate the priority with the command \"/priority\"");
         }
     }
 }

@@ -7,7 +7,7 @@ import bestie.Ui;
 /**
  * Creates an error command that allows the Bestie chatbot to display error message to user.
  */
-public class ErrorCommand extends Command{
+public class ErrorCommand extends Command {
 
     private String errorMessage;
 

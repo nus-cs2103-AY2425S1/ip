@@ -4,10 +4,17 @@ import bestie.command.Command;
 import bestie.command.DeleteCommand;
 import bestie.command.ErrorCommand;
 
-import java.lang.reflect.InvocationTargetException;
-
+/**
+ * Parser for delete command.
+ */
 public class DeleteParser {
 
+    /**
+     * Parses delete command for execution.
+     *
+     * @param userInput User command input.
+     * @return Delete command to execute command, or Error command if an error occurred.
+     */
     public Command executeDeleteCommand(String userInput) {
         try {
             String[] parts = userInput.split(" ");

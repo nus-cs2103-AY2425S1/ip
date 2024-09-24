@@ -1,9 +1,7 @@
 package bestie;
 
-
-import bestie.parser.Parser;
 import bestie.command.Command;
-
+import bestie.parser.Parser;
 
 /**
  * Creates an instance of the Bestie chatbot.
