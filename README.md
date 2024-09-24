@@ -24,6 +24,12 @@ Elsa and her friend Olaf from *Frozen* join us on this journey. Thanks to Disney
 
 All characters, including Elsa and Olaf, belong to **Disney**, and we are grateful for their inspiration from the movie *Frozen*.
 
+### Use of AI
+
+ChatGPT was used to generate javadoc comments for classes and methods. The Commands and the methods to handle userInput
+were adapted from ChatGPT. The Gui class and GuiWindow class contain code adapted from ChatGPT. In particular, the code
+to have a 3-second countdown timer between when the user keys in "bye" and the application window closes.
+
 ### Presenting:
 
 ```plaintext
