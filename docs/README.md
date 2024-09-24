@@ -11,7 +11,7 @@ does the thinking for you, and keeps you on track of your **immediate priorities
 
 ## Quick Start
 
-1. Ensure you have [Java `17` or above](https://www.oracle.com/java/technologies/downloads/) installed in your system.
+1. Ensure you have [Java 17 or above](https://www.oracle.com/java/technologies/downloads/) installed in your system.
 
 1. Download the latest `.jar` file from [here](https://github.com/darkmoongreatsword/ip/releases).
 
