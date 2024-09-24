@@ -22,7 +22,7 @@ does the thinking for you, and keeps you on track of your **immediate priorities
    - Search 'Terminal'<br>
    
    For  Windows users:
-   - <kbd>![Windows Key](https://i.sstatic.net/T0oPO.png)</kbd>
+   - <kbd>![Windows Key](./WindowsKey.png)</kbd>
    - Search 'cmd'
 
 1. Type the command into the text box.<br> Hit enter or
