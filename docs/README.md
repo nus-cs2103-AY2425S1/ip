@@ -188,7 +188,9 @@ You may export it for use in another program like Microsoft Excel.
 
 -------------------------------------------------------
 
-##Acknowledgements
+## Acknowledgements
 
 GUI Images for Lewis and User are created using Stable Diffusion by Stability AI
+
+Overall layout for this User Guide adapted from [@JunLongling](https://junlongling.github.io/ip/)
 
