@@ -27,6 +27,12 @@ public class Storage {
         this.filePath = filePath;
         File file = new File(filePath);
 
+        // Ensure the directory exists
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs(); // Create directories if they don't exist
+        }
+
         // Ensure file creation if it doesn't exist
         try {
             if (!file.exists()) {

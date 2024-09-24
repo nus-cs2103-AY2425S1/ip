@@ -71,18 +71,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-
-        // closes the application if user typed "bye"
-        if (input.equalsIgnoreCase("bye")) {
-            //@@author James_D -reused
-            // source:
-            // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
-            // reused the method to close the javafx window after a delay
-            PauseTransition delay = new PauseTransition(Duration.seconds(3));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
-            //@@author
-        }
     }
 }
 

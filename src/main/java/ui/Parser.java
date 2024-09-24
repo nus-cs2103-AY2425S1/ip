@@ -1,5 +1,8 @@
 package ui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import storage.Storage;
 import task.*;
 
@@ -225,6 +228,17 @@ public class Parser {
      * @return A goodbye message and saves the task data.
      */
     private static String handleBye() {
+
+        // closes the application if user typed "bye"
+        //@@author James_D -reused
+        // source:
+        // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
+        // reused the method to close the javafx window after a delay
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+        //@@author
+
         return "Bye. Hope to see you again soon!\n";
     }
 }
