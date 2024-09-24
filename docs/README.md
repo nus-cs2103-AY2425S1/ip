@@ -3,8 +3,9 @@
 
 YappingBot **FREES** your mind of having to remember things you need to do.
 
+![GUI](Ui.png)
 
-![](Ui.png)
+![CLI](Ui2.png)
 
 ---
 <details> 
