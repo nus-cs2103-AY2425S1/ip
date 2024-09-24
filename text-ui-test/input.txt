@@ -1,0 +1,10 @@
+hi
+todo 5pm
+event project /from Mon /to Tues
+deadline work /by next Monday
+list
+mark 2
+mark 3
+unmark 2
+list
+bye
