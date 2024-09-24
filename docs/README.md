@@ -70,5 +70,6 @@ With a simple command, you can leave Beechat.
 
 ## Screenshot
 
+![Beechat Chatbot](Ui.png)
 
 Have fun using Beechat!
