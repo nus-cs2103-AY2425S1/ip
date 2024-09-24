@@ -44,17 +44,17 @@ test {
 }
 
 application {
-    mainClass.set("velma.Main")
+    mainClass.set("velma.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "velma"
     archiveClassifier = null
-    archiveFileName = "velma.jar"
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {
