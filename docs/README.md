@@ -81,7 +81,7 @@ Task Meeting has been rescheduled to be by Aug 23 2024 7:00pm
 To change the schedule of the nth event task, use:
 
 ```
-RESCHEDULE n /from <new time 1> /to <new time 2>
+RESCHEDULE n /from <new time 1> /to <new time 2> 
 ```
 **Example:**
 ```
