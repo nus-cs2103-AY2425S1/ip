@@ -19,6 +19,8 @@ public class TaskList {
      * @param tasks the initial list of tasks
      */
     public TaskList(List<Task> tasks) {
+        // Assert that the tasks reference is not null
+        assert tasks != null : "Task list cannot be null";
         this.tasks = tasks;
     }
 
@@ -38,6 +40,8 @@ public class TaskList {
      * @return A response string that confirms the successful addition of a todo task.
      */
     public String addTodo(String description) {
+        // Assert that the description is not empty
+        assert !description.isEmpty() : "Task description cannot be null or empty";
         Todo newTodo = new Todo(description, false);
         tasks.add(newTodo);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
@@ -55,6 +59,9 @@ public class TaskList {
         try {
             LocalDate.parse(dueBy);
 
+            // Assert that the description and dueBy are not empty
+            assert !description.isEmpty() : "Task description cannot be empty";
+            assert !dueBy.isEmpty() : "Due date cannot be empty";
             Deadline newDeadline = new Deadline(description, false, dueBy);
             tasks.add(newDeadline);
             return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
@@ -75,6 +82,10 @@ public class TaskList {
      * @return A response string that confirms the successful addition of an event task.
      */
     public String addEvent(String description, String start, String end) {
+        // Assert that the description, start and end are not empty
+        assert !description.isEmpty() : "Task description cannot be empty";
+        assert !start.isEmpty() : "Start date/time cannot be empty";
+        assert !end.isEmpty() : "End date/time cannot be empty";
         Event newEvent = new Event(description, false, start, end);
         tasks.add(newEvent);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "

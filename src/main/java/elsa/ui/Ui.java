@@ -24,9 +24,8 @@ public class Ui {
     /**
      * Greets the user and begins the conversation.
      */
-    public void greetUser() {
-        System.out.println("Hi! I'm Elsa");
-        System.out.println("It's nice to meet you.\nHow can I help you?");
+    public String greetUser() {
+        return "Hi! I'm Elsa. It's nice to meet you.\nHow can I help you?";
     }
 
     /**

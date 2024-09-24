@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for Elsa using FXML.
+ *
+ * @author Aaron
  */
 public class Gui extends Application {
     // Creates a logger for this class
