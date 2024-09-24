@@ -187,3 +187,8 @@ You may export it for use in another program like Microsoft Excel.
 | **Help**                 | `help`                                                                                                                             |
 
 -------------------------------------------------------
+
+##Acknowledgements
+
+GUI Images for Lewis and User are created using Stable Diffusion by Stability AI
+
