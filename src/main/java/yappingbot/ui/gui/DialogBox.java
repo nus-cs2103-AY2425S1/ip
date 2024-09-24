@@ -21,9 +21,12 @@ import javafx.scene.layout.VBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    private @FXML Label dialog;
-    private @FXML ImageView displayPicture;
-    private @FXML VBox labelsVbox;
+    @FXML
+    private Label dialog;
+    @FXML
+    private ImageView displayPicture;
+    @FXML
+    private VBox labelsVbox;
     private final boolean isReplyDialog;
 
     /**
