@@ -68,6 +68,11 @@ public class Parser {
     }
 
     private static List<String> splitOptionString(String option) {
+
+        if (option.indexOf(' ') == -1) {
+            return Arrays.asList(option, "");
+        }
+
         String optionName = option.substring(0, option.indexOf(' ')).trim();
         String optionValue = option.substring(option.indexOf(' ')).trim();
         System.out.println(Arrays.asList(optionName, optionValue));
