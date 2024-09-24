@@ -3,9 +3,11 @@
 ![image](https://github.com/user-attachments/assets/b3fc3c08-b3e0-4a99-958b-fc1dfbec02b2)
 
 
-***Welcome to EmoteX! 
- Your go to app for keeping track of all your tasks, deadlines and events admist your hectic schedule! :)
- Have a look at all our features before trying out EmoteX!***
+***Welcome to EmoteX!*** 
+
+Your go to app for keeping track of all your tasks, deadlines and events admist your hectic schedule! :)
+ 
+Have a look at all our features before trying out **EmoteX!**
 
 # ***Features***
 
@@ -28,11 +30,11 @@ Deadline:
 
 Unrecognised parameters will result in a help guide being shown
 
- ## Guide : hi
+## Guide : `hi`
 *Shows an intro message followed by a guide on how to use the features*
  ![image](https://github.com/user-attachments/assets/bfdccc12-ac80-48b0-b4e8-d3e6420bc878)
 
-## Adding deadlines : deadline 
+## Adding deadlines : `deadline` 
 
 *Adds a deadline task to the list of tasks and shows successfully added messsage*
 
@@ -41,7 +43,7 @@ Unrecognised parameters will result in a help guide being shown
 
 Format: deadline TASK /by DATE TIME(optional)
 
-## Adding todos : todo 
+## Adding todos : `todo` 
 
 *Adds a todo task to the list of tasks and shows successfully added messsage*
 
@@ -49,7 +51,7 @@ Format: deadline TASK /by DATE TIME(optional)
 
 Format: todo TASK 
 
-## Adding events : event 
+## Adding events : `event` 
 
 *Adds a event to the list of tasks and shows successfully added messsage*
 
@@ -57,7 +59,7 @@ Format: todo TASK
 
 Format: event TASK /from STARTTIME /to ENDTIME /on DATE 
 
-## Deleting task : delete 
+## Deleting task : `delete` 
 
 *Deletes task at sepcifed index*
 
@@ -65,11 +67,11 @@ Format: event TASK /from STARTTIME /to ENDTIME /on DATE
 
 Format: delete INDEX
 
-## Updating task : update 
+## Updating task : `update` 
 
 *Updates task at sepcifed index with the given new value*
 
-### deadline
+### Deadline
 Format_1 (deadline): update INDEX datetime /to NEWDATETIME
 
 - for deadline task with both date and time
@@ -87,7 +89,7 @@ Format_3 (deadline): update INDEX time /to NEWTIME
   
 ![image](https://github.com/user-attachments/assets/a1f2ab9a-befb-42bd-9ad7-4fca1efd3c42)
 
-### event
+### Event
 Format_1 (event): update INDEX date /to NEWDATE
 ![image](https://github.com/user-attachments/assets/17e47e0e-d095-4f72-89d0-f9b6e50f04bf)
 
@@ -97,7 +99,7 @@ Format_2 (event): update INDEX startTime /to NEWTIME
 Format_3 (event): update INDEX endTime /to NEWTIME
 ![image](https://github.com/user-attachments/assets/51f36814-a1f2-489a-ad86-bbc92fa34131)
 
-## Marking task : mark 
+## Marking task : `mark` 
 
 *Marks task at sepcifed index as completed*
 
@@ -105,7 +107,7 @@ Format_3 (event): update INDEX endTime /to NEWTIME
 
 Format: mark INDEX
 
-## Unmarking task : unmark 
+## Unmarking task : `unmark` 
 
 *Marks task at sepcifed index as incomplete*
 
@@ -113,7 +115,7 @@ Format: mark INDEX
 
 Format: unmark INDEX
 
-## Finding task : find 
+## Finding task : `find` 
 
 *Shows tasks that contains keywords*
 
@@ -121,7 +123,7 @@ Format: unmark INDEX
 
 Format: find KEYWORDS
 
-## Due task : due 
+## Due task : `due` 
 
 *Shows tasks that are due on given date*
 
@@ -129,7 +131,7 @@ Format: find KEYWORDS
 
 Format: due DATE 
 
-## View task : list 
+## View task : `list` 
 
 *Shows tasks in task list*
 
@@ -137,7 +139,7 @@ Format: due DATE
 
 Format: list 
 
-## Finish task : bye 
+## Finish task : `bye` 
 
 *Shows exit message*
 
