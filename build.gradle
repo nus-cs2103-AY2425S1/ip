@@ -29,6 +29,7 @@ dependencies {
 
 }
 
+
 test {
     useJUnitPlatform()
 
@@ -44,12 +45,14 @@ test {
 }
 
 application {
-    mainClass.set("yapyap.Main")
+    mainClass.set("yapyap.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "YapperBot"
     archiveClassifier = null
+    mainClassName = 'yapyap.Launcher'
+    archiveFileName = 'YapperBot.jar'
 }
 
 run{
