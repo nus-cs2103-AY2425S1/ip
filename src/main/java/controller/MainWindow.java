@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image bossImage = new Image(this.getClass().getResourceAsStream("/images/Bo$$.png"));
+    private final Image fridayImage = new Image(this.getClass().getResourceAsStream("/images/Friday.png"));
     private UiGui gui;
     private Storage storage;
     private TaskList tasks;
@@ -78,11 +78,11 @@ public class MainWindow extends AnchorPane {
     }
 
     public void showWelcomeMessage() {
-        dialogContainer.getChildren().add(DialogBox.getFridayDialog(dukeImage, gui.showWelcome()));
+        dialogContainer.getChildren().add(DialogBox.getFridayDialog(fridayImage, gui.showWelcome()));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Friday's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -103,8 +103,8 @@ public class MainWindow extends AnchorPane {
             }
         } finally {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userImage, input),
-                    DialogBox.getFridayDialog(dukeImage, response)
+                    DialogBox.getUserDialog(bossImage, input),
+                    DialogBox.getFridayDialog(fridayImage, response)
             );
             userInput.clear();
         }
