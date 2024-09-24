@@ -1,5 +1,3 @@
-E| | project meeting /from 17:00 /to 19:00 /on 2020-06-07
-D| | math homework /by 2020-06-07
 D| | /by 20:00
 D| | sci /by 2020-06-07 17:00
 D| | math /by 2020-04-05
@@ -7,3 +5,5 @@ D| | eng /by 18:00
 T| | red
 E| | project /from 16:00 /to 18:00 /on 2020-04-05
 T| | read book
+T| | read booky
+T| | readd
