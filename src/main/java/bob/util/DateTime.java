@@ -1,4 +1,4 @@
-package bob;
+package bob.util;
 
 import bob.exception.InvalidDateTimeException;
 

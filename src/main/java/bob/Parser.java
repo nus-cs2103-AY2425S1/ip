@@ -2,6 +2,7 @@ package bob;
 
 import bob.command.Command;
 import bob.exception.UnknownCommandException;
+import bob.util.ClassGetter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

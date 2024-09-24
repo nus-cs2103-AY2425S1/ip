@@ -1,4 +1,4 @@
-package bob;
+package bob.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Utility class that handles getting classes from specific packages.
  */
-class ClassGetter {
+public class ClassGetter {
     /**
      * Returns all classes in the given package.
      *
