@@ -1,5 +1,6 @@
 package elsa.command;
 
+import elsa.ElsaException;
 import elsa.task.TaskList;
 import elsa.ui.Ui;
 
@@ -12,7 +13,7 @@ public class MarkCommand extends Command {
     /**
      * The index of the task to be marked as completed.
      */
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a elsa.command.MarkCommand with the specified task index.
@@ -31,7 +32,7 @@ public class MarkCommand extends Command {
      * @return A response string representing the result of the command execution, which can be displayed to the user.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) throws ElsaException {
         return tasks.markTask(taskIndex);
     }
 }
