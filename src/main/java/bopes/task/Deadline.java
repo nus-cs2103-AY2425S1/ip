@@ -12,6 +12,7 @@ import bopes.exception.BopesException;
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
     /**
      * Constructs a new Deadline task with the specified description, deadline, and completion status.
@@ -24,7 +25,6 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) throws BopesException {
         super(description, isDone);
         assert description != null && !description.isEmpty() : "Description cannot be null or empty.";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         try {
             if (by.trim().length() == 10) {
                 by = by + " 12:00 am";
@@ -44,8 +44,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-        return "[D]" + super.toString() + " (by: " + by.format(outputFormat) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     /**
@@ -56,8 +55,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-        return "D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.by.format(fileFormat);
+        return "D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.by.format(formatter);
     }
 
     /**

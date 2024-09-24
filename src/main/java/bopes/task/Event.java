@@ -14,6 +14,7 @@ import bopes.exception.BopesException;
 public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
     /**
      * Constructs a new Event task with the specified description, start time, end time, and completion status.
@@ -28,25 +29,19 @@ public class Event extends Task {
     public Event(String description, String start, String end, boolean isDone) throws BopesException {
         super(description, isDone);
         assert description != null && !description.isEmpty() : "Description cannot be null or empty.";
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
         try {
             // Handle start time
             if (start.trim().length() == 10) { // Length of "dd/MM/yyyy" is 10
-                LocalDate startDate = LocalDate.parse(start.trim(), dateFormatter);
-                this.start = startDate.atTime(0, 0); // Default to midnight
-            } else {
-                this.start = LocalDateTime.parse(start.toLowerCase(), dateTimeFormatter);
+                start = start + " 12:00 am"; // Default to midnight
             }
+            this.start = LocalDateTime.parse(start.toLowerCase(), formatter);
 
             // Handle end time
             if (end.trim().length() == 10) { // Length of "dd/MM/yyyy" is 10
-                LocalDate endDate = LocalDate.parse(end.trim(), dateFormatter);
-                this.end = endDate.atTime(0, 0); // Default to midnight
-            } else {
-                this.end = LocalDateTime.parse(end.toLowerCase(), dateTimeFormatter);
+                end = end + " 12:00 am"; // Default to midnight
             }
+            this.end = LocalDateTime.parse(end.toLowerCase(), formatter);
 
             assert this.start != null : "Parsed Event start date cannot be null.";
             assert this.end != null : "Parsed Event end date cannot be null.";
@@ -68,9 +63,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "[E]" + super.toString()
-            + " (from: " + this.start.format(outputFormat) + " to: " + this.end.format(outputFormat) + ")";
+            + " (from: " + this.start.format(formatter) + " to: " + this.end.format(formatter) + ")";
     }
 
     /**
@@ -81,13 +75,12 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "E | " + (isDone ? "1" : "0") + " | " + this.description
-            + " | " + this.start.format(fileFormat) + " | " + this.end.format(fileFormat);
+            + " | " + this.start.format(formatter) + " | " + this.end.format(formatter);
     }
 
     /**
-     * Returns the start time of the event.
+     * Returns the start time of the event
      *
      * @return the start time of the event
      */
