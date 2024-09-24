@@ -1,6 +1,6 @@
 # Mittens: User Guide
 
-![Screenshot of the UI](/docs/Ui.png)
+![Screenshot of the UI](/Ui.png)
 
 _Mittens_ is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI). Get through your day with the cute cat _Mittens_ and doing tasks will feel like a breeze!
 
