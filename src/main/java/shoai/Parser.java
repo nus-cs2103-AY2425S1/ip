@@ -148,12 +148,13 @@ public class Parser {
     private String handleFind(String arguments, TaskList tasks) throws ShoAIException {
         validateArguments(arguments, 1);
         String keyword = arguments.trim();
-        StringBuilder response = new StringBuilder("Here’s what I’ve unearthed!\n These are the matching tasks in your list:\n");
+        StringBuilder response = new StringBuilder("");
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
         if (matchingTasks.isEmpty()) {
             response.append(String.format("Error! No tasks found matching the keyword: %s", keyword));
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append("Here’s what I’ve unearthed!\nThese are the matching tasks in your list:\n");
                 response.append(String.format("%d.%s%n", i + 1, matchingTasks.get(i)));
             }
         }

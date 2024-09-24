@@ -20,6 +20,8 @@
                    prefHeight="41.0"
                    prefWidth="324.0"
                    AnchorPane.bottomAnchor="1.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="76.0"
                    promptText="Type your message here..."
                    style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-padding: 5;"/>
         <Button fx:id="sendButton"
@@ -30,12 +32,20 @@
                 prefHeight="41.0"
                 prefWidth="76.0"
                 text="Send"
+                AnchorPane.bottomAnchor="1.0"
+                AnchorPane.rightAnchor="0.0"
                 style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-border-radius: 5;"/>
         <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
                     hbarPolicy="NEVER"
-                    vbarPolicy="ALWAYS"
+                    hvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
+                    vvalue="1.0"
+                    AnchorPane.bottomAnchor="43.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.topAnchor="0.0"
                     style="-fx-background-color: #ffffff;">
             <content>
                 <VBox fx:id="dialogContainer"

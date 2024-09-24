@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition; // Add this import at the top of your class
+import javafx.util.Duration; // Add this import at the top of your class
 
 /**
  * Represents the main window of the ShoAI application, handling user interactions
@@ -63,7 +65,7 @@ public class MainWindow extends AnchorPane {
         String response = chatbot.getResponse(input);
 
         // Check if the response is an error by some criteria
-        if (response.startsWith("Error") || response.contains("invalid")) { // Example check
+        if (response.contains("Error") || response.contains("invalid")) { // Example check
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getErrorDialog(response, chatbotImage) // Error dialog in red
@@ -73,8 +75,14 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getChatbotDialog(response, chatbotImage)
             );
+            if (response.equals("So long, partner!")) {
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(event ->  {
+                    System.exit(0);
+                });
+                pause.play();
+            }
         }
-
         userInput.clear();
     }
 
