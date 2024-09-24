@@ -24,7 +24,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private final File file;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
 
     /**
      * Constructs a Storage instance that stores and reads files at the given file path.
