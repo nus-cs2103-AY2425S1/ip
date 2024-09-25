@@ -8,19 +8,36 @@ MorganaPro frees your mind of having to remember things you need to do. It's,
 - easy to learn
 - ~~FAST~~ _SUPER_ FAST to use
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Features](#features)
+   - [Adding a todo: `todo`](#adding-a-todo-todo)
+   - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+   - [Adding an event: `event`](#adding-an-event-event)
+   - [Listing all tasks: `list`](#listing-all-tasks-list)
+   - [Marking a task as done: `mark`](#marking-a-task-as-done-mark)
+   - [Marking a task as not done: `unmark`](#marking-a-task-as-not-done-unmark)
+   - [Deleting a task: `delete`](#deleting-a-task-delete)
+   - [Finding tasks by keyword: `find`](#finding-tasks-by-keyword-find)
+   - [Exiting the application: `bye`](#exiting-the-application-bye)
+   - [Saving the data](#saving-the-data)
+   - [Editing the data file](#editing-the-data-file)
+3. [Command Summary](#command-summary)
+
 ## Quick Start
 
 1. Ensure you have Java 17 or later installed.
 2. Download the latest `.jar` file from [here](https://github.com/Gra7ityIC3/ip/releases).
-3. Open a command line and navigate to the folder containing the jar file.
+3. Open a command line and navigate to the folder containing the JAR file.
 4. Run `java -jar morgana.jar` to start the application.
 
 ## Features
 
 > Notes about the command format:
-> * Mandatory arguments are denoted by `<>`.
-> * All dates are in `yyyy-MM-dd HHmm` format.
-> * Extraneous arguments for commands that do not take in arguments (such as `list` and `bye`) will be ignored.<br>
+> - Mandatory arguments are denoted by `<>`.
+> - All dates are in `yyyy-MM-dd HHmm` format.
+> - Extraneous arguments for commands that do not take in arguments (such as `list` and `bye`) will be ignored.<br>
     E.g., `list 123` will be interpreted as `list`.
 
 ### Adding a todo: `todo`
@@ -97,6 +114,7 @@ Format: `mark <index>`
 Example: `mark 1`
 
 Expected output:
+
 ```
 Nice! I've marked this task as done:
 1. [T][X] read book
@@ -111,6 +129,7 @@ Format: `unmark <index>`
 Example: `unmark 1`
 
 Expected output:
+
 ```
 OK, I've marked this task as not done yet:
 1. [T][ ] read book
@@ -136,7 +155,7 @@ Now you have 2 tasks in the list.
 
 Find tasks that contain a specific keyword in their description.
 
-* The search is **case-sensitive**. E.g., `Book` will not match `book`.
+- The search is **case-sensitive**. E.g., `Book` will not match `book`.
 
 Format: `find <keyword>`
 
@@ -167,6 +186,12 @@ Bye! Hope to see you again soon!
 ### Saving the data
 
 MorganaPro automatically saves your data to the hard disk after every command that modifies the data. There's no need to save manually.
+
+### Editing the data file
+
+MorganaPro stores your data in a text file at `data/morgana.txt` within the same folder as the JAR file.
+
+Editing this file is **discouraged**, as invalid changes can cause the application to crash, so always back up the file before making any modifications.
 
 ## Command Summary
 
