@@ -33,7 +33,7 @@ public class Ui {
     /**
      * Returns a line separator as a string.
      *
-     * @return A string representing a line separator.
+     * @return A string representing a line.
      */
     public String stringShowLine() {
         return LINE;
