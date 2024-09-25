@@ -1,21 +1,24 @@
 @ECHO OFF
 
-REM create bin directory if it doesn't exist
+REM Create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
-REM delete output from previous run
-if exist ACTUAL.TXT del ACTUAL.TXT
+REM Delete output from previous run
+del ACTUAL.TXT
 
-REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+REM Compile the code into the bin folder
+REM Adjusting the path to the new package structure
+javac -Xlint:none -d ..\bin ..\src\main\java\bangmang\Command\*.java ..\src\main\java\bangmang\Task\*.java ..\src\main\java\bangmang\Exception\*.java ..\src\main\java\bangmang\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
 )
-REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+REM No error here, errorlevel == 0
 
-REM compare the output to the expected output
+REM Run the program, ensure the fully qualified class name is correct
+REM Update the classpath to point to the bin directory and the main class name
+java -classpath ..\bin bangmang < input.txt > ACTUAL.TXT
+
+REM Compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

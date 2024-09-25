@@ -1,0 +1,9 @@
+todo Buy groceries
+deadline Submit report /by 2024-09-30
+event Meeting /from 2024-08-31 10:00 /to 2024-08-31 12:00
+list
+mark 2
+unmark 1
+delete 3
+list
+bye

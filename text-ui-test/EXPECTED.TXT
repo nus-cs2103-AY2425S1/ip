@@ -1,7 +1,40 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+---------------------------------
+Hello! I'm Ah Bang Mang.
+What you want sia?
+---------------------------------
+---------------------------------
+Added to list liao: [T][ ] Buy groceries
+Sian, now got 1 tasks in your list.
+---------------------------------
+---------------------------------
+Added to list liao: [D][ ] Submit report (by: 2024-09-30)
+Sian, now got 2 tasks in your list.
+---------------------------------
+---------------------------------
+Added to list liao: [E][ ] Meeting (from: 2024-08-31 10:00 to: 2024-08-31 12:00)
+Sian, now got 3 tasks in your list.
+---------------------------------
+---------------------------------
+Siao liao! This your current task list leh...
+1. [T][ ] Buy groceries
+2. [D][ ] Submit report (by: 2024-09-30)
+3. [E][ ] Meeting (from: 2024-08-31 10:00 to: 2024-08-31 12:00)
+---------------------------------
+---------------------------------
+Wah upz! You have marked this task as done: [D][X] Submit report (by: 2024-09-30)
+---------------------------------
+---------------------------------
+Ok, I see you laze. You have marked this task as not done yet: [T][ ] Buy groceries
+---------------------------------
+---------------------------------
+Wah shiok! This task no more liao: [E][ ] Meeting (from: 2024-08-31 10:00 to: 2024-08-31 12:00)
+Now got only 2 tasks left.
+---------------------------------
+---------------------------------
+Siao liao! This your current task list leh...
+1. [T][ ] Buy groceries
+2. [D][X] Submit report (by: 2024-09-30)
+---------------------------------
+---------------------------------
+Ok, I zao first then!
+---------------------------------
