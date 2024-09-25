@@ -23,7 +23,7 @@ public class DialogBoxController extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    
+
     private DialogBoxController(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindowController.class.getResource("/view/DialogBox.fxml"));
@@ -40,7 +40,7 @@ public class DialogBoxController extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box such that the ImageView is on the left and text on the right side.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
