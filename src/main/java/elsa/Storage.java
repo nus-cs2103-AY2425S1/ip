@@ -23,7 +23,7 @@ import elsa.task.Todo;
  */
 public class Storage {
     private static final Path DATA_DIR = Paths.get("data");
-    private static final Path DATA_FILE = DATA_DIR.resolve("Elsa.txt");
+    private static final Path DATA_FILE = DATA_DIR.resolve("./Elsa.txt");
 
     /**
      * Initialises the storage and ensures that the data file exists. If the data file does not exist,
