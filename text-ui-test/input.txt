@@ -1,0 +1,16 @@
+todo read book
+todo return book
+deadline finish CS2103T assignments /by Friday 4pm
+deadline do ST2334 notes /by Sunday
+event welcome tea /from Monday 7pm /to 9pm
+event meeting /from Wednesday 11pm /to Thursday 12am
+list
+mark 1
+mark 4
+list
+unmark 4
+list
+remove 6
+delete 6
+list
+bye
