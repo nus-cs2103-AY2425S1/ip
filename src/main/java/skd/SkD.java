@@ -12,6 +12,7 @@ import task.Task;
 
 /**
  * Main class for the SKD application.
+ * It can be run through here.
  * <p>
  * The SKD application allows users to manage tasks, such as ToDos, Deadlines, and Events.
  * Users can add, delete, mark, and unmark tasks, as well as save and load tasks from a file.
