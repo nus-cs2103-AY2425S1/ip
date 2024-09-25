@@ -13,7 +13,6 @@ public class TaskList {
     public static ArrayList<Task> getTasks() {
         return tasks;
     }
-
     public static void setTasks(ArrayList<Task> tasks) {
         TaskList.tasks = tasks;
     }
