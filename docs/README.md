@@ -1,8 +1,5 @@
 ChatGPT is a **desktop app for managing tasks, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ChatGPT can get your task list management done faster than traditional GUI apps.
 
-* Table of Contents
-  {:toc}
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -133,7 +130,7 @@ Format: `find KEYWORD`
 
 Examples:
 * `find iP` returns `Deadline task to Submit iP`<br>
-  ![result for 'find iP'](findiPResults.png)
+  ![result for 'find iP'](findiPResult.png)
 
 ### Deleting a task : `delete`
 
