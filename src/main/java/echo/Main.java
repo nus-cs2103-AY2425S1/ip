@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
+    public static final String DOCS_TASKS_TXT = "./tasks.txt";
     private echo.Echo echo = new Echo(DOCS_TASKS_TXT);
 
     @Override
