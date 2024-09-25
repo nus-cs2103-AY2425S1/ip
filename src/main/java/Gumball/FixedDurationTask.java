@@ -2,6 +2,11 @@ package Gumball;
 
 public class FixedDurationTask extends Task {
 
+    private static String INCORRECTINPUTMESSAGE = "Sorry, the description you " +
+            "gave does not follow the format for FixedDurationTasks.\n" +
+            "\nIt should be ('description' /for 'integer' /hrs " +
+            "'integer between 0 and 60'mins)";
+
     /**
      *
      * @param desc
@@ -14,10 +19,7 @@ public class FixedDurationTask extends Task {
             super.description = fixedInputFormatter(desc);
             taskType = "[F]";
         } catch (ArrayIndexOutOfBoundsException | InputErrorException | NumberFormatException e) {
-            throw new TaskException("Sorry, the description you " +
-                    "gave does not follow the format for FixedDurationTasks.\n" +
-                    "\nIt should be ('description' /for 'integer' /hrs " +
-                    "'integer between 0 and 60'mins)");
+            throw new TaskException(INCORRECTINPUTMESSAGE);
         }
     }
 
