@@ -1,0 +1,3 @@
+T | 1 | return book
+T | 1 | wash dishes
+D | 0 | submit assignment | 2024-08-31 2359
