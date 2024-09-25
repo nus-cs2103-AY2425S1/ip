@@ -1,4 +1,4 @@
- ## Meow User Guide
+## Meow User Guide
 
 ![Product Screenshot](./Ui.png)
 
