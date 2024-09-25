@@ -31,10 +31,12 @@ public class TaskList {
      * @throws YapperException If the Task Number is not within the limits of the Arraylist of Tasks.
      */
     public String postpone(String command) throws YapperException {
+        assert command.length() >= 8 : "Command should contain word postpone";
         if (command.length() == 8) {
             throw new YapperException("Task Number cannot be empty!");
         }
         String split = command.substring(9); // split = 1 1 date time
+        assert split.length() >= 4 : "Missing fields";
         String taskNumberStr = split.substring(0, 1);
         String startOrEndTime = split.substring(2, 3);
         String dateTime = split.substring(4);
