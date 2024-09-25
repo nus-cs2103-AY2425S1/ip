@@ -27,9 +27,6 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/niki.jpg"));
     private Image reiImage = new Image(this.getClass().getResourceAsStream("/images/rei.jpg"));
 
-    /**
-     * Initializes the scroll pane behavior for the chat dialog container.
-     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
