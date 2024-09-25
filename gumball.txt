@@ -1,0 +1,13 @@
+[X] deadline return book /by 2019-10-15
+[ ] event project meeting /from Mon 2pm /to 4pm
+[ ] todo smth
+[ ] todo buy book
+[ ] deadline test /by 2002-07-07
+[ ] todo stuff
+[ ] todo check
+[ ] deadline test /by 2002-02-10
+[ ] todo test thing
+[ ] todo Assignment 2
+[ ] todo assignment
+[ ] event project meeting /from Mon 2pm /to 4pm
+[ ] fixed work /for 2 /hrs 30mins
