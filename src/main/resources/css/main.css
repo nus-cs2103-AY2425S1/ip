@@ -1,4 +1,5 @@
-/*Adapted from CS2103T JavaFX tutorial -reused*/
+/*@@author tayxuenye-reused*/
+/*Adapted from CS2103T JavaFX tutorial*/
 
 .root {
     main-color: white;       /* Create a looked-up color called "main-color" within root. */
@@ -58,4 +59,4 @@
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
-
+/*@@author*/
