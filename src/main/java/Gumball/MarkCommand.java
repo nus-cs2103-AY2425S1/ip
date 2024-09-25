@@ -3,7 +3,7 @@ package Gumball;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      *
