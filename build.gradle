@@ -61,6 +61,10 @@ checkstyleTest {
     source = ['src/test/java/alice']
 }
 
+compileJava {
+    options.release = 17
+}
+
 shadowJar {
     archiveFileName = 'alice.jar'
 }
