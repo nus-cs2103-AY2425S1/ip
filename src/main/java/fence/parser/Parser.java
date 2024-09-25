@@ -34,6 +34,7 @@ public class Parser {
     /**
      * Sets the status of the current task being initialised.
      * @param status Status of the current task.
+     * @throws NoSuchElementException If the status is not one of the two default values.
      */
     public void initialiseStatus(String status) {
         if (status.equals("(DONE)")) {
@@ -41,7 +42,7 @@ public class Parser {
         } else if (status.equals("(UNDONE)")) {
             assert !taskResult.isComplete() : "taskResult should be undone by default";
         } else {
-            assert false : "status should have been saved as either default statuses";
+            throw new NoSuchElementException();
         }
     }
 
@@ -148,6 +149,7 @@ public class Parser {
      * Returns the corresponding task from parsing a line of data from the txt file.
      * @param command One line of string representing one task stored in the data file.
      * @return Task stored in data file.
+     * @throws NoSuchElementException If the data is corrupted.
      */
     public Task parseTxt(String command) {
         st = new StringTokenizer(command);
@@ -161,7 +163,7 @@ public class Parser {
         } else if (firstWord.equals("EVENT")) {
             initialiseEventWithExceptions();
         } else {
-            assert false : "firstWord should have been saved as one of the default task types";
+            throw new NoSuchElementException();
         }
         initialiseStatus(status);
         return taskResult;

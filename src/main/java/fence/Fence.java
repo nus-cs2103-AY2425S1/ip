@@ -37,7 +37,7 @@ public class Fence {
             tasks = new TaskList(storage.read(parser));
             hasCorruptedData = false;
             hasPermission = true;
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | DateTimeParseException e) {
             tasks = new TaskList(new ArrayList<>());
             hasCorruptedData = true;
             hasPermission = true;
