@@ -327,16 +327,18 @@ public class TaskList {
      * Prints the list of tasks out in System out
      */
     public String returnList() {
+        if (listOfTask.isEmpty()) {
+            return "Your task list is currently empty.";
+        }
         String toReturn = "Here are the tasks in your list: ";
-        System.out.println(toReturn);
         int order = 1;
 
         for (Task task : listOfTask) {
             String toAdd = order + "." + task;
-            System.out.println(toAdd);
             order++;
             toReturn += "\n" + toAdd;
         }
+        System.out.println(toReturn);
         return toReturn;
     }
 }
