@@ -15,7 +15,6 @@ to aid you in **managing** daily tasks.
 Use **Timo** to take note of them! With features like add, delete, mark, unmark, undo etc...
 ### let Timo change your life!
 
-
 ## Adding todo
 
 Adds a todo task to your task list
@@ -31,7 +30,7 @@ todo <task>
 
 Example: `todo return book`
 
-//Example output
+**Example output**
 ```
 -------------------
 Got it. I've added this task:
@@ -56,7 +55,7 @@ deadline <task> /by <date and time>
 
 Example: `deadline return book /by 2020-12-12 1300`
 
-//Example output
+**Example output**
 ```
 -------------------
 Got it. I've added this task:
@@ -82,7 +81,7 @@ event <task> /from <date and time> /to <date and time>
 
 Example: `event CTF /from 2020-12-12 1300 /to 2021-01-01 1400`
 
-//Example output
+**Example output**
 ```
 -------------------
 Got it. I've added this task:
@@ -104,7 +103,7 @@ list
 
 Example: `list`
 
-//Example output
+**Example output**
 ```
 -------------------
 Here are the tasks in your list:
@@ -127,7 +126,7 @@ mark <number>
 
 Example: `mark 1 (say 1 is a todo task)`
 
-//Example output
+**Example output**
 ```
 -------------------
 Nice! I've marked this task as done:
@@ -150,7 +149,7 @@ unmark <number>
 
 Example: `unmark 1 (say 1 is a todo task)`
 
-//Example output
+**Example output**
 ```
 -------------------
 Nice! I've marked this task as undone:
@@ -174,7 +173,7 @@ delete <number>
 
 Example: `delete 1 (say 1 is a todo task)`
 
-//Example output
+**Example output**
 ```
 -------------------
 Got it. I've removed this task:
@@ -198,7 +197,7 @@ undo
 
 Example: `undo`
 
-//Example output
+**Example output**
 ```
 -------------------
 undo command: todo return book
@@ -223,7 +222,7 @@ find <phrase>
 
 Example: `find return`
 
-//Example output
+**Example output**
 ```
 -------------------
 Here are the tasks in your list:
@@ -248,7 +247,7 @@ bye
 
 Example: `bye`
 
-//Example output
+**Example output**
 ```
 -------------------
 Bye! Hope to see you again soon!
