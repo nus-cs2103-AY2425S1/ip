@@ -11,7 +11,7 @@ Designed to be flexible and user-friendly, Mentos is your go-to assistant for st
 # Features
 
 ## Todo
-A `Todo` task represents a general task without any specific deadline or time range
+A `Todo` task represents a general task without any specific deadline or time range.
 
 ### Usage:
 ```declarative
@@ -58,7 +58,7 @@ This command adds an Event task with the description “Project meeting” from 
 
 
 ## Listing Tasks
-Mentos can list all of the tasks added by using the command `list`
+Mentos can list all of the tasks added by using the command `list`.
 
 ### Usage:
 ```declarative
@@ -125,7 +125,7 @@ Mentos allows you to search for tasks by their description using the `find` comm
 find <keyword in description>
 ```
 ## Exiting Mentos
-To exit Mentos, use the `bye` command to end the chatbot session
+To exit Mentos, use the `bye` command to end the chatbot session.
 ### Usage:
 ```declarative
 bye
