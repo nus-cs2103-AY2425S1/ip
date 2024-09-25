@@ -148,7 +148,7 @@ public class UI {
      */
     public String undoError() {
         return "----------------------------\n"
-                + "Nothing to undo :)\n"
+                + "Nothing for me to undo :)\n"
                 + "----------------------------\n";
     }
 }
