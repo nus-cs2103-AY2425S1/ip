@@ -6,10 +6,12 @@ public class Gumball {
     private TaskList list;
     private FileManager fileManager;
 
+    private static String FILEPATH = "./gumball.txt";
+
 
     public Gumball() {
         try {
-            fileManager = new FileManager("./gumball.txt");
+            fileManager = new FileManager(FILEPATH);
             list = fileManager.loadFile();
         } catch (IOException | InputErrorException e) {
             System.out.println(e.getMessage());
