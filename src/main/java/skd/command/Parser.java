@@ -9,8 +9,8 @@ import task.ToDo;
 
 /**
  * The Parser class is responsible for parsing the user input commands
- * and converting them into corresponding tasks or command types. It can
- * also process commands to mark tasks as done, unmark them, or delete tasks.
+ * and converting them into corresponding tasks or command types. It also
+ * can process commands to mark tasks as done, unmark them, or delete tasks.
  */
 public class Parser {
 
