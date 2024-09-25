@@ -68,7 +68,7 @@ public class Parser {
             case "untag":
                 return getUntagPrompt(prompt);
             case "viewtags":
-                return getViewtagsPrompt(prompt);
+                return getViewtagsPrompt(prompt); 
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:
@@ -77,6 +77,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "viewtags" prompt.
+     * @param prompt The user input string, in the correct format should contain the "viewtags" command followed by a task number.
+     * @return Prompt.VIEWTAGS if the task number is successfully parsed.
+     * @throws ReiException If the task number is missing or is not a valid integer.
+     */
     private static Prompt getViewtagsPrompt(String prompt) throws ReiException {
         String taskDetails;
         // Read the rest of the line after "view"
@@ -90,6 +97,14 @@ public class Parser {
         return Prompt.VIEWTAGS;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "untag" prompt.
+     * @param prompt The user input string, in the correct format should contain the "untag" command followed by a task number and a tag.
+     * @return Prompt.UNTAG if both the task number and tag are successfully parsed and valid.
+     * @throws ReiException If the input is missing, the task number is not an integer, there is more than one tag,
+     * the tag does not start with '#', or the tag is otherwise invalid.
+     */
     private static Prompt getUntagPrompt(String prompt) throws ReiException {
         String[] details;
         String taskDetails;
@@ -112,6 +127,14 @@ public class Parser {
         return Prompt.UNTAG;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "tag" prompt.
+     * @param prompt The user input string, in the correct format should contain the "tag" command followed by a task number and one or more tags.
+     * @return Prompt.TAG if both the task number and tags are successfully parsed and valid.
+     * @throws ReiException If the input is missing, the task number is not an integer, there are no tags,
+     * a tag does not start with '#', or a tag is otherwise invalid.
+     */
     private static Prompt getTagPrompt(String prompt) throws ReiException {
         String taskDetails;
         String[] details;
@@ -136,6 +159,13 @@ public class Parser {
         return Prompt.TAG;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "find" prompt.
+     * @param prompt The user input string, in the correct format should contain the "find" command followed by a keyword.
+     * @return Prompt.FIND if the keyword is successfully parsed.
+     * @throws ReiException If the input is empty or if the keyword is missing.
+     */
     private static Prompt getFindPrompt(String prompt) throws ReiException {
         // Read the rest of the line after "find"
         prompt = prompt.substring(FIND_COMMAND_LENGTH).trim();
@@ -147,6 +177,13 @@ public class Parser {
         return Prompt.FIND;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "delete" prompt.
+     * @param prompt The user input string, in the correct format should contain the "delete" command followed by a task number.
+     * @return Prompt.DELETE if the task number is successfully parsed and valid.
+     * @throws ReiException If the input is missing or if the task number is not a valid integer.
+     */
     private static Prompt getDeletePrompt(String prompt) throws ReiException {
         String taskDetails;
         // Read the rest of the line after "delete"
@@ -160,6 +197,14 @@ public class Parser {
         return Prompt.DELETE;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "event" prompt.
+     * @param prompt The user input string, in the correct format should include the "event" command followed by the event name and the time details.
+     * @return Prompt.EVENT if the event details are successfully parsed and valid.
+     * @throws ReiException  If the input is empty, the start or finish time is missing, the task name is empty,
+     * or if the date-time formats are incorrect.
+     */
     private static Prompt getEventPrompt(String prompt) throws ReiException {
         if (isAllWhitespace(prompt.substring(EVENT_COMMAND_LENGTH))) {
             throw new ReiException("Event is empty. Please state the event and time range!");
@@ -178,6 +223,14 @@ public class Parser {
         return Prompt.EVENT;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "deadline" prompt.
+     * @param prompt The user input string, in the correct format should include the "deadline" command followed by the task name and the deadline.
+     * @return Prompt.DEADLINE if the task name and deadline are successfully parsed and valid.
+     * @throws ReiException If the input is empty, the deadline is missing, the task name is empty,
+     * or if the date-time format for the deadline is incorrect.
+     */
     private static Prompt getDeadlinePrompt(String prompt) throws ReiException {
         if (isAllWhitespace(prompt.substring(DEADLINE_COMMAND_LENGTH))) {
             throw new ReiException("Task is empty. Please state the task and deadline!");
@@ -195,6 +248,13 @@ public class Parser {
         return Prompt.DEADLINE;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "todo" prompt.
+     * @param prompt The user input string, in the correct format should include the "todo" command followed by the task name.
+     * @return Prompt.TODO if the task name is successfully parsed and valid.
+     * @throws ReiException If the task name is empty or not provided.
+     */
     private static Prompt getToDoPrompt(String prompt) throws ReiException {
         if (isAllWhitespace(prompt.substring(TODO_COMMAND_LENGTH))) {
             throw new ReiException("Task is empty. Please state the task name!");
@@ -203,6 +263,13 @@ public class Parser {
         return Prompt.TODO;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "unmark" prompt.
+     * @param prompt The user input string, in the correct format should include the "unmark" command followed by the task number.
+     * @return Prompt.UNMARK if the task number is successfully parsed and valid.
+     * @throws ReiException If the input is missing or if the task number is not a valid integer.
+     */
     private static Prompt getUnmarkPrompt(String prompt) throws ReiException {
         String taskDetails;
         // Read the rest of the line after "unmark"
@@ -216,6 +283,13 @@ public class Parser {
         return Prompt.UNMARK;
     }
 
+    /**
+     * Parses the user input and check if the command is in the correct format.
+     * Returns the "mark" prompt.
+     * @param prompt The user input string, in the correct format should include the "mark" command followed by the task number.
+     * @return Prompt.MARK if the task number is successfully parsed and valid.
+     * @throws ReiException If the input is missing or if the task number is not a valid integer.
+     */
     private static Prompt getMarkPrompt(String prompt) throws ReiException {
         String taskDetails;
       
