@@ -19,7 +19,7 @@ public class ToStore {
     private final Path filePath;
 
     /**
-     * Constructs ToStore instance with thefile path.
+     * Constructs ToStore instance with the file path.
      *
      * @param filePath Path to file where tasks are stored.
      */
