@@ -1,5 +1,12 @@
 # Elsa Project
 
+```plaintext
+███████ ██      ███████  █████  
+██      ██      ██      ██   ██
+█████   ██      ███████ ███████
+██      ██           ██ ██   ██
+███████ ███████ ███████ ██   ██ 
+
 > "Let’s focus on getting things done, not holding them in our heads!" – Elsa ([source](https://i.pinimg.com/originals/77/f5/6b/77f56bc55cdbc39e9971b5bd64989f3d.jpg))
 
 Say hi to **Elsa**, your friendly and efficient task manager inspired by the beloved character from Disney's *Frozen*.
@@ -29,12 +36,3 @@ All characters, including Elsa and Olaf, belong to **Disney**, and we are gratef
 ChatGPT was used to generate javadoc comments for classes and methods. The Commands and the methods to handle userInput
 were adapted from ChatGPT. The Gui class and GuiWindow class contain code adapted from ChatGPT. In particular, the code
 to have a 3-second countdown timer between when the user keys in "bye" and the application window closes.
-
-### Presenting:
-
-```plaintext
-███████ ██      ███████  █████  
-██      ██      ██      ██   ██
-█████   ██      ███████ ███████
-██      ██           ██ ██   ██
-███████ ███████ ███████ ██   ██ 

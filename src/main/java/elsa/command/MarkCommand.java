@@ -16,7 +16,7 @@ public class MarkCommand extends Command {
     private final int taskIndex;
 
     /**
-     * Constructs a elsa.command.MarkCommand with the specified task index.
+     * Constructs a MarkCommand with the specified task index.
      *
      * @param taskIndex The index of the task to mark as completed.
      */

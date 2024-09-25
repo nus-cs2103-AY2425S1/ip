@@ -21,7 +21,7 @@ public class DeadlineCommand extends Command {
     private final String dueBy;
 
     /**
-     * Constructs a elsa.command.DeadlineCommand with the specified task description.
+     * Constructs a DeadlineCommand with the specified task description.
      *
      * @param description The description of the deadlineTask to be added.
      * @param dueBy The due date and time of the deadlineTask to be added.

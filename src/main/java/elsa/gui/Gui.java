@@ -31,6 +31,7 @@ public class Gui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Elsa");
 
             // Get the controller and set Elsa and the stage
             GuiWindow controller = fxmlLoader.getController();

@@ -13,10 +13,10 @@ public class UnmarkCommand extends Command {
     /**
      * The index of the task to be unmarked.
      */
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
-     * Constructs a elsa.command.UnmarkCommand with the specified task index.
+     * Constructs an UnmarkCommand with the specified task index.
      *
      * @param taskIndex The index of the task to unmark.
      */

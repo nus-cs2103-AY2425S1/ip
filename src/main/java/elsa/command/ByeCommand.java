@@ -13,7 +13,7 @@ import elsa.ui.Ui;
  */
 public class ByeCommand extends Command {
     /**
-     * Executes the elsa.command.ByeCommand by displaying a goodbye message to the user.
+     * Executes the ByeCommand by displaying a goodbye message to the user.
      *
      * @param tasks The task list, which remains unchanged by this command.
      * @param ui The elsa.ui.Ui instance that will display the goodbye message.

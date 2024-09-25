@@ -1,6 +1,7 @@
 package elsa.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class TaskList {
         Todo newTodo = new Todo(description, false);
         tasks.add(newTodo);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                + tasks.size() + " tasks in our list now.";
+                + tasks.size() + " task(s) in our list now.";
     }
 
     /**
@@ -62,8 +63,10 @@ public class TaskList {
      * @return A response string that confirms the successful addition of a deadline task.
      */
     public String addDeadline(String description, String dueBy) throws ElsaException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
-            LocalDate.parse(dueBy);
+            LocalDateTime.parse(dueBy, formatter);
 
             // If the task to add matches a Deadline task in the task list, then throw an error
             if (isDuplicateTask(Deadline.class, description)) {
@@ -77,7 +80,7 @@ public class TaskList {
             Deadline newDeadline = new Deadline(description, false, dueBy);
             tasks.add(newDeadline);
             return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                    + tasks.size() + " tasks in our list now.";
+                    + tasks.size() + " task(s) in our list now.";
         } catch (DateTimeParseException e) {
             // Throw an exception if parsing fails
             throw new ElsaException("Oops! It appears that this date/time does not exist in the calendar or the clock. "
@@ -107,7 +110,7 @@ public class TaskList {
         Event newEvent = new Event(description, false, start, end);
         tasks.add(newEvent);
         return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                + tasks.size() + " tasks in our list now.";
+                + tasks.size() + " task(s) in our list now.";
     }
 
     /**
@@ -131,7 +134,7 @@ public class TaskList {
         }
 
         String message = "Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have "
-                + (tasks.size() - 1) + " tasks in our list now.";
+                + (tasks.size() - 1) + " task(s) in our list now.";
 
         // Deletes the task from the list
         tasks.remove(index);

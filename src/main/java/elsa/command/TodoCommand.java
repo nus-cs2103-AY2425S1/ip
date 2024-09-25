@@ -13,7 +13,7 @@ public class TodoCommand extends Command {
     private final String description;
 
     /**
-     * Constructs an elsa.command.TodoCommand with the specified task description.
+     * Constructs a TodoCommand with the specified task description.
      *
      * @param description The description of the todoTask to be added.
      */

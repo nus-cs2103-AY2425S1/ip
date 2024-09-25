@@ -10,7 +10,7 @@ import elsa.ui.Ui;
  */
 public class ListCommand extends Command {
     /**
-     * Executes the elsa.command.ListCommand by listing all the tasks in the taskList.
+     * Executes the ListCommand by listing all the tasks in the taskList.
      *
      * @param tasks The task list, which remains unchanged by this command.
      * @param ui The elsa.ui.Ui instance that will display the list of tasks.

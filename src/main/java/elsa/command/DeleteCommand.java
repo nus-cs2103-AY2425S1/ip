@@ -13,10 +13,10 @@ public class DeleteCommand extends Command {
     /**
      * The index of the task to be deleted.
      */
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
-     * Constructs a elsa.command.DeleteCommand with the specified task index.
+     * Constructs a DeleteCommand with the specified task index.
      *
      * @param taskIndex The index of the task to delete.
      */

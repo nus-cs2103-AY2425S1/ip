@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     private final String taskToFind;
 
     /**
-     * Constructs an elsa.command.FindCommand with the specified taskToFind.
+     * Constructs a FindCommand with the specified taskToFind.
      *
      * @param taskToFind The edited userInput that indicates which task(s) to search for in the taskList.
      */

@@ -26,7 +26,7 @@ public class EventCommand extends Command {
     private final String end;
 
     /**
-     * Constructs a elsa.command.EventCommand with the specified task description.
+     * Constructs an EventCommand with the specified task description.
      *
      * @param description The description of the eventTask to be added.
      * @param start The start date and time of the eventTask to be added.
