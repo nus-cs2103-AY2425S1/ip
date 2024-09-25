@@ -306,7 +306,6 @@ public class Parser {
                 response = ui.invalidDate();
                 return response;
             }
-            System.out.println(tokens.length);
 
             String time = tokens[1];
             String year = dateTokens[0];
@@ -327,7 +326,6 @@ public class Parser {
             String minute = time.substring(2);
 
             if (!timeValidity(hour, minute)) {
-                System.out.println(hour + " " + minute);
                 response = ui.twentyFourHourClock();
                 return response;
             }

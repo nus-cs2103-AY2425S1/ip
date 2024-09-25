@@ -289,7 +289,6 @@ public abstract class Task {
         } else {
             if (temporaryTaskList.size() >= index) {
                 Task temp = temporaryTaskList.get(index - 1);
-                System.out.println("CURRENT STATUS IS : " + temp.getCurrentStatus());
                 if (temp.getCurrentStatus() == Status.MARKED) {
                     response = ui.alreadyMarked();
                 } else {
