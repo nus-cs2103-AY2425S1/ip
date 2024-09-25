@@ -83,19 +83,21 @@ public class TaskList {
      * @throws YapperException If the String following "find" is empty.
      */
     public String findTask(String command) throws YapperException {
-        if (command.equals("find") || command.equals("find ")) {
+        if (command.trim().length() <= 5) {
             throw new YapperException("String to find cannot be empty!");
-        } else {
-            String wordToFind = command.substring(5);
-            ArrayList<Task> listOfTaskWithWord = new ArrayList<>();
-            TaskList taskList = new TaskList(listOfTaskWithWord, null);
-            for (Task task : listOfTask) {
-                if (task.contains(wordToFind)) {
-                    listOfTaskWithWord.add(task);
-                }
-            }
-            return taskList.returnList();
         }
+        String wordToFind = command.substring(5).trim();
+        if (wordToFind.isEmpty()) {
+            throw new YapperException("String to find cannot be empty!");
+        }
+        ArrayList<Task> listOfTaskWithWord = new ArrayList<>();
+        TaskList taskList = new TaskList(listOfTaskWithWord, null);
+        for (Task task : listOfTask) {
+            if (task.contains(wordToFind)) {
+                listOfTaskWithWord.add(task);
+            }
+        }
+        return taskList.returnList();
     }
 
     /**
