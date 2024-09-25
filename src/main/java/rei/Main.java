@@ -15,6 +15,13 @@ public class Main extends Application {
 
     private Rei rei = new Rei("./data/rei.txt");
 
+    /**
+     * Starts the JavaFX application by setting up the main window.
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -68,7 +68,7 @@ public class Parser {
             case "untag":
                 return getUntagPrompt(prompt);
             case "viewtags":
-                return getViewtagsPrompt(prompt); 
+                return getViewtagsPrompt(prompt);
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:
