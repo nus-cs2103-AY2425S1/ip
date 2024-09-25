@@ -26,10 +26,10 @@ public class Todo extends Task {
      */
     public static Todo createTodoWithDetails(String[] details) {
         String type = details[0];
-        boolean status = Boolean.parseBoolean(details[1]);
+        boolean isDone = Boolean.parseBoolean(details[1]);
         String description = details[2];
 
-        return new Todo(description, type, status);
+        return new Todo(description, type, isDone);
     }
 
     /**
@@ -81,9 +81,9 @@ public class Todo extends Task {
     public String toString() {
         String description = super.toString();
         int lastIndex = description.length() - 1;
-        boolean isLastCharNewline = description.charAt(lastIndex) == '\n';
+        boolean isLastCharacterNewline = description.charAt(lastIndex) == '\n';
 
-        if (isLastCharNewline) {
+        if (isLastCharacterNewline) {
             String descriptionWithoutNewline = description.substring(0, lastIndex);
 
             return descriptionWithoutNewline;

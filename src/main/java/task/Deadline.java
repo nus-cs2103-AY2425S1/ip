@@ -32,11 +32,11 @@ public class Deadline extends Task {
      */
     public static Deadline createDeadlineWithDetails(String[] details) {
         String type = details[0];
-        boolean status = Boolean.parseBoolean(details[1]);
+        boolean isDone = Boolean.parseBoolean(details[1]);
         String description = details[2];
         LocalDateTime dateTime = convertStringToLocalDateTime(details[3]);
 
-        return new Deadline(description, type, dateTime, status);
+        return new Deadline(description, type, dateTime, isDone);
     }
 
     /**

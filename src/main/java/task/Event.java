@@ -36,12 +36,12 @@ public class Event extends Task {
      */
     public static Event createEventWithDetails(String[] details) {
         String type = details[0];
-        boolean eventStauts = Boolean.parseBoolean(details[1]);
+        boolean isDone = Boolean.parseBoolean(details[1]);
         String eventDescription = details[2];
         LocalDateTime startDateTime = convertStringToLocalDateTime(details[3]);
         LocalDateTime endDateTime = convertStringToLocalDateTime(details[4]);
 
-        return new Event(eventDescription, type, startDateTime, endDateTime, eventStauts);
+        return new Event(eventDescription, type, startDateTime, endDateTime, isDone);
     }
 
     /**

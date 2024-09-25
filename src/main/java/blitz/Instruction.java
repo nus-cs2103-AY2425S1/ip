@@ -15,16 +15,6 @@ public enum Instruction {
      * @return True if the command exists, false otherwise.
      */
     public static boolean isValidCommand(String command) {
-        return Instruction.contains(command);
-    }
-
-    /**
-     * Checks if the given command exist as an enum constant.
-     *
-     * @param command Command String to check for existence.
-     * @return True if the command matches any of the enum constant, false otherwise.
-     */
-    private static boolean contains(String command) {
         return Arrays.stream(Instruction.values())
                 .anyMatch(cmd -> cmd.name().equalsIgnoreCase(command.toUpperCase()));
     }
