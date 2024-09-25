@@ -2,7 +2,7 @@
 ![Ui.png](docs/Ui.png)
 
 Welcome to *SKD* (Simple Keeptracker Duke).  
-*SKD* is a personal task manager chatbot designed to help you track tasks easily.  
+*SKD* is a personal task manager chatbot designed in order to help you track tasks easily.  
 From simple to-dos to complex events and deadlines, *SKD* helps you organize your day effectively.
 
 ---
