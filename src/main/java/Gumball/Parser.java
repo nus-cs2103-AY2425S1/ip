@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public class Parser {
 
+    static String UNKNOWNINPUTMESSAGE = "Sorry I don't know how to do that";
+
     /**
      * Returns a Command which can be executed at a later stage.
      * @param input The user input that determines what command is returned.
@@ -25,7 +27,7 @@ public class Parser {
         } else if(input.equals("bye")) {
             return new ExitCommand();
         } else {
-            throw (new InputErrorException("Sorry I don't know how to do that"));
+            throw (new InputErrorException(UNKNOWNINPUTMESSAGE));
         }
     }
 
