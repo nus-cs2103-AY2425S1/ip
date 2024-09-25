@@ -1,22 +1,22 @@
 package rei;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-// Storage.java adapted by https://github.com/adipanda2002/ip/blob/master/src/main/java/pandabot/storage/Storage.java
+// Storage.java adapted from https://github.com/adipanda2002/ip/blob/master/src/main/java/pandabot/storage/Storage.java
 /**
  * This class handles load data from a file or save data to a file
  */
 public class Storage {
-
-    private List<String> fileContent;
     private final String filePath;
 
     /**
@@ -26,8 +26,6 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
-
 
     /**
      * Loads the data stored in the instantiated filePath
