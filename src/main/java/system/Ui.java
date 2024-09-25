@@ -332,7 +332,7 @@ public class Ui {
      * Displays a message indicating that the list number is
      * out of bounds and does not exist.
      *
-     * @return a String message displaying the invalid list number.
+     * @return a String message displaying the invalid list number and does not exist.
      */
     public String indexOutOfBounds() {
         return "The list number is invalid and does not exist!";

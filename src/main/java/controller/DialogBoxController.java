@@ -23,7 +23,7 @@ public class DialogBoxController extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
+    
     private DialogBoxController(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindowController.class.getResource("/view/DialogBox.fxml"));
