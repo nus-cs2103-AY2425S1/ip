@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,11 +57,11 @@ public class Storage {
 
         switch(encodedString.charAt(0)) {
         case 'T':
-            // T<isDone><desc>
+            // T<isDone><len(desc#4)<desc><tag tag ...>
             task = new Todo(encodedString.substring(2));
             break;
         case 'D':
-            // D<isDone><len(desc)#4><desc><by>
+            // D<isDone><len(desc)#4><desc><len(by)#4><by><tag tag ...>
             n = Integer.parseInt(encodedString.substring(2, 6));
             desc = encodedString.substring(6, 6 + n);
             String by = encodedString.substring(6 + n);
@@ -68,7 +69,7 @@ public class Storage {
             task = new Deadline(desc, parsedBy);
             break;
         case 'E':
-            // E<isDone><len(desc)#4><desc><len(from)#4><from><to>
+            // E<isDone><len(desc)#4><desc><len(from)#4><from><len(to)#4><to><tag tag ...>
             n = Integer.parseInt(encodedString.substring(2, 6));
             int curr = 6 + n;
             desc = encodedString.substring(6, curr);
@@ -104,22 +105,27 @@ public class Storage {
         assert task != null : "task should not be null";
         StringBuilder str = new StringBuilder();
 
-        if (task instanceof Todo) {
-            // todo: T<isDone><desc>
+        if (task instanceof Todo todo) {
+            // todo: T<isDone><len(desc#4)<desc><tag tag ...>
             str.append("T");
-            str.append(task.getIsDone() ? 1 : 0);
-            str.append(task.getDescription());
+            str.append(todo.getIsDone() ? 1 : 0);
+            str.append(String.format("%04d", todo.getDescription().length()));
+            str.append(todo.getDescription());
+
+            String tags = Arrays.stream(todo.getTags()).reduce("", (s, tag) -> s + " " + tag).trim();
+            str.append(tags);
         } else if (task instanceof Deadline deadline) {
-            // deadline: D<isDone><len(desc)#4><desc><by>
+            // deadline: D<isDone><len(desc)#4><desc><len(by)#4><by><tag tag ...>
             str.append("D");
             str.append(task.getIsDone() ? 1 : 0);
             str.append(String.format("%04d", deadline.getDescription().length()));
             str.append(deadline.getDescription());
 
             String formattedBy = deadline.getBy().format(DATE_TIME_FORMATTER);
+            str.append(String.format("%04d", formattedBy.length()));
             str.append(formattedBy);
         } else if (task instanceof Event event) {
-            // event: E<isDone><len(desc)#4><desc><len(from)#4><from><to>
+            // event: E<isDone><len(desc)#4><desc><len(from)#4><from><len(to)#4><to><tag tag ...>
             str.append("E");
             str.append(task.getIsDone() ? 1 : 0);
             str.append(String.format("%04d", event.getDescription().length()));
@@ -130,8 +136,12 @@ public class Storage {
             str.append(formattedFrom);
 
             String formattedTo = event.getTo().format(DATE_TIME_FORMATTER);
+            str.append(String.format("%04d", formattedTo.length()));
             str.append(formattedTo);
         }
+
+        String tags = Arrays.stream(task.getTags()).reduce("", (s, tag) -> s + " " + tag).trim();
+        str.append(tags);
 
         str.append('\n');
         return str.toString();

@@ -70,7 +70,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String tagsAsString = tags.stream().reduce("", (str, tag) -> str + " #" + tag);
-        return String.format("[%s]%s %s", this.getStatusIcon(), tagsAsString, this.description);
+        String tagsAsString = tags.stream().reduce("", (str, tag) -> str + " #" + tag).trim();
+        return String.format("[%s] %s %s", this.getStatusIcon(), tagsAsString, this.description);
     }
 }
