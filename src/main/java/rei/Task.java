@@ -2,11 +2,9 @@ package rei;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Abstract class for tasks.
@@ -140,11 +138,7 @@ public abstract class Task {
         String[] allTags = new String[tags.size()];
         return String.join(" ", tags.toArray(allTags));
     }
-
-
-
-
-
+    
     /**
      * ToDo class that inherits from Task.
      */

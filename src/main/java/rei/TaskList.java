@@ -22,7 +22,6 @@ public class TaskList {
     }
 
 
-
     /**
      * Returns the number of tasks on the list
      * @return the number of tasks on the list
