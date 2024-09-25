@@ -76,16 +76,16 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a Duke dialog with the specified text and image. The dialog is flipped
+     * Creates a Dave dialog with the specified text and image. The dialog is flipped
      * so that the image is on the left and the text is on the right.
      *
-     * @param text Text for the Duke dialog.
-     * @param img Image representing Duke.
-     * @return DialogBox for Duke.
+     * @param text Text for the Dave dialog.
+     * @param img Image representing Dave.
+     * @return DialogBox for Dave.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        assert text != null && !text.isEmpty() : "Duke dialog text should not be null or empty"; // Ensure text is valid
-        assert img != null : "Duke image should not be null"; // Ensure image is valid
+        assert text != null && !text.isEmpty() : "Dave dialog text should not be null or empty"; // Ensure text is valid
+        assert img != null : "Dave image should not be null"; // Ensure image is valid
         var db = new DialogBox(text, img);
         db.flip();
         return db;

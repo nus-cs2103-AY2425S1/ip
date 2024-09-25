@@ -63,7 +63,7 @@ public class ReminderCommand extends Command {
         // Choose the appropriate task list based on the reminderTaskType
         if ("overdue".equals(reminderTaskType)) {
             undoneTasks = tasks.findUndoneDeadlineTasks();
-            str = "Can you get to work? You still have the following tasks that haven't been completed, and they're overdue:\n";
+            str = "Can you get to work? You still have the following deadline tasks that haven't been completed, and they're overdue:\n";
         } else if ("all".equals(reminderTaskType)) {
             undoneTasks = tasks.findUndoneTasks();
             str = "Hmmmm. Time is ticking. You still have the following tasks that haven't been completed:\n";

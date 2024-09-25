@@ -12,15 +12,15 @@ Dave allows users to add tasks with deadlines, helping them stay on top of their
 
 Usage: To add a deadline, use the following command format:
 
-Command Format: `deadline <task description> /by <date/time>`
+Command Format: `deadline <task description> /by <date> <time>`
 
-Example: `deadline Submit assignment /by 2024-09-20`
+Example: `deadline Submit assignment /by 2024-09-20 1900`
 
 Expected Outcome: The task with a deadline will be added to the list, and Dave will confirm the addition by displaying the task and its corresponding deadline.
 
 ```
 Got it. I've added this task:
-  [D][ ] Submit assignment (by: Sep 20 2024)
+  [D][ ] Submit assignment (by: Sep 20 2024 1900)
 Now you have 3 tasks in the list.
 ```
 
@@ -48,15 +48,15 @@ For tasks that are tied to specific events with start and end times, you can use
 
 Usage: To add an event, use the following command format:
 
-Command Format: `event <task description> /at <date/time>`
+Command Format: `event <task description> /from <start date> <start time> /to <end time>`
 
-Example: `event Attend meeting /at 2024-09-21 10:00`
+Example: `event Attend meeting /from 2024-08-16 1000 /to 1900`
 
 Expected Outcome: An event will be added to the task list with a specified date and time, and Dave will confirm the addition.
 
 ```
 Got it. I've added this task:
-  [E][ ] Attend meeting (at: Sep 21 2024 10:00 AM)
+  [E][ ] Attend meeting (from: Aug 16 2024 10:00 to: 19:00)
 Now you have 5 tasks in the list.
 ```
 ## Marking Tasks as Done
@@ -107,7 +107,7 @@ Expected Outcome: The task will be removed from the list, and Dave will confirm 
 
 ```
 Noted. I've removed this task:
-  [D][ ] Submit assignment (by: Sep 20 2024)
+  [D][ ] Submit assignment (by: Sep 20 2024 1800)
 Now you have 4 tasks in the list.
 ```
 
@@ -125,8 +125,7 @@ Expected Outcome: Dave will display a list of tasks that contain the specified k
 
 
 ```
-Here are the matching tasks in your list:
-  1. [E][ ] Attend meeting (at: Sep 21 2024 10:00 AM)
+ [E][ ] Attend meeting (from: Aug 16 2024 10:00 to: 19:00)
 ```
 
 ## Listing All Tasks
@@ -179,13 +178,13 @@ Command Format:
 
 `reminder overdue` - Shows only overdue tasks.
 
-Example: 
+Example:
 
 `reminder all`
 
 `reminder overdue`
 
-Expected Outcome: 
+Expected Outcome:
 
 When you use the reminder all command, Dave will display a list of all tasks that are not yet completed. This list includes any tasks, to-dos, deadlines, or events that you haven’t marked as done, regardless of their due date. Dave will provide this list as a gentle reminder to keep track of all ongoing tasks.
 
@@ -195,13 +194,13 @@ For all undone tasks:
 
 ```
 Hmmmm. Time is ticking. You still have the following tasks that haven't been completed:
-  [D][ ] Submit assignment (by: Sep 20 2024)
+  [D][ ] Submit assignment (by: Sep 20 2024 1000)
   [T][ ] Buy groceries
 
 ```
 For overdue undone tasks:
 ```
 Can you get to work? You still have the following tasks that haven't been completed, and they're overdue:
-  [D][ ] Submit assignment (by: Sep 15 2024)
+  [D][ ] Submit assignment (by: Sep 15 2024 1000)
 
 ```
