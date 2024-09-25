@@ -44,8 +44,6 @@ public class Storage {
      * If no file exist, program will create a new file under parent file directory.
      *
      * @return TaskList with the loaded list of tasks.
-     *
-     * @throws YapperException If file is unable to be read.
      */
     public TaskList loadHistory() {
         ArrayList<Task> listOfTasks = new ArrayList<>();
