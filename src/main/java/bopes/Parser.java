@@ -46,7 +46,7 @@ public class Parser {
                 return new CommandResult(handleAddTask(fullCommand, tasks, storage), false);
             }
         } catch (BopesException e) {
-            return new CommandResult("Error: " + e.getMessage(), true);
+            return new CommandResult(e.getMessage(), true);
         } catch (NumberFormatException e) {
             return new CommandResult("Error: Invalid number format.", true);
         } catch (Exception e) {
