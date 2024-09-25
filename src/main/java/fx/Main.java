@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import skd.SkD;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI to implement SkD using FXML.
  */
 public class Main extends Application {
 
