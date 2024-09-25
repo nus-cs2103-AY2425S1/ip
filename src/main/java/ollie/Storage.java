@@ -1,13 +1,5 @@
 package ollie;
 
-
-import ollie.exception.CorruptFileException;
-import ollie.exception.OllieException;
-import ollie.task.Deadline;
-import ollie.task.Event;
-import ollie.task.Task;
-import ollie.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +7,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import ollie.exception.CorruptFileException;
+import ollie.exception.OllieException;
+import ollie.task.Deadline;
+import ollie.task.Event;
+import ollie.task.Task;
+import ollie.task.Todo;
 
 /**
  * Responsible for all interactions (read & write) with our file (i.e. database).
@@ -53,7 +52,7 @@ public class Storage {
         // Ensure parent directories exist
         File parentDir = f.getParentFile();
         if (!parentDir.exists()) {
-            parentDir.mkdirs();  // Create directories if they don't exist
+            parentDir.mkdirs(); // Create directories if they don't exist
         }
 
         f.createNewFile();
@@ -74,10 +73,11 @@ public class Storage {
                 case "E" -> {
                     // Save as event
                     String[] details = splitString[2].split(" \\| ", 3);
-                    task = new Event(details[0], LocalDate.parse(details[1], formatter), LocalDate.parse(details[2], formatter));
+                    task = new Event(details[0], LocalDate.parse(details[1], formatter),
+                            LocalDate.parse(details[2], formatter));
                 }
                 case "T" ->
-                    // Save as todo
+                        // Save as todo
                         task = new Todo(splitString[2]);
                 default -> throw new CorruptFileException(filePath);
                 }

@@ -1,6 +1,10 @@
 package ollie.command;
 
-import ollie.*;
+import ollie.History;
+import ollie.Response;
+import ollie.Storage;
+import ollie.TaskList;
+import ollie.Ui;
 import ollie.exception.OllieException;
 import ollie.task.Task;
 
@@ -8,11 +12,11 @@ import ollie.task.Task;
  * Represents a command for removing a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int Index;
+    private int index;
     private Task taskToDelete;
 
-    public DeleteCommand(int Index) {
-        this.Index = Index;
+    public DeleteCommand(int index) {
+        this.index = index;
     }
 
     /**
@@ -36,7 +40,7 @@ public class DeleteCommand extends Command {
         if (taskToDelete != null) {
             task = tasks.delete(taskToDelete);
         } else {
-            task = tasks.delete(Index);
+            task = tasks.delete(index);
         }
         assert (task != null);
         history.add(new AddCommand(task));

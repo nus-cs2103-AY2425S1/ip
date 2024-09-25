@@ -1,9 +1,9 @@
 package ollie;
 
+import java.util.ArrayList;
+
 import ollie.command.Command;
 import ollie.exception.OllieException;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of commands which are used to reverse the command previously done.

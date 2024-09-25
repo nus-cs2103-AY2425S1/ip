@@ -2,10 +2,10 @@ package ollie.command;
 
 import ollie.History;
 import ollie.Response;
-import ollie.exception.OllieException;
 import ollie.Storage;
 import ollie.TaskList;
 import ollie.Ui;
+import ollie.exception.OllieException;
 
 /**
  * Represents a command for ending the conversation.
@@ -24,6 +24,4 @@ public class ExitCommand extends Command {
         storage.save(tasks.getTasks());
         return new Response(ui.getExitMessage(), true);
     }
-
-    ;
 }

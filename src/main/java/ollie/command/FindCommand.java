@@ -6,10 +6,12 @@ import ollie.Storage;
 import ollie.TaskList;
 import ollie.Ui;
 import ollie.exception.OllieException;
-import ollie.task.Task;
 
+/**
+ * Represents a command for finding a particular task.
+ */
 public class FindCommand extends Command {
-    String filterParameter;
+    private String filterParameter;
 
     /**
      * Constructs a find object for filtering of task based on its description.

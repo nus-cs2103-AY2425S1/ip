@@ -2,10 +2,10 @@ package ollie.command;
 
 import ollie.History;
 import ollie.Response;
-import ollie.exception.OllieException;
 import ollie.Storage;
 import ollie.TaskList;
 import ollie.Ui;
+import ollie.exception.OllieException;
 
 /**
  * Represents a command. A command must be executable, and when executed,

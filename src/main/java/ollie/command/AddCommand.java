@@ -3,10 +3,9 @@ package ollie.command;
 import ollie.History;
 import ollie.Response;
 import ollie.Storage;
-import ollie.task.Task;
 import ollie.TaskList;
 import ollie.Ui;
-
+import ollie.task.Task;
 /**
  * Represents a command for adding to task to the task list.
  */

@@ -42,7 +42,7 @@ public class Ui {
         return ("Got it. I've added this task:\n  "
                 + task.toString()
                 + "\nNow you have " + size + " tasks in the list."
-        );
+            );
     }
 
     /**
@@ -52,7 +52,7 @@ public class Ui {
         return ("Noted. I've removed this task:\n  "
                 + task.toString()
                 + "\nNow you have " + size + " tasks in the list."
-        );
+            );
     }
 
     /**

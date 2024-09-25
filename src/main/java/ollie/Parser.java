@@ -1,5 +1,9 @@
 package ollie;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import ollie.command.AddCommand;
 import ollie.command.Command;
 import ollie.command.DeleteCommand;
@@ -14,10 +18,6 @@ import ollie.task.Deadline;
 import ollie.task.Event;
 import ollie.task.Task;
 import ollie.task.Todo;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a parser which interprets the user's inputs using regular
@@ -137,7 +137,8 @@ public class Parser {
             throw new OllieException("Date after /to cannot be empty!");
         }
 
-        LocalDate from, to;
+        LocalDate from;
+        LocalDate to;
         try {
             from = LocalDate.parse(fromInString, Parser.formatter);
             to = LocalDate.parse(toInString, Parser.formatter);

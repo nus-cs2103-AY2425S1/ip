@@ -1,17 +1,21 @@
 package ollie;
 
-import ollie.command.AddCommand;
-import ollie.exception.OllieException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import ollie.command.AddCommand;
+import ollie.exception.OllieException;
+
+
+
 
 public class ParserTest {
 
     @Test
-    public void parse_NotRecognisedCommand_exceptionThrown() {
+    public void parse_notRecognisedCommand_exceptionThrown() {
         try {
             Parser.parse("Not A Valid Command");
             fail(); // Should not reach this line

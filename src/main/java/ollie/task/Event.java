@@ -1,9 +1,9 @@
 package ollie.task;
 
-import ollie.exception.OllieException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import ollie.exception.OllieException;
 
 /**
  * Represents an event task. It contains 2 dates, with each representing
@@ -25,7 +25,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
