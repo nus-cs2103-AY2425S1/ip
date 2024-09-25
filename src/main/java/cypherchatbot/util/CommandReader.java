@@ -68,10 +68,12 @@ public class CommandReader {
                 throw new CypherException(String.format("\"%s\" is not a valid command. "
                             + "Type help in order to see the list of valid commands", command[0]));
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CypherException("That is not a valid command. You need to enter an integer after that command. "
+                    + "Type help in order to see the list of valid commands ");
         } catch (NumberFormatException exp) {
             throw new CypherException("That is not a valid command. You need to enter a valid integer. "
                     + "Type help in order to see the list of valid commands ");
-
         } catch (IllegalArgumentException exp) {
             throw new CypherException("That is not a valid command. "
                     + "Type help in order to see the list of valid commands ");
