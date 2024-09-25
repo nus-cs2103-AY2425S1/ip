@@ -46,7 +46,7 @@ public class Deadline extends Task implements Comparable<Deadline> {
 
         if (o.getClass() == this.getClass()) {
             return Objects.equals(this.description, ((Deadline) o).description)
-                    && this.deadline == ((Deadline) o).deadline;
+                    && this.deadline.equals(((Deadline) o).deadline);
         }
         return false;
     }

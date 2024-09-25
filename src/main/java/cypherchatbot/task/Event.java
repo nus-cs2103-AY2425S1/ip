@@ -2,6 +2,7 @@ package cypherchatbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task that has a specific time frame.
@@ -51,5 +52,18 @@ public class Event extends Task implements Comparable<Event> {
         }
 
         return fromResult;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+
+        if (o.getClass() == this.getClass()) {
+            return Objects.equals(this.description, ((Event) o).description)
+                    && this.from.equals(((Event) o).from) && this.to.equals(((Event) o).to);
+        }
+        return false;
     }
 }

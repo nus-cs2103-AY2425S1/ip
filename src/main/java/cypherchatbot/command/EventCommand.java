@@ -43,10 +43,10 @@ public class EventCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException {
         try {
-            if (!(command[1].contains("/from") && command[1].contains("/to") &&
-                    command[1].indexOf("/from") < command[1].indexOf("/to") &&
-                    command[1].split("/from", -1).length == 2 &&
-                    command[1].split("/to", -1).length == 2)) {
+            if (!(command[1].contains("/from") && command[1].contains("/to")
+                    && command[1].indexOf("/from") < command[1].indexOf("/to")
+                    && command[1].split("/from", -1).length == 2
+                    && command[1].split("/to", -1).length == 2)) {
                 throw new CypherException("To/from is not given properly. The format of the deadline command is:"
                         + "\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
 
