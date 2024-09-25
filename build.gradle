@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("rob.Main")
+    mainClass.set("rob.Launcher")
 }
 
 shadowJar {
@@ -54,6 +54,7 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {
