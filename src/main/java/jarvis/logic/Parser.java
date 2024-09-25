@@ -82,8 +82,10 @@ public class Parser {
             try {
                 int taskIndex = Integer.parseInt(parts[1]);  // Parse task index
                 if (input.startsWith("mark")) {
+                    tasklist.mark(taskIndex);
                     result.append(tasklist.markDialog(taskIndex));
                 } else if (input.startsWith("unmark")) {
+                    tasklist.unmark(taskIndex);
                     result.append(tasklist.unmarkDialog(taskIndex));
                 } else if (input.startsWith("delete")) {
                     result.append(tasklist.deleteDialog(taskIndex));
