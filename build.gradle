@@ -8,6 +8,12 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 dependencies {
     String javaFxVersion = '17.0.7'
 
@@ -53,4 +59,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 }
