@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getTimoDialog("Hello! Welcome to Timo, your personal assistant. How can I help you today?",
+                DialogBox.getTimoDialog("Hello! Welcome to Timo, your assistant. How can I help you today?",
                 TimoImage));
     }
 
