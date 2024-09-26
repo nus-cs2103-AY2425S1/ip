@@ -75,6 +75,12 @@ public class TaskList {
     }
   }
 
+
+  /**
+   * Returns the task list as an ArrayList.
+   *
+   * @return The current task list as an ArrayList.
+   */
   public ArrayList getArrayList() {
     return tasks;
   }
