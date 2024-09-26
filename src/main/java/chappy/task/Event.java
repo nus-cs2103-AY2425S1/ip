@@ -47,6 +47,17 @@ public class Event extends Task {
         this.to = null;
     }
 
+    /**
+     * Returns Event object based on user's input.
+     * If options parsed from user's input are invalid,
+     * null is returned.
+     * 
+     * If the options cannot be parsed as LocalDate objects,
+     * then options are stored as String instead.
+     *
+     * @param input user's input.
+     * @return Event object.
+     */
     public static Event of(String input) {
         String[] values;
         try {
@@ -79,6 +90,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns a formatted String containing values of this Event.
+     *
+     * @return String containing values of this Event.
+     */
     @Override
     public String toString() {
         if (this.fromLocalDate != null && this.toLocalDate != null) {
@@ -131,6 +147,11 @@ public class Event extends Task {
         return returnValues;
     }
 
+    /**
+     * Returns this Event as a JSONObject.
+     *
+     * @return JSONObject (containing a Event).
+     */
     @Override
     public JSONObject toJson() {
         JSONObject j = new JSONObject();
@@ -147,6 +168,12 @@ public class Event extends Task {
         return j;
     }
 
+    /**
+     * Returns the Event object stored in the JSONObject.
+     *
+     * @param jsonObject JSONObject (containing a Event).
+     * @return Event object.
+     */
     public static Task fromJson(JSONObject jsonObject) {
         LocalDate from = parseLocalDate(jsonObject.get("from").toString());
         LocalDate to = parseLocalDate(jsonObject.get("to").toString());
