@@ -12,7 +12,7 @@ public class ListCommand extends Command {
   /**
    * Constructor for ListCommand.
    *
-   * @return
+   * @return The list of tasks.
    */
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) {
