@@ -96,7 +96,7 @@ public abstract class Task {
         case "TODO" -> new Todo(info[2], Boolean.parseBoolean(info[1]));
         case "EVENT" -> new Event(info[2], info[3], info[4], Boolean.parseBoolean(info[1]));
         case "DEADLINE" -> new Deadline(info[2], info[3], Boolean.parseBoolean(info[1]));
-        default -> throw new IllegalStateException("Unexpected value: " + info[0]);
+        default -> throw new IllegalValueException("Unexpected value: " + info[0]);
         };
     }
 

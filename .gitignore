@@ -17,4 +17,3 @@ bin/
 
 /text-tui-test/ACTUAL.TXT
 text-tui-test/EXPECTED-UNIX.TXT
-/data/
