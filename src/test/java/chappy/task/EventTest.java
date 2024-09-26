@@ -1,4 +1,4 @@
-import chappy.task.Event;
+package chappy.task;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;

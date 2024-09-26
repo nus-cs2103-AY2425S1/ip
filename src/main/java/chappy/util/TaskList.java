@@ -7,6 +7,7 @@ import chappy.task.Task;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class TaskList {
 
@@ -17,12 +18,11 @@ public class TaskList {
     }
 
     public TaskList() {
-        this.taskList =  new ArrayList<Task>();
+        this.taskList = new ArrayList<Task>();
     }
 
     /**
-     * Adds supplied Task to task list, then saves changes to disk
-     * using supplied Storage object.
+     * Adds supplied Task to task list, then saves changes to disk using supplied Storage object.
      *
      * @param task Task object to add.
      * @param storage Storage object for saving to disk.
@@ -36,16 +36,16 @@ public class TaskList {
     }
 
     /**
-     * Removes Task at supplied deleteIndex
-     * from task list, then saves changes to disk
-     * using supplied Storage object.
+     * Removes Task at supplied deleteIndex from task list, then saves changes to disk using
+     * supplied Storage object.
      *
      * @param deleteIndex Index of Task to delete from task list.
      * @param storage Storage object for saving to disk.
      * @throws IOException If Storage object has error saving to disk.
      * @throws CreateTaskException If supplied index is out of bounds of task list.
      */
-    public void removeTask(int deleteIndex, Storage storage) throws IOException, CreateTaskException {
+    public void removeTask(int deleteIndex, Storage storage)
+            throws IOException, CreateTaskException {
         if (deleteIndex < 0 || deleteIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
@@ -57,16 +57,16 @@ public class TaskList {
     }
 
     /**
-     * Marks Task at supplied markIndex in
-     * task list as done, then saves changes to disk
-     * using supplied Storage object.
+     * Marks Task at supplied markIndex in task list as done, then saves changes to disk using
+     * supplied Storage object.
      *
      * @param markIndex Index of Task in task list to mark as done.
      * @param storage Storage object for saving to disk.
      * @throws IOException If Storage object has error saving to disk.
      * @throws CreateTaskException If supplied index is out of bounds of task list.
      */
-    public void markTaskAsDone(int markIndex, Storage storage) throws IOException, CreateTaskException {
+    public void markTaskAsDone(int markIndex, Storage storage)
+            throws IOException, CreateTaskException {
         if (markIndex < 0 || markIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
@@ -75,16 +75,16 @@ public class TaskList {
     }
 
     /**
-     * Marks Task at supplied unmarkIndex in
-     * task list as not done, then saves changes to disk
-     * using supplied Storage object.
+     * Marks Task at supplied unmarkIndex in task list as not done, then saves changes to disk using
+     * supplied Storage object.
      *
      * @param unmarkIndex Index of Task in task list to mark as not done.
      * @param storage Storage object for saving to disk.
      * @throws IOException If Storage object has error saving to disk.
      * @throws CreateTaskException If supplied index is out of bounds of task list.
      */
-    public void markTaskAsNotDone(int unmarkIndex, Storage storage) throws IOException, CreateTaskException {
+    public void markTaskAsNotDone(int unmarkIndex, Storage storage)
+            throws IOException, CreateTaskException {
         if (unmarkIndex < 0 || unmarkIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
@@ -96,6 +96,20 @@ public class TaskList {
         System.out.println("As requested, here are your outstanding tasks sir:");
         for (int i = 0; i < this.taskList.size(); i++) {
             System.out.println(i + 1 + "." + this.taskList.get(i).toString());
+        }
+    }
+
+    public void findTask(String keyword) {
+        Pattern pattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE);
+        System.out.println("As requested, here are the tasks matching your keyword sir:");
+
+        // int index = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            String taskString = this.taskList.get(i).toString();
+            if (pattern.matcher(taskString).find()) {
+                System.out.println(i + 1 + "." + taskString);
+            }
+
         }
     }
 

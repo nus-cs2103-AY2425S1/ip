@@ -53,73 +53,83 @@ public class Chappy {
 
             try {
                 switch (userCommand) {
-                case BYE:
-                    System.out.println("It's been a pleasure serving you! Farewell sir.");
-                    return;
+                    case BYE:
+                        System.out.println("It's been a pleasure serving you! Farewell sir.");
+                        return;
 
-                case LIST:
-                    this.userTaskList.listTasks();
-                    break;
+                    case LIST:
+                        this.userTaskList.listTasks();
+                        break;
 
-                case UNMARK:
-                    String[] unmarkInput =
-                            userInput.trim().split("(?i)" + Parser.Command.UNMARK.getKeyword());
-                    if (unmarkInput.length < 2) {
-                        throw new CreateTaskException(
-                                "Oh SIR! The index input of a Unmark command cannot be empty!");
-                    }
-                    int unmarkIndex = Integer.parseInt(unmarkInput[1].trim()) - 1;
-                    this.userTaskList.markTaskAsNotDone(unmarkIndex, this.storage);
-                    break;
+                    case UNMARK:
+                        String[] unmarkInput =
+                                userInput.trim().split("(?i)" + Parser.Command.UNMARK.getKeyword());
+                        if (unmarkInput.length < 2) {
+                            throw new CreateTaskException(
+                                    "Oh SIR! The index input of a Unmark command cannot be empty!");
+                        }
+                        int unmarkIndex = Integer.parseInt(unmarkInput[1].trim()) - 1;
+                        this.userTaskList.markTaskAsNotDone(unmarkIndex, this.storage);
+                        break;
 
-                case MARK:
-                    String[] markInput =
-                            userInput.trim().split("(?i)" + Parser.Command.MARK.getKeyword());
-                    if (markInput.length < 2) {
-                        throw new CreateTaskException(
-                                "Oh SIR! The index input of a Mark command cannot be empty!");
-                    }
-                    int markIndex = Integer.parseInt(markInput[1].trim()) - 1;
-                    this.userTaskList.markTaskAsDone(markIndex, this.storage);
-                    break;
+                    case MARK:
+                        String[] markInput =
+                                userInput.trim().split("(?i)" + Parser.Command.MARK.getKeyword());
+                        if (markInput.length < 2) {
+                            throw new CreateTaskException(
+                                    "Oh SIR! The index input of a Mark command cannot be empty!");
+                        }
+                        int markIndex = Integer.parseInt(markInput[1].trim()) - 1;
+                        this.userTaskList.markTaskAsDone(markIndex, this.storage);
+                        break;
 
-                case TODO:
-                    String[] todoInput =
-                            userInput.trim().split("(?i)" + Parser.Command.TODO.getKeyword());
-                    if (todoInput.length < 2) {
-                        throw new CreateTaskException(
-                                "Oh SIR! The description of a Todo cannot be empty!");
-                    }
-                    Todo todo = new Todo(todoInput[1].trim());
-                    this.userTaskList.addTask(todo, this.storage);
-                    break;
+                    case TODO:
+                        String[] todoInput =
+                                userInput.trim().split("(?i)" + Parser.Command.TODO.getKeyword());
+                        if (todoInput.length < 2) {
+                            throw new CreateTaskException(
+                                    "Oh SIR! The description of a Todo cannot be empty!");
+                        }
+                        Todo todo = new Todo(todoInput[1].trim());
+                        this.userTaskList.addTask(todo, this.storage);
+                        break;
 
-                case DEADLINE:
-                    Deadline deadline = Deadline.of(userInput);
-                    if (deadline != null) {
-                        this.userTaskList.addTask(deadline, this.storage);
-                    }
-                    break;
+                    case DEADLINE:
+                        Deadline deadline = Deadline.of(userInput);
+                        if (deadline != null) {
+                            this.userTaskList.addTask(deadline, this.storage);
+                        }
+                        break;
 
-                case EVENT:
-                    Event event = Event.of(userInput);
-                    if (event != null) {
-                        this.userTaskList.addTask(event, this.storage);
-                    }
-                    break;
+                    case EVENT:
+                        Event event = Event.of(userInput);
+                        if (event != null) {
+                            this.userTaskList.addTask(event, this.storage);
+                        }
+                        break;
 
-                case DELETE:
-                    String[] deleteInput =
-                            userInput.trim().split("(?i)" + Parser.Command.DELETE.getKeyword());
-                    if (deleteInput.length < 2) {
-                        throw new CreateTaskException(
-                                "Oh SIR! The index input of a Delete command cannot be empty!");
-                    }
-                    int deleteIndex = Integer.parseInt(deleteInput[1].trim()) - 1;
-                    this.userTaskList.removeTask(deleteIndex, this.storage);
-                    break;
-                default:
-                    ui.printUnknownCommand();
+                    case DELETE:
+                        String[] deleteInput =
+                                userInput.trim().split("(?i)" + Parser.Command.DELETE.getKeyword());
+                        if (deleteInput.length < 2) {
+                            throw new CreateTaskException(
+                                    "Oh SIR! The index input of a Delete command cannot be empty!");
+                        }
+                        int deleteIndex = Integer.parseInt(deleteInput[1].trim()) - 1;
+                        this.userTaskList.removeTask(deleteIndex, this.storage);
+                        break;
+                    case FIND:
+                        String[] findInput =
+                                userInput.trim().split("(?i)" + Parser.Command.FIND.getKeyword());
+                        if (findInput.length < 2) {
+                            throw new CreateTaskException(
+                                    "Oh SIR! The keyword input of a Find command cannot be empty!");
+                        }
+                        this.userTaskList.findTask(findInput[1].trim());
+                        break;
+
+                    default:
+                        ui.printUnknownCommand();
                 }
             } catch (CreateTaskException e) {
                 System.out.println(e.getMessage());

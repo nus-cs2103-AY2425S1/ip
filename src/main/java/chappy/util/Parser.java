@@ -6,8 +6,8 @@ import chappy.exception.CreateTaskException;
 
 public class Parser {
     public static enum Command {
-        BYE("bye"), LIST("list"), UNMARK("unmark"), MARK("mark"), TODO("todo"), DEADLINE("deadline"), EVENT("event"),
-        DELETE("delete"), DEFAULT("default");
+        BYE("bye"), LIST("list"), UNMARK("unmark"), MARK("mark"), TODO("todo"), DEADLINE(
+                "deadline"), EVENT("event"), DELETE("delete"), FIND("find"), DEFAULT("default");
 
         private final String keyword;
 
@@ -37,8 +37,8 @@ public class Parser {
     }
 
     /**
-     * Returns respective Command according to user input.
-     * If the Command cannot be identified, Command.Default is returned.
+     * Returns respective Command according to user input. If the Command cannot be identified,
+     * Command.Default is returned.
      *
      * @param userInput user's text input.
      * @return Command.

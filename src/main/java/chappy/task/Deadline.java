@@ -43,12 +43,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns Deadline object based on user's input.
-     * If options parsed from user's input are invalid,
-     * null is returned.
+     * Returns Deadline object based on user's input. If options parsed from user's input are
+     * invalid, null is returned.
      *
-     * If the options cannot be parsed as LocalDate objects,
-     * then options are stored as String instead.
+     * If the options cannot be parsed as LocalDate objects, then options are stored as String
+     * instead.
      *
      * @param input user's input.
      * @return Deadline object.
@@ -92,8 +91,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (this.byLocalDate != null) {
-            return "[D]" + super.toString() + " (by: " + byLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                    + ")";
+            return "[D]" + super.toString() + " (by: "
+                    + byLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         } else {
             return "[D]" + super.toString() + " (by: " + completeBy + ")";
         }
@@ -120,14 +119,16 @@ public class Deadline extends Task {
         }
         String[] returnValues = new String[2];
         if (!isValidated) {
-            throw new CreateTaskException("Oh SIR! The " + s + " input of a Deadline cannot be missing!");
+            throw new CreateTaskException(
+                    "Oh SIR! The " + s + " input of a Deadline cannot be missing!");
         } else {
             String[] s2 = eventInput[1].trim().split("/by");
             if (s2.length < 2) {
                 throw new CreateTaskException(
                         "Oh SIR! The \"/by\" description of a Deadline cannot be empty! It must be in the format e.g. 23-09-2024 or a String");
             } else if (s2[0].trim() == "") {
-                throw new CreateTaskException("Oh SIR! The description of an Event cannot be empty!");
+                throw new CreateTaskException(
+                        "Oh SIR! The description of an Event cannot be empty!");
             }
             returnValues[0] = s2[0].trim();
             returnValues[1] = s2[1].trim();
@@ -165,7 +166,8 @@ public class Deadline extends Task {
         if (by != null) {
             return new Deadline(jsonObject.get("description").toString(), by);
         } else {
-            return new Deadline(jsonObject.get("description").toString(), jsonObject.get("completeBy").toString());
+            return new Deadline(jsonObject.get("description").toString(),
+                    jsonObject.get("completeBy").toString());
         }
     }
 }

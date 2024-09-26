@@ -28,15 +28,12 @@ public class Storage {
     }
 
     /**
-     * Returns ArrayList of user's saved list of tasks.
-     * List of tasks are loaded from File object located at
-     * filePath of this Storage object.
-     * Does not return if exception thrown when file is missing, empty or
-     * parsing empty/bad JSON
+     * Returns ArrayList of user's saved list of tasks. List of tasks are loaded from File object
+     * located at filePath of this Storage object. Does not return if exception thrown when file is
+     * missing, empty or parsing empty/bad JSON
      *
      * @return User's saved list of tasks.
-     * @throws IOException if File object is missing, empty or JSON object(s)
-     * are null/bad.
+     * @throws IOException if File object is missing, empty or JSON object(s) are null/bad.
      */
     public ArrayList<Task> loadFromDisk() throws IOException, ParseException {
         File file = new File(this.filePath);
@@ -79,8 +76,8 @@ public class Storage {
     }
 
     /**
-     * Saves user's list of tasks to file located at
-     * filePath of this Storage object.
+     * Saves user's list of tasks to file located at filePath of this Storage object.
+     *
      * @param userTaskList user's list of tasks.
      * @throws IOException if error when writing to File object.
      */

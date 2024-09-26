@@ -13,8 +13,7 @@ public class Task {
     }
 
     /**
-     * Returns String representing if task is done. "X" if task is done,
-     * " " otherwise.
+     * Returns String representing if task is done. "X" if task is done, " " otherwise.
      *
      * @return String .
      */

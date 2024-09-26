@@ -48,12 +48,13 @@ public class Event extends Task {
     }
 
     /**
-     * Returns Event object based on user's input.
-     * If options parsed from user's input are invalid,
-     * null is returned.
+     * Returns Event object based on user's input. If options parsed from user's input are invalid,
+     * null is returned. <<<<<<< HEAD
      *
-     * If the options cannot be parsed as LocalDate objects,
-     * then options are stored as String instead.
+     * =======
+     *
+     * >>>>>>> branch-A-CodingStandard If the options cannot be parsed as LocalDate objects, then
+     * options are stored as String instead.
      *
      * @param input user's input.
      * @return Event object.
@@ -98,8 +99,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.fromLocalDate != null && this.toLocalDate != null) {
-            return "[E]" + super.toString() + " (from: " + fromLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " +
-                    toLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            return "[E]" + super.toString() + " (from: "
+                    + fromLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: "
+                    + toLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         } else {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
@@ -126,14 +128,16 @@ public class Event extends Task {
 
         String[] returnValues = new String[3];
         if (!isValidated) {
-            throw new CreateTaskException("Oh SIR! The " + s + " input of an Event cannot be missing!");
+            throw new CreateTaskException(
+                    "Oh SIR! The " + s + " input of an Event cannot be missing!");
         } else {
             String[] s2 = eventInput[1].trim().split("/from");
             if (s2.length < 2) {
                 throw new CreateTaskException(
                         "Oh SIR! The \"/from\" description of an Event cannot be empty! It must be in the format e.g. 23-09-2024 or a String");
             } else if (s2[0].trim() == "") {
-                throw new CreateTaskException("Oh SIR! The description of an Event cannot be empty!");
+                throw new CreateTaskException(
+                        "Oh SIR! The description of an Event cannot be empty!");
             }
             returnValues[0] = s2[0].trim();
             String[] s3 = s2[1].trim().split("/to");
@@ -180,7 +184,8 @@ public class Event extends Task {
         if (from != null && to != null) {
             return new Event(jsonObject.get("description").toString(), from, to);
         } else {
-            return new Event(jsonObject.get("description").toString(), jsonObject.get("from").toString(), jsonObject.get("to").toString());
+            return new Event(jsonObject.get("description").toString(),
+                    jsonObject.get("from").toString(), jsonObject.get("to").toString());
         }
     }
 }
