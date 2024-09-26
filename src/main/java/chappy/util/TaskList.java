@@ -34,9 +34,9 @@ public class TaskList {
         String storageResponse = storage.saveToDisk(taskList);
         if (storageResponse == null) {
             return "Alright sir! I've added this task:\n" + task.toString();
-        } else {
-            return storageResponse;
         }
+        return storageResponse;
+
     }
 
     /**
@@ -62,9 +62,9 @@ public class TaskList {
         String storageResponse = storage.saveToDisk(taskList);
         if (storageResponse == null) {
             return "Unfortunate.. I'll remove this task from the list..\n" + task.toString();
-        } else {
-            return storageResponse;
         }
+        return storageResponse;
+
     }
 
     /**
@@ -89,9 +89,9 @@ public class TaskList {
         String storageResponse = storage.saveToDisk(taskList);
         if (storageResponse == null) {
             return response;
-        } else {
-            return storageResponse;
         }
+        return storageResponse;
+
     }
 
     /**
@@ -116,15 +116,15 @@ public class TaskList {
         String storageResponse = storage.saveToDisk(taskList);
         if (storageResponse == null) {
             return response;
-        } else {
-            return storageResponse;
         }
+        return storageResponse;
+
     }
 
     public String listTasks() {
         String result = "As requested, here are your outstanding tasks sir:\n";
         for (int i = 0; i < this.taskList.size(); i++) {
-            result = result + (i + 1)  + "." + this.taskList.get(i).toString() + "\n";
+            result = result + (i + 1) + "." + this.taskList.get(i).toString() + "\n";
         }
         return result;
     }

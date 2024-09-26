@@ -56,16 +56,17 @@ public class Deadline extends Task {
         String[] values;
         values = validateOptions(input);
 
-        if (values != null) {
-            LocalDate by = parseLocalDate(values[1]);
-            if (by != null) {
-                return new Deadline(values[0], by);
-            } else {
-                return new Deadline(values[0], values[1]);
-            }
+        if (values == null) {
+            return null;
         }
 
-        return null;
+        LocalDate by = parseLocalDate(values[1]);
+        if (by != null) {
+            return new Deadline(values[0], by);
+        } else {
+            return new Deadline(values[0], values[1]);
+        }
+
     }
 
     private static LocalDate parseLocalDate(String input) throws DateTimeParseException {
@@ -87,46 +88,49 @@ public class Deadline extends Task {
         if (this.byLocalDate != null) {
             return "[D]" + super.toString() + " (by: "
                     + byLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
-        } else {
-            return "[D]" + super.toString() + " (by: " + completeBy + ")";
         }
+
+        return "[D]" + super.toString() + " (by: " + completeBy + ")";
+
 
     }
 
     private static String[] validateOptions(String input) throws CreateTaskException {
         String[] eventInput = input.trim().split("(?i)" + "deadline");
         if (eventInput.length < 2) {
-            throw new CreateTaskException("Oh SIR! The description of an Deadline cannot be empty!");
+            throw new CreateTaskException(
+                    "Oh SIR! The description of an Deadline cannot be empty!");
         }
 
         boolean isValidated = true;
         String s = "";
         for (Option option : Option.values()) {
-            if (!eventInput[1].toLowerCase().contains(option.getKeyword())) {
-
-                if (!s.equals("")) {
-                    s = s + " and ";
-                }
-                s = s + "\"" + option.getKeyword() + "\"";
-                isValidated = false;
+            if (eventInput[1].toLowerCase().contains(option.getKeyword())) {
+                continue;
             }
+            if (!s.equals("")) {
+                s = s + " and ";
+            }
+            s = s + "\"" + option.getKeyword() + "\"";
+            isValidated = false;
         }
-        String[] returnValues = new String[2];
+
         if (!isValidated) {
             throw new CreateTaskException(
                     "Oh SIR! The " + s + " input of a Deadline cannot be missing!");
-        } else {
-            String[] s2 = eventInput[1].trim().split("/by");
-            if (s2.length < 2) {
-                throw new CreateTaskException(
-                        "Oh SIR! The \"/by\" description of a Deadline cannot be empty! It must be in the format e.g. 23-09-2024 or a String");
-            } else if (s2[0].trim() == "") {
-                throw new CreateTaskException(
-                        "Oh SIR! The description of an Event Deadline be empty!");
-            }
-            returnValues[0] = s2[0].trim();
-            returnValues[1] = s2[1].trim();
+
         }
+        String[] returnValues = new String[2];
+        String[] s2 = eventInput[1].trim().split("/by");
+        if (s2.length < 2) {
+            throw new CreateTaskException(
+                    "Oh SIR! The \"/by\" description of a Deadline cannot be empty! It must be in the format e.g. 23-09-2024 or a String");
+        } else if (s2[0].trim() == "") {
+            throw new CreateTaskException("Oh SIR! The description of an Event Deadline be empty!");
+        }
+        returnValues[0] = s2[0].trim();
+        returnValues[1] = s2[1].trim();
+
         return returnValues;
     }
 
