@@ -54,6 +54,9 @@ public class TaskList {
         if (deleteIndex < 0 || deleteIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
+
+        assert deleteIndex > 0 && deleteIndex <= this.taskList.size() - 1;
+
         Task task = this.taskList.get(deleteIndex);
         this.taskList.remove(task);
         String storageResponse = storage.saveToDisk(taskList);
@@ -79,6 +82,9 @@ public class TaskList {
         if (markIndex < 0 || markIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
+
+        assert markIndex > 0 && markIndex <= this.taskList.size() - 1;
+
         String response = taskList.get(markIndex).markAsDone();
         String storageResponse = storage.saveToDisk(taskList);
         if (storageResponse == null) {
@@ -103,6 +109,9 @@ public class TaskList {
         if (unmarkIndex < 0 || unmarkIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
+
+        assert unmarkIndex > 0 && unmarkIndex <= this.taskList.size() - 1;
+
         String response = taskList.get(unmarkIndex).markAsNotDone();
         String storageResponse = storage.saveToDisk(taskList);
         if (storageResponse == null) {
