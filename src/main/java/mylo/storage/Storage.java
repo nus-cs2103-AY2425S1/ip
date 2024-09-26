@@ -30,14 +30,6 @@ public class Storage {
      */
     private final Path path = Paths.get(STORAGE_FILEPATH);
 
-//    public Storage() {
-//        try {
-//            Files.createDirectories(path);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     /**
      * Saves the specified {@code task} data to the storage file.
      *
