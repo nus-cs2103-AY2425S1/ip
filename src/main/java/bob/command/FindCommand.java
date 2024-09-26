@@ -5,6 +5,7 @@ import bob.TaskList;
 import bob.Ui;
 import bob.exception.MissingArgumentException;
 import bob.task.Task;
+import bob.util.FormattedString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class FindCommand extends Command {
         String listString = getTasksAtIndices(taskList, foundIndices);
 
         ui.printWithFormat("Here are the matching tasks in your list:"
-                + ui.highlightKeyword(listString, keyword, true));
+                + new FormattedString(listString).color(FormattedString.COLOR.BG_YELLOW, keyword, true));
     }
 
     private static List<Integer> getIndices(List<Task> taskList, String keyword) {

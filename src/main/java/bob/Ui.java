@@ -1,5 +1,7 @@
 package bob;
 
+import bob.util.FormattedString;
+
 import java.util.Scanner;
 
 /**
@@ -44,43 +46,27 @@ public class Ui {
      */
     public void printWithFormat(String text) {
         assert text != null : "Text to be printed should not be null";
+        printWithFormat(new FormattedString(text));
+    }
+
+    /**
+     * Outputs the given {@code FormattedString} as: <br>
+     * <pre>
+     *     ____________________________________________________________
+     *      &lt;str&gt;
+     *     ____________________________________________________________
+     * </pre>
+     *
+     * @param str the {@code FormattedString} to output
+     */
+    public void printWithFormat(FormattedString str) {
+        assert str != null : "str should not be null";
 
         String t = SEPARATOR + "\n "
-                + text.replace("\n", "\n ")
+                + str.toString().replace("\n", "\n ")
                 + "\n" + SEPARATOR;
         System.out.println(LINE_PREFIX + t.replace("\n", "\n" + LINE_PREFIX) + "\n");
-        lastMessage = text;
-    }
-
-    /**
-     * Highlights occurrences of {@code keyword} in {@code text} with a yellow background, and returns the result.
-     * Occurrences of the keyword is matched ignoring the case if ignoreCase is true, and vice versa.
-     *
-     * @param text the text to output
-     * @param keyword the keyword to highlight
-     * @param ignoreCase matches occurrences of the keyword ignoring the case if true, and vice versa
-     */
-    public String highlightKeyword(String text, String keyword, boolean ignoreCase) {
-        assert text != null : "Text to be printed should not be null";
-        assert keyword != null : "keyword should not be null";
-
-        if (!ignoreCase) {
-            return highlightKeyword(text, keyword);
-        }
-
-        return text.replaceAll("(?i)(" + keyword + ")",
-                ANSI_YELLOW_BACKGROUND + "$1" + ANSI_RESET);
-    }
-
-    /**
-     * {@code ignoreCase} defaults to {@code false}
-     *
-     * @see #highlightKeyword(String, String, boolean)
-     */
-    public String highlightKeyword(String text, String keyword) {
-        assert text != null : "Text to be printed should not be null";
-        assert keyword != null : "keyword should not be null";
-        return text.replace(keyword, ANSI_YELLOW_BACKGROUND + keyword + ANSI_RESET);
+        lastMessage = str.getUnformatted();
     }
 
     /**
@@ -107,8 +93,7 @@ public class Ui {
      */
     public void printError(String errorMessage) {
         assert errorMessage != null : "Error message should not be null";
-        printWithFormat(ANSI_RED + errorMessage + ANSI_RESET);
-        lastMessage = errorMessage;
+        printWithFormat(new FormattedString(errorMessage).color(FormattedString.COLOR.RED));
     }
 
     /**
