@@ -59,15 +59,10 @@ public class Event extends Task {
      * @param input user's input.
      * @return Event object.
      */
-    public static Event of(String input) {
+    public static Event of(String input) throws CreateTaskException {
         String[] values;
-        try {
-            values = validateOptions(input);
+        values = validateOptions(input);
 
-        } catch (CreateTaskException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
 
         if (values != null) {
             LocalDate from = parseLocalDate(values[1]);
@@ -190,7 +185,7 @@ public class Event extends Task {
             return event;
         } else {
             Event event = new Event(jsonObject.get("description").toString(),
-            jsonObject.get("from").toString(), jsonObject.get("to").toString());
+                    jsonObject.get("from").toString(), jsonObject.get("to").toString());
             if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
                 event.markAsDone();
             }

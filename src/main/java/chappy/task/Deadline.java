@@ -52,15 +52,9 @@ public class Deadline extends Task {
      * @param input user's input.
      * @return Deadline object.
      */
-    public static Deadline of(String input) {
+    public static Deadline of(String input) throws CreateTaskException {
         String[] values;
-        try {
-            values = validateOptions(input);
-
-        } catch (CreateTaskException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        values = validateOptions(input);
 
         if (values != null) {
             LocalDate by = parseLocalDate(values[1]);
@@ -102,7 +96,7 @@ public class Deadline extends Task {
     private static String[] validateOptions(String input) throws CreateTaskException {
         String[] eventInput = input.trim().split("(?i)" + "deadline");
         if (eventInput.length < 2) {
-            throw new CreateTaskException("Oh SIR! The description of an Event cannot be empty!");
+            throw new CreateTaskException("Oh SIR! The description of an Deadline cannot be empty!");
         }
 
         boolean isValidated = true;
@@ -128,7 +122,7 @@ public class Deadline extends Task {
                         "Oh SIR! The \"/by\" description of a Deadline cannot be empty! It must be in the format e.g. 23-09-2024 or a String");
             } else if (s2[0].trim() == "") {
                 throw new CreateTaskException(
-                        "Oh SIR! The description of an Event cannot be empty!");
+                        "Oh SIR! The description of an Event Deadline be empty!");
             }
             returnValues[0] = s2[0].trim();
             returnValues[1] = s2[1].trim();
