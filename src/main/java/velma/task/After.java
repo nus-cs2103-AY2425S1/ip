@@ -1,6 +1,9 @@
 package velma.task;
 
-public class After extends Task{
+/**
+ * After class - Represents a type of task that occurs after another event
+ */
+public class After extends Task {
     protected String after;
 
     /**
