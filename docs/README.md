@@ -19,10 +19,7 @@ Examples:
 
 ## Adding deadlines: `deadline`
 
-Adds a deadline task to the chatbot.
-
-> [!NOTE]  
-> Fence automatically displays a reminder upon launch for deadline tasks on the due date.
+Adds a deadline task to the chatbot. If undone on the due date, Fence automatically displays a reminder upon launch.
 
 Format: `deadline TASK /by YYYY-MM-DD`
 
