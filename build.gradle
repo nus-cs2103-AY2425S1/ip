@@ -3,12 +3,6 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
-}
-
-javafx {
-    version = '17.0.7'
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
 
 repositories {
@@ -16,8 +10,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
@@ -32,10 +24,8 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-}
-
-checkstyle {
-    toolVersion = '10.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
 test {
@@ -53,12 +43,16 @@ test {
 }
 
 application {
-    mainClass.set("echo.Main")
+    mainClass.set("echo.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "echoOnJar"
+    archiveBaseName = "echo"
     archiveClassifier = null
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 run{
