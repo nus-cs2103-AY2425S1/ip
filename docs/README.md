@@ -1,6 +1,6 @@
 # Atlas User Guide
 
-![UI](UI.png "A screenshot of the UI")
+![Ui](Ui.png "A screenshot of the Ui")
 
 Atlas is a simple and intuitive task management chatbot designed to help users manage their tasks, deadlines, and events efficiently. It allows users to add, mark, delete, and search for tasks through a conversational interface. This guide will walk you through the main features of Atlas and how to interact with it.
 
