@@ -223,6 +223,14 @@ public class Chappy {
                     }
                     return this.userTaskList.findTask(findInput[1].trim());
 
+                case FREE:
+                    String[] freeInput =
+                            userInput.trim().split("(?i)" + Parser.Command.FREE.getKeyword());
+                    if (freeInput.length < 2) {
+                        throw new CreateTaskException(
+                                "Oh SIR! There input of a Free command cannot be empty! e.g. free 4 will find your nearest 4 free days!");
+                    }
+                    return this.userTaskList.findFreeTime(freeInput[1].trim());
                 default:
                     return "Oh SIR! I can't understand what you are saying!";
             }

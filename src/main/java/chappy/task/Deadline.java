@@ -177,4 +177,24 @@ public class Deadline extends Task {
             return deadline;
         }
     }
+
+    public boolean isBetweenDates(LocalDate startDate, LocalDate endDate) {
+        if (!hasLocalDate()) {
+            return false;
+        }
+
+        if (byLocalDate.isAfter(startDate) && byLocalDate.isBefore(endDate)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private boolean hasLocalDate() {
+        return (byLocalDate != null ? true : false);
+    }
+
+    public LocalDate getDeadlineEndDate() {
+        return (byLocalDate != null ? byLocalDate: null);
+    }
 }
