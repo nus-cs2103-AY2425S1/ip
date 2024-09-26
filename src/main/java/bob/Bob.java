@@ -4,8 +4,6 @@ import bob.command.Command;
 import bob.exception.BobException;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The main class of BobBot.

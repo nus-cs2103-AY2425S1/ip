@@ -26,6 +26,11 @@ public class TagCommand extends Command {
         String argument = this.arguments.get("");
         if (argument == null) {
             printAllTags(tasks, ui);
+            return;
+        }
+
+        if (argument.startsWith("#")) {
+            printTasksTaggedWith(tasks, ui, argument.substring(1));
         } else {
             tagTask(tasks, ui, argument);
         }
@@ -48,6 +53,24 @@ public class TagCommand extends Command {
                                         .append(tasks.get(index))
                                         .append("\n"));
         }
+
+        ui.printWithFormat(str.toString());
+    }
+
+    private void printTasksTaggedWith(TaskList tasks, Ui ui, String tagName) {
+        List<Integer> indices = tasks.getIndicesTaggedWith(tagName);
+        if (indices.isEmpty()) {
+            ui.printWithFormat("You have not tagged any tasks with #" + tagName +" yet.");
+            return;
+        }
+
+        StringBuilder str = new StringBuilder();
+        str.append("#").append(tagName).append(":\n");
+        indices.forEach(index -> str.append("  ")
+                                    .append(index + 1)
+                                    .append(". ")
+                                    .append(tasks.get(index))
+                                    .append("\n"));
 
         ui.printWithFormat(str.toString());
     }
