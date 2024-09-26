@@ -11,7 +11,6 @@ import mylo.command.ExitCommand;
 import mylo.command.FindCommand;
 import mylo.command.ListCommand;
 import mylo.command.MarkStatusCommand;
-import mylo.data.InsufficientInfoException;
 import mylo.data.NoSuchCommandException;
 import mylo.task.TaskType;
 import mylo.utils.exceptions.IllegalValueException;
