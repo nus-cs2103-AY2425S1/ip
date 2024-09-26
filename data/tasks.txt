@@ -1,1 +1,5 @@
-T | 0 | laundry
+T | 1 | laundry
+T | 0 | washing dish
+D | 1 | homework | 2024-09-30 2359
+T | 0 | watching film
+T | 1 | film edit

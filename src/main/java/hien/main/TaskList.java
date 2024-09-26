@@ -34,12 +34,16 @@ public class TaskList {
      * @param index The index of the task to be deleted, starting from 0.
      * @throws HienException If the provided index is invalid
      *                      (i.e., less than 0 or greater than or equal to the size of the list).
+     *
+     * @return Task the deleted Task
      */
-    public void deleteTask(int index) throws HienException {
+    public Task deleteTask(int index) throws HienException {
         if (index < 0 || index >= tasks.size()) {
             throw new HienException("Task index is out of bounds.");
         }
+        Task temp = tasks.get(index);
         tasks.remove(index);
+        return temp;
     }
 
     /**
