@@ -35,9 +35,11 @@ public class FindCommand extends Command {
         assert taskList != null : "TaskList.getTasks() should not return null";
         List<Integer> foundIndices = getIndices(taskList, keyword); // Get the list of indices of matching tasks
         String listString = getTasksAtIndices(taskList, foundIndices);
+        FormattedString formattedList = new FormattedString(listString)
+                .color(FormattedString.COLOR.BG_YELLOW, keyword, true);
 
-        ui.printWithFormat("Here are the matching tasks in your list:"
-                + new FormattedString(listString).color(FormattedString.COLOR.BG_YELLOW, keyword, true));
+
+        ui.printWithFormat(new FormattedString("Here are the matching tasks in your list:").append(formattedList));
     }
 
     private static List<Integer> getIndices(List<Task> taskList, String keyword) {

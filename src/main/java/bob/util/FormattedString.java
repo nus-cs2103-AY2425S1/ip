@@ -15,7 +15,9 @@ public class FormattedString {
         }
     }
     private static final String RESET = "\u001B[0m";
-    private final String str;
+
+    // TODO: replace String here with StringBuilder?
+    private String str;
     private String formattedStr;
 
     /**
@@ -33,6 +35,31 @@ public class FormattedString {
      */
     public String getUnformatted() {
         return this.str;
+    }
+
+    /**
+     * Append the given string to the back of this {@code FormattedString}.
+     *
+     * @param str the string to append
+     * @return a reference to this object
+     */
+    public FormattedString append(String str) {
+        this.str += str;
+        this.formattedStr += str;
+        return this;
+    }
+
+    /**
+     * Append the given {@code FormattedString} to the back of this {@code FormattedString}.
+     * The unformatted version of the two objects are also concatenated.
+     *
+     * @param str the string to append
+     * @return a reference to this object
+     */
+    public FormattedString append(FormattedString str) {
+        this.str += str.getUnformatted();
+        this.formattedStr += str.toString();
+        return this;
     }
 
     /**
@@ -80,7 +107,7 @@ public class FormattedString {
         }
 
         this.formattedStr = formattedStr.replaceAll(
-                "(?i)(" + substring + ")", color + "$1" + RESET);
+                "(?i)(" + substring + ")", color.VAL + "$1" + RESET);
         return this;
     }
 
