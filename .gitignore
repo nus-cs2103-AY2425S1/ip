@@ -17,3 +17,6 @@ data/
 text-ui-test/*.TXT
 
 settings.json
+
+/ref/
+*.jar
