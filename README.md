@@ -1,24 +1,35 @@
-# Hien project template
+# Hien v0.4
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> “Your mind is for having ideas, not holding them.” – David Allen [(source)](https://en.wikipedia.org/wiki/David_Allen_(author))
 
-## Setting up in Intellij
+Hien frees your mind from having to remember tasks and deadlines. It's:
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- **text-based**
+- **easy to learn**
+- **SUPER FAST** to use
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Hien.java` file, right-click it, and choose `Run Hien.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Quick Start
+
+1. Download Hien v0.4 [here](https://github.com/mrnobody0505/ip/releases/tag/v04)
+2. Double-click to run.
+3. Add your tasks and deadlines.
+4. Let Hien manage your tasks for you 😉.
+
+And yes, it's **FREE**!
+
+## Features:
+
+- Task management  
+- Manage deadlines, tasks and event
+- Better Search for your task (now supported in v0.4)
+
+### Java Programmers
+
+Hien is a great way to practice Java. Here’s the main method to start Hien:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
