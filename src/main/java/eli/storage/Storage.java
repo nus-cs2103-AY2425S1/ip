@@ -1,11 +1,17 @@
 package eli.storage;
 
-import eli.task.*;
-import java.util.ArrayList;
+import eli.task.Task;
+import eli.task.TaskList;
 import eli.exception.EliException;
 import eli.parser.Parser;
 
-import java.io.*;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Handles loading tasks from the file and saving tasks to the file.
