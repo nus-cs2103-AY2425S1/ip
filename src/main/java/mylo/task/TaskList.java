@@ -210,4 +210,30 @@ public class TaskList {
 
         return string.toString();
     }
+
+    /**
+     * Returns the number of tasks in the task list.
+     * <p>This method provides the total count of tasks currently stored in the task list.</p>
+     *
+     * @return The number of tasks in the task list.
+     */
+    public int getTaskNumber() {
+        return this.list.size();
+    }
+
+    /**
+     * Compares this task list to the specified object.
+     * <p>This method checks whether the provided object is an instance of {@code TaskList}
+     * and if the task list inside it matches the current task list.</p>
+     *
+     * @param o The object to be compared for equality.
+     * @return {@code true} if the task lists are equal; {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TaskList other) {
+            return other.list.equals(this.list);
+        }
+        return false;
+    }
 }
