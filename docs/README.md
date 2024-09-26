@@ -1,6 +1,6 @@
 # Hien User Guide
 
-![Ui.png](ui.png)
+![Ui.png](Ui.png)
 
 Hien is a chatbot application for task management that tracks your daily tasks on a Graphical User Interface (GUI). The chatbot supports various functions to help you manage your tasks efficiently.
 
@@ -96,6 +96,7 @@ Expected output: A message with one or more tasks that has description match wit
 You can delete individual tasks or all tasks at once.
 
 To delete a single task:
+
 Format: `delete <task_index>`
 
 Example: `delete 2` (deletes the second task of the list)
