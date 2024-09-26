@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import exception.ParseException;
 
 public class DateParser {
-
+    private static final String FORMAT_WARNING = "Wrong format of dates";
     private static String parseDateTimeGeneral(String pattern, String target) throws ParseException {
         Pattern byPattern = Pattern.compile(pattern);
         Matcher byMatcher = byPattern.matcher(target);
@@ -21,7 +21,7 @@ public class DateParser {
                 return byMatcher.group(1) + "T00:00";
             }
         } else {
-            throw new ParseException("Wrong format of dates");
+            throw new ParseException(FORMAT_WARNING);
         }
     }
 
