@@ -46,7 +46,7 @@ public class Deadline extends Task {
      * Returns Deadline object based on user's input.
      * If options parsed from user's input are invalid,
      * null is returned.
-     * 
+     *
      * If the options cannot be parsed as LocalDate objects,
      * then options are stored as String instead.
      *

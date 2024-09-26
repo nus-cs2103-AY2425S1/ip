@@ -30,7 +30,7 @@ public class Todo extends Task {
         j.put("description", this.description);
         return j;
     }
-    
+
     /**
      * Returns the Todo object stored in the JSONObject.
      *

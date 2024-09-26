@@ -31,7 +31,7 @@ public class Storage {
      * Returns ArrayList of user's saved list of tasks.
      * List of tasks are loaded from File object located at
      * filePath of this Storage object.
-     * Does not return if exception thrown when file is missing, empty or 
+     * Does not return if exception thrown when file is missing, empty or
      * parsing empty/bad JSON
      *
      * @return User's saved list of tasks.
@@ -72,7 +72,7 @@ public class Storage {
             } catch (NullPointerException e) {
                 throw new IOException("Error parsing JSON objects.");
             }
-            
+
 
         }
         return userInputArray;
