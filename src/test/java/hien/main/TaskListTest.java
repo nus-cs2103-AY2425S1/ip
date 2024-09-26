@@ -32,7 +32,7 @@ public class TaskListTest {
     }
 
     /**
-     * Tests that a task can be successfully added to the task list.
+     * Tests that a task can be added correctly to the task list.
      * Verifies that the task list size increases and the task description is correctly stored.
      *
      * @throws HienException if there is an issue with adding the task
@@ -60,15 +60,11 @@ public class TaskListTest {
         assertTrue(taskList.isEmpty());
     }
 
-    /**
-     * Tests that removing invalid index task will throw HienException.
-     * Verifies that the exception is thrown when trying to remove a task from an empty list.
-     */
     @Test
     public void testAnomalyDeleteTask() throws HienException {
         try {
             taskList.deleteTask(0);
-            fail("Expected InvalidTaskNumberException to be thrown");
+            fail("Expected HienException");
         } catch (HienException e) {
         }
     }
