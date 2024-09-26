@@ -1,6 +1,6 @@
 # Chappy User Guide
 
-![https://github.com/RyanWarwick/ip/tree/master/docs/Ui.png]
+![Application Screenshot](Ui.PNG)
 
 A formally chatty chap-bot named Chappy. Derived from the greenfield Java project, Duke (Project Duke).
 
@@ -14,16 +14,12 @@ You can add Deadlines or Events to track tasks that need to be completed before 
 
 Deadline Example: `deadline CS2103T iP /by /by 26-09-2024`
 
-// A description of the expected outcome goes here
-
 ```
 Alright sir! I've added this task:
 [D][] CS2103T iP (by: Sep 26 2024)
 ```
 
 Event Example: `event Recess Week /from 23-09-2024 /to 27-09-2024`
-
-// A description of the expected outcome goes here
 
 ```
 Alright sir! I've added this task:
