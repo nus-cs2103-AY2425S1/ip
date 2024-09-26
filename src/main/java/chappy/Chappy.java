@@ -48,8 +48,12 @@ public class Chappy {
             if (userInput == "") {
                 continue;
             }
+            assert userInput != "";
+
             ui.printLineSpacer();
             Parser.Command userCommand = parser.parseUserInput(userInput);
+
+            assert userCommand != null;
 
             try {
                 switch (userCommand) {
@@ -143,10 +147,9 @@ public class Chappy {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String userInput) throws CreateTaskException, IOException {
-        if (userInput == "") {
-            return null;
-        }
         Parser.Command userCommand = parser.parseUserInput(userInput);
+
+        assert userCommand != null;
 
         try {
             switch (userCommand) {
@@ -163,7 +166,10 @@ public class Chappy {
                         throw new CreateTaskException(
                                 "Oh SIR! The index input of a Unmark command cannot be empty!");
                     }
+
+
                     int unmarkIndex = Integer.parseInt(unmarkInput[1].trim()) - 1;
+
                     return this.userTaskList.markTaskAsNotDone(unmarkIndex, this.storage);
 
                 case MARK:

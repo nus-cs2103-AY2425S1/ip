@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -26,7 +27,8 @@ public class MainWindow extends AnchorPane {
     private Chappy chappy;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image chappyImage = new Image(this.getClass().getResourceAsStream("/images/chappy.png"));
+    private Image chappyImage =
+            new Image(this.getClass().getResourceAsStream("/images/chappy.png"));
 
     @FXML
     public void initialize() {
@@ -39,17 +41,24 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates a dialog box containing user input, and appends it to
-     * the dialog container. Clears the user input after processing.
+     * Creates a dialog box containing user input, and appends it to the dialog container. Clears
+     * the user input after processing.
      */
     @FXML
     private void handleUserInput() throws CreateTaskException, IOException {
         String userText = userInput.getText();
+
+        if (userText == "") {
+            return;
+        }
+
+        assert userText != "";
+
         String chappyText = chappy.getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getChappyDialog(chappyText, chappyImage)
-        );
+
+
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getChappyDialog(chappyText, chappyImage));
         userInput.clear();
     }
 }
