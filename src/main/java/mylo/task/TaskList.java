@@ -74,7 +74,7 @@ public class TaskList {
 
             list.add(task);
             storage.save(task);
-            return String.format("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.",
+            return String.format("Got it. I've added this task: \n %s\nNow you have %s tasks in the list.",
                     task, list.size());
         }
     }
