@@ -221,18 +221,16 @@ tag
 
 <summary>Using this list</summary>
 
-```
-1. `[D][ ] #URGENT Finish CS2103T iP (by: {26-Sep-2024 2359})`
-2. `[T][ ] #JustAnotherDay Eat dinner`
-3. `[T][ ] #JustAnotherDay Wake up`
-4. `[E][ ] SDG Hackathon (from: {26-Sep-2024 0000} to: {28-Sep-2024 0000})`
-5. `[D][ ] #URGENT Finish CS1101S grading (by: {27-Sep-2024 0000})`
-6. `[T][ ] #JustAnotherDay Eat lunch`
-7. `[T][ ] #URGENT #JustAnotherDay Relax for a bit`
-8. `[T][ ] #URGENT Prepare for midterms`
-```
+1. `[D][ ] #URGENT Finish CS2103T iP (by: {26-Sep-2024 2359})` <br>
+2. `[T][ ] #JustAnotherDay Eat dinner` <br>
+3. `[T][ ] #JustAnotherDay Wake up` <br>
+4. `[E][ ] SDG Hackathon (from: {26-Sep-2024 0000} to: {28-Sep-2024 0000})` <br>
+5. `[D][ ] #URGENT Finish CS1101S grading (by: {27-Sep-2024 0000})` <br>
+6. `[T][ ] #JustAnotherDay Eat lunch` <br>
+7. `[T][ ] #URGENT #JustAnotherDay Relax for a bit` <br>
+8. `[T][ ] #URGENT Prepare for midterms` <br>
 
-[Example Data File](./Bob.txt)
+[Example Data File](./Bob.txt) <br>
 
 </details>
 
