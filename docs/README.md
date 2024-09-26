@@ -221,6 +221,7 @@ tag
 
 <summary>Using this list</summary>
 
+```
 1. `[D][ ] #URGENT Finish CS2103T iP (by: {26-Sep-2024 2359})`
 2. `[T][ ] #JustAnotherDay Eat dinner`
 3. `[T][ ] #JustAnotherDay Wake up`
@@ -229,6 +230,7 @@ tag
 6. `[T][ ] #JustAnotherDay Eat lunch`
 7. `[T][ ] #URGENT #JustAnotherDay Relax for a bit`
 8. `[T][ ] #URGENT Prepare for midterms`
+```
 
 [Example Data File](./Bob.txt)
 
