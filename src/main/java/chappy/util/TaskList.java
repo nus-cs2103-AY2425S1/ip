@@ -1,11 +1,13 @@
 package chappy.util;
 
 import chappy.exception.CreateTaskException;
-
+import chappy.task.Deadline;
+import chappy.task.Event;
 import chappy.task.Task;
 
 import java.io.IOException;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -144,4 +146,35 @@ public class TaskList {
         return result;
     }
 
+    public String findFreeTime(String input) {
+        int number;
+        try {
+            number = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return "Oh SIR! The input of the Free command must be a whole number! e.g. free 4";
+        }
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(number);
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.isBetweenDates(startDate, endDate)) {
+                    startDate = deadline.getDeadlineEndDate();
+                    endDate = startDate.plusDays(number);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                System.out.println("Its an event");
+                if (event.isBetweenDates(startDate, endDate)) {
+                    startDate = event.getEventEndDate();
+                    endDate = startDate.plusDays(number);
+                }
+            }
+        }
+        startDate = startDate.plusDays(1);
+        return "SIR! The nearest free " + number + " days starts on " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + "!";
+
+
+    }
 }

@@ -193,4 +193,27 @@ public class Event extends Task {
             return event;
         }
     }
+
+    public boolean hasLocalDate() {
+        return (fromLocalDate != null && toLocalDate != null ? true : false);
+    }
+
+    public boolean isBetweenDates(LocalDate startDate, LocalDate endDate) {
+        if (!hasLocalDate()) {
+            return false;
+        }
+
+        if (fromLocalDate.isAfter(startDate) && fromLocalDate.isBefore(endDate)) {
+            return true;
+        } else if (fromLocalDate.isBefore(startDate) && toLocalDate.isAfter(startDate)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public LocalDate getEventEndDate() {
+        return (toLocalDate != null ? toLocalDate: null);
+    }
 }
