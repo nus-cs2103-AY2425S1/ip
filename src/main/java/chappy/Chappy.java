@@ -48,6 +48,7 @@ public class Chappy {
             if (userInput == "") {
                 continue;
             }
+
             assert userInput != "";
 
             ui.printLineSpacer();
@@ -166,10 +167,7 @@ public class Chappy {
                         throw new CreateTaskException(
                                 "Oh SIR! The index input of a Unmark command cannot be empty!");
                     }
-
-
                     int unmarkIndex = Integer.parseInt(unmarkInput[1].trim()) - 1;
-
                     return this.userTaskList.markTaskAsNotDone(unmarkIndex, this.storage);
 
                 case MARK:
@@ -202,7 +200,7 @@ public class Chappy {
                 case EVENT:
                     Event event = Event.of(userInput);
                     if (event != null) {
-                       return this.userTaskList.addTask(event, this.storage);
+                        return this.userTaskList.addTask(event, this.storage);
                     }
                     return "";
 

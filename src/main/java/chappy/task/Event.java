@@ -64,17 +64,18 @@ public class Event extends Task {
         values = validateOptions(input);
 
 
-        if (values != null) {
-            LocalDate from = parseLocalDate(values[1]);
-            LocalDate to = parseLocalDate(values[2]);
-            if (from != null && to != null) {
-                return new Event(values[0], from, to);
-            } else {
-                return new Event(values[0], values[1], values[2]);
-            }
+        if (values == null) {
+            return null;
         }
 
-        return null;
+        LocalDate from = parseLocalDate(values[1]);
+        LocalDate to = parseLocalDate(values[2]);
+        if (from != null && to != null) {
+            return new Event(values[0], from, to);
+        } else {
+            return new Event(values[0], values[1], values[2]);
+        }
+
     }
 
     private static LocalDate parseLocalDate(String input) throws DateTimeParseException {
@@ -97,9 +98,9 @@ public class Event extends Task {
             return "[E]" + super.toString() + " (from: "
                     + fromLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: "
                     + toLocalDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
-        } else {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+
 
     }
 
@@ -111,14 +112,14 @@ public class Event extends Task {
         boolean isValidated = true;
         String s = "";
         for (Option option : Option.values()) {
-            if (!eventInput[1].toLowerCase().contains(option.getKeyword())) {
-
-                if (!s.equals("")) {
-                    s = s + " and ";
-                }
-                s = s + "\"" + option.getKeyword() + "\"";
-                isValidated = false;
+            if (eventInput[1].toLowerCase().contains(option.getKeyword())) {
+                continue;
             }
+            if (!s.equals("")) {
+                s = s + " and ";
+            }
+            s = s + "\"" + option.getKeyword() + "\"";
+            isValidated = false;
         }
 
         String[] returnValues = new String[3];
