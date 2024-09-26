@@ -30,6 +30,14 @@ public class Storage {
      */
     private final Path path = Paths.get(STORAGE_FILEPATH);
 
+//    public Storage() {
+//        try {
+//            Files.createDirectories(path);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     /**
      * Saves the specified {@code task} data to the storage file.
      *
@@ -37,11 +45,13 @@ public class Storage {
      * @throws StorageOperationException if there are errors converting and/or storing data to the file.
      */
     public void save(Task task) throws StorageOperationException {
-        try (FileWriter fileWriter = new FileWriter(STORAGE_FILEPATH, true)) {
+        try {
             if (!Files.exists(path)) {
-                Files.createFile(path);
+                Files.createDirectories(path.getParent());
             }
+            FileWriter fileWriter = new FileWriter(STORAGE_FILEPATH, true);
             fileWriter.write(task.storageFormat() + System.lineSeparator());
+            fileWriter.close();
         } catch (IOException e) {
             throw new StorageOperationException("Error writing to file: " + path);
         }
