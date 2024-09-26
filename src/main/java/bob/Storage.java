@@ -1,38 +1,40 @@
 package bob;
 
 import bob.exception.FileCorruptedException;
+import bob.exception.LineCorruptedException;
 import bob.task.*;
+import bob.util.ClassGetter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * The Storage class handles storing and reading data from files.
- * The formats for encoding and decoding each task is: <br>
- * <ul>
- *  <li>todo: <code>T&lt;isDone&gt;&lt;desc&gt;</code></li>
- *  <li>deadline: <code>D&lt;isDone&gt;&lt;len(desc)#4&gt;&lt;desc&gt;&lt;by&gt;</code></li>
- *  <li>event: <code>E&lt;isDone&gt;&lt;len(desc)#4&gt;&lt;desc&gt;&lt;len(from)#4&gt;&lt;from&gt;&lt;to&gt;</code></li>
- * </ul>
+ * The formats for encoding and decoding is defined within each task type.
  */
 public class Storage {
     private final File file;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
+    private Class<? extends Task>[] taskClasses;
 
     /**
-     * Constructs a Storage instance that stores and reads files at the given file path.
+     * Constructs a Storage instance that stores and reads files at the given file path,
+     * and loads task classes from the {@code bob.task} package.
      *
      * @param filePath where this instance stores and reads data from
      */
     public Storage(String filePath) {
         file = new File(filePath);
+        this.loadTasks();
     }
 
     private void createFile() throws IOException {
@@ -40,58 +42,69 @@ public class Storage {
         file.createNewFile();
     }
 
+    private void loadTasks() {
+        // Create a new ArrayList
+        ArrayList<Class<? extends Task>> list = new ArrayList<>();
+
+        // Get all classes from the bob.task package
+        Set<Class<?>> allClasses = ClassGetter.getClassesFromPackage(Task.class.getPackageName());
+        assert allClasses != null : "The set of all classes should not be null";
+
+        // Iterate through the classes in the bob.task package
+        for (Class<?> clazz : allClasses) {
+            // If the class does not inherit bob.task.Task, ignore it
+            if (!Task.class.isAssignableFrom(clazz) || clazz.equals(Task.class)) {
+                continue;
+            }
+
+            // Add the class to the list
+            list.add(clazz.asSubclass(Task.class));
+        }
+
+        // Initialize this.taskClasses and add all classes to it
+        // At no point in the program is any Object added to taskClasses, except here.
+        // Since we only add Class<? extends Task> into the array, it can be safely cast.
+        @SuppressWarnings("unchecked")
+        Class<? extends Task>[] a = (Class<? extends Task>[]) new Class[list.size()];
+        this.taskClasses = a;
+        list.toArray(this.taskClasses);
+    }
+
     /**
-     * Decodes the given string.
+     * Decodes the given string by calling the static {@code decode()} method on each task class known by this
+     * Storage instance.
      *
      * @param encodedString the string to be decoded
      * @return the decoded Task instance
      * @throws IllegalArgumentException if the given string does not follow any of the formats
      */
-    private Task decode(String encodedString) {
+    private Task decode(String encodedString) throws LineCorruptedException {
         assert encodedString != null : "Encoded string should not be null";
 
-        Task task;
-        int n;
-        String desc;
+        // Iterate through each known task class
+        for (Class<? extends Task> taskClass : taskClasses) {
+            try {
+                // If encodedLetter of this taskClass is not the 1st char of encodedString, continue
+                char encodedLetter = (char) taskClass.getDeclaredField("ENCODED_LETTER").get(null);
+                if (encodedString.charAt(0) != encodedLetter) {
+                    continue;
+                }
 
-        switch(encodedString.charAt(0)) {
-        case 'T':
-            // T<isDone><desc>
-            task = new Todo(encodedString.substring(2));
-            break;
-        case 'D':
-            // D<isDone><len(desc)#4><desc><by>
-            n = Integer.parseInt(encodedString.substring(2, 6));
-            desc = encodedString.substring(6, 6 + n);
-            String by = encodedString.substring(6 + n);
-            LocalDateTime parsedBy = LocalDateTime.from(DATE_TIME_FORMATTER.parse(by));
-            task = new Deadline(desc, parsedBy);
-            break;
-        case 'E':
-            // E<isDone><len(desc)#4><desc><len(from)#4><from><to>
-            n = Integer.parseInt(encodedString.substring(2, 6));
-            int curr = 6 + n;
-            desc = encodedString.substring(6, curr);
-            n = Integer.parseInt(encodedString.substring(curr, curr + 4));
-
-            curr += 4;
-            String from = encodedString.substring(curr, curr + n);
-            String to = encodedString.substring(curr + n);
-
-            LocalDateTime parsedFrom = LocalDateTime.from(DATE_TIME_FORMATTER.parse(from));
-            LocalDateTime parsedTo = LocalDateTime.from(DATE_TIME_FORMATTER.parse(to));
-
-            task = new Event(desc, parsedFrom, parsedTo);
-            break;
-        default:
-            throw new IllegalArgumentException();
+                // Invoke the decode(String) method on this taskClass
+                Method decodeMethod = taskClass.getMethod("decode", String.class);
+                return (Task) decodeMethod.invoke(null, encodedString.substring(1));
+            } catch (NoSuchMethodException | NoSuchFieldException |
+                     IllegalAccessException | ClassCastException ignored) {
+                // If this taskClass did not declare a public decode(String) method or encodedLetter char field,
+                // ignore it
+            } catch (InvocationTargetException e) {
+                // If the invoked decode(String) method threw an exception, the line is corrupted
+                throw new LineCorruptedException();
+            }
         }
 
-        if (encodedString.charAt(1) == '1') {
-            task.mark();
-        }
-
-        return task;
+        // If this string corresponds to no known task class, the line is corrupted
+        throw new LineCorruptedException();
     }
 
     /**
@@ -102,39 +115,17 @@ public class Storage {
      */
     private String encode(Task task) {
         assert task != null : "task should not be null";
-        StringBuilder str = new StringBuilder();
 
-        if (task instanceof Todo) {
-            // todo: T<isDone><desc>
-            str.append("T");
-            str.append(task.getIsDone() ? 1 : 0);
-            str.append(task.getDescription());
-        } else if (task instanceof Deadline deadline) {
-            // deadline: D<isDone><len(desc)#4><desc><by>
-            str.append("D");
-            str.append(task.getIsDone() ? 1 : 0);
-            str.append(String.format("%04d", deadline.getDescription().length()));
-            str.append(deadline.getDescription());
-
-            String formattedBy = deadline.getBy().format(DATE_TIME_FORMATTER);
-            str.append(formattedBy);
-        } else if (task instanceof Event event) {
-            // event: E<isDone><len(desc)#4><desc><len(from)#4><from><to>
-            str.append("E");
-            str.append(task.getIsDone() ? 1 : 0);
-            str.append(String.format("%04d", event.getDescription().length()));
-            str.append(event.getDescription());
-
-            String formattedFrom = event.getFrom().format(DATE_TIME_FORMATTER);
-            str.append(String.format("%04d", formattedFrom.length()));
-            str.append(formattedFrom);
-
-            String formattedTo = event.getTo().format(DATE_TIME_FORMATTER);
-            str.append(formattedTo);
+        char encodedLetter;
+        try {
+            encodedLetter = (char) task.getClass().getDeclaredField("ENCODED_LETTER").get(null);
+        } catch (IllegalAccessException | NoSuchFieldException | NullPointerException e) {
+            assert true : "the task class " + task.getClass().getSimpleName() + " did not declare"
+                    + "a public static ENCODED_LETTER char field";
+            return "";
         }
 
-        str.append('\n');
-        return str.toString();
+        return encodedLetter + task.encode() + "\n";
     }
 
     /**
@@ -159,6 +150,7 @@ public class Storage {
         while (scanner.hasNext()) {
             try {
                 tasks.add(decode(scanner.nextLine()));
+            } catch (LineCorruptedException ignored) {
             } catch (RuntimeException e) {
                 throw new FileCorruptedException();
             }

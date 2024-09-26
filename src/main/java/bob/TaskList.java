@@ -2,15 +2,14 @@ package bob;
 
 import bob.task.Task;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList implements Iterable<Task> {
     private final List<Task> tasks;
+    private final Set<String> tags = new HashSet<>();
 
     /**
      * Constructs an empty task list.
@@ -26,6 +25,9 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
+        for (Task task : tasks) {
+            this.tags.addAll(List.of(task.getTags()));
+        }
     }
 
     /**
@@ -54,7 +56,16 @@ public class TaskList implements Iterable<Task> {
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
      */
     public Task remove(int index) {
-        return tasks.remove(index);
+        String[] taskTags = tasks.get(index).getTags();
+        Task t = tasks.remove(index);
+
+        for (String tag : taskTags) {
+            if (getIndicesTaggedWith(tag).isEmpty()) {
+                tags.remove(tag);
+            }
+        }
+
+        return t;
     }
 
     /**
@@ -82,6 +93,7 @@ public class TaskList implements Iterable<Task> {
      */
     public void reset() {
         tasks.clear();
+        tags.clear();
     }
 
     /**
@@ -91,6 +103,80 @@ public class TaskList implements Iterable<Task> {
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Tags the task at index {@code i} in this task list.
+     *
+     * @param i the index of the task to be tagged
+     * @param tagName the name of the tag
+     * @return true if the specified task is not already tagged with the given tag name
+     */
+    public boolean tag(int i, String tagName) {
+        this.tags.add(tagName);
+        return tasks.get(i).tag(tagName);
+    }
+
+    /**
+     * Remove a specific tag name from the task at index {@code i} in this list.
+     *
+     * @param i the index of the task to be untagged
+     * @param tagName the name of the tag to be removed
+     * @return true if the specified task was previously tagged with the given tag name
+     */
+    public boolean unTag(int i, String tagName) {
+        boolean b = tasks.get(i).unTag(tagName);
+        if (getIndicesTaggedWith(tagName).isEmpty()) {
+            tags.remove(tagName);
+        }
+        return b;
+    }
+
+    /**
+     * Removes all tags from the task at index {@code i} in this list.
+     *
+     * @param i the index of the task
+     */
+    public void unTag(int i) {
+        Task task = tasks.get(i);
+        String[] taskTags = task.getTags();
+        task.clearTags();
+
+        for (String tag : taskTags) {
+            if (getIndicesTaggedWith(tag).isEmpty()) {
+                tags.remove(tag);
+            }
+        }
+    }
+
+    /**
+     * Returns all the tags in this task list.
+     *
+     * @return the set of all the tags in this list
+     */
+    public Set<String> getAllTags() {
+        return this.tags;
+    }
+
+    /**
+     * Returns the indices of tasks in this list that is tagged with {@code tagName}
+     *
+     * @param tagName the name of the tag
+     * @return a list of indices of tasks tagged with the given tag name
+     */
+    public List<Integer> getIndicesTaggedWith(String tagName) {
+        if (!tags.contains(tagName)) {
+            return List.of();
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); ++i) {
+            if (Arrays.asList(tasks.get(i).getTags()).contains(tagName)) {
+                list.add(i);
+            }
+        }
+
+        return list;
     }
 
     /**
