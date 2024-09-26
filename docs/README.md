@@ -6,7 +6,7 @@
 - intuitive and easy to use
 - ~~FAST~~ LIGHTNING FAST — get things done in no time!
 
-![Screenshot of Mylo's UI](/Ui.png)
+![Screenshot of Mylo's UI](./Ui.png)
 
 Getting started is simple:
 
@@ -106,8 +106,10 @@ Now you have 2 tasks in the list.
 ## Updating Completion Status
 
 Each task in Mylo tracks its completion status:
-- \[ ] indicates an incomplete task.
-- \[X] indicates a completed task.
+
+\[ ] indicates an incomplete task.
+
+\[X] indicates a completed task.
 
 Here's how to mark a task as done or undone.
 
