@@ -8,10 +8,6 @@ import java.util.Scanner;
  * The Ui class handles interactions with the user, including reading inputs and printing outputs.
  */
 public class Ui {
-    // TODO: this class can become a stream structure
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
     private static final String LOGO = """
