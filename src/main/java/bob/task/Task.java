@@ -82,6 +82,23 @@ public abstract class Task {
     }
 
     /**
+     * Removes the tag with the given tag name from this task.
+     *
+     * @param tagName the name of the tag to remove
+     * @return true if this task was previously tagged with the given tag name
+     */
+    public boolean unTag(String tagName) {
+        return tags.remove(tagName);
+    }
+
+    /**
+     * Removes all tags from this task.
+     */
+    public void clearTags() {
+        tags.clear();
+    }
+
+    /**
      * Encodes this task to be stored in the data file.
      *
      * @return the encoded string representation of this task
