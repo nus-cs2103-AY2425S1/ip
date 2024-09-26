@@ -37,6 +37,11 @@ public abstract class Task {
     return "[ ]";
   }
 
+  /**
+   * Returns the description of the task.
+   *
+   * @return The task description as a string.
+   */
   public String getTask() {
     return this.task;
   }
@@ -50,8 +55,11 @@ public abstract class Task {
     this.isDone = status;
   }
 
+
   /**
-   * Returns the done boolean status of the task.
+   * Returns the boolean status indicating whether the task is done or not.
+   *
+   * @return True if the task is done, false if it is not.
    */
   public Boolean getBooleanStatus() {
     return isDone;

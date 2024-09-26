@@ -48,7 +48,7 @@ public class TaskList {
    */
   public void addTask(Task task) {
     assert task != null : "Task to be added cannot be null";
-    assert tasks.size() < 100 : "Task list is already full!!!";
+    assert tasks.size() < 100 : "Task list is already full!";
 
     if (tasks == null) {
       throw new IllegalArgumentException("Task to be added cannot be null");
