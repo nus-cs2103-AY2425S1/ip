@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+def os = System.getProperty("os.name").toLowerCase()
+def javaFxSdkPath = ''
+
+if (os.contains("win")) {
+    javaFxSdkPath = 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib'
+} else if (os.contains("mac")) {
+    javaFxSdkPath = '/path/to/javafx/macos/lib'
+} else if (os.contains("nix") || os.contains("nux")) {
+    javaFxSdkPath = '/path/to/javafx/linux/lib'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.openjfx:javafx-controls:17.0.7'
+    implementation 'org.openjfx:javafx-fxml:17.0.7'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("jeriel.ui.Main") // This should be your JavaFX main class
+}
+
+shadowJar {
+    archiveBaseName = "Jeriel"
+    archiveClassifier = null
+    archiveVersion = '1.0'
+    manifest {
+        attributes 'Main-Class': 'jeriel.ui.Main'
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'jeriel.ui.Main'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+run {
+    enableAssertions = true
+    jvmArgs += [
+        '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',  // Update this path
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+    standardInput = System.in
+}
+
+// Include JavaFX for compilation
+tasks.withType(JavaCompile) {
+    options.compilerArgs += [
+        // '--module-path', '/Users/jerielchan/Downloads/javafx-sdk-17.0.12/lib',
+        // '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',
+        '--module-path', javaFxSdkPath,
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
