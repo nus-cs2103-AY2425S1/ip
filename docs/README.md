@@ -1,6 +1,6 @@
 # Espresso User Guide
 
-Welcome to Espresso User Guide. Espresso is a task management application which makes handling your tasks easier.With its straightforward commands and handy graphical user interface, users can add, delete, mark, unmark, and search for tasks easily. spresso helps you manage deadlines, events, and to-do items, ensuring that you stay productive and organised.
+Welcome to Espresso User Guide. Espresso is a task management application which makes handling your tasks easier.With its straightforward commands and handy graphical user interface, users can add, delete, mark, unmark, and search for tasks easily. Espresso helps you manage deadlines, events, and to-do items, ensuring that you stay productive and organised.
 ![Product Screenshot](Ui.png)
 
 ## List of Features
