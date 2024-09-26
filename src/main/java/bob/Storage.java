@@ -2,7 +2,6 @@ package bob;
 
 import bob.exception.FileCorruptedException;
 import bob.exception.LineCorruptedException;
-import bob.exception.WrongTaskException;
 import bob.task.*;
 import bob.util.ClassGetter;
 
@@ -11,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,19 +80,30 @@ public class Storage {
      */
     private Task decode(String encodedString) throws LineCorruptedException {
         assert encodedString != null : "Encoded string should not be null";
+
+        // Iterate through each known task class
         for (Class<? extends Task> taskClass : taskClasses) {
             try {
-                return (Task) taskClass.getMethod("decode", String.class).invoke(null, encodedString);
-            } catch (NoSuchMethodException | IllegalAccessException ignored) {
-            } catch (InvocationTargetException e) {
-                Throwable cause = e.getCause();
-                if (cause instanceof WrongTaskException) {
+                // If encodedLetter of this taskClass is not the 1st char of encodedString, continue
+                char encodedLetter = (char) taskClass.getDeclaredField("ENCODED_LETTER").get(null);
+                if (encodedString.charAt(0) != encodedLetter) {
                     continue;
-                } else if (cause instanceof LineCorruptedException) {
-                    throw (LineCorruptedException) cause;
                 }
+
+                // Invoke the decode(String) method on this taskClass
+                Method decodeMethod = taskClass.getMethod("decode", String.class);
+                return (Task) decodeMethod.invoke(null, encodedString.substring(1));
+            } catch (NoSuchMethodException | NoSuchFieldException |
+                     IllegalAccessException | ClassCastException ignored) {
+                // If this taskClass did not declare a public decode(String) method or encodedLetter char field,
+                // ignore it
+            } catch (InvocationTargetException e) {
+                // If the invoked decode(String) method threw an exception, the line is corrupted
+                throw new LineCorruptedException();
             }
         }
+
+        // If this string corresponds to no known task class, the line is corrupted
         throw new LineCorruptedException();
     }
 
@@ -104,7 +115,17 @@ public class Storage {
      */
     private String encode(Task task) {
         assert task != null : "task should not be null";
-        return task.encode() + "\n";
+
+        char encodedLetter;
+        try {
+            encodedLetter = (char) task.getClass().getDeclaredField("ENCODED_LETTER").get(null);
+        } catch (IllegalAccessException | NoSuchFieldException | NullPointerException e) {
+            assert true : "the task class " + task.getClass().getSimpleName() + " did not declare"
+                    + "a public static ENCODED_LETTER char field";
+            return "";
+        }
+
+        return encodedLetter + task.encode() + "\n";
     }
 
     /**

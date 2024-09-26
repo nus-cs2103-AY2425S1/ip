@@ -1,39 +1,60 @@
 package bob.task;
 
 import bob.exception.LineCorruptedException;
-import bob.exception.WrongTaskException;
+
+import java.util.Arrays;
 
 public class Todo extends Task {
-    public Todo(String description) {
-        super(description);
+    public static final char ENCODED_LETTER = 'T';
+
+    public Todo(String description, String... tags) {
+        super(description, tags);
     }
 
     @Override
     public String encode() {
-        // format: T<isDone><desc>
-        return "T" + (this.isDone ? "1" : "0") + this.description;
+        // format: <isDone><len(desc)#4><desc><tag tag ...>
+        StringBuilder str = new StringBuilder();
+
+        str.append(this.isDone ? "1" : "0");
+        str.append(String.format("%04d", this.description.length()));
+        str.append(this.description);
+
+        String tagsAsString = this.tags.stream().reduce("", (s, tag) -> s + " " + tag).trim();
+        str.append(tagsAsString);
+
+        return str.toString();
     }
 
-    public static Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
-        // format: T<isDone><desc>
-        if (encodedString.charAt(0) != 'T') {
-            throw new WrongTaskException();
-        }
+    public static Task decode(String encodedString) throws LineCorruptedException {
+        // format: <isDone><len(desc)#4><desc><tag tag ...>
 
         Task task;
         try {
-            task = new Todo(encodedString.substring(2));
+            task = getTask(encodedString);
         } catch (IndexOutOfBoundsException e) {
             throw new LineCorruptedException();
         }
 
-        if (encodedString.charAt(1) == '1') {
+        if (encodedString.charAt(0) == '1') {
             task.mark();
-        } else if (encodedString.charAt(1) != '0') {
+        } else if (encodedString.charAt(0) != '0') {
             throw new LineCorruptedException();
         }
 
         return task;
+    }
+
+    private static Task getTask(String encodedString) {
+        int descLength = Integer.parseInt(encodedString.substring(1, 5));
+        String desc = encodedString.substring(5, 5 + descLength);
+
+        String tagsAsString = encodedString.substring(5 + descLength);
+        String[] tags = Arrays.stream(tagsAsString.split(" "))
+                .filter(str -> !str.isEmpty())
+                .toArray(String[]::new);
+
+        return new Todo(desc, tags);
     }
 
     @Override

@@ -4,14 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 import bob.exception.LineCorruptedException;
-import bob.exception.WrongTaskException;
 
 /**
  * Abstract base class that all task types should inherit.
- * All must define a <br>
- * <code>public static decode() throws WrongTaskException, LineCorruptedException</code> <br>
- * method that decodes corresponding encoded lines in the data file.
- * Classes that inherit this class and is in this package is collected by the {@code Storage} to be used.
+ * All tasks must define:
+ * <ul>
+ * <li>A public and static {@code ENCODED_LETTER} char field that
+ * {@code Storage} uses to check if an encoded string corresponds to that particular task type.</li>
+ *
+ * <li>A public and static {@code decode(String) throws bob.exception.LineCorruptedException} method that
+ * decodes corresponding encoded lines in the data file.</li>
+ * </ul>
+ * Classes that inherit this class and is in this package is collected by {@code Storage} to be used.
  *
  * @see bob.Storage
  */
@@ -90,16 +94,15 @@ public abstract class Task {
      *
      * @param encodedString the encoded string representation of this task
      * @return the decoded task
-     * @throws WrongTaskException if the encoded string does not represent this task
      * @throws LineCorruptedException if the encoded string does not follow the encoding format of this task
      */
-    public static Task decode(String encodedString) throws WrongTaskException, LineCorruptedException {
+    public static Task decode(String encodedString) throws LineCorruptedException {
         return null;
     }
 
     @Override
     public String toString() {
-        String tagsAsString = tags.stream().reduce("", (str, tag) -> str + " #" + tag).trim();
-        return String.format("[%s] %s %s", this.getStatusIcon(), tagsAsString, this.description);
+        String tagsAsString = tags.stream().reduce("", (str, tag) -> str + " #" + tag);
+        return String.format("[%s]%s %s", this.getStatusIcon(), tagsAsString, this.description);
     }
 }
