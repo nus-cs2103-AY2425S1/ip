@@ -47,6 +47,17 @@ public class Event extends Task {
         this.to = null;
     }
 
+    /**
+     * Returns Event object based on user's input.
+     * If options parsed from user's input are invalid,
+     * null is returned.
+     *
+     * If the options cannot be parsed as LocalDate objects,
+     * then options are stored as String instead.
+     *
+     * @param input user's input.
+     * @return Event object.
+     */
     public static Event of(String input) {
         String[] values;
         try {
@@ -87,7 +98,7 @@ public class Event extends Task {
         } else {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
-        
+
     }
 
     private static String[] validateOptions(String input) throws CreateTaskException {

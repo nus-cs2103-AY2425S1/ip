@@ -33,7 +33,7 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
-  
+
 
     public JSONObject toJson() {
         JSONObject j = new JSONObject();

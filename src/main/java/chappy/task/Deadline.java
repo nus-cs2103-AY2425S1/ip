@@ -42,6 +42,17 @@ public class Deadline extends Task {
         this.completeBy = null;
     }
 
+    /**
+     * Returns Deadline object based on user's input.
+     * If options parsed from user's input are invalid,
+     * null is returned.
+     *
+     * If the options cannot be parsed as LocalDate objects,
+     * then options are stored as String instead.
+     *
+     * @param input user's input.
+     * @return Deadline object.
+     */
     public static Deadline of(String input) {
         String[] values;
         try {

@@ -21,6 +21,12 @@ public class Todo extends Task {
         return j;
     }
 
+    /**
+     * Returns the Todo object stored in the JSONObject.
+     *
+     * @param jsonObject JSONObject (containing a Todo).
+     * @return Todo object.
+     */
     public static Task fromJson(JSONObject jsonObject) {
         Todo t = new Todo(jsonObject.get("description").toString());
         return t;

@@ -22,7 +22,7 @@ import java.io.IOException;
 public class StorageTest {
     @Test
     public void loadFromDisk_success() throws IOException, ParseException {
-        ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator + 
+        ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator +
                 "chappy" + File.separator + "util" + File.separator + "data" + File.separator + "test_data.json").loadFromDisk();
         assertTrue(testList.size() > 0);
 
@@ -34,17 +34,17 @@ public class StorageTest {
     @Test
     public void loadFromDisk_ioExceptionThrown() throws IOException, ParseException {
         try {
-            ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator + 
+            ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator +
                 "chappy" + File.separator + "util" + File.separator + "data" + File.separator + "test_data2.json").loadFromDisk();
             fail();
         } catch (IOException e) {
             assertEquals("File does not exist. Creating file.", e.getMessage());
-            new File("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator + 
+            new File("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator +
                 "chappy" + File.separator + "util" + File.separator + "data" + File.separator + "test_data2.json").delete();
         }
 
         try {
-            ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator + 
+            ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator +
                 "chappy" + File.separator + "util" + File.separator + "data" + File.separator + "test_data3.json").loadFromDisk();
             fail();
         } catch (IOException e) {
@@ -52,13 +52,13 @@ public class StorageTest {
         }
 
         try {
-            ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator + 
+            ArrayList<Task> testList = new Storage("." + File.separator + "src" + File.separator + "test" + File.separator  + "java" + File.separator +
                 "chappy" + File.separator + "util" + File.separator + "data" + File.separator + "test_data4.json").loadFromDisk();
             fail();
         } catch (IOException e) {
             assertEquals("Error parsing JSON objects.", e.getMessage());
         }
-        
-       
+
+
     }
 }

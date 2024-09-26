@@ -27,6 +27,17 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns ArrayList of user's saved list of tasks.
+     * List of tasks are loaded from File object located at
+     * filePath of this Storage object.
+     * Does not return if exception thrown when file is missing, empty or
+     * parsing empty/bad JSON
+     *
+     * @return User's saved list of tasks.
+     * @throws IOException if File object is missing, empty or JSON object(s)
+     * are null/bad.
+     */
     public ArrayList<Task> loadFromDisk() throws IOException, ParseException {
         File file = new File(this.filePath);
         ArrayList<Task> userInputArray = new ArrayList<Task>();
@@ -61,7 +72,7 @@ public class Storage {
             } catch (NullPointerException e) {
                 throw new IOException("Error parsing JSON objects.");
             }
-            
+
 
         }
         return userInputArray;
