@@ -28,6 +28,7 @@ public class Todo extends Task {
         JSONObject j = new JSONObject();
         j.put("type", "todo");
         j.put("description", this.description);
+        j.put("done", Boolean.toString(isDone));
         return j;
     }
 
@@ -39,6 +40,9 @@ public class Todo extends Task {
      */
     public static Task fromJson(JSONObject jsonObject) {
         Todo t = new Todo(jsonObject.get("description").toString());
+        if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
+            t.markAsDone();
+        }
         return t;
     }
 }

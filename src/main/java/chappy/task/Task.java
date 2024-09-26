@@ -60,6 +60,7 @@ public class Task {
         JSONObject j = new JSONObject();
         j.put("type", "task");
         j.put("description", this.description);
+        j.put("done", Boolean.toString(isDone));
         return j;
     }
 
@@ -71,6 +72,9 @@ public class Task {
      */
     public static Task fromJson(JSONObject jsonObject) {
         Task t = new Task(jsonObject.get("description").toString());
+        if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
+            t.markAsDone();
+        }
         return t;
     }
 

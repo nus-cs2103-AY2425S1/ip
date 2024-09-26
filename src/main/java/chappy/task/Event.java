@@ -168,7 +168,7 @@ public class Event extends Task {
             j.put("from", from);
             j.put("to", to);
         }
-
+        j.put("done", Boolean.toString(isDone));
         return j;
     }
 
@@ -181,11 +181,20 @@ public class Event extends Task {
     public static Task fromJson(JSONObject jsonObject) {
         LocalDate from = parseLocalDate(jsonObject.get("from").toString());
         LocalDate to = parseLocalDate(jsonObject.get("to").toString());
+
         if (from != null && to != null) {
-            return new Event(jsonObject.get("description").toString(), from, to);
+            Event event = new Event(jsonObject.get("description").toString(), from, to);
+            if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
+                event.markAsDone();
+            }
+            return event;
         } else {
-            return new Event(jsonObject.get("description").toString(),
-                    jsonObject.get("from").toString(), jsonObject.get("to").toString());
+            Event event = new Event(jsonObject.get("description").toString(),
+            jsonObject.get("from").toString(), jsonObject.get("to").toString());
+            if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
+                event.markAsDone();
+            }
+            return event;
         }
     }
 }

@@ -152,6 +152,7 @@ public class Deadline extends Task {
         } else {
             j.put("completeBy", completeBy);
         }
+        j.put("done", Boolean.toString(isDone));
         return j;
     }
 
@@ -164,10 +165,18 @@ public class Deadline extends Task {
     public static Task fromJson(JSONObject jsonObject) {
         LocalDate by = parseLocalDate(jsonObject.get("completeBy").toString());
         if (by != null) {
-            return new Deadline(jsonObject.get("description").toString(), by);
+            Deadline deadline = new Deadline(jsonObject.get("description").toString(), by);
+            if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
+                deadline.markAsDone();
+            }
+            return deadline;
         } else {
-            return new Deadline(jsonObject.get("description").toString(),
+            Deadline deadline = new Deadline(jsonObject.get("description").toString(),
                     jsonObject.get("completeBy").toString());
+            if (Boolean.parseBoolean(jsonObject.get("done").toString())) {
+                deadline.markAsDone();
+            }
+            return deadline;
         }
     }
 }
