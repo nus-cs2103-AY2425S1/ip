@@ -87,7 +87,7 @@ public class Event extends Task {
         } else {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
-        
+
     }
 
     private static String[] validateOptions(String input) throws CreateTaskException {

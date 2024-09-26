@@ -7,6 +7,7 @@ import chappy.task.Task;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class TaskList {
 
@@ -53,11 +54,25 @@ public class TaskList {
         taskList.get(unmarkIndex).markAsNotDone();
         storage.saveToDisk(taskList);
     }
-    
+
     public void listTasks() {
         System.out.println("As requested, here are your outstanding tasks sir:");
         for (int i = 0; i < this.taskList.size(); i++) {
             System.out.println(i + 1 + "." + this.taskList.get(i).toString());
+        }
+    }
+
+    public void findTask(String keyword) {
+        Pattern pattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE);
+        System.out.println("As requested, here are the tasks matching your keyword sir:");
+
+        // int index = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            String taskString = this.taskList.get(i).toString();
+            if (pattern.matcher(taskString).find()) {
+                System.out.println(i + 1 + "." + taskString);
+            }
+
         }
     }
 

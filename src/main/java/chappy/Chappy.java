@@ -112,6 +112,15 @@ public class Chappy {
                         int deleteIndex = Integer.parseInt(deleteInput[1].trim()) - 1;
                         this.userTaskList.removeTask(deleteIndex, this.storage);
                         break;
+                    case FIND:
+                        String[] findInput = userInput.trim().split("(?i)" + Parser.Command.FIND.getKeyword());
+                        if (findInput.length < 2) {
+                            throw new CreateTaskException(
+                                    "Oh SIR! The keyword input of a Find command cannot be empty!");
+                        }
+                        this.userTaskList.findTask(findInput[1].trim());
+                        break;
+
                     default:
                         ui.printUnknownCommand();
                 }
