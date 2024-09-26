@@ -51,8 +51,8 @@ find meet
 
 7. **Exiting the application**
 Users can exit the application with the `bye` command.
-```
 
+```
 bye
 ```
 
@@ -71,6 +71,7 @@ In case Espresso encounters issues in accessing files, it will print an error me
 Espresso saves all tasks after you exit the application for future reference.
 
 ### Here is what your task list might look like
+
 ```
 [D][ ] Finish project (by: 20 Sep 2024)
 ```
