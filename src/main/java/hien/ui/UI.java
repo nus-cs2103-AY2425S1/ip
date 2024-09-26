@@ -21,21 +21,19 @@ public class UI {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        String welcomeMessage = "____________________________________________________________\n"
-                + " Hello! I'm Hien\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
-        System.out.println(welcomeMessage);
+    public String showWelcome() {
+        String welcomeMessage = " Hello! I'm Hien\n"
+                                + " What can I do for you?\n";
+
         lastMessage = welcomeMessage;
+        return welcomeMessage;
     }
 
     /**
      * Displays a goodbye message to the user.
      */
     public String showGoodbye() {
-        String goodbyeMessage = "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!";
+        String goodbyeMessage = " Bye. Hope to see you again soon!";
         lastMessage = goodbyeMessage;
         return goodbyeMessage;
     }

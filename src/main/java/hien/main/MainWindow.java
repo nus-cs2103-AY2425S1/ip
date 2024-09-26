@@ -1,6 +1,7 @@
 package hien.main;
 
 import hien.ui.UI;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for the main GUI.
  */
@@ -37,8 +40,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Hien instance */
-    public void setHien(Hien d) {
-        hien = d;
+    public void setHien(Hien hien) {
+        this.hien = hien;
+        String welcomeMessage = ui.showWelcome();
+        dialogContainer.getChildren().add(DialogBox.getHienDialog(welcomeMessage, hienImage));
     }
 
     /**
@@ -55,7 +60,9 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (response.equals(ui.showGoodbye())) {
-            Platform.exit(); // Close the application
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
         }
     }
 }
