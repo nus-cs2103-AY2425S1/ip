@@ -23,17 +23,19 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Korolev.jpg"));
 
-    private final String quote = "You can do it quickly, but badly, " +
-            "or you can do it slowly, but well. After a while, everyone will forget that it was fast, " +
-            "but will remember that it was bad. And vice versa.";
+    private static final String QUOTE = "You can do it quickly, but badly, "
+            + "or you can do it slowly, but well. After a while, everyone will forget that it was fast, "
+            + "but will remember that it was bad. And vice versa.";
+
+    private static final String WELCOME_MSG = "Welcome comrade! I am Sergei Korolev\n";
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren()
                 .addAll(
-                        DialogBox.getDukeDialog("Welcome comrade! I am Sergei Korolev\n", dukeImage),
-                        DialogBox.getDukeDialog(quote, dukeImage)
+                        DialogBox.getDukeDialog(WELCOME_MSG, dukeImage),
+                        DialogBox.getDukeDialog(QUOTE, dukeImage)
                         );
     }
 

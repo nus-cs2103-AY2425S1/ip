@@ -10,6 +10,10 @@ import task.KorolevTask;
 import task.KorolevTodo;
 
 public class EventParser {
+    private static final String PARSE_WARNING = "fail to parse the record";
+    private static final String EMPTY_WARNING = "description of event is not provided or incorrect.";
+    private static final String INVALID_RECORD_WARNING = "Invalid record presented in the hard disk.";
+
     /**
      * Analyses the input string and extracts any substring appearing between
      * stop and start.
@@ -27,7 +31,7 @@ public class EventParser {
         if (matcher.find()) {
             return matcher.group(1);
         } else {
-            throw new ParseException("description of event is not provided or incorrect.");
+            throw new ParseException(EMPTY_WARNING);
         }
     }
 
@@ -40,6 +44,7 @@ public class EventParser {
      */
     public static KorolevTask parseLoadedRecord(String record) throws ParseException {
         KorolevTask t;
+
         char type = record.charAt(1);
         switch (type) {
         case 'T' -> {
@@ -51,7 +56,7 @@ public class EventParser {
         case 'E' -> {
             t = parseEventRecord(record);
         }
-        default -> throw new ParseException("Invalid record presented in the hard disk.");
+        default -> throw new ParseException(INVALID_RECORD_WARNING);
         }
         String tag = parseTag(record);
         if (tag != null) {
@@ -73,7 +78,7 @@ public class EventParser {
             }
             return out;
         } else {
-            throw new ParseException("fail to parse the record");
+            throw new ParseException(PARSE_WARNING);
         }
     }
 
@@ -94,7 +99,7 @@ public class EventParser {
             }
             return out;
         } else {
-            throw new ParseException("fail to parse the record");
+            throw new ParseException(PARSE_WARNING);
         }
     }
 
@@ -119,7 +124,7 @@ public class EventParser {
             }
             return out;
         } else {
-            throw new ParseException("fail to parse the record");
+            throw new ParseException(PARSE_WARNING);
         }
     }
 

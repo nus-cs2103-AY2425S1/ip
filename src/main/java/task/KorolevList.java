@@ -278,6 +278,12 @@ public class KorolevList {
         storage.readLines(this.events);
     }
 
+    /**
+     * Returns a list of KorolevTask which contains keyword in its name.
+     *
+     * @param keyword the keyword input by user
+     * @return a list of matched KorolevTasks
+     */
     public ArrayList<KorolevTask> findItem(String keyword) {
         ArrayList<KorolevTask> out = new ArrayList<>();
 
