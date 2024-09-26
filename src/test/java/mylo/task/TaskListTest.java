@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import mylo.data.DuplicatedTaskException;
@@ -36,16 +37,20 @@ public class TaskListTest {
         }
     }
 
+    @BeforeEach
+    public void setUp() {
+        taskList = new TaskList();
+    }
+
     @Test
     public void addTask_todo_success() {
-        taskList = new TaskList();
         ArrayList<Task> mockList = new ArrayList<>(List.of(todoTask));
 
         try {
             taskList.addTask(todoTaskInfo, TaskType.TODO);
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail();
+            fail(e.getMessage());
         }
 
         assertEquals(new TaskList(mockList), taskList);
@@ -53,14 +58,13 @@ public class TaskListTest {
 
     @Test
     public void addTask_event_success() {
-        taskList = new TaskList();
         ArrayList<Task> mockList = new ArrayList<>(List.of(eventTask));
 
         try {
             taskList.addTask(eventTaskInfo, TaskType.EVENT);
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail();
+            fail(e.getMessage());
         }
 
         assertEquals(new TaskList(mockList), taskList);
@@ -68,14 +72,13 @@ public class TaskListTest {
 
     @Test
     public void addTask_deadline_success() {
-        taskList = new TaskList();
         ArrayList<Task> mockList = new ArrayList<>(List.of(deadlineTask));
 
         try {
             taskList.addTask(deadlineTaskInfo, TaskType.DEADLINE);
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail("fef");
+            fail();
         }
 
         assertEquals(new TaskList(mockList), taskList);
@@ -83,56 +86,50 @@ public class TaskListTest {
 
     @Test
     public void addTask_duplicateTask_throwsDuplicatedTaskException() {
-        taskList = new TaskList();
         try {
             taskList.addTask(todoTaskInfo, TaskType.TODO);
             assertThrows(DuplicatedTaskException.class, () -> taskList.addTask(todoTaskInfo, TaskType.TODO));
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
     @Test
     public void addTask_emptyInfo_throwsInsufficientInfoException() {
-        taskList = new TaskList();
         assertThrows(InsufficientInfoException.class, () -> taskList.addTask("", TaskType.TODO));
     }
 
     @Test
     public void deleteTask_validIndex_success() {
-        taskList = new TaskList();
         try {
             taskList.addTask(todoTaskInfo, TaskType.TODO);
             assertEquals("Noted. I've removed this task:\n [T][ ] Todo Task\nNow you have 0 tasks in the list.",
                     taskList.deleteTask(1));
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
     @Test
     public void deleteTask_invalidIndex_throwsIndexOutOfBoundsException() {
-        taskList = new TaskList();
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.deleteTask(1));
     }
 
     @Test
     public void markTaskAsDone_validIndex_success() {
-        taskList = new TaskList();
         try {
             taskList.addTask(todoTaskInfo, TaskType.TODO);
             assertEquals("Nice! I've marked this task as done: \n[T][X] Todo Task", taskList.markTaskAsDone(1));
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
     @Test
     public void markTaskAsUndone_validIndex_success() {
-        taskList = new TaskList();
         try {
             taskList.addTask(todoTaskInfo, TaskType.TODO);
             taskList.markTaskAsDone(1);
@@ -140,19 +137,17 @@ public class TaskListTest {
                     taskList.markTaskAsUndone(1));
         } catch (InsufficientInfoException | StorageOperationException | IllegalValueException
                  | DuplicatedTaskException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
     @Test
     public void markTaskAsDone_invalidIndex_throwsIndexOutOfBoundsException() {
-        taskList = new TaskList();
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.markTaskAsUndone(1));
     }
 
     @Test
     public void markTaskAsUndone_invalidIndex_throwsIndexOutOfBoundsException() {
-        taskList = new TaskList();
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.markTaskAsUndone(1));
     }
 
@@ -185,7 +180,7 @@ public class TaskListTest {
             TaskList decodedTaskList = TaskList.decodeTxt(encodedTasks);
             assertEquals(2, decodedTaskList.getTaskNumber());
         } catch (IllegalValueException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
@@ -231,7 +226,7 @@ public class TaskListTest {
 
             assertEquals(test1, test2, "The two task lists should be equal.");
         } catch (InsufficientInfoException | IllegalValueException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
@@ -249,7 +244,7 @@ public class TaskListTest {
 
             assertNotEquals(test1, test2, "The two task lists should not be equal.");
         } catch (InsufficientInfoException | IllegalValueException e) {
-            fail();
+            fail(e.getMessage());
         }
     }
 
