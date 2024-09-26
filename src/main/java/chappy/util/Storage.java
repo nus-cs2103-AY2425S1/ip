@@ -81,7 +81,7 @@ public class Storage {
      * @param userTaskList user's list of tasks.
      * @throws IOException if error when writing to File object.
      */
-    public void saveToDisk(ArrayList<Task> userTaskList) throws IOException {
+    public String saveToDisk(ArrayList<Task> userTaskList) throws IOException {
         try {
             JSONArray jsonArray = new JSONArray();
             FileWriter file = new FileWriter(this.filePath);
@@ -90,9 +90,9 @@ public class Storage {
             }
             file.write(jsonArray.toJSONString());
             file.close();
+            return null;
         } catch (IOException e) {
-            System.out.println("oh SIR! There was an error saving data to the saved file!");
-            System.out.println(e.getMessage());
+            return "oh SIR! There was an error saving data to the saved file!]\n" + e.getMessage();
         }
     }
 

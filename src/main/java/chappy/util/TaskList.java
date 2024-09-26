@@ -26,13 +26,17 @@ public class TaskList {
      *
      * @param task Task object to add.
      * @param storage Storage object for saving to disk.
+     * @return String response.
      * @throws IOException If Storage object has error saving to disk.
      */
-    public void addTask(Task task, Storage storage) throws IOException {
+    public String addTask(Task task, Storage storage) throws IOException {
         this.taskList.add(task);
-        System.out.println("Alright sir! I've added this task:");
-        System.out.println(task.toString());
-        storage.saveToDisk(taskList);
+        String storageResponse = storage.saveToDisk(taskList);
+        if (storageResponse == null) {
+            return "Alright sir! I've added this task:\n" + task.toString();
+        } else {
+            return storageResponse;
+        }
     }
 
     /**
@@ -41,19 +45,23 @@ public class TaskList {
      *
      * @param deleteIndex Index of Task to delete from task list.
      * @param storage Storage object for saving to disk.
+     * @return String response.
      * @throws IOException If Storage object has error saving to disk.
      * @throws CreateTaskException If supplied index is out of bounds of task list.
      */
-    public void removeTask(int deleteIndex, Storage storage)
+    public String removeTask(int deleteIndex, Storage storage)
             throws IOException, CreateTaskException {
         if (deleteIndex < 0 || deleteIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
         Task task = this.taskList.get(deleteIndex);
         this.taskList.remove(task);
-        System.out.println("Unfortunate.. I'll remove this task from the list..");
-        System.out.println(task.toString());
-        storage.saveToDisk(taskList);
+        String storageResponse = storage.saveToDisk(taskList);
+        if (storageResponse == null) {
+            return "Unfortunate.. I'll remove this task from the list..\n" + task.toString();
+        } else {
+            return storageResponse;
+        }
     }
 
     /**
@@ -61,17 +69,23 @@ public class TaskList {
      * supplied Storage object.
      *
      * @param markIndex Index of Task in task list to mark as done.
-     * @param storage Storage object for saving to disk.
+     * @param storage Storage object for saving to disk.\
+     * @return String response.
      * @throws IOException If Storage object has error saving to disk.
      * @throws CreateTaskException If supplied index is out of bounds of task list.
      */
-    public void markTaskAsDone(int markIndex, Storage storage)
+    public String markTaskAsDone(int markIndex, Storage storage)
             throws IOException, CreateTaskException {
         if (markIndex < 0 || markIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
-        taskList.get(markIndex).markAsDone();
-        storage.saveToDisk(taskList);
+        String response = taskList.get(markIndex).markAsDone();
+        String storageResponse = storage.saveToDisk(taskList);
+        if (storageResponse == null) {
+            return response;
+        } else {
+            return storageResponse;
+        }
     }
 
     /**
@@ -80,37 +94,45 @@ public class TaskList {
      *
      * @param unmarkIndex Index of Task in task list to mark as not done.
      * @param storage Storage object for saving to disk.
+     * @return String response.
      * @throws IOException If Storage object has error saving to disk.
      * @throws CreateTaskException If supplied index is out of bounds of task list.
      */
-    public void markTaskAsNotDone(int unmarkIndex, Storage storage)
+    public String markTaskAsNotDone(int unmarkIndex, Storage storage)
             throws IOException, CreateTaskException {
         if (unmarkIndex < 0 || unmarkIndex > this.taskList.size() - 1) {
             throw new CreateTaskException("Oh SIR! That task index does not exist!");
         }
-        taskList.get(unmarkIndex).markAsNotDone();
-        storage.saveToDisk(taskList);
-    }
-
-    public void listTasks() {
-        System.out.println("As requested, here are your outstanding tasks sir:");
-        for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println(i + 1 + "." + this.taskList.get(i).toString());
+        String response = taskList.get(unmarkIndex).markAsNotDone();
+        String storageResponse = storage.saveToDisk(taskList);
+        if (storageResponse == null) {
+            return response;
+        } else {
+            return storageResponse;
         }
     }
 
-    public void findTask(String keyword) {
+    public String listTasks() {
+        String result = "As requested, here are your outstanding tasks sir:\n";
+        for (int i = 0; i < this.taskList.size(); i++) {
+            result = result + (i + 1)  + "." + this.taskList.get(i).toString() + "\n";
+        }
+        return result;
+    }
+
+    public String findTask(String keyword) {
         Pattern pattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE);
-        System.out.println("As requested, here are the tasks matching your keyword sir:");
+        String result = "As requested, here are the tasks matching your keyword sir:\n";
 
         // int index = 1;
         for (int i = 0; i < this.taskList.size(); i++) {
             String taskString = this.taskList.get(i).toString();
             if (pattern.matcher(taskString).find()) {
-                System.out.println(i + 1 + "." + taskString);
+                result = result + (i + 1) + "." + taskString + "\n";
             }
 
         }
+        return result;
     }
 
 }
