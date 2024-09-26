@@ -48,7 +48,6 @@ public class LunaBot {
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
-
         while (true) { // Infinite loop, break on "bye" command
             try {
                 String input = ui.readCommand();
@@ -63,6 +62,7 @@ public class LunaBot {
                 ui.printError(e.getMessage());
             }
         }
+        scanner.close();
     }
 
     /**
