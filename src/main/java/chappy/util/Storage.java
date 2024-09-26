@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.lang.NullPointerException;
+
 import java.util.ArrayList;
 
 public class Storage {
@@ -41,23 +43,25 @@ public class Storage {
 
         FileReader fileReader = new FileReader(filePath);
         JSONArray jsonArray = (JSONArray) jsonParser.parse(fileReader);
-        if (jsonArray == null) {
-            throw new IOException("File JSON content is empty.");
-        }
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject o = (JSONObject) jsonArray.get(i);
-            Task t;
-            if (o.get("type").equals(Parser.Command.TODO.getKeyword())) {
-                t = Todo.fromJson(o);
-                userInputArray.add(t);
-            } else if (o.get("type").equals(Parser.Command.DEADLINE.getKeyword())) {
-                t = Deadline.fromJson(o);
-                userInputArray.add(t);
-            } else if (o.get("type").equals(Parser.Command.EVENT.getKeyword())) {
-                t = Event.fromJson(o);
-                userInputArray.add(t);
+            try {
+                Task t;
+                if (o.get("type").equals(Parser.Command.TODO.getKeyword())) {
+                    t = Todo.fromJson(o);
+                    userInputArray.add(t);
+                } else if (o.get("type").equals(Parser.Command.DEADLINE.getKeyword())) {
+                    t = Deadline.fromJson(o);
+                    userInputArray.add(t);
+                } else if (o.get("type").equals(Parser.Command.EVENT.getKeyword())) {
+                    t = Event.fromJson(o);
+                    userInputArray.add(t);
+                }
+            } catch (NullPointerException e) {
+                throw new IOException("Error parsing JSON objects.");
             }
+            
 
         }
         return userInputArray;
