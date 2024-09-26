@@ -55,7 +55,6 @@ public abstract class Task {
     this.isDone = status;
   }
 
-
   /**
    * Returns the boolean status indicating whether the task is done or not.
    *
@@ -69,5 +68,4 @@ public abstract class Task {
   public String toString() {
     return getStatus() + " " + task;
   }
-
 }

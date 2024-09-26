@@ -15,7 +15,6 @@ import eli.task.Event;
 import eli.task.Task;
 import eli.task.ToDo;
 
-
 /**
  * Deals with making sense of the user command.
  */
@@ -62,7 +61,7 @@ public class Parser {
       return new AddCommand(new Event(eventParts[0], times[0], times[1]));
     case "find":
       if (description.isEmpty()) {
-        throw new EliException("The keyword for finding tasks cannot be empty.");
+        throw new EliException("The keyword cannot be empty.");
       }
       return new FindCommand(description);
     case "bye":

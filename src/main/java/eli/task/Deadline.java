@@ -61,6 +61,6 @@ public class Deadline extends Task {
     }
     Deadline that = (Deadline) o;
     return Objects.equals(this.getTask(), that.getTask()) &&
-            Objects.equals(deadline, that.deadline) && this.getStatus() == that.getStatus();}
-
+            Objects.equals(deadline, that.deadline) && this.getStatus() == that.getStatus();
+  }
 }

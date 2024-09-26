@@ -54,7 +54,7 @@ public class TaskList {
       throw new IllegalArgumentException("Task to be added cannot be null");
     }
     if (tasks.size() > 100) {
-      throw new IllegalArgumentException("Task list is already full!!!");
+      throw new IllegalArgumentException("Task list is already full!");
     }
     tasks.add(task);
     System.out.println(" added: " + task);
@@ -74,7 +74,6 @@ public class TaskList {
       System.out.println((i + 1) + ". " + tasks.get(i));
     }
   }
-
 
   /**
    * Returns the task list as an ArrayList.
