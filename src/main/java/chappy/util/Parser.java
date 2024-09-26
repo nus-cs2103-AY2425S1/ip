@@ -36,7 +36,14 @@ public class Parser {
         return userInputCommand;
     }
 
-    public Command parseUserInput(String userInput) throws CreateTaskException {
+    /**
+     * Returns respective Command according to user input.
+     * If the Command cannot be identified, Command.Default is returned.
+     *
+     * @param userInput user's text input.
+     * @return Command.
+     */
+    public Command parseUserInput(String userInput) {
         Command userCommand = matchUserCommand(userInput);
         if (!Objects.isNull(userCommand)) {
             return userCommand;

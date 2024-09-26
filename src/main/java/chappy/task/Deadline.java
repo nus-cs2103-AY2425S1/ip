@@ -42,6 +42,17 @@ public class Deadline extends Task {
         this.completeBy = null;
     }
 
+    /**
+     * Returns Deadline object based on user's input.
+     * If options parsed from user's input are invalid,
+     * null is returned.
+     * 
+     * If the options cannot be parsed as LocalDate objects,
+     * then options are stored as String instead.
+     *
+     * @param input user's input.
+     * @return Deadline object.
+     */
     public static Deadline of(String input) {
         String[] values;
         try {
@@ -73,6 +84,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a formatted String containing values of this Deadline.
+     *
+     * @return String containing values of this Deadline.
+     */
     @Override
     public String toString() {
         if (this.byLocalDate != null) {
@@ -119,6 +135,11 @@ public class Deadline extends Task {
         return returnValues;
     }
 
+    /**
+     * Returns this Deadline as a JSONObject.
+     *
+     * @return JSONObject (containing a Deadline).
+     */
     @Override
     public JSONObject toJson() {
         JSONObject j = new JSONObject();
@@ -133,6 +154,12 @@ public class Deadline extends Task {
         return j;
     }
 
+    /**
+     * Returns the Deadline object stored in the JSONObject.
+     *
+     * @param jsonObject JSONObject (containing a Deadline).
+     * @return Deadline object.
+     */
     public static Task fromJson(JSONObject jsonObject) {
         LocalDate by = parseLocalDate(jsonObject.get("completeBy").toString());
         if (by != null) {
