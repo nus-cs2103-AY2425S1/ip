@@ -3,6 +3,7 @@ package chatbot.impl.task;
 import java.time.LocalDate;
 
 import chatbot.impl.utils.DateTime;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private static final String TYPE = "D";
@@ -10,7 +11,11 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = DateTime.parseDate(by);
+        try {
+            this.by = DateTime.parseDate(by);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use yyyy-mm-dd");
+        }
     }
 
     public LocalDate getBy() {

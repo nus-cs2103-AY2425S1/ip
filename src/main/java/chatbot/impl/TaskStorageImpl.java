@@ -105,8 +105,13 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         if (to.isBlank()) {
             return handleMissingTo();
         }
-        tasks.add(new Event(description, from, to));
+        try {
+            tasks.add(new Event(description, from, to));
         return handleAddSuccess();
+
+        } catch (IllegalArgumentException e) {
+            return new TaskStorageResultImpl(e.getMessage());
+        }
     }
 
     private TaskStorageResult<Command> addDeadline(String[] inputParts) {
@@ -124,8 +129,12 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         if (by.isBlank()) {
             return handleMissingDeadline();
         }
-        tasks.add(new Deadline(description, by));
-        return handleAddSuccess();
+        try {
+            tasks.add(new Deadline(description, by));
+            return handleAddSuccess();
+        } catch (IllegalArgumentException e) {
+            return new TaskStorageResultImpl(e.getMessage());
+        }
     }
 
     /**
@@ -232,7 +241,7 @@ public class TaskStorageImpl implements TaskStorage<Command> {
             }
 
             // Read from the file
-            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(Paths.get("data/atlas.txt")));
+            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(FILE_PATH));
             for (String line : lines) {
                 Task newTask = deserialize(line);
                 tasks.add(newTask);

@@ -18,6 +18,7 @@ public class AtlasGUI implements ChatBot {
         messageView.bind(scanner);
         this.messageView = messageView;
         this.taskStorage = taskStorage;
+        taskStorage.loadTasks();
     }
 
     /**

@@ -1,4 +1,5 @@
 .label {
+    background: white;
     -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
     -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
     -fx-border-width: 2px;

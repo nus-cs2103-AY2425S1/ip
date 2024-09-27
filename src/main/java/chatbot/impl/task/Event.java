@@ -1,6 +1,7 @@
 package chatbot.impl.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import chatbot.impl.utils.DateTime;
 
@@ -11,8 +12,12 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = DateTime.parseDate(from);
-        this.to = DateTime.parseDate(to);
+        try {
+            this.from = DateTime.parseDate(from);
+            this.to = DateTime.parseDate(to);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use yyyy-mm-dd");
+        }
     }
 
     public LocalDate getFrom() {

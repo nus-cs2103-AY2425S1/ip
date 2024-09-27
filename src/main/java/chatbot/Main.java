@@ -38,7 +38,8 @@ public class Main extends Application {
     public void initBot() {
         Scanner scanner = new Scanner(System.in);
         MessageView<Command> messageView = new AtlasView();
-        TaskStorage<Command> taskStorage = new TaskStorageImpl("data/atlas.txt");
+        String home = System.getProperty("user.home");
+        TaskStorage<Command> taskStorage = new TaskStorageImpl(home + "/data/atlas.txt");
         bot = new AtlasGUI(scanner, messageView, taskStorage);
     }
 

@@ -19,18 +19,13 @@ Expected output:
 Added: [D][ ] Submit assignment (by: 30 Sep 2024)
 ```
 
-## Adding Events
+## Listing tasks (sort: optional)
+
+To list tasks, you can specify the optional argument "sort"
 
 ```
-event [event description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]
+list (sort)
 ```
-
-## Adding Todos
-
-```
-todo [todo description]
-```
-
 
 ## Marking Tasks
 
@@ -44,4 +39,16 @@ Expected output:
 ```
 Nice! I've marked this task as done:
 [X] Submit assignment (by: 30 Sep 2024)
+```
+
+## Adding Events
+
+```
+event [event description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]
+```
+
+## Adding Todos
+
+```
+todo [todo description]
 ```

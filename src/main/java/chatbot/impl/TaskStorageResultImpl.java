@@ -9,7 +9,7 @@ public class TaskStorageResultImpl implements TaskStorageResult<Command> {
     private final String message;
 
     public TaskStorageResultImpl(String message) {
-        this.message = message;
+        this.message = message == null ? "" : message;
     }
 
     public void showResult(MessageView<Command> messageView) {
@@ -22,7 +22,7 @@ public class TaskStorageResultImpl implements TaskStorageResult<Command> {
     @Override
     public boolean equals(Object other) {
         if (other instanceof TaskStorageResultImpl other_casted) {
-//            System.out.println("MY MESSAGE:");
+//            System.out.println("MY MusSSAGE:");
 //            System.out.println(message);
 //            System.out.println("OTHER MESSAGE:");
 //            System.out.println(other_casted.message);

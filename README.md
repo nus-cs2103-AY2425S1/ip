@@ -1,38 +1,33 @@
-# Atlas Bot
+# Atlas Chatbot
 
-> "The secret of getting ahead is getting started." – Mark Twain
+This is a project for a CS2103T Software Engineering course.
 
-Atlas Bot is a simple yet powerful tool designed to help you manage your daily tasks. It's:
+Full documentation: [here](https://chongtzezhao.github.io/ip/)
 
-- **User-friendly**
-- **Fast** and **reliable**
-- **Customizable** for your needs
+Releases: [here](https://github.com/chongtzezhao/ip/releases)
 
-All you need to do is:
+## Quick Start
 
-1. Download it from [here](about:blank).
-2. Run it on your device.
-3. Start adding tasks to stay organized.
+1. Make sure you have Java `17` or higher installed on your computer.
 
-Atlas Bot comes with the following features:
+2. Download the latest `.jar` file from [this link](https://github.com/chongtzezhao/ip/releases).
 
-- [x] Manage tasks
-- [ ] Set reminders (coming soon)
-- [ ] Integrate with calendars (coming soon)
+3. Move the `.jar` file to the folder where you want to store your chatbot's _home folder_.
 
-### Main Features:
+4. Open a command terminal, navigate to the folder containing the `.jar` file, and run the application using the command:
+   ```
+   java -jar atlas.jar
+   ```
 
-1. **Task management**: Keep track of your to-do items effortlessly.
-2. **Deadlines**: Assign due dates to important tasks.
-3. **Reminders**: Get notified before deadlines.
-4. **Custom categories**: Organize tasks into projects or categories.
+   A graphical user interface (GUI) similar to the one shown below will appear after a few seconds.
+   ![Ui.png](docs/Ui.png)
 
-### Example usage
+5. Enter a command in the command box and press Enter to execute it. For example, typing **`list`** and pressing Enter will display the list menu.
+   
+   Here are some example commands you can try:
 
-```java
-public class Atlas {
-    public static void main(String[] args) {
-        System.out.println("Welcome to Atlas!");
-        // Start task manager bot
-    }
-}
+    - `list`: Displays all tasks.
+
+    - `delete 2`: Removes the 2nd task listed in the current display.
+
+    - `bye`: Closes the application.
