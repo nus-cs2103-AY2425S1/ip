@@ -1,6 +1,10 @@
 package brainrot;
 
 import brainrot.exceptions.*;
+import javafx.application.Platform;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 import java.io.IOException;
 
 /**
@@ -44,10 +48,13 @@ public class BrainRot {
         String details = parsedInput[1];
 
         try {
-
+            if (action.contains("bye")) {
+                ui.showExit();
+                Platform.exit();
+            }
             return switch (action) {
                 case "list" -> ui.showTaskList(tasks);
-                case "bye" -> ui.showExit();
+                case "bye" -> exit();
                 case "find" -> findTask(details);
                 case "mark" -> markTask(details);
                 case "unmark" -> unmarkTask(details);
@@ -159,6 +166,21 @@ public class BrainRot {
         tasks.editTask(tagIndex, "#" + parts[1]);
         storage.save(tasks.getTasks());
         return ui.showTagTaskMsg(tag);
+    }
+
+    /**
+     * Exits from the application window
+     * @return an empty string which is not used as it will exit from the app
+     */
+    private String exit() {
+        ui.showExit(); // Show exit message
+
+        // Create a PauseTransition for the delay
+        PauseTransition delay = new PauseTransition(Duration.seconds(2)); // 2-second delay
+        delay.setOnFinished(event -> Platform.exit()); // Exit the application after the delay
+        delay.play(); // Start the delay
+
+        return ""; // Return after starting the delay
     }
 
 }

@@ -18,12 +18,27 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
+     * Ensures that the directory for the file exists.
      *
-     * @param filePath The path of the file where tasks will be saved and loaded from.
+     * @param filePath The path of the file where tasks will be saved and loaded.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        ensureDirectoryExists();
     }
+
+    /**
+     * Ensures that the directory for the storage file exists.
+     * If the directory does not exist, it attempts to create it.
+     */
+    private void ensureDirectoryExists() {
+        File file = new File(filePath);
+        File parentDirectory = file.getParentFile();
+        if (parentDirectory != null && !parentDirectory.exists()) {
+            parentDirectory.mkdirs();  // Create the directory if it doesn't exist
+        }
+    }
+
 
     /**
      * Loads the list of tasks from the file.

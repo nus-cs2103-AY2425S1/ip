@@ -49,14 +49,14 @@ test {
 
 application {
     // This should match the package and class name
-    mainClass.set("brainrot.Main")
+    mainClass.set("brainrot.Launcher")
     sourceSets.main.resources.srcDirs = ['src/main/resources']
 }
 
 shadowJar {
     archiveBaseName = "BrainRot"
+    archiveFileName = 'BrainRot.jar'
     archiveClassifier = null
-    mergeServiceFiles()
 }
 
 

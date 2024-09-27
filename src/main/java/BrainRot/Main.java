@@ -15,9 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
-    private BrainRot brainRot;
-
-//    /**
+    //    /**
 //     * The main method is the entry point of the Java application.
 //     * It constructs a BrainRot.BrainRot instance with the specified file path for task storage
 //     * and then runs the application.
@@ -32,7 +30,7 @@ public class Main extends Application{
 
             // Initialize BrainRot instance
             String filePath = System.getProperty("user.home") + "/ip/data/brainRot.txt";
-            brainRot = new BrainRot(filePath);
+            BrainRot brainRot = new BrainRot(filePath);
             AnchorPane root = fxmlLoader.load();
 
             // Set the Duke instance in the controller
@@ -50,5 +48,9 @@ public class Main extends Application{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }
