@@ -1,7 +1,205 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+  ____             _
+ / ___| ___  _ __ | |__   ___ _ __
+| |  _ / _ \| '_ \| '_ \ / _ \ '__|
+| |_| | (_) | |_) | | | |  __/ |
+ \____|\___/| .__/|_| |_|\___|_|
+            |_|
 
+Hello! I am Gopher.
+What can I do for you?
+==================================================
+
+Got it! I have added this task:
+[T][ ] Wash Clothes
+
+==================================================
+==================================================
+
+Got it! I have added this task:
+[D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+
+==================================================
+==================================================
+
+Got it! I have added this task:
+[E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][ ] Wash Clothes
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Nice! I've marked this task as done:
+[T][X] Wash Clothes
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][X] Wash Clothes
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Nice! I've marked this task as done:
+[D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][X] Wash Clothes
+2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Nice! I've marked this task as done:
+[E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][X] Wash Clothes
+2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Ok, I've marked this task as not done yet:
+[T][ ] Wash Clothes
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][ ] Wash Clothes
+2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Ok, I've marked this task as not done yet:
+[D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][ ] Wash Clothes
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Ok, I've marked this task as not done yet:
+[E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+You currently have 3 tasks in the list
+
+1. [T][ ] Wash Clothes
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
+
+==================================================
+==================================================
+
+Unknown Command: add
+Please try again...
+Current Supported Commands:
+    1. todo - Create a ToDo Task
+    2. deadline - Create a Deadline Task
+    3. event - Create an Event Task
+    4. mark - Mark a task as done
+    5. unmark - Mark a task as not done
+    6. bye - Exit the chatbot
+
+Note: The command is case-insensitive, as long as the
+input characters match, the chatbot would be able to
+respond to the given command
+
+==================================================
+==================================================
+
+Oops...The description of a todo cannot be empty.
+Please try again...
+
+==================================================
+==================================================
+
+Oops...The description of a deadline cannot be empty.
+Please try again...
+
+==================================================
+==================================================
+
+Oops...The description of a event cannot be empty.
+Please try again...
+
+==================================================
+==================================================
+
+Seems like you are missing token /by when creating a deadline
+Please try again...
+
+==================================================
+==================================================
+
+Seems like you are missing token /from when creating a event
+Please try again...
+
+==================================================
+==================================================
+
+Seems like you are missing token /to when creating a event
+Please try again...
+
+==================================================
+==================================================
+
+Oops...Seems like you have passed in invalid date...
+Please check if your date is of the correct value and format
+Current accepted date format: YYYY-MM-DD or YYYY-MM-DD hh:mm
+
+==================================================
+==================================================
+
+Oops...Seems like you have passed in invalid date...
+Please check if your date is of the correct value and format
+Current accepted date format: YYYY-MM-DD or YYYY-MM-DD hh:mm
+
+==================================================
+==================================================
+
+Oops...Seems like you have passed in invalid date...
+Please check if your date is of the correct value and format
+Current accepted date format: YYYY-MM-DD or YYYY-MM-DD hh:mm
+
+==================================================
+==================================================
+
+Bye. Hope to see you again soon!
+
+==================================================
