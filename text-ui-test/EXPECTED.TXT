@@ -1,7 +1,22 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ /\_/\
+( ^.^ ) Hii! I am Axel, nice to meet you
+(  >**< )
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list
+Got it. I've added this task:
+[D][ ] assignment 1 (by: Sunday)
+Now you have 2 tasks in the list
+Got it. I've added this task:
+[E][ ] sleeping (from: 9 to: 6)
+Now you have 3 tasks in the list
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[D][ ] assignment 1 (by: Sunday)
+3.[E][ ] sleeping (from: 9 to: 6)
+Very nice! I have marked this task as done:
+[D][X] assignment 1 (by: Sunday)
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[D][X] assignment 1 (by: Sunday)
+3.[E][ ] sleeping (from: 9 to: 6)
