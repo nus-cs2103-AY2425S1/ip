@@ -1,0 +1,77 @@
+package zaibot.command;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import zaibot.exception.ZaibotException;
+import zaibot.task.ToDoTask;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+
+public class TaskListingCommandTest {
+    private final TaskList tasks = new TaskList();
+    private final Storage storage = new Storage(tasks);
+
+    @BeforeEach
+    public void setUp() {
+        tasks.clearTasks();
+    }
+
+    @Test
+    public void execute_noTask() {
+        TaskListingCommand command = new TaskListingCommand();
+        String expected = "";
+
+        String outputMessage;
+        try {
+            outputMessage = command.execute(tasks, storage);
+        } catch (Exception e) {
+            outputMessage = e.getMessage();
+        }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
+    }
+
+    @Test
+    public void execute_oneTask() {
+        try {
+            tasks.addTask(new ToDoTask("one"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
+        TaskListingCommand command = new TaskListingCommand();
+        String expected = "1. [T][ ] one";
+        String outputMessage;
+        try {
+            outputMessage = command.execute(tasks, storage);
+        } catch (Exception e) {
+            outputMessage = e.getMessage();
+        }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
+    }
+
+    @Test
+    public void execute_multipleTasks() {
+        try {
+            tasks.addTask(new ToDoTask("one"));
+            tasks.addTask(new ToDoTask("two"));
+            tasks.addTask(new ToDoTask("three"));
+        } catch (ZaibotException zaibotException) {
+            zaibotException.printStackTrace();
+        }
+
+        TaskListingCommand command = new TaskListingCommand();
+        String expected = """
+                1. [T][ ] one
+                2. [T][ ] two
+                3. [T][ ] three""";
+
+        String outputMessage;
+        try {
+            outputMessage = command.execute(tasks, storage);
+        } catch (Exception e) {
+            outputMessage = e.getMessage();
+        }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
+    }
+}
