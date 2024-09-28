@@ -21,7 +21,7 @@ public class Event extends Task {
     public Event(String taskDescription, String from, String to) throws AlisaException {
         super(taskDescription);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.startTime = LocalDateTime.parse(from, formatter);
             this.endTime = LocalDateTime.parse(to, formatter);
         } catch (DateTimeParseException e) {
@@ -55,6 +55,12 @@ public class Event extends Task {
                 + this.getTask() + " | " + startTime + "-" + endTime + "\n";
     }
 
+    /**
+     * Changes the start time of the event.
+     *
+     * @param time The new start time.
+     * @throws AlisaException If the time input is not in the right format.
+     */
     public void changeStartTime(String time) throws AlisaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -64,6 +70,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Changes the end time of the event.
+     *
+     * @param time The new end time.
+     * @throws AlisaException If the time input is not in the right format.
+     */
     public void changeEndTime(String time) throws AlisaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
