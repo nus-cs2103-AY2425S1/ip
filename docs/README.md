@@ -7,6 +7,8 @@ by date, KieTwoForOne does it all! It's features are listed below
 
 ## How do I access the chatbot?
 
+Users can download the JAR file under the v0.2 release. After downloading the file, users can open the file by running the following command on their terminal.
+
 ## Features
 
 ### Adding tasks
