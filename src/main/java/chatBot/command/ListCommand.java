@@ -10,6 +10,6 @@ public class ListCommand extends Command {
 
     /** Calls listTasks method in TaskList class, which prints the tasks */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return taskList.listTasks();
+        return "You have these tasks: \n" + taskList.listTasks();
     }
 }
