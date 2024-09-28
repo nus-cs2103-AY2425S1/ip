@@ -101,17 +101,11 @@ public class Parser {
         Command c = null;
         if (action.equals("mark")) {
             c = new MarkCommand(Integer.parseInt(desc) - 1);
-            // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsDone();
-            // System.out.println("I've marked as done:\n" + t);
         } else if (action.equals("unmark")) {
             c = new UnmarkCommand(Integer.parseInt(desc) - 1);
-            // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsNotDone();
-            // System.out.println("I've marked as not done:\n" + t);
         } else if (action.equals("list")) {
             c = new ListCommand();
-            // System.out.println(this.getTasksString());
         } else if (action.equals("todo") || action.equals("deadline") || action.equals("event")) {
-            //System.out.println("action is: " + action + " and desc is: " + desc + ".");
             c = new AddCommand(action, desc);
         } else if (action.equals("delete")) {
             c = new DeleteCommand(Integer.parseInt(desc));
