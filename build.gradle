@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Main")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
@@ -53,3 +53,5 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+mainClassName = 'duke.Launcher'
