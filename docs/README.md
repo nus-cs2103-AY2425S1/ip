@@ -5,6 +5,8 @@
 KieTwoForOne is your all-encompassing task tracking chatbot. From marking tasks as complete or incomplete to filtering 
 by date, KieTwoForOne does it all! It's features are listed below
 
+## How do I access the chatbot?
+
 ## Features
 
 ### Adding tasks
