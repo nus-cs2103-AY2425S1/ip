@@ -23,6 +23,7 @@ public class FindCommand extends Command {
      *
      * @param taskList List of tasks.
      * @param ui Ui that displays the result after the command.
+     * @return String that displays all the tasks containing the keyword.
      * @param storage Storage that saves the file of the task list.
      */
     @Override

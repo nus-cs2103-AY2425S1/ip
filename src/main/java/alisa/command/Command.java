@@ -13,6 +13,7 @@ public abstract class Command {
      * @param taskList List of all the tasks.
      * @param ui Ui that displays messages and interacts with user.
      * @param storage Storage that saves data into a file.
+     * @return String that confirms command has been executed.
      * @throws AlisaException If the operation fails.
      */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException;

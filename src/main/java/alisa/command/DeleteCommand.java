@@ -25,6 +25,7 @@ public class DeleteCommand extends Command {
      * @param taskList List of all the tasks.
      * @param ui Ui that displays messages and interacts with user.
      * @param storage Storage that saves data into a file.
+     * @return String that confirms the task has been deleted.
      * @throws AlisaException If the index is out of bounds in taskList or the storage file can't be updated.
      */
     @Override

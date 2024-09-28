@@ -27,6 +27,7 @@ public class AddCommand extends Command {
      * @param taskList List of all the tasks.
      * @param ui Ui that displays messages and interacts with user.
      * @param storage Storage that saves data into a file.
+     * @return String that confirms the task has been added to the list.
      * @throws AlisaException If the storage file can't be updated.
      */
     @Override
