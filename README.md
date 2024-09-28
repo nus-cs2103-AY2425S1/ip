@@ -2,11 +2,11 @@
 
 > “Your mind is for having ideas, not holding them.” – David Allen ([source](https://www.zen-tools.net/getting-things-done.html))
 
-KieTwoForOne frees your mind from having to remember things you need to do. It's,
+KieTwoForOne _frees your mind_ from having to remember things you need to do. It's,
 
 - text-based
 - easy to learn
-- ~~FAST~~ SUPER FAST to use
+- ~~FAST~~ **SUPER FAST** to use
 
 All you need to do is,
 
@@ -19,10 +19,11 @@ And it is **FREE**!
 
 Features:
 - [X] Managing tasks
-- [X] Managing deadlines (coming soon)
-- [X] Reminders (coming soon) 
+- [X] Managing deadlines
+- [X] Managing Events
+- [X] Adding to tasks
 
-If you are a Java programmer, you can also use it to practice Java. Here's the `main` method:
+If you are a Java programmer, you can also use it to practice Java. Here's the `main` method 😀:
 
 ```Java
 public class Main {
