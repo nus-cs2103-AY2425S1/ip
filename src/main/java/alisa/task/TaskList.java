@@ -1,11 +1,6 @@
 package alisa.task;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.SimpleTimeZone;
 
 import alisa.exception.AlisaException;
 
@@ -141,9 +136,18 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Edits a task's details.
+     *
+     * @param index Index of task in taskList to edit.
+     * @param featureToEdit Feature of the task to edit.
+     * @param editedContent Content to edit the task to.
+     * @return String that confirms editing the task has been completed.
+     * @throws AlisaException If the index is out of bounds in taskList.
+     */
     public String editTask(int index, String featureToEdit, String editedContent) throws AlisaException {
         try {
-            Task taskToEdit = taskList.get(index);
+            Task taskToEdit = taskList.get(index - 1);
             if (taskToEdit.getClass() == Todo.class) {
                 Todo editingTask = (Todo) taskToEdit;
 
