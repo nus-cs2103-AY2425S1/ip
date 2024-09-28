@@ -80,6 +80,11 @@ public abstract class Task {
         return taskDescription.contains(keyword);
     }
 
+    /**
+     * Changes the task description.
+     *
+     * @param description The new description to change to.
+     */
     public void changeDescription(String description) {
         taskDescription = description;
     }
