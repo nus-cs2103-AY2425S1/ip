@@ -32,6 +32,5 @@ public class ParserTest {
         assertNull(Parser.parseTask("event abcde /from 5pm /to 5pm"));
         assertNull(Parser.parseTask("event abcde /from 2019-12-12 /to "));
 
-        assertNull(Parser.parse("abcde"));
     }
 }

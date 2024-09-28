@@ -14,14 +14,12 @@ public class DeleteCommand extends Command {
     /** Deletes the task at specified index in taskList, if unsuccessful, do nothing */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String output = "";
-        if (numToDelete > taskList.size()) {
+        if (numToDelete > taskList.size() || numToDelete < 0) {
             output = "index out of bounds";
-            System.out.println(output);
             return output;
         }
-        output = "deleted: " + taskList.getTaskToString(numToDelete - 1);
-        System.out.println(output);
-        taskList.removeTask(numToDelete - 1);
+        output = "deleted: " + taskList.getTaskToString(numToDelete);
+        taskList.removeTask(numToDelete);
         return output;
     }
 }

@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     /** Writes to file location in storage object and prints exit statement */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.writeToFile(taskList.getTaskCommands());
-        ui.showGoodbye();
+        // ui.showGoodbye();
         return "Bye B****";
     }
 

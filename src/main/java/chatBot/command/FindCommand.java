@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     private final String keywordToFind;
 
     public FindCommand(String s) {
-        this.keywordToFind = s;
+        this.keywordToFind = s.strip();
     }
 
     /**
@@ -21,19 +21,19 @@ public class FindCommand extends Command {
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String output = "";
+        if (this.keywordToFind.isEmpty()) {
+            return "You must enter a keyword to find";
+        }
         ArrayList<Task> tasksFound = taskList.findKeyword(this.keywordToFind);
         // streamify finding tasks soon
         if (tasksFound.size() > 0) {
-            output = "Here are the matching tasks in your list:";
-            System.out.println(output);
+            output = "Here are the matching tasks in your list:\n";
             for (Task task : tasksFound) {
-                System.out.println(task);
                 output += task + "\n";
             }
             output = output.stripTrailing();
         } else {
             output = "No matching tasks found";
-            System.out.println(output);
         }
         return output;
     }

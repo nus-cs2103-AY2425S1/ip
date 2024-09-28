@@ -54,7 +54,7 @@ public class Storage {
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.print(e.getMessage());
         }
     }
 

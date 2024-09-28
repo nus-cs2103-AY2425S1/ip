@@ -42,8 +42,11 @@ public class Bword {
                 String fullCommand = this.ui.readCommand();
                 this.ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(this.taskList, this.ui, this.storage);
+                String s = c.execute(this.taskList, this.ui, this.storage);
+                System.out.println(s);
                 isExit = c.isExit();
+            } catch (NumberFormatException ex) {
+                System.out.println("Please input an integer");
             } catch (Exception e) {
                 this.ui.showError(e.getMessage());
             } finally {
@@ -67,8 +70,12 @@ public class Bword {
                         + " event , list, mark , unmark , bye , delete, find";
             }
             System.out.println(output);
+        } catch (NumberFormatException ex) {
+            output = "Please input an integer";
+            System.out.println(output);
         } catch (Exception e) {
             this.ui.showError(e.getMessage());
+            output = e.getMessage();
         } finally {
             this.ui.showLine();
         }

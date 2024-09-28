@@ -1,7 +1,5 @@
 package chatbot.bot;
 
-import java.time.format.DateTimeParseException;
-
 import chatbot.command.AddCommand;
 import chatbot.command.Command;
 import chatbot.command.DeleteCommand;
@@ -11,7 +9,6 @@ import chatbot.command.HelpCommand;
 import chatbot.command.ListCommand;
 import chatbot.command.MarkCommand;
 import chatbot.command.UnmarkCommand;
-import chatbot.exception.EmptyDescException;
 import chatbot.exception.InvalidCommandException;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
@@ -37,52 +34,20 @@ public class Parser {
 
         Task t = null;
 
-        if (command.equals("todo")) {
-            try {
+        try {
+            if (command.equals("todo")) {
                 t = new ToDoTask(desc);
-            } catch (Exception e) {
-                Ui.printAnything(e.getMessage());
-            }
-        } else if (command.equals("deadline")) {
-            try {
+            } else if (command.equals("deadline")) {
                 String[] arr = desc.split("/by");
-                try {
-                    t = new Deadline(arr[0].strip(), arr[1].strip());
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    Ui.printAnything("missing /by");
-                } catch (DateTimeParseException ex) {
-                    Ui.printAnything("Incorrect date format stored: " + arr[1].strip());
-                }
-            } catch (EmptyDescException e) {
-                Ui.printAnything(e.getMessage());
-            }
-        } else if (command.equals("event")) {
-            String[] arr = desc.split("/from");
-            String[] arr2 = new String[0];
-            try {
+                t = new Deadline(arr[0].strip(), arr[1].strip());
+            } else if (command.equals("event")) {
+                String[] arr = desc.split("/from");
+                String[] arr2 = new String[0];
                 arr2 = arr[1].split("/to");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("missing /from");
+                t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
             }
-            t = null;
-            try {
-                try {
-                    t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    System.out.println("missing /to");
-                } catch (DateTimeParseException ex) {
-                    System.out.println("Incorrect date format stored: " + arr[1].strip());
-                }
-            } catch (Exception e) {
-                Ui.printAnything(e.getMessage());
-            }
-        } else {
-            try {
-                throw new InvalidCommandException();
-            } catch (InvalidCommandException e) {
-                Ui.printAnything(e.getMessage());
-            }
-            //System.out.println("Unknown command: " + command);
+        } catch (Exception e) {
+            System.out.println("Error occurred when loading tasks: " + e.getMessage());
         }
 
         if (t == null) {
@@ -92,7 +57,8 @@ public class Parser {
         return t;
     }
 
-    static Command parse(String fullCommand) {
+    static Command parse(String fullCommand) throws Exception {
+        fullCommand = fullCommand.stripLeading();
         String action = fullCommand.split(" ")[0];
         String desc = fullCommand.substring(fullCommand.indexOf(" ") + 1);
         if (!fullCommand.contains(" ")) {
@@ -100,29 +66,29 @@ public class Parser {
         }
         Command c = null;
         if (action.equals("mark")) {
-            c = new MarkCommand(Integer.parseInt(desc) - 1);
+            c = new MarkCommand(Integer.parseInt(desc.strip()) - 1);
         } else if (action.equals("unmark")) {
-            c = new UnmarkCommand(Integer.parseInt(desc) - 1);
+            c = new UnmarkCommand(Integer.parseInt(desc.strip()) - 1);
         } else if (action.equals("list")) {
             c = new ListCommand();
         } else if (action.equals("todo") || action.equals("deadline") || action.equals("event")) {
             c = new AddCommand(action, desc);
         } else if (action.equals("delete")) {
-            c = new DeleteCommand(Integer.parseInt(desc));
+            c = new DeleteCommand(Integer.parseInt(desc.strip()) - 1);
             // this.deleteTask(Integer.parseInt(desc));
         } else if (action.equals("bye")) {
             c = new ExitCommand();
         } else if (action.equals("find")) {
-            c = new FindCommand(desc);
+            c = new FindCommand(desc.strip());
         } else if (action.equals("help")) {
-            c = new HelpCommand(desc);
+            c = new HelpCommand(desc.strip());
         } else {
-            try {
-                throw new InvalidCommandException();
-            } catch (InvalidCommandException e) {
-                System.out.println(e.getMessage());
-            }
+            throw new InvalidCommandException();
             //System.out.println("Unknown command: " + command);
+        }
+
+        if (desc.isBlank() && !action.equals("list") && !action.equals("bye") && !action.equals("help")) {
+            throw new Exception("You must enter some value after the command");
         }
         return c;
     }

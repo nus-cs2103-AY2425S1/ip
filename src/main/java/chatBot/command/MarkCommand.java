@@ -15,14 +15,12 @@ public class MarkCommand extends Command {
     /** Marks the tasks as completed at the specified index in taskList, otherwise do nothing */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String output = "";
-        if (this.index > taskList.size()) {
+        if (this.index > taskList.size() || this.index < 0) {
             output = "index out of range";
-            System.out.println(output);
             return output;
         }
         Task t = taskList.getTask(this.index).markAsDone();
         output = "I've marked as done:\n" + t;
-        System.out.println(output);
         return output;
     }
 }

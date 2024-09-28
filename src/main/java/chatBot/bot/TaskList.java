@@ -47,13 +47,12 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
-    /** Prints the tasks which is relayed by ListCommand */
+    /** Returns the tasks which is relayed by ListCommand */
     public String listTasks() {
         String s = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             s += String.format("%d.", i + 1) + this.tasks.get(i) + "\n";
         }
-        System.out.println(s.stripTrailing());
         return s;
     }
 
