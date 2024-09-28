@@ -2,8 +2,9 @@
 
 ![Screenshot of KieTwoForOne chatbot UI](Ui.png)
 
-KieTwoForOne is your all-encompassing task tracking chatbot. From marking tasks as complete or incomplete to filtering 
-by date, KieTwoForOne does it all!
+_KIETWOFORONE IS YOU ALL-ENCOMPASSING FAST TRACKING CHATBOT!!!_ 
+
+From marking tasks as complete or incomplete to filtering by date, KieTwoForOne does it all!
 
 ## How do I access the chatbot?
 
