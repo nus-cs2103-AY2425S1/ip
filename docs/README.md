@@ -13,6 +13,8 @@ Users can download the JAR file under the v0.2 release found on this page. After
 
 ## Features
 
+KieTwoForOne's features are listed as follows!
+
 ### Adding tasks
 
 Users can make use of KieTwoForOne to add three types of tasks, namely Todos, Deadline and Events. Once the task is 
