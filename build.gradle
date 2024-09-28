@@ -60,4 +60,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'chatBot.bot.Bword'
+mainClassName = 'Launcher'
