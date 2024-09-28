@@ -1,30 +1,24 @@
-# Duke User Guide
+# Bword User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+![image](https://github.com/user-attachments/assets/70034a91-6496-487e-a81f-f593733a0a7a)
 
 
-## Feature XYZ
+This is a greenfield Java project. It's adapted after the Java mascot Duke. Given below are instructions on how to use it.
 
-// Feature details
+## Running the program
+You can do one of the following to run the program
+
+1. Run the jar file, if you prefer the GUI interface
+2. Run Bword
+
+for 2, you will need to enter the following commands in bash after navigating to the directory with Bword 
+
+```javac Bword.java``` 
+
+```java Bword```
+
+## Feature help
+
+type the following to receive help:
+1. help - for listing all the commands
+2. help <command> - for listing command format for specific commands
