@@ -47,7 +47,7 @@ Here’s how you can start rocking your to-do list with HypeBot!
    - To add a **Deadline** type task, type in: `deadline {task_name} /{due_date in yyyy-mm-dd}`
 
    - To add an **Event** type task, type in:
-     `event {task_name} /{start_time in yyyy-mm-dd 24hh:mm} /{end_time in yyyy-mm-dd 24hhmm}`
+     `event {task_name} /{start_time in yyyy-mm-dd 24hhmm} /{end_time in yyyy-mm-dd 24hhmm}`
 
 
 4. **List all your tasks as one tasklist**  
