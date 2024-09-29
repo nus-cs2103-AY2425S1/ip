@@ -41,12 +41,14 @@ public class Main extends Application {
             optimus = new Optimus("data/optimus.txt", mainWindow);
             mainWindow.setOptimus(optimus);
 
+            //@@author tayxuenye-reused
             // Set the scene and show the stage
             // Credit to ChatGPT: Suggested setting the scene and showing the stage
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Optimus");
             primaryStage.show();
+            //@@author tayxuenye-reused
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -38,6 +38,7 @@ public class MainWindow extends Stage { // Modified to extend Stage
         this.optimus = optimus;
     }
 
+    //@@author tayxuenye-reused
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -52,6 +53,7 @@ public class MainWindow extends Stage { // Modified to extend Stage
         optimus.run(input);
         userInput.clear();
     }
+    //@@author
 
     // Suggested by ChatGPT
     public void showMessage(String message) {
