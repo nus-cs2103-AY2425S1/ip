@@ -1,5 +1,6 @@
 package streams.command;
 
+import javafx.application.Platform;
 import streams.task.TaskList;
 import streams.util.Storage;
 import streams.util.Ui;

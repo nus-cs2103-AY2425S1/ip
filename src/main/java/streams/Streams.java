@@ -90,6 +90,7 @@ public class Streams {
 
             if (c.isExit()) {
                 response.append("Exiting Streams. Goodbye!");
+
             }
         } catch (StreamsException e) {
             response.append("Error: ").append(e.getMessage());

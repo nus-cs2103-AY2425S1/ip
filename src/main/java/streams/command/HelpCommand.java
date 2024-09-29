@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
                 + "\n done [task number] \n unmark [task number] \n delete [task number] \n todo [task description]"
                 + "\n deadline [task description] /by [YYYY-MM-dd HH:mm] \n event [task description] /from [YYYY-MM-dd HH:mm]"
                 + "/to [YYYY-MM-dd HH:mm] \n find [keyword] \n sort-deadline \n list-date [YYYY-MM-dd] "
-                + "\n list-week \n tag [task number] [tag description] \n list-tag [keyword] \n"
-                + " bye \n tag-remove [task number] [description]");
+                + "\n list-week \n tag [task number] [tag description] \n list-tag [keyword] \n tag-remove [task number] [description]"
+                + " \n bye ");
     }
 }
