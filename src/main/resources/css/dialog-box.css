@@ -1,0 +1,23 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #f0e6e2, #d3d9dd); /* Soft off-white to light gray-blue */
+    -fx-border-color: #b0a999 #99b0a6 #b39fb2 #9da8b3; /* Muted earthy pastels with soft tones */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #e6e2df, #ccd2d6); /* Subtle beige and soft gray */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 5, 5); /* Slightly lighter shadow */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}

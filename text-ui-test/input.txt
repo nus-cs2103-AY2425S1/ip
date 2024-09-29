@@ -1,0 +1,10 @@
+list
+todo watch lecture recording
+todo eat breakfast
+deadline buy birthday gift /by Friday September 6th 2024
+event friend's birthday! /from Saturday 1pm /to Saturday 4pm
+list
+mark 2
+mark 1
+list
+bye
