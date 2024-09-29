@@ -68,9 +68,6 @@ public class Storage {
      */
 
     public static void pushTasksToFile(ArrayList<Task> list) {
-        //use inbuilt functions like FileWriter - that opens file at filepath, if doesnt exist, creates one
-        //PrintWriter - wraps filewriter with printwriter so that can use inbuilt functions for formatting
-
         try (PrintWriter printwriter = new PrintWriter(new FileWriter(filePath))) {
             int length = list.size();
             for(int i = 0; i < length; i++) {
@@ -123,10 +120,6 @@ public class Storage {
      * @return Task (created from its string description and details)
      */
     public static Task getTaskFromFile(String taskString) {
-        // need to split and add accordingly
-        // first is the tasktype, then the progress, then the description, then the deadlines
-        // but splitting according to " | " does not work as it has a special meaning
-        // to take it as literal character, u need to put \\ in front
         String[] splits = taskString.split(" \\| ");
         String taskType = splits[0];
         String progress = splits[1];
