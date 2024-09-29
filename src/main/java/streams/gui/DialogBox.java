@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import streams.exception.StreamsException;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -20,8 +21,11 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image img) {
-        assert text != null : "Label text should not be null";
-        assert img != null : "Image should not be null";
+        try {
+            assert text != null : "Label text should not be null";
+        } catch (AssertionError e) {
+            System.out.println(e.getMessage());
+        }
         dialog = new Label(text);
         dialog.setWrapText(true);
         dialog.setMaxWidth(250);
@@ -60,8 +64,12 @@ public class DialogBox extends HBox {
      * @return A DialogBox object representing the user's message.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        assert text != null : "Label text should not be null";
-        assert img != null : "Image should not be null";
+        try {
+            assert text != null : "Label text should not be null";
+            assert img != null : "Image should not be null";
+        } catch (AssertionError e) {
+            System.out.println(e.getMessage());
+        }
         var db = new DialogBox(text, img);
         db.setAlignment(Pos.TOP_RIGHT);
         return db;
@@ -76,8 +84,12 @@ public class DialogBox extends HBox {
      * @return A DialogBox object representing the system's message.
      */
     public static DialogBox getStreamsDialog(String text, Image img) {
-        assert text != null : "Label text should not be null";
-        assert img != null : "Image should not be null";
+        try {
+            assert text != null : "Label text should not be null";
+            assert img != null : "Image should not be null";
+        } catch (AssertionError e) {
+            System.out.println(e.getMessage());
+        }
         var db = new DialogBox(text, img);
         db.flip();
         return db;

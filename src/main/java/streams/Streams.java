@@ -20,7 +20,11 @@ public class Streams {
      * @param filePath The file path for storing tasks.
      */
     public Streams(String filePath) {
-        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
+        if (filePath == null || filePath.isEmpty()) {
+            System.out.println("File path cannot be null or empty");
+            System.exit(0);
+        }
+
         ui = new Ui();
         storage = new Storage(filePath);
         try {

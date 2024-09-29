@@ -1,6 +1,8 @@
 
 package streams.task;
 
+import streams.exception.StreamsException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,9 +58,14 @@ public class TaskList {
      * @param index The index of the task to be retrieved.
      * @return The task at the specified index.
      */
-    public Task getTask(int index) {
-        assert index >= 0 : "Task index cannot be negative";
-        assert index < tasks.size() : "Task index out of bounds";
+    public Task getTask(int index) throws StreamsException {
+        try {
+            assert index >= 0 : "Task index cannot be negative";
+            System.out.println(tasks.size());
+            assert index < tasks.size() : "Task index out of bounds";
+        } catch (AssertionError e) {
+            throw new StreamsException(e.getMessage());
+        }
         return tasks.get(index);
     }
 

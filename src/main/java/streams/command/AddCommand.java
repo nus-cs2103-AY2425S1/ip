@@ -18,7 +18,9 @@ public class AddCommand extends Command {
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
-        assert task != null : "Task should not be null";
+        System.out.println(task);
+        System.out.println(task.getDescription());
+        assert task.getDescription() != null : "Task should not be null";
         this.task = task;
     }
 

@@ -36,7 +36,6 @@ public class MainWindow extends AnchorPane {
     }
     /** Injects the streams.Streams instance */
     public void setStream(Streams d) {
-        assert d != null : "Streams should not be null";
         stream = d;
         Ui ui = new Ui();
         dialogContainer.getChildren().addAll(

@@ -4,17 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import streams.command.AddCommand;
-import streams.command.AddTagCommand;
-import streams.command.Command;
-import streams.command.DeleteCommand;
-import streams.command.ExitCommand;
-import streams.command.ListCommand;
-import streams.command.ListDateCommand;
-import streams.command.ListTagCommand;
-import streams.command.ListWeekCommand;
-import streams.command.MarkCommand;
-import streams.command.SortDeadlineCommand;
+import streams.command.*;
 import streams.exception.StreamsException;
 import streams.task.DeadlineTask;
 import streams.task.EventTask;
@@ -34,40 +24,50 @@ public class Parser {
      * @throws StreamsException If the input is invalid or cannot be parsed.
      */
     public static Command parse(String fullCommand) throws StreamsException {
-        assert fullCommand != null : "Full command cannot be null";
-        assert !fullCommand.trim().isEmpty() : "Full command cannot be empty";
-        String[] parts = fullCommand.split(" ", 2);
-        String commandType = parts[0].toLowerCase();
-        String rest = parts.length > 1 ? parts[1].trim() : "";
-
-        switch (commandType) {
-            case "list":
-                return new ListCommand();
-            case "done":
-            case "undone":
-                return new MarkCommand(rest, commandType.equals("done"));
-            case "todo":
-                return new AddCommand(new ToDoTask(rest));
-            case "deadline":
-                return parseDeadline(rest);
-            case "event":
-                return parseEvent(rest);
-            case "delete":
-                return new DeleteCommand(rest);
-            case "list-date":
-                return new ListDateCommand(rest);
-            case "list-week":
-                return new ListWeekCommand();
-            case "sort-deadline":
-                return new SortDeadlineCommand();
-            case "bye":
-                return new ExitCommand();
-            case "tag":
-                return new AddTagCommand(rest);
-            case "list-tag":
-                return new ListTagCommand(rest);
-            default:
-                throw new StreamsException("incorrect command: " + commandType);
+        try {
+            assert fullCommand != null : "Full command cannot be null";
+            assert !fullCommand.trim().isEmpty() : "Full command cannot be empty";
+            String[] parts = fullCommand.split(" ", 2);
+            String commandType = parts[0].toLowerCase();
+            String rest = parts.length > 1 ? parts[1].trim() : "";
+            switch (commandType) {
+                case "/help":
+                    return new HelpCommand();
+                case "list":
+                    assert rest == "" : "incorrect list command format";
+                    return new ListCommand();
+                case "done":
+                case "undone":
+                    return new MarkCommand(rest, commandType.equals("done"));
+                case "todo":
+                    return new AddCommand(new ToDoTask(rest));
+                case "deadline":
+                    return parseDeadline(rest);
+                case "event":
+                    return parseEvent(rest);
+                case "delete":
+                    return new DeleteCommand(rest);
+                case "list-date":
+                    return new ListDateCommand(rest);
+                case "list-week":
+                    return new ListWeekCommand();
+                case "sort-deadline":
+                    return new SortDeadlineCommand();
+                case "bye":
+                    return new ExitCommand();
+                case "find":
+                    return new FindCommand(rest);
+                case "tag":
+                    return new AddTagCommand(rest);
+                case "list-tag":
+                    return new ListTagCommand(rest);
+                case "tag-remove":
+                    return new RemoveTagCommand(rest);
+                default:
+                    throw new StreamsException("incorrect command: " + commandType);
+            }
+        } catch (AssertionError e) {
+            throw new StreamsException(e.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class Parser {
             LocalDateTime by = LocalDateTime.parse(byString, INPUT_FORMATTER);
             return new AddCommand(new DeadlineTask(description, by));
         } catch (DateTimeParseException e) {
-            throw new StreamsException("invalid date format. Please use yyyy-MM-dd HH:mm");
+            throw new StreamsException("Invalid date format. Please use yyyy-MM-dd HH:mm");
         }
     }
 

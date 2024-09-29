@@ -16,7 +16,6 @@ public class Main extends Application {
 
     private final Streams stream = new Streams("./src/main/data/saveFile.txt");
 
-
     /**
      * Starts the GUI application by setting up the primary stage.
      * Loads the FXML layout for the main window, sets up the scene, and initializes
@@ -26,22 +25,19 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        assert stage != null : "Stage should not be null";
         try {
             stage.setMinHeight(600);
             stage.setMinWidth(400);
-
             stage.setTitle("Streams");
-
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            assert ap != null : "Root AnchorPane should not be null";
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(getClass().getResource("/view/styles.css").toExternalForm());
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setStream(stream);
             stage.show();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

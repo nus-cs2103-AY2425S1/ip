@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public abstract class Task {
     protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-
     protected String description;
     protected boolean isCompleted;
     protected Set<String> tags;
@@ -21,7 +20,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        assert description != null : "Task description should be null";
+        assert description != "" : "Task description should not be null";
         this.description = description;
         this.isCompleted = false;
         this.tags = new HashSet<>();
@@ -70,15 +69,6 @@ public abstract class Task {
      */
     public void removeTag(String tag) {
         tags.remove(tag.toLowerCase());
-    }
-
-    /**
-     * Returns a copy of the task's tags.
-     *
-     * @return A new Set containing all tags of the task.
-     */
-    public Set<String> getTags() {
-        return new HashSet<>(tags);
     }
 
     /**

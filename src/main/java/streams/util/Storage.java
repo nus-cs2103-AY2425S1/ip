@@ -58,7 +58,6 @@ public class Storage {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
                 assert parts.length >= 3 : "Task string should have at least 3 parts";

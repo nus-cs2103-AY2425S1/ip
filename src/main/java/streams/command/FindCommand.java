@@ -20,6 +20,7 @@ public class FindCommand extends Command {
      */
     public FindCommand(String keyword) {
         assert keyword != null : "Find keyword should not be null";
+        assert keyword != "" : "Find keyword cannot be empty:( Retry";
         this.keyword = keyword;
     }
 

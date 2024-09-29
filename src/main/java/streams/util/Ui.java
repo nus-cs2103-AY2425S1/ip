@@ -22,7 +22,7 @@ public class Ui {
      * Returns a welcome message.
      */
     public String showWelcome() {
-        return "Hello from Streams!\nWhat can I do for you?";
+        return "Hello from Streams!\nWhat can I do for you?\nUse /help for command list";
     }
 
     /**
@@ -42,11 +42,11 @@ public class Ui {
     public void showMatchingTasks(List<Task> tasks) {
         assert tasks != null : "Tasks list cannot be null";
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            showMessage("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            showMessage("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                showMessage((i + 1) + "." + tasks.get(i));
             }
         }
     }
@@ -58,7 +58,6 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("oops!!! no existing task file has been found :( starting with an empty task list.");
     }
-
     /**
      * Displays an error message.
      *
@@ -68,7 +67,6 @@ public class Ui {
         assert message != null && !message.isEmpty() : "Error message cannot be null or empty";
         System.out.println(message);
     }
-
     /**
      * Displays an error message.
      *

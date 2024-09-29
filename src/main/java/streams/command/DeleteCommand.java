@@ -21,7 +21,8 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String taskNumberStr) throws StreamsException {
         try {
             this.taskNumber = Integer.parseInt(taskNumberStr.trim()) - 1;
-            assert taskNumber < 0 : "Task index should not be negative";
+            System.out.println(taskNumber);
+            assert taskNumber >= 0 : "Task index should be positive";
         } catch (NumberFormatException e) {
             throw new StreamsException("error parsing task number");
         }
