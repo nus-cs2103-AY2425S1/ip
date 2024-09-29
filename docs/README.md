@@ -91,7 +91,7 @@ help - Shows this help message
 bye - Exits the program
 ```
 
-```bash
+```plaintext
 Hello from
      _  ____  ___   _  ____  _      
     | || ___|| _ \ | || ___|| |     
@@ -108,7 +108,7 @@ ____________________________________________________________
 
 
 ## Project Directory Structure
-```bash
+```plaintext
 ├── .gradle
 ├── app
 ├── build
