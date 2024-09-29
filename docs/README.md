@@ -20,19 +20,19 @@ Enter commands to manage your tasks.
 
 ## Commands
 
-| Command        | Description                           |
-|----------------|---------------------------------------|
-| `todo`         | Adds a ToDo task                      |
-| `deadline`     | Adds a Deadline task                  |
-| `event`        | Adds an Event task                    |
-| `list`         | Lists all tasks                       |
-| `mark`         | Marks a task as done                  |
-| `unmark`       | Marks a task as not done              |
-| `delete`       | Deletes a task                        |
-| `find`         | Finds tasks by keyword                |
-| `clear`        | Clears all tasks                      |
-| `remind`       | Shows upcoming tasks                  |
-| `bye`          | Exits the program                     |
+| Command                                                      | Description              |
+|--------------------------------------------------------------|--------------------------|
+| `todo [task]`                                                | Adds a ToDo task         |
+| `deadline [task] /by [MM-dd-yyyy HHmm]`                      | Adds a Deadline task     |
+| `event [task] /from [MM-dd-yyyy HHmm] /to [MM-dd-yyyy HHmm]` | Adds an Event task       |
+| `list`                                                       | Lists all tasks          |
+| `mark [task number]`                                         | Marks a task as done     |
+| `unmark [task number]`                                       | Marks a task as not done |
+| `delete [task number]`                                       | Deletes a task           |
+| `find [keyword]`                                             | Finds tasks by keyword   |
+| `clear`                                                      | Clears all tasks         |
+| `remind`                                                     | Shows upcoming tasks     |
+| `bye`                                                        | Exits the program        |
 
 
 ## Requirements

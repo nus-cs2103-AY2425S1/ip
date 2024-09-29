@@ -59,7 +59,7 @@ public class Parser {
      */
     private static String handleClear() {
         String msg = "";
-        storage.clearSave();
+        TaskList.mainTaskList.clearTasks();
         msg += "Your data has been cleared. All tasks have been removed.";
         return msg;
     }
@@ -93,7 +93,8 @@ public class Parser {
         if (searchResultList.getNumTasks() == 1) {
             msg += String.format("There is 1 task containing the word \"%s\".\n", arguments);
         } else {
-            msg += String.format("There are %s tasks containing the word \"%s\".\n", searchResultList.getNumTasks(), arguments);
+            msg += String.format("There are %s tasks containing the word \"%s\".\n", searchResultList.getNumTasks(),
+                                 arguments);
         }
         return msg;
     }
