@@ -23,18 +23,6 @@ public class ArchiveListCommand {
 
     }
 
-    public static void createArchiveFile() {
-        File file = new File("archive.txt");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-                System.out.println("Archive file created");
-            }
-        } catch (IOException e) {
-            System.out.println("Error creating archive file");
-        }
-    }
-
     /**
      * Executes the command to retrieve and display archived tasks.
      * @return string representing the archived list in a human-readable format
@@ -44,6 +32,14 @@ public class ArchiveListCommand {
         getTasks();
         return Ui.listDisplay(archivedlst);
     }
+
+    /**
+     * Retrieves and displays archived tasks from the file "archive.txt".
+     * This method loads the archived tasks into a list from "archive.txt".
+     * If there are no archived tasks found, it prints a message letting the users know
+     * that the archived list is empty.
+     * Otherwise, it prints the message that archived tasks are loaded.
+     */
 
     public void getTasks() {
         archivedlst = loadArchivedTasksFromFile();  // Load tasks from archive.txt
@@ -56,6 +52,7 @@ public class ArchiveListCommand {
 
     /**
      * Loads archived tasks from the file "archive.txt" and converts each line of the file into a Task object.
+     * Catches an IOException in the case of exception and throws an error message.
      * @return ArrayList of tasks loaded from archive file
      */
     public static ArrayList<Task> loadArchivedTasksFromFile() {

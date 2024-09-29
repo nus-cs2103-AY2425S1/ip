@@ -16,5 +16,4 @@ public class ToDoCommand extends GeneralTaskCommand {
         TaskList.addTask(tsk);
         return Ui.taskAddDescription(tsk);
     }
-
 }
