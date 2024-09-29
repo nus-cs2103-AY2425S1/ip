@@ -77,19 +77,6 @@ Here are the matching tasks in your list:
 - **Example**: `help`
 - **Expected output**:
 
-## Here are the available commands:
-
-`todo <task description> - Adds a todo task`
-`deadline <task description> /by <date> - Adds a deadline task`
-`event <task description> /from <start> /to <end> - Adds an event task`
-`list - Lists all tasks`
-`mark <task number> - Marks a task as done`
-`unmark <task number> - Unmarks a task`
-`delete <task number> - Deletes a task`
-`find <keyword> - Finds tasks containing the keyword`
-`help - Shows this help message`
-`bye - Exits the program`
-
 
 
 Running the Jeriel-1.1.jar file `java --module-path "C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" --add-modules javafx.controls,javafx.fxml -jar "C:/Users/jerie/Desktop/Jeriel-1.0.jar"
