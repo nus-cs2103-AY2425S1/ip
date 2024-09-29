@@ -40,6 +40,12 @@ public class Parser {
         return TrimArray(ParseStringHelper(input, splitters));
     }
 
+    /**
+     * Returns Array of String
+     *
+     * @param input
+     * @param splitters
+     */
     private static String[] ParseStringHelper(String input, ArrayList<String> splitters) {
         String[] split = input.split(splitters.get(0));
         if (split.length == 0) {
