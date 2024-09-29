@@ -2,12 +2,9 @@ package exception;
 
 /**
  * Exception raised for when commands are not given correcntly
- *
  * This exception is typically raised when a user attempts to execute an unknown command.
- *
- * eg. of incomplete commands: find tasks, give tasks
+ * e.g. of incomplete commands: find tasks, give tasks
  */
-
 public class UnknownWordException extends Exception {
     public UnknownWordException(String message) {
         super(message);
