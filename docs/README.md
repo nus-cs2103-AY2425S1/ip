@@ -1,6 +1,6 @@
 # Chappy User Guide
 
-![Application Screenshot](Ui.PNG)
+![Application Screenshot](Ui.png)
 
 A formally chatty chap-bot named Chappy. Derived from the greenfield Java project, Duke (Project Duke).
 
