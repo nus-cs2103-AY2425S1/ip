@@ -1,12 +1,6 @@
 package Commands;
 
-import exception.InvalidDeadlineException;
 import prince.Prince;
-import task.DeadlinesTask;
-import task.EventTask;
-import task.TaskList;
-import task.ToDoTask;
-import ui.Ui;
 
 public class GeneralTaskCommand extends Command {
 
@@ -16,8 +10,7 @@ public class GeneralTaskCommand extends Command {
 
     @Override
     public String commandAction() {
-        // according to the first word, create a new specific task
-        // split into two, first word is type, and the second phrase is task
+
         System.out.println("Command passed checkUnknownCommand: " + this.cmd);
 
         String[] split = this.cmd.split(" ", 2);
