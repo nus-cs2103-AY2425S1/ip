@@ -2,8 +2,6 @@
 
 Welcome to Jeriel, your personal task assistant! This guide will help you understand how to use Jeriel to manage your tasks efficiently.
 
-TESTTEST
-
 
 ![ChatBot UI](Ui.png)
 
@@ -93,7 +91,7 @@ help - Shows this help message
 bye - Exits the program
 ```
 
-```
+`
 Hello from
      _  ____  ___   _  ____  _      
     | || ___|| _ \ | || ___|| |     
@@ -106,11 +104,11 @@ ____________________________________________________________
  Hello! I'm Jeriel
  What can I do for you?
 ____________________________________________________________
-```
+`
 
 
 ## Project Directory Structure
-```
+`
 ├── .gradle
 ├── app
 ├── build
@@ -172,7 +170,7 @@ ____________________________________________________________
 ├── README.md
 ├── settings.gradle
 
-```
+`
 
 Running the Jeriel-1.1.jar file `java --module-path "C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" --add-modules javafx.controls,javafx.fxml -jar "C:/Users/jerie/Desktop/Jeriel-1.0.jar"
 `
