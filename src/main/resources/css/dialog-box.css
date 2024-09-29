@@ -1,0 +1,56 @@
+.root {
+    main-color: #F0DFCF;
+    white-color: #FFFFFF;
+    bg-color: #F0EAE4;
+    primary-color: #F08E7F;
+    primary-dark-color: #D9604E;
+    secondary-color: #F0B67F;
+    secondary-dark-color: #E3954B;
+    text-color: #260D0D;
+    -fx-background-color: bg-color;
+}
+
+.label {
+    /*-fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);*/
+    -fx-background-color: secondary-color;
+    -fx-border-color: #E3954B;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font: 12px "Inter Medium";
+    -fx-text-fill: text-color;
+    -fx-padding: 0.5em;
+}
+
+.error-dialog {
+    -fx-background-color: primary-dark-color;
+    -fx-border-color: text-color;
+    -fx-font: 12px "CaskaydiaCove NF SemiBold";
+    -fx-text-fill: white;
+    -fx-padding: 1em;
+    -fx-border-width: 0px;
+}
+
+.torne-dialog {
+    -fx-font: 12px "CaskaydiaCove NF Regular";
+    -fx-background-color: main-color;
+    -fx-border-color: main-color;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

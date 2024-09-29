@@ -1,24 +1,21 @@
-# Duke project template
+# Torne
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Torne icon. Credits: me](./src/main/resources/images/torne_icon_400.png)
 
-## Setting up in Intellij
+[![GitHub Release](https://img.shields.io/github/v/release/zeepheru/ip)](https://github.com/zeepheru/ip/releases)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+This is the chatbot `TORNE`, short for `Torment Nexus`.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## How to Run
+
+Make sure you have Java installed and accessible from your CLI.
+
+1. Go to [releases](https://github.com/Zeepheru/ip/releases).
+2. Find the newest release and download the `torne.jar` file.
+3. In your terminal, navigate to the location of the `torne.jar` file and run `java -jar torne.jar`.
+
+## How to Use
+
+For a quick-reference of the available commands, use the `help` command.
+
+[User Guide](https://zeepheru.github.io/ip/)

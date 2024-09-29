@@ -1,0 +1,7 @@
+list
+todo a
+deadline b /by day
+event c /from f /to s
+mark 2
+unmark 2
+delete 1
