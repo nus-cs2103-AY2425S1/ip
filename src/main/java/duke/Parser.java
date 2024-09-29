@@ -57,6 +57,12 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Returns LocalDatetime
+     *
+     * @param dateString
+     */
     public static LocalDateTime parseDate(String dateString) throws ParseException {
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy HHmm", Locale.ENGLISH);
         Date date = format.parse(dateString);
