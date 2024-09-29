@@ -21,10 +21,18 @@ public class MainWindow extends AnchorPane {
     private Streams stream;
     private final Image userImage = new Image(getClass().getResourceAsStream("/images/streams.png"));
     private final Image streamImage = new Image(getClass().getResourceAsStream("/images/streams2.png"));
-
+    /** Creates the Scroll Pane*/
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.vvalueProperty().unbind();
+
+        scrollPane.setFitToWidth(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        dialogContainer.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPane.setVvalue(1.0);
+        });
     }
     /** Injects the streams.Streams instance */
     public void setStream(Streams d) {
@@ -48,5 +56,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getStreamsDialog(response, streamImage));
         userInput.clear();
+        scrollPane.setVvalue(1.0);
     }
 }

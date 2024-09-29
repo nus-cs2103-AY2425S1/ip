@@ -1,18 +1,13 @@
 package streams.gui;
 
-import java.io.IOException;
-import java.util.Collections;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -27,17 +22,22 @@ public class DialogBox extends HBox {
     private DialogBox(String text, Image img) {
         assert text != null : "Label text should not be null";
         assert img != null : "Image should not be null";
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dialog = new Label(text);
+        dialog.setWrapText(true);
+        dialog.setMaxWidth(250);
+        dialog.setPadding(new Insets(8));
+        dialog.setStyle("-fx-background-color: #c08ff3; -fx-background-radius: 10;");
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture = new ImageView(img);
+        displayPicture.setFitHeight(50);
+        displayPicture.setFitWidth(50);
+
+        Circle clip = new Circle(25, 25, 25);
+        displayPicture.setClip(clip);
+
+        this.setAlignment(Pos.TOP_RIGHT);
+        this.getChildren().addAll(dialog, displayPicture);
+        this.setSpacing(10);
     }
 
     /**
@@ -46,10 +46,9 @@ public class DialogBox extends HBox {
      * in a chat interface.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        this.setAlignment(Pos.TOP_LEFT);
+        dialog.setStyle("-fx-background-color: #8794d7; -fx-background-radius: 10;");
+        this.getChildren().setAll(displayPicture, dialog);
     }
 
     /**
@@ -63,7 +62,9 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         assert text != null : "Label text should not be null";
         assert img != null : "Image should not be null";
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setAlignment(Pos.TOP_RIGHT);
+        return db;
     }
 
     /**

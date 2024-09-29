@@ -28,8 +28,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         assert stage != null : "Stage should not be null";
         try {
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(600);
+            stage.setMinWidth(400);
 
             stage.setTitle("Streams");
 
@@ -37,6 +37,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             assert ap != null : "Root AnchorPane should not be null";
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(getClass().getResource("/view/styles.css").toExternalForm());
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setStream(stream);
             stage.show();
