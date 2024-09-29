@@ -76,7 +76,7 @@ Here are the matching tasks in your list:
 - **Description**: Shows a list of all commands with a brief description of their usage.
 - **Example**: `help`
 - **Expected output**:
-```plaintext
+```bash
 Here are the available commands:
 
 todo <task description> - Adds a todo task
@@ -89,9 +89,9 @@ delete <task number> - Deletes a task
 find <keyword> - Finds tasks containing the keyword
 help - Shows this help message
 bye - Exits the program
-```
 
-```plaintext
+
+```bash
 Hello from
      _  ____  ___   _  ____  _      
     | || ___|| _ \ | || ___|| |     
@@ -104,11 +104,11 @@ ____________________________________________________________
  Hello! I'm Jeriel
  What can I do for you?
 ____________________________________________________________
-```
+
 
 
 ## Project Directory Structure
-```plaintext
+```bash
 ├── .gradle
 ├── app
 ├── build
@@ -170,7 +170,6 @@ ____________________________________________________________
 ├── README.md
 ├── settings.gradle
 
-```
 
 Running the Jeriel-1.1.jar file `java --module-path "C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" --add-modules javafx.controls,javafx.fxml -jar "C:/Users/jerie/Desktop/Jeriel-1.0.jar"
 `
