@@ -35,7 +35,7 @@ Now you have X tasks in the list.
 ````
 ## Adding Events
 
-To add an event to your task list, use the `event` command followed by the task description, the start time with /from, and the end time with /to. The format for the date and time is yyyy-MM-dd HHmm.
+To add an event to your task list, use the `event` command followed by the task description, the start time with /from, and the end time with /to. The format for the date and time is `yyyy-MM-dd HHmm`.
 ### Example usage
 ```
 event attend conference /from 2024-09-20 0900 /to 2024-09-20 1700
