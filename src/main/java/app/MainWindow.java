@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  * Controller for the main GUI.
@@ -46,11 +44,6 @@ public class MainWindow extends AnchorPane {
      * Adds a message from Deez in the GUI.
      */
     public void outputMessage(String message) {
-
-        Media media = new Media(this.getClass().getResource("/sounds/ring.mp3").toString());
-        MediaPlayer audioPlayer = new MediaPlayer(media);
-        audioPlayer.play();
-
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(message, deezImage)
         );
