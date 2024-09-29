@@ -9,6 +9,11 @@ import java.util.stream.Stream;
 
 public class Parser {
 
+    /**
+     * Returns Command
+     *
+     * @param userInput
+     */
     public static Command ParseCommand(String userInput) {
         if (userInput.contains("bye")) {
             return new ExitCommand(userInput);
