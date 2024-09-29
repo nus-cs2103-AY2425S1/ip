@@ -76,8 +76,101 @@ Here are the matching tasks in your list:
 - **Description**: Shows a list of all commands with a brief description of their usage.
 - **Example**: `help`
 - **Expected output**:
+```plaintext
+Here are the available commands:
+
+todo <task description> - Adds a todo task
+deadline <task description> /by <date> - Adds a deadline task
+event <task description> /from <start> /to <end> - Adds an event task
+list - Lists all tasks
+mark <task number> - Marks a task as done
+unmark <task number> - Unmarks a task
+delete <task number> - Deletes a task
+find <keyword> - Finds tasks containing the keyword
+help - Shows this help message
+bye - Exits the program
+```
+
+```plaintext
+Hello from
+     _  ____  ___   _  ____  _      
+    | || ___|| _ \ | || ___|| |     
+    | |||___ ||_> || |||___ | |     
+ _  | || ___||  _/ | || ___|| |     
+| |_| |||___ ||\\  | |||___ | |____ 
+ \___/ |____||| \\ |_||____||______|
+
+____________________________________________________________
+ Hello! I'm Jeriel
+ What can I do for you?
+____________________________________________________________
+```
 
 
+## Project Directory Structure
+```plaintext
+├── .gradle
+├── app
+├── build
+│   ├── classes
+│   ├── generated
+│   ├── libs
+│   ├── tmp
+├── data
+├── docs
+│   └── README.md
+├── gradle
+│   └── wrapper
+├── src
+│   └── main
+│       └── java
+│           ├── data
+│           └── jeriel
+│               ├── command
+│               │   ├── AddDeadlineCommand.java
+│               │   ├── AddEventCommand.java
+│               │   ├── AddTodoCommand.java
+│               │   ├── Command.java
+│               │   ├── DeleteCommand.java
+│               │   ├── ExitCommand.java
+│               │   ├── FindCommand.java
+│               │   ├── ListCommand.java
+│               │   ├── MarkCommand.java
+│               │   └── UnmarkCommand.java
+│               ├── task
+│               │   ├── Deadline.java
+│               │   ├── Event.java
+│               │   ├── Task.java
+│               │   └── Todo.java
+│               ├── ui
+│               │   ├── Main.java
+│               │   ├── MainWindowController.java
+│               └── util
+│               │   ├── JerielException.java
+│               │   ├── Parser.java
+│               │   ├── Storage.java
+│               │   ├── TaskList.java 
+│               │   ├── Ui.java 
+│               └── Jeriel.java
+│   └── resources
+│       └── view
+│           └── MainWindow.fxml
+├── test
+│   └── java
+│       └── jeriel
+│           └── task
+│               ├── EventTest.java
+│               └── TodoTest.java
+├── .gitignore
+├── build.gradle
+├── checkstyle.xml
+├── CONTRIBUTORS.md
+├── gradlew
+├── gradlew.bat
+├── README.md
+├── settings.gradle
+
+```
 
 Running the Jeriel-1.1.jar file `java --module-path "C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" --add-modules javafx.controls,javafx.fxml -jar "C:/Users/jerie/Desktop/Jeriel-1.0.jar"
 `
