@@ -1,6 +1,5 @@
 package getTask;
 
-import exception.InvalidDeadlineException;
 import task.Task;
 
 /**

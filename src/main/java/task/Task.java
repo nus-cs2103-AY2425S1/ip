@@ -1,5 +1,4 @@
 package task;
-import prince.Prince;
 
 /**
  * Represents a task with a description and completion status.

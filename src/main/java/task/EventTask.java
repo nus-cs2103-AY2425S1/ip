@@ -1,7 +1,6 @@
 package task;
-import exception.InvalidDeadlineException;
-import prince.Prince;
 
+import exception.InvalidDeadlineException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,8 +9,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task for an event.
- *
- * A Eventtask is a type of task that includes a start time and end time
+ * An Event task is a type of task that includes a start time and end time
  * The class provides multiple methods to retrieve and save that information.
  */
 

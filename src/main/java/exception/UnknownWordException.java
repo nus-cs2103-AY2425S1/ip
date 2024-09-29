@@ -1,5 +1,4 @@
 package exception;
-import prince.Prince;
 
 /**
  * Exception raised for when commands are not given correcntly

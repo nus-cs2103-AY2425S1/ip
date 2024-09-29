@@ -2,8 +2,6 @@ package ui;
 
 import task.Task;
 import task.TaskList;
-import prince.Prince;
-
 
 import java.util.ArrayList;
 

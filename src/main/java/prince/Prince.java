@@ -3,13 +3,13 @@ package prince;
 import exception.IncompleteDescException;
 import exception.InvalidDeadlineException;
 import exception.UnknownWordException;
+
 import parser.Parser;
+
 import storage.Storage;
+
 import task.TaskList;
-import task.Task;
-import task.EventTask;
-import task.DeadlinesTask;
-import task.ToDoTask;
+
 import ui.Ui;
 
 import java.io.File;
@@ -26,10 +26,6 @@ import java.util.Scanner;
  */
 
 public class Prince {
-
-    //prince.txt is a file that will automatically be created if it doesnt exist
-    //stores the tasks
-
     private Storage storage;
     private Ui ui;
     private Parser parser;

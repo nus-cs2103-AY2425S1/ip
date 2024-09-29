@@ -1,21 +1,10 @@
 package parser;
+
 import Commands.*;
-import task.TaskList;
-import ui.Ui;
 
 import exception.IncompleteDescException;
 import exception.UnknownWordException;
 import exception.InvalidDeadlineException;
-
-import task.DeadlinesTask;
-import task.EventTask;
-import task.Task;
-import task.ToDoTask;
-
-import prince.Prince;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Parses input commands by user and performs the corresponding actions

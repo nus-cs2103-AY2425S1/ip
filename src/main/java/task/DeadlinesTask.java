@@ -5,11 +5,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import exception.InvalidDeadlineException;
-import prince.Prince;
 
 /**
  * Represents a task with a deadline.
- *
  * A DeadlinesTask is a type of task that includes a deadline, at a specific date and time
  * The class provides multiple methods to retrieve and save that information.
  */

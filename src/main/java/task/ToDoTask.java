@@ -1,9 +1,4 @@
 package task;
-import prince.Prince;
-
-
-
-import task.Task;
 
 /**
  * Represents a regular todotask .

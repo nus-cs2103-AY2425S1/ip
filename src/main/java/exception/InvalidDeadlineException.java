@@ -1,5 +1,4 @@
 package exception;
-import prince.Prince;
 
 /**
  * Exception raised for when deadline commands are not completed in the correct format

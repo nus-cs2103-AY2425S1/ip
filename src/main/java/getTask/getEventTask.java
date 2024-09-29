@@ -3,7 +3,6 @@ package getTask;
 import exception.InvalidDeadlineException;
 import task.EventTask;
 import task.Task;
-import task.ToDoTask;
 
 /**
  * The getEventTask class extends getGeneralTask to represent a specific type of task with a duration.
