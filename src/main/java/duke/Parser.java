@@ -36,6 +36,13 @@ public class Parser {
         return null;
     }
 
+
+    /**
+     * Returns Array of String
+     *
+     * @param input
+     * @param splitters
+     */
     public static String[] ParseString(String input, ArrayList<String> splitters) {
         return TrimArray(ParseStringHelper(input, splitters));
     }
