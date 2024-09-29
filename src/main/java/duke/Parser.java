@@ -63,6 +63,12 @@ public class Parser {
         return new java.sql.Timestamp(date.getTime()).toLocalDateTime();
     }
 
+    /**
+     * Returns index from string
+     *
+     * @param input
+     * @param commands
+     */
     public static int ParseIndex(String input, ArrayList<String> commands) throws DukeException {
         String[] markItems = TrimArray(ParseString(input, commands));
 
