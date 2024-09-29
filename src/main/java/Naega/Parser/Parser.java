@@ -60,9 +60,8 @@ public class Parser {
      *
      * @param args the arguments for the event command
      * @return the AddCommand for the event
-     * @throws NaegaException if the arguments are improperly formatted
      */
-    private static Command parseEvent(String args) throws NaegaException {
+    private static Command parseEvent(String args)  {
         assert args != null && !args.trim().isEmpty() : "Event command must not be null or empty";
         String[] parts = args.split("/from", 2);
         assert parts.length == 2 : "The format for an event must include /from";
@@ -84,9 +83,8 @@ public class Parser {
      *
      * @param args the arguments for the deadline command
      * @return the AddCommand for the deadline
-     * @throws NaegaException if the arguments are improperly formatted
      */
-    private static Command parseDeadline(String args) throws NaegaException {
+    private static Command parseDeadline(String args)  {
         assert args != null && !args.trim().isEmpty() : "Deadline command must not be null or empty";
         String[] parts = args.split("/by", 2);
         assert parts.length == 2 : "The format for a deadline must include /by";
