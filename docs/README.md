@@ -1,30 +1,45 @@
-# Duke User Guide
+# Chappy User Guide
 
-// Update the title above to match the actual product name
+![Application Screenshot](Ui.png)
 
-// Product screenshot goes here
+A formally chatty chap-bot named Chappy. Derived from the greenfield Java project, Duke (Project Duke).
 
-// Product intro goes here
+Chappy helps you manage your schedule in a jiffy.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+You can add Deadlines or Events to track tasks that need to be completed before or within a certain time frame.
 
-// Give examples of usage
+### Examples:
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Deadline Example: `deadline CS2103T iP /by /by 26-09-2024`
 
 ```
-expected output
+Alright sir! I've added this task:
+[D][] CS2103T iP (by: Sep 26 2024)
 ```
 
-## Feature ABC
+Event Example: `event Recess Week /from 23-09-2024 /to 27-09-2024`
 
-// Feature details
+```
+Alright sir! I've added this task:
+[E][] Recess Week (from: Sep 23 2024 to: Sep 27 2024)
+```
+
+## Other spiffy features
+
+Chappy comes with several other useful commands such as:
+
+- Marking a task as done (mark)
+- Marking a task as not done (unmark)
+- Adding/Deleting a task (add/delete)
 
 
-## Feature XYZ
+## Super spiffy features
 
-// Feature details
+Like any distinguished gentleman, Chappy comes with an ace up his sleeve.
+
+Chappy has special commands such as:
+
+- Finding tasks containing keywords or dates (find)
+- Finding the nearest free X days (free)
