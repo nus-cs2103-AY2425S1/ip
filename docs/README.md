@@ -76,6 +76,7 @@ Here are the matching tasks in your list:
 - **Description**: Shows a list of all commands with a brief description of their usage.
 - **Example**: `help`
 - **Expected output**:
+
 ```plaintext
 Here are the available commands:
 
