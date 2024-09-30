@@ -256,7 +256,7 @@ Remove a specific tag from a task, or ALL tags from a task.
 Example:
 
 ```
-untag URGENT 8
+untag 8 URGENT
 ```
 
 Bob will respond:
