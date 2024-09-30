@@ -2,20 +2,17 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'checkstyle'
 }
-
-group 'com.example'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     String javaFxVersion = '17.0.7'
-
-    // JavaFX dependencies for all platforms
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -29,31 +26,32 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
+
+
 
 test {
     useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
 }
 
 application {
-    mainClass.set("bing.Main")
-}
-
-javafx {
-    version = '17.0.7'
-    modules = ['javafx.controls', 'javafx.fxml']  // Add any other modules you need
+    mainClass.set("bing.Launcher")
 }
 
 shadowJar {
     archiveBaseName = 'bing'
     archiveClassifier = null
-    archiveVersion = ''  // Remove version suffix
-    mergeServiceFiles()  // Ensure the dependencies are bundled
-    manifest {
-        attributes 'Main-Class': 'bing.Main'  // Ensure the correct main class is specified
-    }
+    archiveFileName = 'bing.jar'
 }
 
 run {
