@@ -265,7 +265,7 @@ public class CommandHandler {
 		StringBuilder res = new StringBuilder();
 		res.append(message);
 		if (t != null) {
-			res.append("\n  " + Config.INDENTATION).append(t.toString());
+			res.append("\n  " + Config.INDENTATION).append(t);
 		}
 		String taskString = tm.length == 1 ? "task" : "tasks";
 		res.append("\n" + Config.INDENTATION + "Now you have ").append(tm.length).append(" ").append(taskString).append(" in the list.");
