@@ -9,7 +9,14 @@ import bob.task.Task;
 
 import java.util.Map;
 
+/**
+ * Represents a command to create a delete. The expected format is: delete &lt;index&gt;
+ */
 public class DeleteCommand extends Command {
+    /**
+     * The string that this command corresponds to.
+     * This field is collected by the parser to determine which command to execute.
+     */
     public static final String COMMAND = "delete";
 
     public DeleteCommand(Map<String, String> arguments) {
