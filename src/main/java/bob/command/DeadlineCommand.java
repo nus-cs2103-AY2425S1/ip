@@ -10,7 +10,14 @@ import bob.task.Task;
 
 import java.util.Map;
 
+/**
+ * Represents a command to create a deadline. The expected format is: deadline &lt;desc&gt; /by &lt;date&gt;
+ */
 public class DeadlineCommand extends Command {
+    /**
+     * The string that this command corresponds to.
+     * This field is collected by the parser to determine which command to execute.
+     */
     public static final String COMMAND = "deadline";
 
     public DeadlineCommand(Map<String, String> arguments) {
