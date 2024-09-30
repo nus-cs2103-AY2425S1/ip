@@ -10,7 +10,7 @@ import bob.task.Task;
 import java.util.Map;
 
 /**
- * Represents a command to create a delete. The expected format is: delete &lt;index&gt;
+ * Represents a command to delete a task. The expected format is: delete &lt;index&gt;
  */
 public class DeleteCommand extends Command {
     /**

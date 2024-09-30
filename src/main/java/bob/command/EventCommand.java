@@ -10,7 +10,15 @@ import bob.task.Task;
 
 import java.util.Map;
 
+/**
+ * Represents a command to create an event. The expected format is:
+ * <pre>event &lt;desc&gt; /from &lt;date&gt; /to &lt;date&gt;</pre>
+ */
 public class EventCommand extends Command {
+    /**
+     * The string that this command corresponds to.
+     * This field is collected by the parser to determine which command to execute.
+     */
     public static final String COMMAND = "event";
 
     public EventCommand(Map<String, String> arguments) {
