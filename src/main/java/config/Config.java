@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
 
 import features.command.CommandDescriptor;
 
+/**
+ * Configuration class to handle static app data
+ */
 public class Config {
     public static final String INDENTATION = "    "; 
 	public static final String logo = """
@@ -60,6 +63,7 @@ public class Config {
 
 		return sb.toString();
 	}
+
 
 	public static final String CSV_FILE_PATH = "data.csv";
 
