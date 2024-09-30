@@ -10,6 +10,8 @@ and organize tasks easily through a user-friendly command interface. She support
 - **Deadline:** Tasks that need to be completed by a specific time.
 - **Event:** Tasks that have both a start and end time.
 
+You can download her jar file from [here](https://github.com/yooplo/ip/releases/tag/A-Release)
+
 ## Adding ToDo Tasks
 
 To add a todo task, use the following command format:  
