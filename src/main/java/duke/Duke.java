@@ -38,7 +38,7 @@ public class Duke {
     public String closingText = "Bye. Hope to see you again soon!";
 
     public Ui ui = new Ui(openingText, closingText);
-    //public Storage storage = new Storage("data.txt", ui);
+
     public Saver saver = new Saver("data.txt", ui);
     public Loader loader = new Loader("data.txt", ui);
     public TaskList taskList = loader.load();
