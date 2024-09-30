@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<HBox alignment="CENTER_LEFT" spacing="10" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="profileImage" fitWidth="40" fitHeight="40"/>
+        <Label fx:id="messageLabel" wrapText="true" maxWidth="350" style="-fx-background-color: lightgreen; -fx-background-radius: 10;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </Label>
+    </children>
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+</HBox>

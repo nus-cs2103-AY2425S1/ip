@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+________________________________________
+Hello! I'm nugget.Nugget
+What can I do for you?
+________________________________________
+________________________________________
+Got it. I've added this task:
+[T][ ] borrow books
+Now you have 1 tasks in the list.
+________________________________________
+________________________________________
+Got it. I've added this task:
+[D][ ] return book (by: Jun 24 2024, 09:00 am)
+Now you have 2 tasks in the list.
+________________________________________
+________________________________________
+Got it. I've added this task:
+[E][ ] project meeting (from: Aug 25 2024, 11:00 am to: Aug 25 2024, 01:00 pm)
+Now you have 3 tasks in the list.
+________________________________________
+________________________________________
+1.[T][ ] borrow books
+2.[D][ ] return book (by: Jun 24 2024, 09:00 am)
+3.[E][ ] project meeting (from: Aug 25 2024, 11:00 am to: Aug 25 2024, 01:00 pm)
+________________________________________
+________________________________________
+Nice! I've marked this task as done:
+[T][X] borrow books
+________________________________________
+________________________________________
+OK, I've marked this task as not done yet:
+[D][ ] return book (by: Jun 24 2024, 09:00 am)
+________________________________________
+________________________________________
+OOPS!!! Please enter valid commands!
+________________________________________
+________________________________________
+OOPS!!! The description of a task cannot be empty.
+________________________________________
+________________________________________
+OOPS!!! The task number you provided is invalid.
+________________________________________
+________________________________________
+OOPS!!! The task number you provided is invalid.
+________________________________________
+________________________________________
+Noted. I've removed this task:
+[T][X] borrow books
+Now you have 2 tasks in the list.
+________________________________________
+________________________________________
+1.[D][ ] return book (by: Jun 24 2024, 09:00 am)
+2.[E][ ] project meeting (from: Aug 25 2024, 11:00 am to: Aug 25 2024, 01:00 pm)
+________________________________________
+Bye. Hope to see you again soon!
+________________________________________
