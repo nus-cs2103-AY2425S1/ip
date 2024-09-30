@@ -33,7 +33,7 @@ public class Duke {
     public String listCommand = "list";
 
     public String openingText = "Hello! I'm Jeff\n " +
-            "What can I do for you?";
+            "What can I help you with today?";
 
     public String closingText = "Bye. Hope to see you again soon!";
 
