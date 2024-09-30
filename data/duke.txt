@@ -1,0 +1,2 @@
+D | 1 | homework | 2024-09-14T23:59
+Expense | food | 100.0
