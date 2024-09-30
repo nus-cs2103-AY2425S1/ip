@@ -63,8 +63,7 @@ public class Config {
 
 		return sb.toString();
 	}
-
-
+	
 	public static final String CSV_FILE_PATH = "data.csv";
 
 	public static final String commands = makeCommandMessage(cmds); 

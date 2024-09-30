@@ -170,7 +170,6 @@ public class CSVTaskDAO implements TaskDAO {
         return tasks.size();
     }
 
-
     /**
      * Writes tasks to the CSV file.
      */
@@ -216,5 +215,4 @@ public class CSVTaskDAO implements TaskDAO {
         }
         return sb.toString();
     }
-
 }

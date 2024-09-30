@@ -5,7 +5,6 @@ import java.util.Optional;
 import features.task.Task;
 
 public interface TaskDAO {
-
     /**
      * Retrieves a list of all tasks.
      *
