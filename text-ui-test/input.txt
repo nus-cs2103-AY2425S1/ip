@@ -1,0 +1,22 @@
+todo workout
+todo read book
+mark 0
+mark 10
+
+dance
+event
+
+deadline 2103T ip /by Friday
+event EML Session /from Mon 2pm /to 4pm
+meow
+deadline quiz /by 10p.m.
+mark 1
+mark 3
+mark 4
+todo mix songs
+unmark 3
+list
+delete 2
+delete 9
+list
+bye

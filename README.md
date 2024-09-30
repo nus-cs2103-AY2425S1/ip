@@ -1,24 +1,57 @@
-# Duke project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+---
 
-## Setting up in Intellij
+# KillJoy - Your Personal Assistant
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+```
+ _   ___ _ _   ___             
+| | / (_) | | |_  |            
+| |/ / _| | |   | | ___  _   _ 
+|    \| | | |   | |/ _ \| | | |
+| |\  \ | | /\__/ / (_) | |_| |
+\_| \_/_|_|_\____/ \___/ \__, |
+                          __/ |
+                          |___/
+```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Meet **KillJoy**—your sassy, tech-savvy sidekick who's always three steps ahead. Need something done? Relax, KillJoy’s already on it. With a personality as sharp as its skills, this assistant doesn’t just follow orders—it owns them. Whether it’s organizing your tasks or throwing some banter your way, KillJoy is here to ensure life’s never boring.
+
+### Features
+- **Task Management**: Create, list, mark, unmark, delete, and now archive your tasks with ease.
+- **Playful Personality**: KillJoy isn't just functional—it's fun! Expect witty banter along the way.
+- **Flexible Input Parsing**: Handles different task types like TODOs, DEADLINES, and EVENTS.
+- **Task Archiving**: Automatically saves completed tasks in a dedicated archive folder, with unique file names to avoid overwriting.
+- **Interactive Command-Line Interface**: Simple, text-based interface for seamless interaction.
+
+Upon starting, KillJoy will greet you and await your commands. Use the available commands to manage your tasks, archive old ones, and interact with your assistant.
+
+### Commands
+- **Add Tasks**:
+  - TODO: `todo <description>`
+  - DEADLINE: `deadline <description> /by <date/time>`
+  - EVENT: `event <description> /from <start time> /to <end time>`
+
+- **Task Management**:
+  - List tasks: `list`
+  - Mark a task: `mark <task number>`
+  - Unmark a task: `unmark <task number>`
+  - Delete a task: `delete <task number>`
+
+- **Task Search**:
+  - Find a task: `find <keyword>`
+  
+- **Task Archiving**:
+  - Archive tasks: `archive`
+  - load archived tasks: `load <archive file name with extension>`
+
+
+- **Exit**:
+  - Quit KillJoy: `bye`
+
+### Archiving Feature
+KillJoy now allows you to archive your tasks in a dedicated folder. Each archive file gets a unique name, so you can keep a complete history of all your tasks without overwriting previous archives. Archiving happens automatically when tasks are completed and ready to be stored for later reference.
+
+---
+
+This README is generated with help of ChatGPT
+
