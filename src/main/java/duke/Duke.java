@@ -2,9 +2,9 @@ package duke;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File; 
-import java.io.FileWriter; 
-import java.io.FileReader; 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -35,7 +35,7 @@ public class Duke {
     public String openingText = "Hello! I'm Jeff\n " +
             "What can I help you with today?";
 
-    public String closingText = "Bye. Hope to see you again soon!";
+    public String closingText = "Goodbye! Hope to chat with you again soon!";
 
     public Ui ui = new Ui(openingText, closingText);
 
