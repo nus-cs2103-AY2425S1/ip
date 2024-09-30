@@ -159,8 +159,6 @@ public class Task {
     public String name;
     public boolean isMarked;
     public int type;
-
     public String deadline;
-
     public String[] eventTimings = new String[2];
 }

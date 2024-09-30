@@ -48,7 +48,6 @@ public class Ui {
      * Returns void, just prints the closing tex
      */
     void printClosing() {
-
         System.out.println(horizontalLine);
         System.out.println(closingText);
         System.out.println(horizontalLine);
