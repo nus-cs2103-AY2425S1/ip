@@ -75,5 +75,6 @@ Susan Bot is a simple lightweight chat bot that lets you manage tasks easily fro
 - [x] Week 4 Tasks
 - [x] Week 5 Tasks
 - [x] Week 6 Tasks
+- [x] Final fixes
 
 <p align="right">(<a href="#top">back to top</a>)</p>
