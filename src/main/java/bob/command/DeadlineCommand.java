@@ -11,7 +11,8 @@ import bob.task.Task;
 import java.util.Map;
 
 /**
- * Represents a command to create a deadline. The expected format is: deadline &lt;desc&gt; /by &lt;date&gt;
+ * Represents a command to create a deadline. The expected format is:
+ * <pre>deadline &lt;desc&gt; /by &lt;date&gt;</pre>
  */
 public class DeadlineCommand extends Command {
     /**
