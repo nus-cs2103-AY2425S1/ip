@@ -122,4 +122,4 @@ Expected Output:
 ## Exiting Chat
 Usage: bye!
 
-Expected Outcome: The chat is terminated (but all data is saved)
+Expected Outcome: The chat is terminated ( but all data is saved )
