@@ -1,0 +1,11 @@
+task
+todo todo
+deadline deadline /by 11pm
+event meeting /from 12pm /to 1pm
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+bye

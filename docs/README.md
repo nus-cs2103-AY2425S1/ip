@@ -1,30 +1,61 @@
-# Duke User Guide
+# Dook User Guide
 
-// Update the title above to match the actual product name
+![Product Screenshot, creating an Event.](Ui.png)
 
-// Product screenshot goes here
+Dook is a chatbot that is able to keep track of all your tasks.
+Dook is able to track todos, deadlines, and events. 
 
-// Product intro goes here
+# Commands
 
-## Adding deadlines
+## Help: `help`
+Displays the user guide.
 
-// Describe the action and its outcome.
+Format: `help`
 
-// Give examples of usage
+## Adding Todos: `todo`
+Creates a Todo.
 
-Example: `keyword (optional arguments)`
+Format: `todo <description>`
 
-// A description of the expected outcome goes here
+## Adding deadlines: `deadline`
+Creates a Deadline.
 
-```
-expected output
-```
+Format: `deadline <description> /by <due date>`
 
-## Feature ABC
+💡 `due date` should be in (dd/MM/yyyy hh:mm) format.
 
-// Feature details
+## Adding Events: `event`
+Creates an Event. 
 
+Format: `event <description> /from <start> /to <end>`
 
-## Feature XYZ
+💡 `start` and `end` should be in (dd/MM/yyyy hh:mm) format. 
 
-// Feature details
+## Listing all Tasks: `list`
+Shows a list of all tasks, completed or not.
+
+Format: `list`
+
+## Delete a Task: `delete`
+Deletes the specified task from the list of tasks.
+
+Format: `delete <task number>` 
+
+💡 `task number` refers to the index number shown in the displayed task list.
+
+## Search for a Task: `find`
+Searches for tasks that contain the specified keyword.
+
+Format: `find <keyword>`
+
+## Marking Tasks as Done: `mark`
+Marks a task as done. Can be undone with `unmark`
+
+Format: `mark <task number>` / `unmark <task number>`
+
+💡 `task number` refers to the index number shown in the displayed task list.
+
+## Exit: `bye`
+Leave the app. Automatically closes after a few seconds.
+
+Format: `bye`
