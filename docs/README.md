@@ -1,30 +1,97 @@
-# Duke User Guide
+# FlyChat User Guide
 
-// Update the title above to match the actual product name
+![Representative screenshot of FlyChat](./Ui.png)
 
-// Product screenshot goes here
+> **_Losing your mind_ trying to remember all the tasks you have to do?**  
+> Use _FlyChat_, and let your mind fly **free**
 
-// Product intro goes here
+## Adding tasks
 
-## Adding deadlines
+There are _3_ types of tasks you can add in _FlyChat_: **Todo**, **Event**, **Deadline**.  
+All fields, marked in `<>`, **must not** be empty.
 
-// Describe the action and its outcome.
+### Todo
 
-// Give examples of usage
+Format: todo `<description>`
 
-Example: `keyword (optional arguments)`
+eg. `todo Wash Dishes`
 
-// A description of the expected outcome goes here
+Expected Output:
 
 ```
-expected output
+Task added:
+[T][] Wash Dishes /tags []
+Now you have *n tasks in the list. HAVE FUN ^o^
 ```
 
-## Feature ABC
+### Event
 
-// Feature details
+Format: event `<description>` /from `<startTime>` /to `<endTime>`
 
+eg. `event Piano Lesson /from 2pm /to 4pm`
 
-## Feature XYZ
+Expected Output:
 
-// Feature details
+```
+Event added:
+[E][] Piano Lesson /tags [] (from: 2pm to: 4pm)
+Now you have *n tasks in the list. HAVE FUN ^o^
+```
+
+### Deadline
+
+Format: deadline `<description>` /by `<Date (yyyy-mm-dd)>`
+
+eg. `deadline CS2103T Assignment /by 2024-12-15`
+
+Expected Output:
+
+```
+Deadline added:
+[D][] CS2103T Assignment /tags [] 
+Now you have *n tasks in the list. HAVE FUN ^o^
+```
+
+## Tags
+
+Tags allow users to group related tasks under the same tag, improving organization.
+
+Note: Tags **MUST** start with a "#".
+
+### Adding Tags
+
+Format: tag `<taskNumber>` `<tag>`
+
+Description: Assigns `tag` to the specified task as a tag.
+
+## Other commands
+
+### List
+
+Format: list
+
+Description: Lists out all tasks in your task list.
+
+### Mark / Undo Mark Task
+
+Format: mark `<taskNumber>` / unmark `<taskNumber>`
+
+Description: Marks the specified task as completed or undo the mark.
+
+### Delete
+
+Format: delete `<taskNumber>`
+
+Description: Deletes the specified task.
+
+### Find
+
+Format: find `<keyPhrase>`
+
+Description: Lists out all tasks containing the `keyPhrase`.
+
+### Bye
+
+Format: bye
+
+Description: Quits the application.
