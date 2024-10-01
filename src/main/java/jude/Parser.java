@@ -31,7 +31,6 @@ public class Parser {
      * @throws JudeException If the command is not valid, containing the possible reason for invalidity.
      */
     public static Command parse(String input) throws JudeException {
-
         String header;
         String description;
 
