@@ -37,7 +37,9 @@ public class Storage {
      * @throws JudeException If there was error loading the file.
      */
     public List<Task> load() throws JudeException {
-        if (!fileExists()) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            initializeFile(file);
             return new ArrayList<>();
         }
 
@@ -64,9 +66,17 @@ public class Storage {
         fileReader = new Scanner(file);
     }
 
-    private boolean fileExists() {
-        File file = new File(filePath);
-        return file.exists();
+    private boolean initializeFile(File file) throws JudeException {
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs(); // Create the directory (and any non-existent parent directories)
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new JudeException("File already exists.");
+        }
+        return true;
     }
 
     private void addTasks(List<Task> list) throws JudeException {
