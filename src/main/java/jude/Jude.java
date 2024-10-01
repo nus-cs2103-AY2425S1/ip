@@ -8,7 +8,6 @@ import jude.command.Command;
  * This class helps a person to keep track of various things by simulating the chatbot features.
  */
 public class Jude {
-
     private String name = "jude.Jude";
     private TaskList tasks;
     private Storage storage;
