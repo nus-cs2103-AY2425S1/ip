@@ -1,0 +1,12 @@
+todo buy groceries
+deadline finish assignment /by tomorrow
+event project meeting /from 2pm /to 4pm
+list
+mark 1
+unmark 1
+delete 2
+list
+todo clean the house
+event friend's wedding /from 10am /to 1pm
+list
+bye

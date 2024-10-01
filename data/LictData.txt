@@ -1,0 +1,2 @@
+TODO | 0 | read book
+EVENT | 0 | staycation | 2024-09-20 1400 | 2024-09-22 1200
