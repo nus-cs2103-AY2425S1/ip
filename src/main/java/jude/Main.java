@@ -14,7 +14,6 @@ import jude.ui.MainWindow;
  */
 public class Main extends Application {
     private static final String DEFAULT_FILE_PATH = "data/jude.txt";
-
     private Jude jude = new Jude(DEFAULT_FILE_PATH);
 
     /**
@@ -51,7 +50,6 @@ public class Main extends Application {
             controller.setStage(stage);
 
             stage.show();
-
             controller.displayWelcomeMessage();
 
         } catch (IOException e) {
