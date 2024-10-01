@@ -1,6 +1,5 @@
 package velma.task;
 
-
 /**
  * Represents a task in the task list.
  */
@@ -57,5 +56,4 @@ public class Task {
     public boolean getIsDone() {
         return isDone;
     }
-
 }

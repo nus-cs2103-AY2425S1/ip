@@ -14,9 +14,7 @@ import velma.task.Task;
 import velma.task.TaskList;
 import velma.task.Todo;
 
-/**
- * Represents the chatbot Velma.
- */
+
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
     private Storage storage;
@@ -98,8 +96,7 @@ public class Velma {
                 try {
                     deadline = LocalDateTime.parse(parts[1], formatter);
                 } catch (DateTimeParseException e) {
-                    throw new VelmaException("Sorry boss! The date format is incorrect. "
-                            + "Please use d/M/yyyy HHmm.");
+                    throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
                 }
 
                 Task newDeadline = new Deadline(description, deadline);
@@ -115,8 +112,7 @@ public class Velma {
             case EVENT:
                 parts = input.replaceFirst("event\\s+", "").split(" /from | /to ");
                 if (parts.length < 3) {
-                    throw new VelmaException("Sorry boss! An event needs a valid start time and end time! "
-                            + "Please use /from HHmm /to HHmm");
+                    throw new VelmaException("Sorry boss! An event needs a valid start time and end time! Please use /from HHmm /to HHmm");
                 }
                 description = parts[0];
                 String startTime = parts[1];

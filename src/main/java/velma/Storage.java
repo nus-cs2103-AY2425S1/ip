@@ -1,6 +1,5 @@
 package velma;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -47,12 +46,12 @@ public class Storage {
      *
      * If the task is marked as done (indicated by "[X]"), the task's status is updated accordingly.</p>
      *
-     * <p> This method used co-pilot to automate finish writing the similar cases </p>
      * @return An ArrayList of Velma.task.Task objects that were stored in the file.
      *      If the file is not found, an empty list is returned.
      *
      * @throws IllegalArgumentException if an unknown task type is encountered in the file.
      */
+
     public ArrayList<Task> load() {
         // Load the file
         ArrayList<Task> list = new ArrayList<>();
@@ -62,7 +61,9 @@ public class Storage {
             return list;
         }
 
-
+        /** used co-pilot to automate finish writing the similar cases
+         *
+         */
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -131,7 +132,6 @@ public class Storage {
             System.out.println("An error occurred while saving tasks: " + e.getMessage());
         }
     }
-
 
 
 }

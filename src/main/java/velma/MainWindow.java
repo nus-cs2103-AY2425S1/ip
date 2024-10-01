@@ -10,10 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
-/**
- * Controller for MainWindow. Provides the layout for the other controls.
- */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends AnchorPane{
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,9 +25,6 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/andrew.jpeg"));
     private Image velmaImage = new Image(this.getClass().getResourceAsStream("/images/Velma.jpg"));
 
-    /**
-     * Initializes the MainWindow.
-     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
