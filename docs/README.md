@@ -1,30 +1,72 @@
-# Duke User Guide
+# Sigma User Guide
+>For Sigmas, by Sigmas.
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+Here's a snippet of what Sigma looks like:
+![Ui.png](Ui.png)
 
-// Product intro goes here
+## Adding ToDos
+
+You can give Sigma a Todo task to remember using the `/todo` command.
+
+
+Example: `/todo check email`
+
+Here's what the output would look like:
+
+```
+added todo task:
+[T][ ] check email
+```
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+You can give Sigma a deadline to remember using the `/deadline` command.
 
-// Give examples of usage
 
-Example: `keyword (optional arguments)`
+Example: `/deadline do CS2103T quiz /by 2024-09-20 14:00:00`
 
-// A description of the expected outcome goes here
+Here's what the output would look like:
 
 ```
-expected output
+added deadline task:
+[D][ ] do CS2103T quiz (by: Sep 20 2024 14:00:00)
+```
+## Adding deadlines
+
+Similarly, you can log events using `/event`.
+
+Example: `/event youthxhack /from /to`
+
+Here's what the output would look like:
+
+```
+added event task:
+[E][ ] do CS2103T quiz (by: Sep 20 2024 14:00:00)
 ```
 
-## Feature ABC
+## Finding a task
 
-// Feature details
+Too many tasks in the list? Seamlessly find a specific task using `find` followed
+by the keyword(s) of your task description. Sigma will display all tasks that partially
+match the given keyword(s).
 
+## All your tasks at a glance
 
-## Feature XYZ
+Don't worry about forgetting what you have added to your list of tasks,
+simply enter `list` and Sigma will display a pretty list of all your current tasks.
 
-// Feature details
+Use `mark` followed by the task number to mark any task as completed.
+Don't worry, Sigma will remember this task until you `delete` it off the list. 
+You can also `unmark` a task as undone.
+
+## Erm, what the Sigma?
+
+Sigma says this when it receives a command it does not recognise. Fear not, just re-enter 
+the amended command and it will be as if nothing happened.
+
+## Goodbye, Sigma!
+
+When you're done checking out your tasks for the day, use the `bye` command to 
+exit Sigma. **It's important to use `bye` because it saves all outstanding tasks to the disk.**
+If you don't, your tasks may not be there the next time you launch Sigma!
