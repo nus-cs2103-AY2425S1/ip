@@ -69,8 +69,7 @@ public class Storage {
 
                     // Assert that the task read from the file is valid
                     assert task != null : "Task read from file should not be null";
-
-
+                    
                     taskList.add(task);
                 }
             }
