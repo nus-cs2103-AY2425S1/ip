@@ -1,0 +1,27 @@
+.label {
+    /* Gradient background for label in dark mode */
+    -fx-background-color: linear-gradient(to bottom right, #00bfa5, #00a0e9);  /* Softer teal-blue gradient */
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;  /* Brighter borders for a colorful accent */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #ffffff;  /* White text for dark mode */
+    -fx-font-family: "Roboto", sans-serif;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #00bfa5, #0072b2);  /* Matching gradient for replies */
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Roboto", sans-serif;
+}
+
+#displayPicture {
+    /* Soft shadow and scaling effects for images */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+    -fx-background-color: rgba(40, 44, 52, 0.5);  /* Transparent dark background around the image */
+}

@@ -1,0 +1,58 @@
+.root {
+    /* Darker background with a soft gradient for dark mode */
+    main-color: rgb(40, 44, 52);  /* Dark base color */
+    background-gradient: linear-gradient(to bottom, #2e3b4e, #1c2433);  /* Dark gradient */
+    -fx-background-color: background-gradient;
+    -fx-font-family: "Roboto", sans-serif;  /* Nicer font */
+}
+
+.text-field {
+    -fx-background-color: #445566;  /* Dark gray for text field */
+    -fx-font: 20px "Roboto", sans-serif;  /* Use Roboto */
+    -fx-text-fill: #e0e0e0;  /* Light text color */
+    -fx-border-color: #667788;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.button {
+    -fx-background-color: #00b894;  /* Darker teal for buttons */
+    -fx-font: italic bold 16px "Roboto", sans-serif;  /* Use Roboto for buttons */
+    -fx-text-fill: #ffffff;  /* White text for contrast */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0, 0, 1);  /* Slightly darker shadow */
+}
+
+.button:hover {
+    -fx-background-color: #00cec9;  /* Slightly lighter on hover */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #ff7675;  /* Muted orange-red for pressed */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: rgba(40, 44, 52, 0.5);  /* Transparent dark scroll bar */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;  /* Soft pink for thumb */
+    -fx-background-radius: 1em;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);  /* Soft shadow for thumb */
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
