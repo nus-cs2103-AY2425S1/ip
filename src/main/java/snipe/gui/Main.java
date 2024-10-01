@@ -10,12 +10,26 @@ import javafx.stage.Stage;
 import snipe.core.Snipe;
 
 /**
- * A GUI for Snipe using FXML.
+ * Main class for the GUI application of Snipe using JavaFX and FXML.
+ * This class is responsible for initializing and displaying the main window
+ * of the Snipe application.
  */
 public class Main extends Application {
 
+    /**
+     * An instance of the Snipe core application logic.
+     * This is injected into the controller for the GUI.
+     */
     private Snipe snipe = new Snipe("data");
 
+    /**
+     * Starts the JavaFX application.
+     * This method is called when the application is launched, setting up
+     * the primary stage and loading the FXML layout for the main window.
+     *
+     * @param stage The primary stage for this application, onto which
+     *              the application scene is set.
+     */
     @Override
     public void start(Stage stage) {
         try {
