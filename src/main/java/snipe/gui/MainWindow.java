@@ -65,16 +65,16 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-/**
- * Delays the closing of the application by 1 second to ensure that the closing message
- * is displayed to the user before the application exits. This method creates a
- * {@code PauseTransition} to introduce a short delay, providing a smoother user experience.
- *
- * <p>Once the delay is completed, the application will close using {@code Platform.exit()},
- * which exits the JavaFX application cleanly, terminating all threads and closing all windows.
- * This method is typically called when a specific user input, such as "bye", is detected.
- * </p>
- */
+    /**
+     * Delays the closing of the application by 1 second to ensure that the closing message
+     * is displayed to the user before the application exits. This method creates a
+     * {@code PauseTransition} to introduce a short delay, providing a smoother user experience.
+     *
+     * <p>Once the delay is completed, the application will close using {@code Platform.exit()},
+     * which exits the JavaFX application cleanly, terminating all threads and closing all windows.
+     * This method is typically called when a specific user input, such as "bye", is detected.
+     * </p>
+     */
     private void delayCloseApplication() {
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> Platform.exit());
