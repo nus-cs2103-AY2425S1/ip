@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * The {@code Ui} class handles interactions with the user. It is responsible for displaying messages,
- * reading user input, and providing a user-friendly interface for the application.
+ * storing publicly accessible constants, reading user input, and providing a user-friendly interface for the application.
  */
 public class Ui {
     /** The name of the application. */
