@@ -22,7 +22,7 @@ public class ListDateCommand extends Command {
     private final LocalDate date;
 
     /**
-     * Constructs a ListDateCommand with the specified date.
+     * Constructs a ListDateCommand with the specified date passed as parameter.
      *
      * @param dateString The date to list tasks for.
      * @throws StreamsException If there's an error executing the command.
