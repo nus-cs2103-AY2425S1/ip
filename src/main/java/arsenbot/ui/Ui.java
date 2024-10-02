@@ -24,13 +24,9 @@ public class Ui {
     /**
      * Displays the welcome message when the application starts.
      */
-    public String showWelcome() {
+    public void showWelcome() {
         System.out.println("Hello! I am ArsenBot. It is my pleasure to assist you.");
         System.out.println("How may I serve you today?\n");
-        return """
-                Hello! I am ArsenBot. It is my pleasure to assist you.
-                How may I serve you today?
-                """;
     }
 
     /**
