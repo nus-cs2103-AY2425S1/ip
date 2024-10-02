@@ -77,16 +77,6 @@ list
 
 ArsenBot will display a numbered list of your tasks.
 
-### Exiting the Application
-
-To exit, just type:
-
-```
-bye
-```
-
-ArsenBot will say goodbye and close the application.
-
 ## Error Handling
 
 If you enter an incorrect command or incomplete information, ArsenBot will provide user-friendly error messages, guiding you on what is required. For example:
