@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private ArsenBot arsenBot = new ArsenBot("./data/history.txt");
+    private final ArsenBot arsenBot = new ArsenBot("./data/history.txt");
 
     @Override
     public void start(Stage stage) {
