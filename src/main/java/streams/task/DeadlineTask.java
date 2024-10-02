@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * Represents a deadline task in the task list.
  */
 public class DeadlineTask extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Constructs a DeadlineTask with the given description and deadline.

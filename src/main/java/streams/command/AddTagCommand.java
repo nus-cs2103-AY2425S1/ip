@@ -10,8 +10,8 @@ import streams.util.Ui;
  * Represents a command to add a tag to a specific task.
  */
 public class AddTagCommand extends Command {
-    private int taskIndex;
-    private String tag;
+    private final int taskIndex;
+    private final String tag;
 
     /**
      * Constructs an AddTagCommand with the given arguments.

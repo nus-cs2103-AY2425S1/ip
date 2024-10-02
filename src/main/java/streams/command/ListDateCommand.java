@@ -19,7 +19,7 @@ import streams.util.Ui;
 public class ListDateCommand extends Command {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Constructs a ListDateCommand with the specified date.

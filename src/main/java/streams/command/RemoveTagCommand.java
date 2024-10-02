@@ -10,8 +10,8 @@ import streams.util.Ui;
  * Represents a command to remove a tag from a specific task.
  */
 public class RemoveTagCommand extends Command {
-    private int taskIndex;
-    private String tag;
+    private final int taskIndex;
+    private final String tag;
 
     /**
      * Constructs a RemoveTagCommand with the given arguments.

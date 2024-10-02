@@ -11,8 +11,8 @@ import streams.util.Ui;
  * Represents a command to mark a task as done or undone.
  */
 public class MarkCommand extends Command {
-    private int taskNumber;
-    private boolean isDone;
+    private final int taskNumber;
+    private final boolean isDone;
 
     /**
      * Constructs a MarkCommand with the task index and done status.

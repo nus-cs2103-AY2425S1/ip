@@ -1,7 +1,6 @@
 package streams.command;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import streams.task.Task;
 import streams.task.TaskList;
@@ -12,7 +11,7 @@ import streams.util.Ui;
  * Represents a command to list all tasks with a specific tag.
  */
 public class ListTagCommand extends Command {
-    private String tag;
+    private final String tag;
 
     /**
      * Constructs a ListTagCommand with the given tag.
@@ -38,7 +37,7 @@ public class ListTagCommand extends Command {
         assert storage != null : "Storage should not be null";
         List<Task> taggedTasks = tasks.getTasks().stream()
                 .filter(task -> task.hasTag(tag))
-                .collect(Collectors.toList());
+                .toList();
 
         if (taggedTasks.isEmpty()) {
             ui.showMessage("No tasks found with tag '" + tag + "'");

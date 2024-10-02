@@ -11,7 +11,7 @@ import streams.util.Ui;
  * Represents a command to find tasks containing a specific keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructs a FindCommand with the keyword to search for.
@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      */
     public FindCommand(String keyword) {
         assert keyword != null : "Find keyword should not be null";
-        assert keyword != "" : "Find keyword cannot be empty:( Retry";
+        assert keyword.isEmpty() : "Find keyword cannot be empty:( Retry";
         this.keyword = keyword;
     }
 

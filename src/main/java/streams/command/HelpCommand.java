@@ -21,11 +21,22 @@ public class HelpCommand extends Command {
         assert tasks != null : "Tasks should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
-        ui.showMessage("Below is a list of all possible commands and their formarts: \n list "
-                + "\n done [task number] \n unmark [task number] \n delete [task number] \n todo [task description]"
-                + "\n deadline [task description] /by [YYYY-MM-dd HH:mm] \n event [task description] /from [YYYY-MM-dd HH:mm]"
-                + "/to [YYYY-MM-dd HH:mm] \n find [keyword] \n sort-deadline \n list-date [YYYY-MM-dd] "
-                + "\n list-week \n tag [task number] [tag description] \n list-tag [keyword] \n tag-remove [task number] [description]"
-                + " \n bye ");
+        ui.showMessage("""
+                               Below is a list of all possible commands and their formart :\s
+                                list\s
+                                done [task number]\s
+                                unmark [task number]\s
+                                delete [task number]\s
+                                todo [task description]
+                                deadline [task description] /by [YYYY-MM-dd HH:mm]\s
+                                event [task description] /from [YYYY-MM-dd HH:mm]/to [YYYY-MM-dd HH:mm]\s
+                                find [keyword]\s
+                                sort-deadline\s
+                                list-date [YYYY-MM-dd]\s
+                                list-week\s
+                                tag [task number] [tag description]\s
+                                list-tag [keyword]\s
+                                tag-remove [task number] [description]\s
+                                bye\s""");
     }
 }
