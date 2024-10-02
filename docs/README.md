@@ -1,6 +1,6 @@
 # Nayana User Guide
 
-<img width="395" alt="image" src="https://github.com/user-attachments/assets/794a509e-f07c-43ba-b96a-58f21f68a1fd">
+<img width="395" alt="image" src="Ui.png">
 
 ## Product Introduction
 
@@ -135,7 +135,8 @@ Bye!!! Hope to help you again soon!
 
 ```
 ## Error Handling
-Nayana gracefully handles errors and provides informative error messages, such as when a task is added without a description or with an invalid date format.
+Nayana gracefully handles errors and provides informative error messages, such as when a task is added without a 
+description or with an invalid date format.
 
 This README.md provides a comprehensive guide on how to use the Nayana task manager. 
 If you find any errors please let the real Nayana know :)
