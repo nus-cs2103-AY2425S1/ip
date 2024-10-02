@@ -16,7 +16,7 @@ public abstract class Command {
     public abstract String execute (TaskList tasks, Ui ui, Storage storage) throws NextGPTException;
 
     /**
-     * Checks whether this is an ExitCommand.
+     * Returns whether this is an ExitCommand.
      * @return True if this is an ExitCommand.
      */
     public abstract boolean isExit();
