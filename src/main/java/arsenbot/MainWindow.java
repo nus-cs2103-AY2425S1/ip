@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -23,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private ArsenBot arsenBot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image ArsenImage = new Image(this.getClass().getResourceAsStream("/images/ArsenBot.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/User.png")));
+    private final Image ArsenImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/ArsenBot.png")));
 
     @FXML
     public void initialize() {
