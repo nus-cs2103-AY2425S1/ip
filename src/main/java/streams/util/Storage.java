@@ -65,22 +65,22 @@ public class Storage {
                 String description = parts[2];
                 Task task;
                 switch (parts[0]) {
-                    case "T":
-                        task = new ToDoTask(description);
-                        break;
-                    case "D":
-                        assert parts.length >= 4 : "Deadline task should have at least 4 parts";
-                        LocalDateTime by = LocalDateTime.parse(parts[3], INPUT_FORMATTER);
-                        task = new DeadlineTask(description, by);
-                        break;
-                    case "E":
-                        assert parts.length >= 5 : "Event task should have at least 5 parts";
-                        LocalDateTime from = LocalDateTime.parse(parts[3], INPUT_FORMATTER);
-                        LocalDateTime to = LocalDateTime.parse(parts[4], INPUT_FORMATTER);
-                        task = new EventTask(description, from, to);
-                        break;
-                    default:
-                        continue;
+                case "T":
+                    task = new ToDoTask(description);
+                    break;
+                case "D":
+                    assert parts.length >= 4 : "Deadline task should have at least 4 parts";
+                    LocalDateTime by = LocalDateTime.parse(parts[3] , INPUT_FORMATTER);
+                    task = new DeadlineTask(description , by);
+                    break;
+                case "E":
+                    assert parts.length >= 5 : "Event task should have at least 5 parts";
+                    LocalDateTime from = LocalDateTime.parse(parts[3] , INPUT_FORMATTER);
+                    LocalDateTime to = LocalDateTime.parse(parts[4] , INPUT_FORMATTER);
+                    task = new EventTask(description , from , to);
+                    break;
+                default:
+                    continue;
                 }
                 if (isDone) {
                     task.markAsDone();
