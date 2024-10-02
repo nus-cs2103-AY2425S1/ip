@@ -4,6 +4,7 @@ import kitty.kittyexceptions.FindException;
 import kitty.kittyexceptions.MarksException;
 import kitty.tasks.Task;
 
+import java.util.Scanner;
 
 
 public class Ui {
