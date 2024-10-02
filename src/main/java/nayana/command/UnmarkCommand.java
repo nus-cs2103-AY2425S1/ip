@@ -41,6 +41,11 @@ public class UnmarkCommand extends Command {
         ui.printUnmarkTask(task); // Displays a confirmation message with the current task list
     }
 
+    /**
+     * Determines if this command is an exit command.
+     *
+     * @return false as this command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;
