@@ -59,7 +59,7 @@ Snowy should return a text message that says that the task has been added.
 
 ```
 New Event task added:
-[E][] Holiday (from September 24, 2024 to: October 1, 2024
+[E][] Holiday (from September 24, 2024 to: October 1, 2024)
 ```
 
 ## Change task status
