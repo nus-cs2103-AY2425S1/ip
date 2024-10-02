@@ -1,6 +1,5 @@
 package kitty;
 
-
 import kitty.command.AddCommand;
 import kitty.command.FindCommand;
 import kitty.command.ListCommand;
@@ -11,7 +10,6 @@ import kitty.command.TagCommand;
 import kitty.kittyexceptions.FindException;
 import kitty.kittyexceptions.MarksException;
 import kitty.kittyexceptions.TagException;
-
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

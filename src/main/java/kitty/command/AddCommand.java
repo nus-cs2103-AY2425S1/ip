@@ -12,10 +12,10 @@ import kitty.tasks.Event;
 import kitty.tasks.Task;
 import kitty.tasks.Todo;
 
-
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class AddCommand extends Command {
     private final String commandBody;
@@ -36,10 +36,14 @@ public class AddCommand extends Command {
         this.storage = storage;
     }
 
+    /**
+     * Detects the type of command to add and transfers control to corresponding handler.
+     *
+     * @return a string representation of the result of adding command
+     */
     @Override
     public String run() {
         String[] parts = commandBody.split(" ", 2);
-        Task task;
 
         // create task if input is valid
         switch (parts[0]) {
