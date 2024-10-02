@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for NextGPT using FXML.
+ * Returns A GUI for NextGPT using FXML.
  */
 public class Main extends Application {
     private NextGPT nextGPT = new NextGPT("./data/tasks.txt");
