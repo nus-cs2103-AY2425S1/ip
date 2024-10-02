@@ -1,0 +1,45 @@
+/* color palettes taken from https://colorhunt.co/palettes/dark */
+.text-field {
+    -fx-background-color: #31363f;
+    -fx-font: 20px "Arial";
+    -fx-text-fill: #ffffff
+}
+
+.button {
+    -fx-background-color: #6eacda;
+    -fx-font: italic bold 16px "Arial";
+
+}
+
+.button:hover {
+    -fx-background-color: #03346e;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: #17153b;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: #4C3BCF;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #3DC2EC;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

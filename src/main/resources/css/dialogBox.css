@@ -1,0 +1,26 @@
+/* color palettes taken from https://colorhunt.co/palettes/dark */
+.label {
+    -fx-background-color: #3DC2EC;
+    -fx-border-color: #E2DFD0;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+    -fx-padding: 2mm;
+}
+
+
+#imageView {
+    /* Shadow effect on image. */
+    -fx-effect: innershadow(gaussian, #aaaaaa, 10, 0.5, 0, 0);
+
+    -fx-padding: 2em;
+
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+#dialogBox {
+    -fx-spacing: 10; /* 10 pixels of space between Label and ImageView */
+}
