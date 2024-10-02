@@ -14,6 +14,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A Storage class to store information to data file.
+ */
 public class Storage {
 
     private static final String DIR_PATH = "data";

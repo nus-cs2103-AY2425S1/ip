@@ -4,6 +4,9 @@ import kitty.tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A TaskList class to maintain tasks in arraylist structure.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<Task>(100);
     private int numOfTasksDone;
