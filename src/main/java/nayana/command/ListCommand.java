@@ -16,6 +16,11 @@ public class ListCommand extends Command {
 
     }
 
+    /**
+     * Determines if this command is an exit command.
+     *
+     * @return false as this command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;
