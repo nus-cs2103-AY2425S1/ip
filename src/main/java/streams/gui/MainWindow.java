@@ -30,9 +30,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        dialogContainer.heightProperty().addListener((observable, oldValue, newValue) -> {
-            scrollPane.setVvalue(1.0);
-        });
+        dialogContainer.heightProperty().addListener((observable, oldValue, newValue) -> scrollPane.setVvalue(1.0));
     }
     /** Injects the streams.Streams instance */
     public void setStream(Streams d) {
