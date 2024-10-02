@@ -22,6 +22,15 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks the task at the specified index as done.
+     * Updates the storage with the new task list and informs the user.
+     *
+     * @param tasks   The TaskList containing the tasks.
+     * @param ui      The Ui instance for user interaction.
+     * @param storage The Storage instance for saving tasks.
+     * @throws NayanaException If an error occurs while marking the task or writing to storage.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NayanaException {
 
@@ -33,6 +42,11 @@ public class MarkCommand extends Command {
         ui.printMarkTask(task); // Displays a confirmation message with the current task list.
     }
 
+    /**
+     * Determines if this command is an exit command.
+     *
+     * @return false as this command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;
