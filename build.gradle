@@ -46,12 +46,13 @@ test {
 }
 
 application {
-    mainClass.set("gui.Launcher")
+    mainClass.set("streams.gui.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "streams"
-    archiveClassifier = null
+    archiveClassifier.set('')
+    archiveVersion.set('')
 }
 
 run{
@@ -63,10 +64,6 @@ checkstyle {
     toolVersion = '10.18'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
 
 
 
