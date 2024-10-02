@@ -58,6 +58,10 @@ public class EditCommand extends Command {
 
     }
 
+    /**
+     * Returns whether this is an ExitCommand.
+     * @return True if this is an ExitCommand.
+     */
     @Override
     public boolean isExit() {
         return false;
