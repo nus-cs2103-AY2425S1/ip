@@ -24,6 +24,7 @@ Kitty is here to ensure that you don't lose sight of what is important.
   - [Tagging a task: `tag`](#tagging-a-task)
   - [Saying goodbye: `bye`](#saying-goodbye)
 
+---
 
 ## Quick Start
 
@@ -33,7 +34,7 @@ Kitty is here to ensure that you don't lose sight of what is important.
 4. Open a command terminal, `cd` into the folder you put the jar file in, 
 and use the `java -jar Kitty.jar` command to run the application.
 5. Type the command in the command box and press Enter to execute it. The command lists are as below.
-
+---
 
 ## Features
 
@@ -137,6 +138,7 @@ Expected output:
 Meow~ Okay we can continue this task!
   [T][ ] submit 2106 lab
 ```
+
 
 ### Deleting a task
 
