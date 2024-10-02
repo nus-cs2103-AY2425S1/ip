@@ -45,7 +45,11 @@ public class DeleteCommand extends Command{
             throw new NextGPTException("Task list index is out of bounds!");
         }
     }
-
+    
+    /**
+     * Returns whether this is an ExitCommand.
+     * @return True if this is an ExitCommand.
+     */
     @Override
     public boolean isExit() {
         return false;
