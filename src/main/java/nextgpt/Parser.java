@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
     /**
-     * Attempt to understand user input.
+     * Returns parsed command for a user input.
      *
      * @param fullCommand User input.
      * @return Command that contains the properties of user input.
