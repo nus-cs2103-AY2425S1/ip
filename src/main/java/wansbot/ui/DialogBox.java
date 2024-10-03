@@ -60,7 +60,7 @@ public class DialogBox extends HBox {
      * @param img Image representing WansBot.
      * @return DialogBox with image of WansBot and WansBots' response.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getWansBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         if (text.startsWith("I'm sorry") || text.startsWith("You need")

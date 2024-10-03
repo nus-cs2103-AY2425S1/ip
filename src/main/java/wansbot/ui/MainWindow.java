@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void setWansBot(WansBot w) {
         wansBot = w;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(wansBot.getResponse("hello"), wansImage)
+                DialogBox.getWansBotDialog(wansBot.getResponse("hello"), wansImage)
         );
     }
 
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = wansBot.getResponse(input);
         DialogBox userBox =  DialogBox.getUserDialog(input, userImage);
-        DialogBox botBox = DialogBox.getDukeDialog(response, wansImage);
+        DialogBox botBox = DialogBox.getWansBotDialog(response, wansImage);
         dialogContainer.getChildren().addAll(
                 userBox,
                 botBox
