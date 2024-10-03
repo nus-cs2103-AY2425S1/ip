@@ -23,7 +23,7 @@ public class AddCommand extends Command {
   @Override
   public String execute(TaskList tasks, Ui ui, Storage storage) {
     assert task != null : "Task to be added cannot be null";
-    assert tasks.getTaskListLength() < 100 : "Task list is already full!!!";
+    assert tasks.getTaskListLength() < 100 : "Task list is already full!";
 
     try {
       tasks.addTask(task);
