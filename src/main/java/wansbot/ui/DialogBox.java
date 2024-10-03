@@ -53,6 +53,13 @@ public class DialogBox extends HBox {
         return userBox;
     }
 
+    /**
+     * Displays WansBot text bubbles when User inputs a command.
+     *
+     * @param text WansBot's response.
+     * @param img Image representing WansBot.
+     * @return DialogBox with image of WansBot and WansBots' response.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
