@@ -242,6 +242,9 @@ public class WansBot {
         }
     }
 
+    /**
+     * Checks whether the date is between start and end. If not throw error.
+     */
     private void checkValidDates(LocalDate start, LocalDate end) {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException();
