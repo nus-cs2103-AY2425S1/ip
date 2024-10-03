@@ -66,7 +66,7 @@ public class EventCommand extends Command {
             LocalDateTime to = LocalDateTime.parse(eventSplit[2].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-            Task event = new Event(command[0], from, to);
+            Task event = new Event(eventSplit[0], from, to);
             tasks.addToList(event);
 
             storage.addToStorage(event.toStringInFile());
