@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
      * @throws MullerException If the input is not a valid task number.
      */
     public UnmarkCommand(String[] inputs) throws MullerException {
-        if (CommandUtil.isMarkCommandValid(inputs)) {
+        if (CommandUtil.isMarkCommandNotValid(inputs)) {
             throw new MullerException("Pick a valid task number to unmark!");
         }
         this.index = Integer.parseInt(inputs[1]) - 1;
@@ -26,23 +26,12 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
         CommandUtil.assertionTest(tasks, ui, storage);
+        if (!CommandUtil.isTaskIndexValid(index, tasks.getSize())) {
+            throw new MullerException("Invalid task number!");
+        }
         tasks.get(index).markAsNotDone();
         storage.saveTasks(tasks);
         return ui.showTaskUnMarked(tasks, index);
     }
-
-    /**
-     * Checks if the input string is a numeric value.
-     *
-     * @param str The input string.
-     * @return True if the string is numeric, false otherwise.
-     */
-    private boolean isNumeric(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }
+

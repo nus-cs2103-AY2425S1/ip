@@ -3,8 +3,11 @@ package muller.command;
 import java.time.LocalDate;
 
 import muller.storage.Storage;
+import muller.task.DeadlineTask;
+import muller.task.EventTask;
 import muller.task.Task;
 import muller.task.TaskList;
+import muller.task.TodoTask;
 import muller.ui.Ui;
 
 /**
@@ -28,7 +31,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
         CommandUtil.assertionTest(tasks, ui, storage);
-        if (CommandUtil.isInputComplete(commandInputs)) {
+        if (CommandUtil.isInputNotComplete(commandInputs)) {
             throw new MullerException(taskType.equals("T") ? "Todo what?"
                     : taskType.equals("D") ? "Deadline for what?" : "Event for what?");
         }
@@ -37,8 +40,7 @@ public class AddCommand extends Command {
 
         switch (taskType) {
         case "T":
-            task = new Task(details);
-            task.setType("T");
+            task = new TodoTask(details);
             break;
         case "D":
             task = parseDeadline(details);
@@ -60,43 +62,39 @@ public class AddCommand extends Command {
      * Parses the details of a Deadline task.
      *
      * @param details The task details.
-     * @return A Task object representing the Deadline.
+     * @return A DeadlineTask object representing the deadline.
      * @throws MullerException If the date format is invalid.
      */
-    private Task parseDeadline(String details) throws MullerException {
+    private DeadlineTask parseDeadline(String details) throws MullerException {
         String[] detailParts = details.split("/by", 2);
-        if (CommandUtil.isInputComplete(detailParts)) {
+        if (CommandUtil.isInputNotComplete(detailParts)) {
             throw new MullerException("Oops, you didn't specify the deadline!");
         }
-        Task task = new Task(detailParts[0].trim());
-        task.setType("D");
+        String name = detailParts[0].trim();
         LocalDate date = parseDate(detailParts[1].trim());
-        task.setDate(date);
-        return task;
+        return new DeadlineTask(name, date);
     }
 
     /**
      * Parses the details of an Event task.
      *
      * @param details The task details.
-     * @return A Task object representing the Event.
+     * @return An EventTask object representing the event.
      * @throws MullerException If the date format is invalid.
      */
-    private Task parseEvent(String details) throws MullerException {
-        String[] detailParts = details.split("/from", 2); //A String array that separates event name and relevant dates.
-        if (CommandUtil.isInputComplete(detailParts)) { //Checks if dates are specified.
+    private EventTask parseEvent(String details) throws MullerException {
+        String[] detailParts = details.split("/from", 2);
+        if (CommandUtil.isInputNotComplete(detailParts)) {
             throw new MullerException("Oops, you didn't specify the start date!");
         }
-        String[] dateParts = detailParts[1].split("/to", 2); // A String array that separates start date and end date.
-        if (CommandUtil.isInputComplete(dateParts)) { //Checks if end date/start date is specified.
+        String[] dateParts = detailParts[1].split("/to", 2);
+        if (CommandUtil.isInputNotComplete(dateParts)) {
             throw new MullerException("You missed out either the start or end date!");
         }
-        Task task = new Task(detailParts[0].trim());
-        task.setType("E");
+        String name = detailParts[0].trim();
         LocalDate startDate = parseDate(dateParts[0].trim());
         LocalDate endDate = parseDate(dateParts[1].trim());
-        task.setDateRange(startDate, endDate);
-        return task;
+        return new EventTask(name, startDate, endDate);
     }
 
     /**
@@ -114,4 +112,3 @@ public class AddCommand extends Command {
         }
     }
 }
-

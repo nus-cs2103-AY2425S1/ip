@@ -58,9 +58,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         if (response.trim().equalsIgnoreCase("Bye. Hope to see you again soon!")) {
             // Create a delay before closing the application
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));  // 2 seconds delay
-            delay.setOnFinished(event -> Platform.exit());  // Exit the application after the delay
-            delay.play();  // Start the delay
+            PauseTransition delay = new PauseTransition(Duration.seconds(2)); // 2 seconds delay
+            delay.setOnFinished(event -> Platform.exit()); // Exit the application after the delay
+            delay.play(); // Start the delay
         }
     }
 }

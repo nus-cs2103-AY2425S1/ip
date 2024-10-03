@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @throws MullerException If the keyword is missing.
      */
     public FindCommand(String[] inputs) throws MullerException {
-        if (CommandUtil.isFindCommandValid(inputs)) {
+        if (CommandUtil.isFindCommandNotValid(inputs)) {
             throw new MullerException("Please provide a keyword to search for!");
         }
         this.keyword = inputs[1].trim();
@@ -33,4 +33,5 @@ public class FindCommand extends Command {
         return ui.showMatchingTasks(matchingTasks);
     }
 }
+
 

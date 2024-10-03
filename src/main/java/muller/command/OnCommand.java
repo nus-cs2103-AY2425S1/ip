@@ -7,8 +7,6 @@ import muller.task.Task;
 import muller.task.TaskList;
 import muller.ui.Ui;
 
-
-
 /**
  * Command to list all tasks occurring on a specific date.
  */
@@ -22,7 +20,7 @@ public class OnCommand extends Command {
      * @throws MullerException If the input date format is invalid.
      */
     public OnCommand(String[] inputs) throws MullerException {
-        if (CommandUtil.isInputComplete(inputs)) {
+        if (CommandUtil.isInputNotComplete(inputs)) {
             throw new MullerException("Specify a date (e.g., 'on 2019-10-15')!");
         }
         try {
@@ -38,3 +36,4 @@ public class OnCommand extends Command {
         return ui.showTaskOnDate(tasks, date);
     }
 }
+

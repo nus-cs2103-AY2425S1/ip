@@ -28,7 +28,7 @@ public class CommandUtil {
      * @param taskListSize
      * @return
      */
-    public static boolean isValidTaskIndex(int index, int taskListSize) {
+    public static boolean isTaskIndexValid(int index, int taskListSize) {
         return index >= 0 && index < taskListSize;
     }
 
@@ -38,7 +38,7 @@ public class CommandUtil {
      * @param commandInputs
      * @return
      */
-    public static boolean isInputComplete(String[] commandInputs) {
+    public static boolean isInputNotComplete(String[] commandInputs) {
         return commandInputs.length < 2;
     }
 
@@ -63,7 +63,16 @@ public class CommandUtil {
      * @param commandInputs
      * @return
      */
-    public static boolean isDeleteCommandValid(String[] commandInputs) {
+    public static boolean isDeleteCommandNotValid(String[] commandInputs) {
+        return commandInputs.length < 2 || !isNumeric(commandInputs[1]);
+    }
+
+    /**
+     * Check the command to Remind tasks is valid
+     * @param commandInputs
+     * @return
+     */
+    public static boolean isRemindCommandNotValid(String[] commandInputs) {
         return commandInputs.length < 2 || !isNumeric(commandInputs[1]);
     }
 
@@ -73,7 +82,7 @@ public class CommandUtil {
      * @param commandInputs
      * @return
      */
-    public static boolean isFindCommandValid(String[] commandInputs) {
+    public static boolean isFindCommandNotValid(String[] commandInputs) {
         return commandInputs.length < 2 || commandInputs[1].trim().isEmpty();
     }
 
@@ -83,7 +92,7 @@ public class CommandUtil {
      * @param commandInputs
      * @return
      */
-    public static boolean isMarkCommandValid(String[] commandInputs) {
+    public static boolean isMarkCommandNotValid(String[] commandInputs) {
         return commandInputs.length < 2 || !isNumeric(commandInputs[1]);
     }
 }

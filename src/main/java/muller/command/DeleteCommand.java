@@ -18,27 +18,23 @@ public class DeleteCommand extends Command {
      * @throws MullerException If the input is not a valid task number.
      */
     public DeleteCommand(String[] inputs) throws MullerException {
-        if (CommandUtil.isDeleteCommandValid(inputs)) {
+        if (CommandUtil.isDeleteCommandNotValid(inputs)) {
             throw new MullerException("Pick a valid task number to delete!");
         }
-
-        //Resize the index to make sure align with 0-indexed list.
+        // Adjust the index for 0-based indexing
         this.index = Integer.parseInt(inputs[1]) - 1;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
         CommandUtil.assertionTest(tasks, ui, storage);
-        try {
-            if (CommandUtil.isValidTaskIndex(index, tasks.getSize())) {
-                throw new MullerException("Invalid task number!");
-            }
-            Task deletedTask = tasks.get(index);
-            tasks.deleteTask(index);
-            storage.saveTasks(tasks);
-            return ui.showTaskDeleted(tasks, deletedTask, index);
-        } catch (MullerException e) {
-            return e.getMessage();
+        if (!CommandUtil.isTaskIndexValid(index, tasks.getSize())) {
+            throw new MullerException("Invalid task number!");
         }
+        Task taskToDelete = tasks.get(index);
+        tasks.deleteTask(index);
+        storage.saveTasks(tasks);
+        return ui.showTaskDeleted(tasks, taskToDelete, index);
     }
 }
+
