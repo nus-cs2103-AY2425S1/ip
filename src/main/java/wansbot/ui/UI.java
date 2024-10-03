@@ -241,6 +241,10 @@ public class UI {
                 + " including the ?";
     }
 
+    /**
+     * Handles user empty input
+     *
+     */
     public String handleWrongMarkFormat() {
         return "You need to input something after mark!";
     }
