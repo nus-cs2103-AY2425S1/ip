@@ -1,0 +1,8 @@
+todo ip
+event meeting for work /from 0300 /to 1200
+deadline quiz 2 /by Monday
+list
+mark 3
+list
+bye
+
