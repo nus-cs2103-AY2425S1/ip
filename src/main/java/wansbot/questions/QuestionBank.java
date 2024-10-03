@@ -33,13 +33,21 @@ public class QuestionBank {
         System.out.println(qn);
         System.out.println(questions.get(0));
         for (int i = 0; i < questions.size(); i++) {
-            if (qn.equalsIgnoreCase(questions.get(i).toString())) {
-                System.out.println("got the question!");
-                return questions.get(i);
-            }
+            if (recogniseQuestion(qn, i)) return questions.get(i);
         }
 
         return null;
+    }
+
+    /**
+     * Checks whether the String qn is recognised by WansBot.
+     */
+    private boolean recogniseQuestion(String qn, int i) {
+        if (qn.equalsIgnoreCase(questions.get(i).toString())) {
+            System.out.println("got the question!");
+            return true;
+        }
+        return false;
     }
 
     /**
