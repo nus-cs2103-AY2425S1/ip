@@ -133,7 +133,19 @@ Muller will respond:
 Tasks on Sep 15 2023:
 1. [D][ ] Return library book (by: Sep 15 2023)
 ```
-## 9. bye
+
+## 10. remind
+Remind the user about the tasks some days(specified by user) before deadline.
+Format:
+```
+remind 3
+```
+Muller will respond:
+```
+Here are the tasks due in the next 3 days:
+1. [D][ ] Return library book (by: Sep 15 2023)
+```
+## 11. bye
 Exit the application.
 Format:
 ```
