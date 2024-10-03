@@ -40,7 +40,7 @@ Example: `todo read a book`
 **Expected Outcome**: A new ToDo task is added to your list.
 
 ```
-Yay! \uD83C\uDF37 I’ve added '[T][] read a book' just for you! Keep up the great work! \uD83D\uDCAA✨ ";
+Yay! I’ve added '[T][] read a book' just for you! Keep up the great work! ✨ ";
 ```
 
 ### 2. Listing All Tasks
