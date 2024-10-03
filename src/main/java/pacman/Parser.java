@@ -2,6 +2,10 @@ package pacman;
 
 import java.time.format.DateTimeParseException;
 
+import pacman.exception.PacmanException;
+import pacman.exception.PacmanInvalidDateException;
+import pacman.exception.PacmanInvalidFormatException;
+
 /**
  * Implements execution of the command that is sent
  */
@@ -34,20 +38,32 @@ public class Parser {
         addList(new Todo(task));
     }
 
-    private static void addDeadline(String task) throws ArrayIndexOutOfBoundsException, DateTimeParseException {
-        String[] splitter = task.split("/", 2);
-        String taskName = splitter[0];
-        String by = splitter[1].split(" ", 2)[1];
-        addList(new Deadline(taskName, by));
+    private static void addDeadline(String task) throws PacmanException {
+        try {
+            String[] splitter = task.split("/", 2);
+            String taskName = splitter[0];
+            String by = splitter[1].split(" ", 2)[1];
+            addList(new Deadline(taskName, by));
+        } catch (DateTimeParseException e) {
+            throw new PacmanInvalidDateException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new PacmanInvalidFormatException();
+        }
     }
 
-    private static void addEvent(String task) throws ArrayIndexOutOfBoundsException, DateTimeParseException {
-        String[] splitter = task.split("/", 3);
-        String taskName = splitter[0];
-        String from = splitter[1].split(" ", 2)[1];
-        String to = splitter[2].split(" ", 2)[1];
-        from = from.substring(0, from.length() - 1);
-        addList(new Event(taskName, from, to));
+    private static void addEvent(String task) throws PacmanException {
+        try {
+            String[] splitter = task.split("/", 3);
+            String taskName = splitter[0];
+            String from = splitter[1].split(" ", 2)[1];
+            String to = splitter[2].split(" ", 2)[1];
+            from = from.substring(0, from.length() - 1);
+            addList(new Event(taskName, from, to));
+        } catch (DateTimeParseException e) {
+            throw new PacmanInvalidDateException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new PacmanInvalidFormatException();
+        }
     }
 
     private static void deleteTask(int index) {
@@ -113,8 +129,8 @@ public class Parser {
                 addDeadline(task);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.showResult("I'm sorry, but I can't find the task name or the time :(");
-            } catch (DateTimeParseException e) {
-                ui.showResult("I'm sorry, but invalid date/time format, it should be YYYY-MM-DD");
+            } catch (PacmanException e) {
+                ui.showResult(e.getMessage());
             }
         }
         case "event", "E" -> {
@@ -123,8 +139,8 @@ public class Parser {
                 addEvent(task);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.showResult("I'm sorry, but I can't find the task name or the time :(");
-            } catch (DateTimeParseException e) {
-                ui.showResult("I'm sorry, but invalid date/time format, it should be YYYY-MM-DD");
+            } catch (PacmanException e) {
+                ui.showResult(e.getMessage());
             }
         }
         case "delete", "d" -> {
