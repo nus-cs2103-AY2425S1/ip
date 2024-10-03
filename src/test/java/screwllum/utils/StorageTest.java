@@ -1,6 +1,7 @@
 package screwllum.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +37,22 @@ public class StorageTest {
 
         Task event = new TaskStub("[E][ ] surprise (from: May 04 2010 to: Sep 09 1999)");
         assertEquals(event.toString(), storage.parseTask("E_0_surprise_2010-5-4_1999-9-9").toString());
+    }
 
+    @Test
+    public void load_invalid_exceptionThrown() throws IllegalFileFormatException {
+        Storage storage = new Storage();
+        String savedData = "A_0_test";
+        try {
+            Task todo = new TaskStub("[T][ ] test");
+            assertEquals(todo.toString(), storage.parseTask(savedData).toString());
+            fail();
+        } catch (Exception e) {
+            String expected = "How peculiar, the file being loaded contains "
+                    + savedData
+                    + " which is not the right format.\n"
+                    + "Please delete the existing file so that I can write a new one for you!";
+            assertEquals(expected, e.getMessage());
+        }
     }
 }
