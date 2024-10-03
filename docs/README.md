@@ -9,7 +9,7 @@ Welcome to **Eli**, your lovely personal assistant designed to help you manage t
 ## Quick Start Guide
 
 1. **Add your tasks** by using the `todo`, `deadline`, and `event` commands.
-2. **Manage your tasks** by marking them as done, unmarking, or deleting them.
+2. **Manage your tasks** by marking them as done, unmarking, or deleting task.
 3. **Find specific tasks** with the `find` command.
 4. **List all your tasks** anytime with the `list` command.
 5. **Exit** the chatbot by typing `bye`.
