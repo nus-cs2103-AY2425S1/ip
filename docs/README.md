@@ -80,7 +80,7 @@ Example: delete 1
 **Expected Outcome**: The specified task is removed from the list.
 
 ```
-Alright, now '[T][] read a book' is gone! ✨ You're doing amazing, keep it up! \uD83C\uDF08";
+Alright, now '[T][] read a book' is gone! ✨ You're doing amazing, keep it up!";
 ```
 
 ### 5. Finding Tasks
