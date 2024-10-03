@@ -96,7 +96,7 @@ public class Ui {
    * @return A string displaying a confirmation message for the deleted task.
    */
   public static String displayAfterDeleteTask(Task task) {
-    return "Alright, now '" + task + "' is gone! ✨ You're doing amazing, keep it up!! \uD83C\uDF08";
+    return "Now '" + task + "' is gone! ✨ You're doing amazing, keep it up!! \uD83C\uDF08";
   }
 
   /**
