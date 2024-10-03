@@ -1,11 +1,10 @@
 package muller.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import muller.command.MullerException;
-
-
 
 /**
  * Represents the list of tasks. Provides methods to manage tasks, including adding, deleting, and retrieving tasks.
@@ -82,6 +81,32 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that are due within the given date range.
+     *
+     * @param from The start date (usually today).
+     * @param to   The end date (e.g., 7 days from today).
+     * @return A list of tasks that are due within the specified date range.
+     */
+    public List<Task> getTasksDueSoon(LocalDate from, LocalDate to) {
+        List<Task> upcomingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof DeadlineTask) {
+                LocalDate deadline = ((DeadlineTask) task).getDeadline();
+                if (deadline != null && (deadline.isEqual(from) || (deadline.isAfter(from) && deadline.isBefore(to)))) {
+                    upcomingTasks.add(task);
+                }
+            } else if (task instanceof EventTask) {
+                LocalDate startDate = ((EventTask) task).getStartDate();
+                if (startDate != null
+                        && (startDate.isEqual(from) || (startDate.isAfter(from) && startDate.isBefore(to)))) {
+                    upcomingTasks.add(task);
+                }
+            }
+        }
+        return upcomingTasks;
+    }
+
+    /**
      * Returns the number of tasks in the list.
      *
      * @return The size of the task list.
@@ -108,3 +133,4 @@ public class TaskList {
         return tasks;
     }
 }
+

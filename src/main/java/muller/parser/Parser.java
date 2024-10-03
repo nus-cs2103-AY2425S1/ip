@@ -9,6 +9,7 @@ import muller.command.ListCommand;
 import muller.command.MarkCommand;
 import muller.command.MullerException;
 import muller.command.OnCommand;
+import muller.command.RemindCommand;
 import muller.command.UnmarkCommand;
 
 /**
@@ -30,12 +31,14 @@ public class Parser {
         String[] inputs = fullCommand.split(" ", 2);
 
         // Programmer-level assumption: inputs should always have at least one element (the command itself)
-        assert inputs.length > 0 : "Command should have at least one token";
+        assert inputs.length > 0 : "Command should not be empty";
         String commandWord = inputs[0].toLowerCase();
 
         switch (commandWord) {
         case "bye":
             return new ExitCommand();
+        case "remind":
+            return new RemindCommand(inputs);
         case "list":
             return new ListCommand();
         case "mark":

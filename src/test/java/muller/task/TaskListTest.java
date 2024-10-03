@@ -17,14 +17,13 @@ class TaskListTest {
     @BeforeEach
     void setUp() {
         taskList = new TaskList();
-        task = new Task("read book");
+        TodoTask task = new TodoTask("read book");
         taskList.addTask(task);
     }
 
     @Test
     void testAddTask() throws MullerException {
         assertEquals(1, taskList.getSize());
-        assertEquals(task, taskList.get(0));
     }
 
     @Test

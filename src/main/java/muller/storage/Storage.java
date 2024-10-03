@@ -10,14 +10,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import muller.command.MullerException;
+import muller.task.DeadlineTask;
+import muller.task.EventTask;
 import muller.task.Task;
 import muller.task.TaskList;
+import muller.task.TodoTask;
 
 /**
  * Handles the loading and saving of tasks to and from a file.
  */
 public class Storage {
     private String filePath;
+
     /**
      * Constructs a Storage object with the specified file path.
      *
@@ -26,6 +30,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
     /**
      * Loads tasks from the specified file.
      *
@@ -86,25 +91,39 @@ public class Storage {
      * Parses a line of text from the file into a Task object.
      *
      * @param parts The components of the task read from the file.
-     * @return The Task object parsed from the file.
+     * @return The specific Task object (TodoTask, DeadlineTask, EventTask) parsed from the file.
      * @throws MullerException If there is an issue parsing the task.
      */
     private Task parseTask(String[] parts) throws MullerException {
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String name = parts[2];
-        Task task = new Task(name);
-        task.setType(type);
-        task.markAsDone(isDone);
+        String type = parts[0].trim(); // Get task type: [T], [D], [E]
+        boolean isDone = parts[1].equals("1"); // Done status
+        String name = parts[2].trim(); // Task name
 
-        if (type.equals("D") && parts.length >= 4) {
-            LocalDate date = LocalDate.parse(parts[3], Task.INPUT_DATE_FORMATTER);
-            task.setDate(date);
-        } else if (type.equals("E") && parts.length >= 5) {
-            LocalDate startDate = LocalDate.parse(parts[3], Task.INPUT_DATE_FORMATTER);
-            LocalDate endDate = LocalDate.parse(parts[4], Task.INPUT_DATE_FORMATTER);
-            task.setDateRange(startDate, endDate);
+        Task task;
+        switch (type) {
+        case "T":
+            task = new TodoTask(name);
+            break;
+        case "D":
+            if (parts.length < 4) {
+                throw new MullerException("Deadline task is missing date information.");
+            }
+            LocalDate deadline = LocalDate.parse(parts[3].trim(), Task.OUTPUT_DATE_FORMATTER);
+            task = new DeadlineTask(name, deadline);
+            break;
+        case "E":
+            if (parts.length < 5) {
+                throw new MullerException("Event task is missing start and/or end date information.");
+            }
+            LocalDate startDate = LocalDate.parse(parts[3].trim(), Task.OUTPUT_DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(parts[4].trim(), Task.OUTPUT_DATE_FORMATTER);
+            task = new EventTask(name, startDate, endDate);
+            break;
+        default:
+            throw new MullerException("Unknown task type found in file.");
         }
+
         return task;
     }
 }
+

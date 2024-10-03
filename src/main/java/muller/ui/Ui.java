@@ -72,6 +72,25 @@ public class Ui {
             return e.getMessage();
         }
     }
+
+    /**
+     * Displays a list of tasks that are due soon.
+     *
+     * @param tasks The TaskList containing the tasks to display.
+     */
+    public String showReminders(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            return "No upcoming tasks in the specified time frame.";
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are your upcoming tasks:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                sb.append((i + 1) + ": " + tasks.get(i));
+            }
+            return sb.toString();
+        }
+    }
+
     /**
      * Displays the task on specific dates.
      * @param tasks The list of tasks currently on the list.
