@@ -44,7 +44,7 @@ public class Config {
 
 	public static boolean handleHelloMessage(String message) {
 		// Create regex to catch 'hello' in multiple languages
-		String regex = "\\b(hello|hola|bonjour|hallo|ciao|olá|namaste|salve|konnichiwa|nǐ hǎo|annyeonghaseyo|merhaba|szia|salām|privet|ahoj|god dag|sawubona|shalom)\\b";
+		String regex = "\\b(hello|hola|bonjour|hallo|ciao|ola|namaste|salve|konnichiwa|ni hao|annyeonghaseyo|merhaba|szia|salām|privet|ahoj|god dag|sawubona|shalom)\\b";
 		// Compile the pattern with case-insensitive flag
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 		// Create matcher for the test string
