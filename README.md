@@ -1,4 +1,4 @@
-# **Sinatra: A Swingin' Pal**
+# **Sinatra: Your Swingin' Pal**
 
 Sinatra helps you track your life when you can't track it yourself
 
