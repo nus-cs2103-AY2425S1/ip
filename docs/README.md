@@ -80,13 +80,13 @@
    1. [D][ ] CS2103T weekly work  (by: Oct 11 2020)
    2. [E][ ] project meeting for CS2103T (from: Oct 08 2020 to: Oct 26 2020)
    ```
-2. `Search` tasks that need to be done before a date:
+2. `Search` tasks that you need to do on a date:
     - search `date`
     - Example search 2020-10-10
     - Example output :
     ```
     These are the tasks related to this date 2020-10-10
-    1. [D][ ] something  (by: 2020-10-11)
+    1. [D][ ] do homework  (by: Oct 11 2020)
     2. [E][ ] project meeting  (from: Oct 08 2020 to: Oct 26 2020)
    ```
 3. `Sort` all tasks based on due time, the most urgent task in front:
@@ -96,7 +96,7 @@
    ```
    I have sorted the list for you~ ^_^
    This is your new task list.
-    1. [D][ ] something  (by: Oct 11 2020)
+    1. [D][ ] do homework  (by: Oct 11 2020)
     2. [E][ ] project meeting  (from: Oct 10 2020 to: Oct 26 2020)
     3. [T][X] wash clothes
    ```
