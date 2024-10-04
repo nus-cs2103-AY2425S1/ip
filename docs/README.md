@@ -1,6 +1,6 @@
 # Donk User Guide
 
-![Screenshot of App UI | width=350](./Ui.png)
+![Screenshot of App UI](./Ui.png)
 
 Donk is an ultra intelligent chatbot that can help you to organize your life. Sort it out now with Donk!
 
@@ -20,7 +20,7 @@ Adds a task that has a dateline
 
 ## Adding Event
 
-Format: `event <DESCRIPTION> /start <DD-MM-YYYY> /end <DD-MM-YYYY>`
+Format: `event <DESCRIPTION> /start <DD-MM-YYYY hhmm> /end <DD-MM-YYYY hhmm>`
 
 Adds an event which has a start and end date
 
@@ -54,4 +54,4 @@ Mark and unmark specific items as done or undone. This will be reflected in the 
 
 format: `bye`
 
-Exits the program and saves the current list of items
+Exits the program and saves the current list of items, so you items are saved the next time you log in!
