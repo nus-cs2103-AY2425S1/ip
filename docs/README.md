@@ -74,6 +74,12 @@ to handle upcoming events.
 where `dd` = date, `MM` = month, `yyyy` = year,
 `HH` = hour, `mm` = minute
 
+> `event Event 1 /from 18/09/2024 23:59 /to 19/09/2024 23:59`
+> 
+>       Got it! I have added: [E][ ] Event 1 (from: 18/09/2024 23:59 to: 19/09/2024 23:59) | []
+>
+>       Now you have 3 tasks in the list
+
 ## Deleting tasks
 
 The feature allows you to delete tasks (Deadline, Event, Todo)
