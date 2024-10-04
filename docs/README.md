@@ -70,6 +70,13 @@ Command: `todo <name_of_TODO_item>`
 
 Example: `todo Finish 2100 Lab 3`
 
+Expected output: 
+
+```
+Added "[T][ ] Finish 2100 Lab 3" as a new task I guess
+you have 1 tasks now
+```
+
 ### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
@@ -77,6 +84,14 @@ Use this command to help you add a DEADLINE to the task list.
 Command: `deadline <name_of_DEADLINE> /by <Additional info>`
 
 Example: `deadline finish README /by Tomorrow`
+
+Expected output: 
+
+```
+lol
+"[D][ ] finish README (by: Tomorrow)"
+is a new deadline, better finish it quick... you have 2 tasks now
+```
 
 ### Adding EVENTs: `event`
 
@@ -86,6 +101,15 @@ Use this command to help you add an EVENT to the task list.\
 Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
 Example: `event recess week /from Now /to Forever` or `event recess week /to Forever /from Now`
+
+Expected output: 
+
+```
+Wow
+"[E][ ] recess week (from: Now to: Forever)"
+is an event in your life huh?
+you have 3 tasks now
+```
 
 ## Date formats
 For `Event` and `Deadline` there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
@@ -124,6 +148,14 @@ Command: `mark <Task index number>`
 
 Example: `mark 1`
 
+Expected output:
+
+```
+marked 1 as completed
+"[T][X] Finish 2100 Lab 3"
+wow you actually did something... amazing...
+```
+
 ### Unmarking a task
 
 Use this command to unmark the task back to the status of not done yet.
@@ -131,6 +163,16 @@ Use this command to unmark the task back to the status of not done yet.
 Command: `unmark <Task index number>`
 
 Example: `unmark 1`
+
+
+Expected output:
+
+```
+marked 1 as uncompleted
+"[T][ ] Finish 2100 Lab 3"
+so finishing that was a lie huh? Same tbh... doing stuff is hard
+```
+
 
 ### Deleting a task
 
@@ -140,6 +182,17 @@ Command: `delete <Task index number>`
 
 Example: `delete 2`
 
+
+Expected output:
+
+```
+deleted 2
+"[D][ ] finish README (by: Tomorrow)"
+Hope you got that right...
+
+User:
+```
+
 ### Finding a task using keyword
 
 Use this command to search for all tasks whose description contains the input <String> as a substring
@@ -147,6 +200,13 @@ Use this command to search for all tasks whose description contains the input <S
 Command: `find <String>`
 
 Example: `find recess`
+
+Expected output:
+
+```
+1. [E][ ] recess weel (from: Now to: Forever)
+```
+
 
 ### Clearing all Tasks
 
