@@ -65,7 +65,6 @@
    Now you have 0 tasks in the list
    ```
 5. `Exit` the bot:
-   - 
    - Format : bye
    - Example output:
    ``` 
