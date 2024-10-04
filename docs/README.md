@@ -81,6 +81,9 @@
    2. [E][ ] project meeting for CS2103T (from: Oct 08 2020 to: Oct 26 2020)
    ```
 2. `Search` tasks that you need to do on a date:
+    - Following tasks will be displayed:
+      1. Deadlines with a by date that is earlier than  the given date
+      2. Event with a from date that is later than the given date and a to date that is earlier than the given date
     - search `date`
     - Example search 2020-10-10
     - Example output :
