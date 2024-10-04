@@ -62,7 +62,7 @@ Note that commands are read as the first string of letters before a white space
 
 
 ## Adding tasks
-#### Adding TODOs: `todo`
+### Adding TODOs: `todo`
 
 Use this command to help you add a TODO item to the task list.
 
@@ -70,7 +70,7 @@ Command: `todo <name_of_TODO_item>`
 
 Example: `todo Finish 2100 Lab 3`
 
-#### Adding DEADLINEs: `deadline`
+### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
 
@@ -78,7 +78,7 @@ Command: `deadline <name_of_DEADLINE> /by <Additional info>`
 
 Example: `deadline finish README /by Tomorrow`
 
-#### Adding EVENTs: `event`
+### Adding EVENTs: `event`
 
 Use this command to help you add an EVENT to the task list.\
 /to and /from can be used in either order
