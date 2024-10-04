@@ -15,24 +15,27 @@
        - Example : todo wash clothes
        - Example output : 
        ```
+       Got it. I've added this task:
+       [T][ ] wash clothes
        Now you have 1 tasks in list
-       1. [T][ ] wash clothes
        ```
    2. `Deadline`: 
       - Format : deadline `description` /by `YYYY-MM-DD`
       - Example : deadline CS2103T ip /by 2024-09-26
       - Example output :
        ```
-       Now you have 1 tasks in list
-       1. [D][ ] CS2103T ip (by: Sep 26 2024)
+      Got it. I've added this task:
+      [D][ ] CS2103T ip (by: Sep 26 2024)
+      Now you have 1 tasks in list
        ```
    3. `Event`: 
       - Format : event `description` /from  `YYYY-MM-DD` /to `YYYY-MM-DD`
       - Example : event CS2103T ip /from 2024-08-16 /to 2024-09-26
       - Example output :
        ```
-       Now you have 1 tasks in list
-       1. [E][ ] CS2103T ip (from: Aug 16 2024 to: Sep 26 2024)
+      Got it. I've added this task:
+      [E][ ] CS2103T ip (from: Aug 16 2024 to: Sep 26 2024)
+      Now you have 1 tasks in list
        ```
 2. `View` all tasks
    - Format : list
