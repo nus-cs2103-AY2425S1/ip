@@ -19,13 +19,13 @@ you can edit it if you want but all invalid lines of data will be ignored
     - [Adding an EVENT](#adding-events-event) `event`
   - [Date Formats](#date-formats)
   - [Additional Commands](#additional-commands)
-    - [Listing all Tasks](#listing-all-tasks)`list`
-    - [Marking a Task](#marking-a-task)`mark`
-    - [Unmarking a Task ](#unmarking-a-task)`unmark`
-    - [Deleting a Task](#deleting-a-task)`delete`
-    - [Finding a Task using keyword](#finding-a-task-using-keyword)`find`
-    - [Clearing all Tasks](#clearing-all-tasks)`clear`
-    - [Exiting the program](#exiting-the-program)`bye`
+    - [Listing all Tasks](#listing-all-tasks-list)`list`
+    - [Marking a Task](#marking-a-task-mark)`mark`
+    - [Unmarking a Task ](#unmarking-a-task-unmark)`unmark`
+    - [Deleting a Task](#deleting-a-task-delete)`delete`
+    - [Finding a Task using keyword](#finding-a-task-using-keyword-find)`find`
+    - [Clearing all Tasks](#clearing-all-tasks-clear)`clear`
+    - [Exiting the program](#exiting-the-program-bye)`bye`
   - [Image Sources](#image-sources) 
 
 
@@ -124,7 +124,7 @@ Example: Let's say today is 20th Sep 2024 then
 would return the Event `[E][ ] Carnival (From: 24 Sep 2024 to: 27 Sept 2024)`
 
 ## Additional Commands
-### Listing all tasks
+### Listing all tasks: `list`
 
 Use this command to view the current task list. Tasks are sorted by order in which they were added into the list
 
@@ -140,7 +140,7 @@ Expected output:
 3. [E][ ] recess week (from: Now to: Forever)
 ```
 
-### Marking a task
+### Marking a task: `mark`
 
 Use this command to mark a task as done.
 
@@ -156,7 +156,7 @@ marked 1 as completed
 wow you actually did something... amazing...
 ```
 
-### Unmarking a task
+### Unmarking a task: `unmark`
 
 Use this command to unmark the task back to the status of not done yet.
 
@@ -174,7 +174,7 @@ so finishing that was a lie huh? Same tbh... doing stuff is hard
 ```
 
 
-### Deleting a task
+### Deleting a task: `delete`
 
 Use this command to delete a task from the task list.
 
@@ -193,7 +193,7 @@ Hope you got that right...
 User:
 ```
 
-### Finding a task using keyword
+### Finding a task using keyword: `find`
 
 Use this command to search for all tasks whose description contains the input <String> as a substring
 
@@ -208,7 +208,7 @@ Expected output:
 ```
 
 
-### Clearing all Tasks
+### Clearing all Tasks: `clear`
 
 Use this command to add or update tag to a task.
 
@@ -224,7 +224,7 @@ hope you don't regret it...
 ```
 
 
-### Exiting the program
+### Exiting the program: `bye`
 
 ALternate way to close the program from within the Chatbox itself, comes with a goodbye message! (lol)
 
