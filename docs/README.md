@@ -22,7 +22,7 @@ Adds todo with a description
 
 ## Adding Deadline Task
 
-Format: `deadline <DESCRIPTION> /by <DD-MM-YYYY HHmm>`
+Format: `deadline <DESCRIPTION> /by <DD/MM/YYYY hhmm>`
 
 Adds a task that has a dateline
 
