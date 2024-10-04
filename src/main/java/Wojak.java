@@ -1,18 +1,23 @@
-import java.io.File;
-import java.util.Scanner;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import controllers.InputParser;
 import controllers.commands.Command;
-import controllers.errors.InvalidCommandError;
-import controllers.errors.InvalidInputError;
 import controllers.OutputHandler;
 import lib.DbDriverInterface;
 import lib.FileDbDriver;
 import models.*;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
+import javafx.scene.control.ListView;
+
 
 public class Wojak extends Application {
 
@@ -22,17 +27,14 @@ public class Wojak extends Application {
 
     @Override
     public void start(Stage stage) {
-        // TextArea for displaying chat conversation
-        // Initialize the TextArea
-        TextArea chatArea = new TextArea();
-        chatArea.setEditable(false);  // User can't directly edit the chat history
-        chatArea.setWrapText(true);   // Enable text wrapping
+        // ListView to display chat messages
+        ListView<Message> chatListView = new ListView<>();
 
         // TextField for user input
         TextField userInput = new TextField();
         userInput.setPromptText("Type your command here...");
 
-        OutputHandler outputHandler = new OutputHandler(chatArea);
+        OutputHandler outputHandler = new OutputHandler(chatListView);
 
         // Button to send message
         Button sendButton = new Button("Send");
@@ -41,27 +43,36 @@ public class Wojak extends Application {
         sendButton.setOnAction(e -> {
             String input = userInput.getText();
             if (!input.isEmpty()) {
-                // Append user message to chat area
-                chatArea.appendText("User: " + input + "\n");
+                // Add user message to ListView
+                chatListView.getItems().add(new Message(input, true));
 
                 // Process user input using the existing Wojak logic
                 try {
                     Command command = parser.parse(input);
                     command.execute(taskList, outputHandler);
-                    chatArea.appendText("Bot: Command executed successfully.\n");
+                    chatListView.getItems().add(new Message("Command executed successfully.", false));
                 } catch (Exception ex) {
-                    chatArea.appendText("Bot: " + ex.getMessage() + "\n");
+                    chatListView.getItems().add(new Message(ex.getMessage(), false));
                 }
 
                 // Clear the input field
                 userInput.clear();
             }
         });
+
+        // Set up the ListView to use a custom cell factory for displaying messages
+        chatListView.setCellFactory(new Callback<ListView<Message>, ListCell<Message>>() {
+            @Override
+            public ListCell<Message> call(ListView<Message> param) {
+                return new MessageCell();
+            }
+        });
+
         // Layout the components in a VBox
-        VBox layout = new VBox(10, chatArea, userInput, sendButton);
+        VBox layout = new VBox(10, chatListView, userInput, sendButton);
 
         // Create the scene and set it on the stage
-        Scene scene = new Scene(layout, 400, 300);
+        Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
         stage.setTitle("Wojak Chatbot");
         stage.show();
@@ -69,5 +80,49 @@ public class Wojak extends Application {
 
     public static void main(String[] args) {
         launch(args);  // Start the JavaFX application
+    }
+}
+
+// Custom ListCell to display chat messages with avatar and alignment
+class MessageCell extends ListCell<Message> {
+
+    @Override
+    protected void updateItem(Message message, boolean empty) {
+        super.updateItem(message, empty);
+        if (empty || message == null) {
+            setGraphic(null);
+            setText(null);
+        } else {
+            HBox messageBox = new HBox(10);  // Horizontal box for avatar and message
+            messageBox.setFillHeight(true);
+
+            // Load avatar image based on whether it's a user or bot message
+            Image avatarImage = new Image(getClass().getResourceAsStream(message.isUser() ?
+                    "/images/user_avatar.png" : "/images/bot_avatar.png"));
+            ImageView avatarView = new ImageView(avatarImage);
+            avatarView.setFitHeight(30);
+            avatarView.setFitWidth(30);
+
+            // Create a label that combines the sender name and message text
+            String senderName = message.isUser() ? "User: " : "Wojak: ";
+            Label messageLabel = new Label(message.getText());
+            messageLabel.setWrapText(true);
+            messageLabel.setMaxWidth(250);  // Limit the width of the message
+
+            if (message.isUser()) {
+                // Align user messages to the left (user avatar first, then message)
+                messageBox.setAlignment(Pos.CENTER_LEFT);
+                messageBox.getChildren().addAll(avatarView, messageLabel);  // Avatar then message
+            } else {
+                // Align bot messages to the right (bot avatar first, then message)
+                messageBox.setAlignment(Pos.CENTER_RIGHT);
+                messageBox.getChildren().addAll(messageLabel, avatarView);  // Avatar then message
+            }
+
+            // Allow message label to grow horizontally
+            HBox.setHgrow(messageLabel, Priority.ALWAYS);
+
+            setGraphic(messageBox);
+        }
     }
 }
