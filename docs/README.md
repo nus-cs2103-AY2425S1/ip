@@ -4,6 +4,14 @@
 
 Donk is an ultra intelligent chatbot that can help you to organize your life. Sort it out now with Donk!
 
+# Installation
+
+Make sure you have the Java FX version of Zulu17, which can be found [here](https://www.azul.com/downloads/?package=jdk#zulu)
+
+From [releases](https://github.com/AppleJem/ip/releases), downloaded the latest version of Donk.jar.
+
+Then, run it using the command `java -jar donk.jar`
+
 # Features
 
 ## Adding ToDos
