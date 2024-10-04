@@ -28,7 +28,7 @@ Adds a task that has a dateline
 
 ## Adding Event
 
-Format: `event <DESCRIPTION> /start <DD-MM-YYYY hhmm> /end <DD-MM-YYYY hhmm>`
+Format: `event <DESCRIPTION> /start <DD/MM/YYYY hhmm> /end <DD/MM/YYYY hhmm>`
 
 Adds an event which has a start and end date
 
