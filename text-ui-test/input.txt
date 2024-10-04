@@ -1,0 +1,16 @@
+
+Random Word
+list
+todo TODO1
+deadline DEADLINE2 /by 2pm
+event EVENT3 /from 3/3/2003 0333 /to 31/3/3033 1333
+list
+mark 1
+unmark 1
+mark 4
+mark Task Number
+delete 3
+delete 4
+delete Task Number
+list
+bye
