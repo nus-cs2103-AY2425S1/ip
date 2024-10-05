@@ -114,6 +114,7 @@ public class Parser {
         // for task name string
         StringBuilder a = new StringBuilder(arr[i + 1]);
         for (int l = i + 2; l < by; l++) {
+            System.out.println("word:-" + arr[l] + "-");
             StringBuilder str = new StringBuilder(" " + arr[l]);
             a = a.append(str);
         }
@@ -215,12 +216,12 @@ public class Parser {
                 Task t = tasklist.getTask(j);
                 String[] taskName = t.name.split(" ");
                 for (int k = 0; k < taskName.length; k++) {
-                    if (taskName[k].toLowerCase().equals(keyword)) {
+                    if (taskName[k].equalsIgnoreCase(keyword)) {
                         isMatch = true;
                     }
                 }
                 if (isMatch) {
-                    msg.append(String.format("%d. %s", num, t));
+                    msg.append(String.format("%d. %s\n", num, t));
                     num++;
                     isMatch = false;
                 }
@@ -292,7 +293,12 @@ public class Parser {
      *               'event task /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm' - adds a event task to the database
      */
     public String evaluateAction(Ui ui, TaskList tasklist, String action) {
-        String[] arr = action.split(" ");
+        // '\\s+' refers to 'one or more whitespaces!'
+        String[] arr = action.trim().split("\\s+");
+        // gets rid of any ',' that will mess with csv database
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].replace(",", "\0");
+        }
 
         for (int i = 0; i < arr.length; i++) {
             String act = arr[i].toLowerCase();
