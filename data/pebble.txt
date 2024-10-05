@@ -1,0 +1,5 @@
+[T][ ] task1
+[E][ ] orientation week (from: 4/10/2024 to: 11/10/2024)
+[T][ ] homework
+[D][X] english homework (by: tmr)
+[D][ ] submission (by: Sep 23 2024)
