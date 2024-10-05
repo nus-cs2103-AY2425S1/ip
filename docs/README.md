@@ -20,7 +20,7 @@ Why do Java developers wear glasses? Because they don’t C#.
 ---
 
 ### 2. Viewing the Task List
-You can view all tasks, including todos, deadlines, and events, with a single command.
+You can view all tasks, including todos, deadlines, and events, with a single command. Also you need to press the send button to send the command.
 
 **Command:**
 ```
