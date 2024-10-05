@@ -153,7 +153,7 @@ public class Asta {
         List<Task> matchingTasks = tasks.findTasks(keyword);
         response.append("Here are the matching tasks in your list:\n");
         matchingTasks.forEach(
-                task -> response.append(matchingTasks.indexOf(task) + 1).append(". ").append(task).append("\n"));
+            task -> response.append(matchingTasks.indexOf(task) + 1).append(". ").append(task).append("\n"));
     }
 
     private void handleRecurringDeadlineCommand(String fullCommand, StringBuilder response) throws AstaException {

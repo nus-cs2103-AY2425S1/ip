@@ -165,12 +165,11 @@ public class TaskList {
      * Adds a new RecurringDeadline task to the task list.
      *
      * @param description The description of the recurring task.
-     * @param byDateStr The deadline date as a string, which will be parsed into a LocalDateTime object.
-     * @param interval The recurrence interval in days (e.g., 7 for weekly recurrence).
+     * @param byDateStr   The deadline date as a string, which will be parsed into a LocalDateTime object.
+     * @param interval    The recurrence interval in days (e.g., 7 for weekly recurrence).
      * @throws AstaException If the description is empty or the date string cannot be parsed.
      */
-    public void addRecurringDeadlineTask(String description, String byDateStr, int interval)
-            throws AstaException {
+    public void addRecurringDeadlineTask(String description, String byDateStr, int interval) throws AstaException {
         LocalDateTime by = LocalDateTime.parse(byDateStr.trim(), DATE_TIME_FORMATTER);
 
         if (description.isEmpty()) {
