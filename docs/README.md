@@ -2,9 +2,12 @@
 
 Sinatra helps you track your life when you can't track it yourself
 
+
 - Inspired by Frank Sinatra
 - Simply Spectacular
 - Our most advanced chatBot yet
+
+  ![screenshot](Ui.png)
 
 To get started:
 
