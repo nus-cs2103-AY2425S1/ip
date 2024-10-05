@@ -116,7 +116,7 @@ For `Event` and `Deadline` there are a few Acceptable input formats which you ca
 ```LocalDates``` dates in the task itself instead of being stored as a String.
 
 You can use any of the following: yyyy-MM-dd, yyyy.MM.dd, dd-MM-yyyy, dd.MM.yyyy \
-Or you can simply input the day itself (e. thursday) or it's shorthand (eg. mon) which will be recognised as the next valid date which that day occurs (if you tyhpe today's day of the week it will  return today).
+Or you can simply input the day itself (e. thursday) or it's shorthand (eg. mon) which will be recognised as the next valid date which that day occurs (if you type today's day of the week it will  return today).
 
 
 Example: Let's say today is 20th Sep 2024 then
