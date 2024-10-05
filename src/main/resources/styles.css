@@ -1,0 +1,30 @@
+.dialog-box {
+    -fx-background-color: #e5e5ea;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: transparent;
+    -fx-border-radius: 15;
+}
+
+.dialog-box.user {
+    -fx-background-color: #007aff;
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: transparent;
+    -fx-border-radius: 15;
+}
+
+.dialog-box.duke {
+    -fx-background-color: #e5e5ea;
+    -fx-text-fill: black;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+    -fx-border-color: transparent;
+    -fx-border-radius: 15;
+}
+
+#dialogContainer {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
