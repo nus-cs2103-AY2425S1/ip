@@ -39,8 +39,8 @@ java -jar blob.jar
 # Key Commands
 ## `todo`
 **Blob** supports the creation of `todo` tasks which consist of solely the task description!\
-Example: `todo CS2103T Quiz`\
-Expected Output: 
+**Example**: `todo CS2103T Quiz`\
+**Expected** Output: 
 ```
 Got it. I've added this task:
 [T][] CS2103T Quiz
@@ -49,8 +49,8 @@ Now you have 1 tasks in the list.
 
 ## `deadline`
 **Blob** supports the creation of `deadline` tasks which consist of the task description, as well as a date & time (in `YYYY-MM-DD HH:mm` format) to indicate when it ends!\
-Example: `deadline CS2100 Assignment /by 2024-09-10 13:00`\
-Expected Output: 
+**Example**: `deadline CS2100 Assignment /by 2024-09-10 13:00`\
+**Expected** Output: 
 ```
 Got it. I've added this task:
 [D][] CS2100 Assignment (by: Sep 10 13:00)
@@ -59,8 +59,8 @@ Now you have 2 tasks in the list.
 
 ## `event`
 Lastly, **Blob** supports the creation of `event` tasks which consist of the task description, as well as 2 instances f date & time (in `YYYY-MM-DD HH:mm` format) to indicate when the task starts & ends!\
-Example: `event ST2334 Midterms /from 2024-10-10 16:15 /to 2024-10-10 17:30`\
-Expected Output: 
+**Example**: `event ST2334 Midterms /from 2024-10-10 16:15 /to 2024-10-10 17:30`\
+**Expected** Output: 
 ```
 Got it. I've added this task:
 [E][] ST2334 Midterms (from: Oct 10 16:15 to: Oct 10 17:30)
@@ -69,8 +69,8 @@ Now you have 3 tasks in the list.
 
 ## `list`
 **Blob** allows you to view all existing tasks, completed and not completed!\
-Example: `list`\
-Expected Output:
+**Example**: `list`\
+**Expected** Output:
 ```
 Here are the tasks in your list:
 1. [T][] CS2103T Quiz
@@ -80,8 +80,8 @@ Here are the tasks in your list:
 
 ## `mark`
 **Blob** keeps tracks of tasks you've completed through the use of the `mark` command with the relevant task number!\
-Example: `mark 1`\
-Expected Output:
+**Example**: `mark 1`\
+**Expected** Output:
 ```
 Nice! I've marked this task as done:
 [T][X] CS2103T Quiz
@@ -89,8 +89,8 @@ Nice! I've marked this task as done:
 
 ## `unmark`
 This command removes the completion 'X' check on any existing task when paired with the relevant task number!\
-Example: `unmark 1`\
-Expected Output:
+**Example**: `unmark 1`\
+**Expected** Output:
 ```
 OK, I've marked this task as not done yet:
 [T][] CS2103T Quiz
@@ -98,8 +98,8 @@ OK, I've marked this task as not done yet:
 
 ## `find`
 **Blob** has the ability to sieve out certain tasks that contain the corresponding keyword you provide!\
-Example: `find CS2100`\
-Expected Output:
+**Example**: `find CS2100`\
+**Expected** Output:
 ```
 Here are the matching tasks in your list:
 1. [D][] CS2100 Assignment (by: Sep 10 13:00)
@@ -107,10 +107,10 @@ Here are the matching tasks in your list:
 
 ## Extension Feature: `tag`
 This command provides a more visual categorisation to your existing tasks by providing customisable hashtags to tasks of your choice!\
-Example: `tag 3 exam`\
-Expected Output:
+**Example**: `tag 3 exam`\
+**Expected** Output:
 ```
-OK, I've tagged this task as suchL
+OK, I've tagged this task as such:
 [E][] ST2334 Midterms (from: Oct 10 16:15 to: Oct 10 17:30) - #exam
 ```
 
