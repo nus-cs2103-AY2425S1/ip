@@ -3,19 +3,6 @@
   <h1 style="font-weight:800;font-size:70px;">Blob User Guide</h1>
 </div>
 
-<!-- Table of Content -->
-<details>
-  <summary style="font-weight:600;font-size:30px;">Table of Contents</summary>
-
-  + <a href="#introduction" style="font-size:20px;">Introduction</a>
-  + <a href="#getting-started" style="font-size:20px;">Getting Started</a>
-    + <a href="#installation-guide" style="font-size:15px;">Installation Guide</a>
-  + <a href="#key-commands" style="font-size:20px;">Key Commands</a>
-  + <a href="#support" style="font-size:20px;">Support</a>
-</details>
-
-___
-
 <!-- Project Details -->
 # Introduction
 Introducing **Blob**, your personal, task-tracking assistant!
@@ -34,7 +21,7 @@ To get a local copy up and running, follow the these [simple steps below](#insta
 <!-- Installation Guide -->
 ### Installation Guide
 1. Download a local copy of **Blob** using this [link](https://github.com/superb-sushi/ip/releases).
-- [X] Scroll to the latest *Blob* version
+[X] Scroll to the latest *Blob* version
 - [X] Click on the *blob.jar* hyperlink to download the `blob.jar` file
 - [X] Create a new folder in your desktop and copy the `blob.jar` file over into that folder
 
@@ -81,7 +68,7 @@ Now you have 3 tasks in the list.
 ```
 
 ## `list`
-**Blob** allows you to view all existing tasks, completed and not completed!
+**Blob** allows you to view all existing tasks, completed and not completed!\
 Example: `list`\
 Expected Output:
 ```
@@ -92,8 +79,8 @@ Here are the tasks in your list:
 ```
 
 ## `mark`
-**Blob** keeps tracks of tasks you've completed through the use of the `mark` command with the relevant task number!
-Example: `mark 1`
+**Blob** keeps tracks of tasks you've completed through the use of the `mark` command with the relevant task number!\
+Example: `mark 1`\
 Expected Output:
 ```
 Nice! I've marked this task as done:
@@ -101,16 +88,17 @@ Nice! I've marked this task as done:
 ```
 
 ## `unmark`
-This command removes the completion 'X' check on any existing task when paired with the relevant task number!
-Example: `unmark 1`
+This command removes the completion 'X' check on any existing task when paired with the relevant task number!\
+Example: `unmark 1`\
+Expected Output:
 ```
 OK, I've marked this task as not done yet:
 [T][] CS2103T Quiz
 ```
 
 ## `find`
-**Blob** has the ability to sieve out certain tasks that contain the corresponding keyword you provide!
-Example: `find CS2100`
+**Blob** has the ability to sieve out certain tasks that contain the corresponding keyword you provide!\
+Example: `find CS2100`\
 Expected Output:
 ```
 Here are the matching tasks in your list:
@@ -118,8 +106,8 @@ Here are the matching tasks in your list:
 ```
 
 ## Extension Feature: `tag`
-This command provides a more visual categorisation to your existing tasks by providing customisable hashtags to tasks of your choice!
-Example: `tag 3 exam`
+This command provides a more visual categorisation to your existing tasks by providing customisable hashtags to tasks of your choice!\
+Example: `tag 3 exam`\
 Expected Output:
 ```
 OK, I've tagged this task as suchL
@@ -127,7 +115,7 @@ OK, I've tagged this task as suchL
 ```
 
 ## Support
-If you encounter any bugs, do feel free to drop our team an email at teamblob@gmail.com!
+If you encounter any bugs, do feel free to drop our team an email at **teamblob@gmail.com**!
 
 
 
