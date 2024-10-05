@@ -1,0 +1,34 @@
+todo borrow book
+list
+deadline return book /by 2024-07-21 0000
+event project meeting /from 2024-08-28 1400 /to 2024-08-28 1600
+event chill /from 2024-07-21 0000      /to      2024-07-23 1200
+deadline    Quiz     /by  2024-07-21 0000
+mark
+mark 1
+mark 2
+mark 3
+unmark 2
+list
+unmark
+unmark 32
+unmark abc
+unmark1
+deadline
+deadline return book
+deadline /by 2024-07-21 0000
+event
+event /from 2024-07-21 0000 /to 2024-07-21 1200
+event project meeting /to 2024-07-21 0000
+event project meeting /from /to
+todo
+list 5
+delete
+delete 2
+delete 20
+delete -1
+delete abc
+list
+I need help.
+eventprojectmeeting/from2024-07-21 0000/to2024-07-21 1200
+bye
