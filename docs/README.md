@@ -189,8 +189,6 @@ Expected output:
 deleted 2
 "[D][ ] finish README (by: Tomorrow)"
 Hope you got that right...
-
-User:
 ```
 
 ### Finding a task using keyword: `find`
@@ -204,7 +202,7 @@ Example: `find recess`
 Expected output:
 
 ```
-1. [E][ ] recess weel (from: Now to: Forever)
+1. [E][ ] recess week (from: Now to: Forever)
 ```
 
 
