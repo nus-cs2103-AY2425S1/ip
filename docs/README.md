@@ -21,7 +21,7 @@ To get a local copy up and running, follow the these [simple steps below](#insta
 <!-- Installation Guide -->
 ### Installation Guide
 1. Download a local copy of **Blob** using this [link](https://github.com/superb-sushi/ip/releases).
-[X] Scroll to the latest *Blob* version
+- [X] Scroll to the latest *Blob* version
 - [X] Click on the *blob.jar* hyperlink to download the `blob.jar` file
 - [X] Create a new folder in your desktop and copy the `blob.jar` file over into that folder
 
