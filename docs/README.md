@@ -23,7 +23,7 @@ No tasks added to the list yet.
 ## Adding Todos
 With Bobby, users can add todo tasks which do not have a specific deadline.
 
-Format: `todo TASK_NAME'
+Format: `todo TASK_NAME`
 
 Examples:
 - `todo assignment`
