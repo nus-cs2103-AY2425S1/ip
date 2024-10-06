@@ -14,9 +14,13 @@ Ensure you have Java 17 or above installed in your Computer.
 
 Download the latest .jar file from here.
 
-Copy the file to the folder you want to use as the home folder for your AddressBook.
+Copy the file to the folder you want to use as the home folder for Bonnie.
 
-Open a command terminal, cd into the folder you put the jar file in, and use the java -jar addressbook.jar command to run the application.
+Open a command terminal, cd into the folder you put the jar file in, and use the java -jar bonnie.jar command to run the application.
+
+Once the command is entered, Bonnie will prompt you for your name, please input your name!
+
+After your name is entered, you can use Bonnie to track your tasks!
 
 # Features
 
