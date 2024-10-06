@@ -3,7 +3,7 @@
 
 Simon is a desktop app for managing tasks through the use of a Graphical User Interface (GUI)
 
-![alt text](https://github.com/yuvrajaryan/ip/blob/master/docs/Ui.png)
+![alt text](https://raw.githubusercontent.com/yuvrajaryan/ip/refs/heads/master/docs/Ui.png)
 
 ## Deadline Command
 
