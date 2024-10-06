@@ -190,14 +190,49 @@ Tasklist is automatically saved to a data file after any modification command (a
 
 ## Command Summary
 
-| Action           | Format, Example                                                                                                                     |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Add Todo         | `todo DESCRIPTION`<br>e.g. `todo go to supermarket`                                                                                 |
-| Add Deadline     | `deadline DESCRIPTION /by DD/MM/YYYY HHMM`<br>e.g. `deadline homework 1 /by 19/09/2024 2359`                                        |
-| Add Event        | `event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM`<br>e.g. `event slumber party /from 18/9/2024 1900 /to 19/9/2024 0100` |
-| List tasks       | `list`                                                                                                                              |
-| Delete tasks     | `delete INDEX`<br>e.g. `delete 2`                                                                                                   |
-| Mark as done     | `mark INDEX`<br>e.g. `mark 2`                                                                                                       |
-| Mark as undone   | `unmark INDEX`<br>e.g. `unmark 2`                                                                                                   |
-| Find task        | `find KEYWORD`<br>e.g. `find cats`                                                                                                  |
-| Exit application | `bye`                                                                                                                               |
+<table>
+   <thead>
+      <tr>
+         <th>Action</th>
+         <th>Format, Example</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>Add Todo</th>
+         <td><code>todo DESCRIPTION</code><br>e.g. <code>todo go to supermarket</code></th>
+      </tr>
+      <tr>
+         <td>Add Deadline</th>
+         <td><code>deadline DESCRIPTION /by DD/MM/YYYY HHMM</code><br>e.g. <code>deadline homework 1 /by 19/09/2024 2359</code></th>
+      </tr>
+      <tr>
+         <td>Add Event</th>
+         <td><code>event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM</code><br>e.g. <code>event slumber party /from 18/9/2024 1900 /to 19/9/2024 0100</code></th>
+      </tr>
+      <tr>
+         <td>List tasks</th>
+         <td><code>list</code></th>
+      </tr>
+      <tr>
+         <td>Delete tasks</th>
+         <td><code>delete INDEX</code><br>e.g. <code>delete 2</code></th>
+      </tr>
+      <tr>
+         <td>Mark as done</th>
+         <td><code>mark INDEX</code><br>e.g. <code>mark 2</code></th>
+      </tr>
+      <tr>
+         <td>Mark as undone</th>
+         <td><code>unmark INDEX</code><br>e.g. <code>unmark 2</code></th>
+      </tr>
+      <tr>
+         <td>Find task</th>
+         <td><code>find KEYWORD</code><br>e.g. <code>find cats</code></th>
+      </tr>
+      <tr>
+         <td>Exit application</th>
+         <td><code>bye</code></th>
+      </tr>
+   </tbody>
+</table>
