@@ -199,40 +199,40 @@ Tasklist is automatically saved to a data file after any modification command (a
    </thead>
    <tbody>
       <tr>
-         <td>Add Todo</th>
-         <td><code>todo DESCRIPTION</code><br>e.g. <code>todo go to supermarket</code></th>
+         <td>Add Todo</td>
+         <td><code>todo DESCRIPTION</code><br>e.g. <code>todo go to supermarket</code></td>
       </tr>
       <tr>
-         <td>Add Deadline</th>
-         <td><code>deadline DESCRIPTION /by DD/MM/YYYY HHMM</code><br>e.g. <code>deadline homework 1 /by 19/09/2024 2359</code></th>
+         <td>Add Deadline</td>
+         <td><code>deadline DESCRIPTION /by DD/MM/YYYY HHMM</code><br>e.g. <code>deadline homework 1 /by 19/09/2024 2359</code></td>
       </tr>
       <tr>
-         <td>Add Event</th>
-         <td><code>event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM</code><br>e.g. <code>event slumber party /from 18/9/2024 1900 /to 19/9/2024 0100</code></th>
+         <td>Add Event</td>
+         <td><code>event DESCRIPTION /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM</code><br>e.g. <code>event slumber party /from 18/9/2024 1900 /to 19/9/2024 0100</code></td>
       </tr>
       <tr>
-         <td>List tasks</th>
-         <td><code>list</code></th>
+         <td>List tasks</td>
+         <td><code>list</code></td>
       </tr>
       <tr>
-         <td>Delete tasks</th>
-         <td><code>delete INDEX</code><br>e.g. <code>delete 2</code></th>
+         <td>Delete tasks</td>
+         <td><code>delete INDEX</code><br>e.g. <code>delete 2</code></td>
       </tr>
       <tr>
-         <td>Mark as done</th>
-         <td><code>mark INDEX</code><br>e.g. <code>mark 2</code></th>
+         <td>Mark as done</td>
+         <td><code>mark INDEX</code><br>e.g. <code>mark 2</code></td>
       </tr>
       <tr>
-         <td>Mark as undone</th>
-         <td><code>unmark INDEX</code><br>e.g. <code>unmark 2</code></th>
+         <td>Mark as undone</td>
+         <td><code>unmark INDEX</code><br>e.g. <code>unmark 2</code></td>
       </tr>
       <tr>
-         <td>Find task</th>
-         <td><code>find KEYWORD</code><br>e.g. <code>find cats</code></th>
+         <td>Find task</td>
+         <td><code>find KEYWORD</code><br>e.g. <code>find cats</code></td>
       </tr>
       <tr>
-         <td>Exit application</th>
-         <td><code>bye</code></th>
+         <td>Exit application</td>
+         <td><code>bye</code></td>
       </tr>
    </tbody>
 </table>
