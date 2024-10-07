@@ -1,30 +1,37 @@
-# Duke User Guide
+# Wojak User Guide
 
 // Update the title above to match the actual product name
 
-// Product screenshot goes here
+![wojak](Ui.png)
 
 // Product intro goes here
 
+This is a todo list chatbot, you type commands and press send
+
 ## Adding deadlines
 
-// Describe the action and its outcome.
+To add a todo, type this command and press send
 
-// Give examples of usage
+`todo some task`
 
-Example: `keyword (optional arguments)`
+To add a deadline, type this command and press send
 
-// A description of the expected outcome goes here
+`deadline some deadline /by <iso-8601 compliant date>`
 
-```
-expected output
-```
+To add an event, type this command and press send
 
-## Feature ABC
+`event some event /from <iso-8601 compliant date> /to <iso-8601 compliant date>`
 
-// Feature details
+To list your todo list, type this command and press send
 
+`list`
 
-## Feature XYZ
+To delete an item, type this command and press send
 
-// Feature details
+`delete <index of item>`
+
+To modify the DB, go to `config.txt` and type in a name of the file
+
+To exit the chatbot, type this command and press send
+
+`bye`
