@@ -1,0 +1,66 @@
+.root {
+    -fx-background-color: #2B2B2B;  /* Dark grey background */
+    -fx-background-image: url("/background.png");  /* Your background image */
+    -fx-background-size: cover;  /* Ensure the image covers the whole background */
+    -fx-background-position: center;  /* Center the background image */
+}
+
+.text-field {
+    -fx-background-color: #4D4D4D;  /* Darker grey for text field */
+    -fx-text-fill: #FFFFFF;  /* White text for contrast */
+    -fx-font: 20px "Ubuntu";
+    -fx-background-radius: 8px;  /* Smooth rounded corners */
+    -fx-border-color: #A0A0A0;  /* Lighter grey for borders */
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #5A5A5A;  /* Darker grey for buttons */
+    -fx-text-fill: #FFFFFF;
+    -fx-font: italic bold 16px "Ubuntu";
+    -fx-background-radius: 8px;
+    -fx-border-color: #A0A0A0;  /* Lighter grey for buttons */
+    -fx-border-width: 2px;
+}
+
+.button:hover {
+    -fx-background-color: #707070;  /* Lighter grey on hover */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #909090;  /* Even lighter grey when pressed */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(43, 43, 43, 0.5);  /* Semi-transparent dark grey to match background */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: #2B2B2B;  /* Matching the root background */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #E0E0E0;  /* Light grey for scroll thumb for contrast */
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #3C3C3C;  /* Slightly lighter grey for chat bubbles */
+    -fx-background-radius: 10px;
+    -fx-border-color: #FFFFFF;  /* White border for definition */
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-text-fill: #FFFFFF;  /* White text */
+}
