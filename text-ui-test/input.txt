@@ -1,0 +1,7 @@
+todo borrow book
+deadline djfkjsfjs /by 2024-07-30 15:30
+event fjskfjdskfjsdkf /from 2024-07-30 15:30 /to 2025-06-24 14:30
+mark 3
+mark 4
+list
+bye
