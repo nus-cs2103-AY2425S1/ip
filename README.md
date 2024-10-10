@@ -31,8 +31,7 @@ Here are the main commands you can use with Skywalker:
    **note: time format in YYYY-MM_DD'T'TIME
    
    Example:
-   event Tutorial class /from 2024-09-20T1530 /to 2024-09-20T1600
-   
+   event Project meeting /from 2024-09-15T1400 /to 2024-09-15T1600   
    **4. list**
    Displays all tasks in your task list.
    
