@@ -15,3 +15,13 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+Kotori.Kotori.txt
+text-ui-test/data/Kotori.Kotori.txt
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+Kotori.txt
+Add.txt
