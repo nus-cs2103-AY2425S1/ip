@@ -1,5 +1,6 @@
 package hue.parser;
 
+import hue.Hue;
 import hue.command.*;
 import hue.HueException;
 public class Parser {
@@ -11,7 +12,12 @@ public class Parser {
      * @throws HueException If the input command is invalid or unrecognized.
      */
     public static Command parse(String fullCommand) throws HueException {
-        String commandWord = fullCommand.split(" ")[0].toLowerCase(); // Get the first word of the command
+        if (fullCommand == null || fullCommand.trim().isEmpty()) {
+            throw new HueException("Command cannot be empty.");
+        }
+
+            String commandWord = fullCommand.split(" ")[0].toLowerCase(); // Get the first word of the command
+
 
         switch (commandWord) {
         case "bye":
@@ -38,5 +44,10 @@ public class Parser {
             throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
         }
     }
+
+    public static void throwException() throws HueException {
+        throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
+    }
+
 }
 
