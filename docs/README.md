@@ -130,6 +130,8 @@ Example: `undo`
 
 Once you are done with Handsome, just say "bye" and the bot will greet you off!
 
+Not only that, Handsome will automatically close the GUI for you 😉
+
 Example: `bye`
 ## Credits
 https://se-education.org/guides/tutorials/javaFx.html
