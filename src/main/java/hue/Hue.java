@@ -38,6 +38,7 @@ public class Hue {
             tasks = new TaskList(storage.loadTasks());
         } catch (FileNotFoundException e) {
             ui.showError("File not found. Creating new file.");
+            tasks = new TaskList();
         } catch (HueException e) {
             ui.showError("Error loading tasks: " + e.getMessage());
             tasks = new TaskList();
@@ -111,7 +112,7 @@ public class Hue {
 
 
     public String getCommandType() {
-        return commandType;
+        return commandType == null ? "" : commandType;
     }
 
 
