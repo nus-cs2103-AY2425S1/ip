@@ -1,30 +1,78 @@
-# Duke User Guide
+# Elon User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of User Interface](Ui.png)
 
-// Product screenshot goes here
+The Elon chatbot is a tool designed to help users manage their tasks efficiently. 
+It allows users to create, track, and organise tasks in various categories: todos, deadlines, and events. 
+Key features include adding, deleting, finding, snoozing and marking tasks as complete.
 
-// Product intro goes here
+## Quick Start
 
-## Adding deadlines
+1. Ensure you have Java 17 or above installed on your computer.
+2. Download the latest `elon.jar` file.
+3. Copy the file to the folder you wish to use as the home folder for Elon.
+4. Open a command terminal, navigate (`cd`) to the folder containing the jar file, 
+and run the following command: (`java -jar elon.jar`)
+5. A terminal interface will appear, ready to accept your commands.
 
-// Describe the action and its outcome.
+Some example commands you can try:
+- `list` : Lists all tasks.
+- `todo buy groceries`: Adds a ToDo task with the description "buy groceries" to the list.
+- `delete 3` : Deletes the 3rd task shown in the list.
+- `bye` : Exits the app.
 
-// Give examples of usage
+## Features
 
-Example: `keyword (optional arguments)`
+### Adding a Task: `todo`,`deadline` or `event`
+Adds a new task to the system. You can add three types of tasks: `todo`, `deadline`, and `event`.
 
-// A description of the expected outcome goes here
+- **Format of ToDo**: `todo [Task Description]`
+- **Format of Deadline**: `deadline [Task Description] /by [Date in yyyy-MM-dd HH-mm format]`
+- **Format of Event**: `event [Task Description] /from [Date in yyyy-MM-dd HH-mm format] /to 
+[Date in yyyy-MM-dd HH-mm format]`
+- **Example**: `event Complete homework /from 2024-09-25 16:00 /to 2024-09-26 12:00`: Adds an Event task with the 
+name "Complete homework" to be done between September 25, 2024 1600 hrs and September 26, 2024 1200 hrs.
 
-```
-expected output
-```
+### Listing All Tasks: `list`
+Shows a list of all tasks currently in the system.
 
-## Feature ABC
+- **Format**: `list`
 
-// Feature details
+### Deleting a Task: `delete`
+Deletes a task based on its index in the list.
 
+- **Format**: `delete [Index of Task]`
+- **Example**: `delete 1`: Deletes the 1st task from the list.
 
-## Feature XYZ
+### Marking a Task as Completed: `mark`
+Marks the specified task as completed based on its index in the list.
 
-// Feature details
+- **Format**: `mark [Index of Task]`
+- **Example**: `mark 1`: Marks the 1st task in the list as completed.
+
+### Unmarking a Task as Completed: `unmark`
+Unmarks the specified task as not completed based on its index in the list.
+
+- **Format**: `unmark [Index of Task]`
+- **Example**: `unmark 2`: Unmarks the 2nd task in the list as not completed.
+
+### Snoozing a Task: `snooze`
+Snoozes (postpones) the end date of a Deadline or Event task to a new date.
+
+- **Format**: `snooze [Index of Task] [Date in yyyy-MM-dd HH-mm format]`
+- **Example**: `snooze 3 2024-09-25 13:00`: Snoozes the end date of the 3rd task 
+to September 25, 2024 1300 hrs.
+
+### Exiting the Program: `bye`
+Exits the Elon application.
+
+- **Format**: `bye`
+
+### Saving Data
+Elon automatically saves your tasks after any command that changes the data. There is no need to manually save.
+
+## Acknowledgements:
+- Elon.png from https://www.biography.com/business-leaders/elon-musk
+- User.png from https://en.wikipedia.org/wiki/Mark_Zuckerberg#/media/File:Mark_Zuckerberg_F8_2019_Keynote_(32830578717)_(cropped).jpg
+- Use of ChatGPT to help with improving most of the JavaDoc comments
+- AB3 User Guide for the format to write this User Guide
