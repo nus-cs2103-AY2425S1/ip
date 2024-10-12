@@ -34,19 +34,21 @@ Shrimp is a fast and lightweight task manager designed to keep you organized wit
 ## Commands Overview
 > [!NOTE]
 > The format is given as it is. You should replace the text in `<...>` with the parameters you intend to use.
+> For commands specifying the datetime - if you omit the time, it will be defaulted to 0000. 
+> The time can be entered as "09:00" or "0900" - both works!
 
-| **Function**            | **Command** | **Format**                                                        | **Example**                                                      |
-|-------------------------|-------------|-------------------------------------------------------------------|------------------------------------------------------------------|
-| **Exit the bot**        | `bye`       | `bye`                                                             | `bye`                                                            |
-| **List tasks**          | `list`      | `list`                                                            | `list`                                                           |
-| **Mark task as done**   | `mark`      | `mark <task_number>`                                              | `mark 1`                                                         |
-| **Unmark task as done** | `unmark`    | `unmark <task_number>`                                            | `unmark 2`                                                       |
-| **Add a Todo**          | `todo`      | `todo <description>`                                              | `todo Buy groceries`                                             |
-| **Add a Deadline**      | `deadline`  | `deadline <description> /by <date_time>`                          | `deadline Finish homework /by 2024-09-20 15:00`                  |
-| **Add an Event**        | `event`     | `event <description> /from <start_date_time> /to <end_date_time>` | `event Team meeting /from 2024-09-21 09:00 /to 2024-09-21 11:00` |
-| **Delete a task**       | `delete`    | `delete <task_number>`                                            | `delete 3`                                                       |
-| **Clear all tasks**     | `clear`     | `clear`                                                           | `clear`                                                          |
-| **Find tasks**          | `find`      | `find <keyword>`                                                  | `find project`                                                   |
+| **Function**            | **Command** | **Format**                                                        | **Example**                                                    |
+|-------------------------|-------------|-------------------------------------------------------------------|----------------------------------------------------------------|
+| **Exit the bot**        | `bye`       | `bye`                                                             | `bye`                                                          |
+| **List tasks**          | `list`      | `list`                                                            | `list`                                                         |
+| **Mark task as done**   | `mark`      | `mark <task_number>`                                              | `mark 1`                                                       |
+| **Unmark task as done** | `unmark`    | `unmark <task_number>`                                            | `unmark 2`                                                     |
+| **Add a Todo**          | `todo`      | `todo <description>`                                              | `todo buy groceries`                                           |
+| **Add a Deadline**      | `deadline`  | `deadline <description> /by <date_time>`                          | `deadline finish homework /by 20/09/2024 1500`                 |
+| **Add an Event**        | `event`     | `event <description> /from <start_date_time> /to <end_date_time>` | `event team meeting /from 20/09/2024 0900 /to 20/09/2024 1100` |
+| **Delete a task**       | `delete`    | `delete <task_number>`                                            | `delete 3`                                                     |
+| **Clear all tasks**     | `clear`     | `clear`                                                           | `clear`                                                        |
+| **Find tasks**          | `find`      | `find <keyword>`                                                  | `find project`                                                 |
 
 ## Detailed Command Descriptions
 ### Exit the bot
@@ -60,17 +62,17 @@ Shrimp is a fast and lightweight task manager designed to keep you organized wit
 ### Add a Todo
 - **Command**: `todo <description>`
 - **Description**: Adds a new Todo task with the given description.
-- **Example**: `todo Buy groceries`
+- **Example**: `todo buy groceries`
 
 ### Add a Deadline
 - **Command**: `deadline <description> /by <date_time>`
 - **Description**: Adds a new Deadline task with the given description and due date/time.
-- **Example**: `deadline Finish homework /by 2024-09-20T15:00`
+- **Example**: `deadline finish homework /by 20/09/2024 1500`
 
 ### Add an Event
 - **Command**: `event <description> /from <start_date_time> /to <end_date_time>`
 - **Description**: Adds a new Event task with the given description, start date/time, and end date/time.
-- **Example**: `event Team meeting /from 2024-09-21T09:00 /to 2024-09-21T11:00`
+- **Example**: `event team meeting /from 20/09/2024 0900 /to 20/09/2024 1100`
 
 ### Mark task as done
 - **Command**: `mark <task_number>`
