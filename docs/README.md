@@ -1,12 +1,28 @@
 # Assistinator User Guide
 
 
-// Product screenshot goes here
+![Ui.png](Ui.png)
 
 Assistinator is a **desktop application for managing tasks**. It supports a wide range of commands and a wide range of tasks
 deadlines and events included.
 
 ## Features
+
+### Command Summary
+
+| Action   | Format, Examples                                                                                                  |
+|----------|-------------------------------------------------------------------------------------------------------------------|
+| List     | `list`                                                                                                            |
+| Todo     | `todo [DESCRIPTION]`, `todo read book`                                                                            |
+| Deadline | `deadline [DESCRIPTION] /by [DEADLINE]`, `deadline submit proposal /by 2024-08-17 12:00`                          |
+| Event    | `event [DESCRIPTION] /from [START] /to [END]`, `event birthday party /from 2024-09-09 17:00 /to 2024-09-09 22:00` |
+| Mark     | `unmark [INDEX]`, `mark 2`                                                                                        |
+| Unmark   | `unmark [INDEX]`, `unmark 2`                                                                                      |
+| Delete   | `delete [INDEX]`, `delete 5`                                                                                      |
+| Find     | `find [KEYWORD]`, `find submit`                                                                                   |
+| Bye      | `bye`                                                                                                             |
+
+
 ### Listing all tasks: `list`
 
 Shows a list of all tasks
@@ -190,19 +206,6 @@ Advanced users are welcome to update data directly by editing that data file.
 >Assistinator will only load the lines of data that are in the correct format. Data with incorrect format will be
 >discarded when you exit the app.
 
-### Command Summary
-
-| Action   | Format, Examples                                                                                                  |
-|----------|-------------------------------------------------------------------------------------------------------------------|
-| List     | `list`                                                                                                            |
-| Todo     | `todo [DESCRIPTION]`, `todo read book`                                                                            |
-| Deadline | `deadline [DESCRIPTION] /by [DEADLINE]`, `deadline submit proposal /by 2024-08-17 12:00`                          |
-| Event    | `event [DESCRIPTION] /from [START] /to [END]`, `event birthday party /from 2024-09-09 17:00 /to 2024-09-09 22:00` |
-| Mark     | `unmark [INDEX]`, `mark 2`                                                                                        |
-| Unmark   | `unmark [INDEX]`, `unmark 2`                                                                                      |
-| Delete   | `delete [INDEX]`, `delete 5`                                                                                      |
-| Find     | `find [KEYWORD]`, `find submit`                                                                                   |
-| Bye      | `bye`                                                                                                             |
 
 ### Acknowledgement
 1. User Image([Dr. Heinz Doofenshmirtz](https://www.google.com/imgres?q=dr%20doof&imgurl=https%3A%2F%2Fcdn.dribbble.com%2Fusers%2F2033319%2Fscreenshots%2F12591684%2Fartboard_2.1_4x.png&imgrefurl=https%3A%2F%2Fdribbble.com%2Fshots%2F12591684-Dr-Heinz-Doofenshmirtz-Character-Design-Illustration&docid=aDuxaLHTFJ19HM&tbnid=k8xrGZvmJO1G3M&vet=12ahUKEwjrlumLgtGIAxXBcGwGHZx9LKQQM3oECBoQAA..i&w=1600&h=1200&hcb=2&ved=2ahUKEwjrlumLgtGIAxXBcGwGHZx9LKQQM3oECBoQAA))
