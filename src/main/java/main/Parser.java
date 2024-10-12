@@ -40,19 +40,19 @@ public class Parser {
             return new ByeCommand();
         } else if (input.equals("list") || input.equals("l")) {
             return new ListCommand();
-        } else if (input.startsWith("mark") || input.startsWith("m")) {
+        } else if (input.startsWith("mark") || input.startsWith("m ")) {
             return new MarkCommand(input);
-        } else if (input.startsWith("unmark") || input.startsWith("um")) {
+        } else if (input.startsWith("unmark") || input.startsWith("um ")) {
             return new UnmarkCommand(input);
-        } else if (input.startsWith("todo") || input.startsWith("t")) {
+        } else if (input.startsWith("todo") || input.startsWith("t ")) {
             return parseTodoCommand(input);
-        } else if (input.startsWith("delete") || input.startsWith("del")) {
+        } else if (input.startsWith("delete") || input.startsWith("del ")) {
             return new DeleteCommand(input);
-        } else if (input.startsWith("deadline") || input.startsWith("d")) {
+        } else if (input.startsWith("deadline") || input.startsWith("d ")) {
             return parseDeadlineCommand(input);
-        } else if (input.startsWith("event") || input.startsWith("e")) {
+        } else if (input.startsWith("event") || input.startsWith("e ")) {
             return parseEventCommand(input);
-        } else if (input.startsWith("find") || input.startsWith("f")) {
+        } else if (input.startsWith("find") || input.startsWith("f ")) {
             return new FindCommand(input);
         } else {
             return new UnknownCommand();
