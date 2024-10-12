@@ -108,12 +108,12 @@ list
 `
 
 **Expected Outcome:**
-`
+```
 Here are the tasks in your list:
 1. [T][ ] read book
 2. [D][ ] return book (by: Aug 6 2024 01:00 pm)
 3. [E][ ] project meeting (from: Aug 6 2024, 02:00 pm to: Aug 6 2024, 04:00 pm)
-`
+```
 
 ### Marking Tasks as Done
 
