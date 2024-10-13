@@ -1,0 +1,8 @@
+E | 1 | dinner with friends | 11-05-2024 01:02 | 12-05-2024 05:22
+D | 1 | go to gym | 27-08-2024 15:00
+T | 0 | complete assignment 1
+D | 0 | go swimming | 17-12-2020 13:31
+E | 1 | presentation to group | 01-10-2019 11:00 | 01-10-2019 12:00
+T | 1 | complete assignment 2
+T | 0 | go gym
+D | 0 | go to gym | 11-11-2024 11:00
