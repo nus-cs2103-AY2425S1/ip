@@ -1,7 +1,143 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	____________________________________________________________
+	Welcome Back! I'm Friday.
+	What can I do for you today?
+	To view the list of commands that I support, type 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[D][X] return book (by: Aug 27 2024, 6:00 pm)
+	3.[T][X] join sports club
+	4.[T][ ] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [T][X] read book
+	Now you have 3 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [D][X] return book (by: Aug 27 2024, 6:00 pm)
+	Now you have 2 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [T][X] join sports club
+	Now you have 1 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [T][ ] borrow book
+	Now you have 0 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list:
+	____________________________________________________________
+	____________________________________________________________
+	Here are the list of commands that I support
+	help - List of commands supported by me, Friday.
+	list - View all entries to the current list of things you have asked me to take note of.
+	mark <integer> - Mark an entry in the list as a completed task.
+	unmark <integer> - Unmark an entry in the list as a completed task.
+	todo <string> - Remember a TODO task for you to revisit again.
+	deadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline task for you to complete by the deadline.
+	event <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task from when it begins to when it ends.
+	delete <integer> - Delete an entry from your current list.
+	bye - Exits this app and says Good Bye to Friday :)
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] read book
+	Now you have 1 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] return book (by: Aug 27 2024, 6:00 pm)
+	Now you have 2 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] project meeting (from: Aug 28 2024, 2:00 pm to: Aug 28 2024, 4:00 pm)
+	Now you have 3 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] join sports club
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Got it. I've added this task:
+	  [T][ ] borrow book
+	Now you have 5 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Nice! I've marked this task as done:
+	  [T][X] read book
+	____________________________________________________________
+	____________________________________________________________
+	Nice! I've marked this task as done:
+	  [D][X] return book (by: Aug 27 2024, 6:00 pm)
+	____________________________________________________________
+	____________________________________________________________
+	Nice! I've marked this task as done:
+	  [T][X] join sports club
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[D][X] return book (by: Aug 27 2024, 6:00 pm)
+	3.[E][ ] project meeting (from: Aug 28 2024, 2:00 pm to: Aug 28 2024, 4:00 pm)
+	4.[T][X] join sports club
+	5.[T][ ] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [E][ ] project meeting (from: Aug 28 2024, 2:00 pm to: Aug 28 2024, 4:00 pm)
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[D][X] return book (by: Aug 27 2024, 6:00 pm)
+	3.[T][X] join sports club
+	4.[T][ ] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'delete' command requires exactly one argument.
+	usage: delete <integer>
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Where would you like to delete?
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'mark' and 'unmark' commands require exactly one argument.
+	usage: mark <integer> || unmark <integer>
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Where would you like to mark?
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'mark' and 'unmark' commands require exactly one argument.
+	usage: mark <integer> || unmark <integer>
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Where would you like to unmark?
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'todo' command requires a description.
+	usage: todo <string>
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'deadline' command requires a description and a deadline.
+	usage: deadline <string> /by <yyyy-MM-dd HHmm>
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'event' command requires a description, start, and end time.
+	usage: event <string> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. 'list' command does not take any arguments.
+	____________________________________________________________
+	____________________________________________________________
+	Good Bye. Hope to see you again soon!
+	____________________________________________________________
