@@ -18,7 +18,7 @@ public class Events extends Tasks {
     /**
      * A formatter used for displaying date and time in the pattern "MMM dd yyyy 'at' hh:mm a".
      */
-    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy 'at' hh:mm a");
 
     /**
      * The start date and time of the event.
@@ -62,7 +62,7 @@ public class Events extends Tasks {
     @Override
     public String toString() {
         return typeIcon() + super.toString()
-                + "(from: " + FORMATTER.format(startDate) + " to: " + FORMATTER.format(endDate) + ")";
+                + " (from: " + FORMATTER.format(startDate) + " to: " + FORMATTER.format(endDate) + ")";
     }
 
     /**

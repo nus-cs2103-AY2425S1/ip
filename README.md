@@ -45,6 +45,7 @@ Example output:
 added: [D][] return book (by 30 sep 2024 6:00pm)
 You have [size of list] tasks in the list
 ```
+the format of the date and time is YYYY-MM-DD HHMM no - in between time
 #### Adding Events
 Events are tasks that are from 1 time to another time. So another additional time constraint is added with /from ... /to
 Example:
@@ -56,6 +57,7 @@ Example output:
 added: [E][] meeting (from 30 sep 2024 6:00pm to 30 sep 2024 8:00pm)
 You have [size of list] tasks in the list
 ```
+the format of the date and time is YYYY-MM-DD HHMM no - in between time
 #### List
 You call list to get your list of tasks
 ```

@@ -6,17 +6,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import beeboo.exception.NoFileException;
-import beeboo.task.Deadlines;
-import beeboo.task.Events;
 import beeboo.task.Tasks;
-import beeboo.task.ToDos;
+
 /**
  * The Storage class handles the reading and writing of task data to and from a file.
  * It provides methods for loading tasks from a file and saving tasks to a file.
@@ -55,43 +50,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String task = scanner.nextLine();
                 String[] splitted = task.split("\\|");
-                if (splitted.length < 3 || splitted.length > 6) {
-                    continue;
-                }
-                boolean isDone = splitted[1].trim().equals("1");
-                Tasks newTask = null;
-                switch (splitted[0].trim()) {
-                case "T":
-                    newTask = new ToDos(splitted[2].trim());
-                    if (isDone) {
-                        newTask.markDone();
-                    }
-                    break;
-                case "D":
-                    String[] dateTime = splitted[3].split("T");
-                    LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0].trim()),
-                            LocalTime.parse(dateTime[1].trim()));
-                    newTask = new Deadlines(splitted[2].trim(), dates);
-                    if (isDone) {
-                        newTask.markDone();
-                    }
-                    break;
-                case "E":
-                    String[] startDateTime = splitted[3].split("T");
-                    String[] endDateTime = splitted[4].split("T");
-                    LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()),
-                            LocalTime.parse(startDateTime[1].trim()));
-                    LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()),
-                            LocalTime.parse(endDateTime[1].trim()));
-
-                    newTask = new Events(splitted[2].trim(), startDate, endDate);
-                    if (isDone) {
-                        newTask.markDone();
-                    }
-                    break;
-                default:
-                    break;
-                }
+                Tasks newTask = TaskCreator.createTask(splitted);
                 if (newTask != null) {
                     list.add(newTask);
                 }

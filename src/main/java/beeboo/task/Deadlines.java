@@ -15,7 +15,7 @@ import beeboo.exception.NoDescriptionException;
  */
 public class Deadlines extends Tasks {
 
-    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy 'at' hh:mm a");
     private LocalDateTime date;
 
     /**
@@ -82,7 +82,7 @@ public class Deadlines extends Tasks {
      */
     @Override
     public String toString() {
-        return typeIcon() + super.toString() + "(by:" + FORMATTER.format(date).toLowerCase() + ")";
+        return typeIcon() + super.toString() + " (by:" + FORMATTER.format(date) + ")";
     }
 
     /**
