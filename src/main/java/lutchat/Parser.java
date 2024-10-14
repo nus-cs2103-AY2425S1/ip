@@ -26,156 +26,170 @@ public class Parser {
                 return false;
 
             case "list":
-                ui.showTaskList(taskList.getTasks());
-                return true;
+                handleListCommand(taskList, ui);
+                break;
 
             case "mark":
-                handleTaskMarking(userInputArr, taskList, ui, true);
-                return true;
+                handleTaskCommand(userInputArr, taskList, ui, true);
+                break;
 
             case "unmark":
-                handleTaskMarking(userInputArr, taskList, ui, false);
-                return true;
+                handleTaskCommand(userInputArr, taskList, ui, false);
+                break;
 
             case "delete":
                 handleTaskDeletion(userInputArr, taskList, ui);
-                return true;
+                break;
 
             case "todo":
                 handleTodoTask(userInput.substring(4).trim(), taskList, ui);
-                return true;
+                break;
 
             case "deadline":
                 handleDeadlineTask(userInput.substring(8).trim(), taskList, ui);
-                return true;
+                break;
 
             case "event":
                 handleEventTask(userInput.substring(5).trim(), taskList, ui);
-                return true;
+                break;
 
             case "find":
                 handleFindTask(userInputArr, userInput, taskList, ui);
-                return true;
+                break;
 
             default:
                 ui.showError("I don't know what that means... :(");
-                return true;
         }
+        return true;
     }
 
-    /**
-     * Handles marking or unmarking tasks.
-     */
-    private static void handleTaskMarking(String[] userInputArr, TaskList taskList, Ui ui, boolean isMarking) {
-        if (userInputArr.length < 2) {
-            ui.showError("Please indicate which task you would like to " + (isMarking ? "mark" : "unmark") + ".");
+    private static void handleListCommand(TaskList taskList, Ui ui) {
+        ui.showTaskList(taskList.getTasks());
+    }
+
+    private static void handleTaskCommand(String[] userInputArr, TaskList taskList, Ui ui, boolean isMarking) {
+        int taskIndex = validateAndGetTaskIndex(userInputArr, taskList, ui);
+        if (taskIndex == -1) {
+            return; // Early return if index is invalid
+        }
+
+        assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Invalid task index during marking/unmarking.";
+        if (isMarking) {
+            taskList.markTaskAsDone(taskIndex, ui);
         } else {
-            try {
-                int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
-                assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Invalid task index.";
-                if (isMarking) {
-                    taskList.markTaskAsDone(taskIndex, ui);
-                } else {
-                    taskList.markTaskAsUndone(taskIndex, ui);
-                }
-            } catch (NumberFormatException e) {
-                ui.showError("Invalid task number. Please enter a valid number.");
-            }
+            taskList.markTaskAsUndone(taskIndex, ui);
         }
     }
 
-    /**
-     * Handles task deletion.
-     */
     private static void handleTaskDeletion(String[] userInputArr, TaskList taskList, Ui ui) {
-        if (userInputArr.length < 2) {
-            ui.showError("Please indicate which task you would like to delete.");
-        } else {
-            try {
-                int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
-                assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Invalid task index for deletion.";
-                taskList.deleteTask(taskIndex, ui);
-            } catch (NumberFormatException e) {
-                ui.showError("Invalid task number. Please enter a valid number.");
-            }
+        int taskIndex = validateAndGetTaskIndex(userInputArr, taskList, ui);
+        if (taskIndex == -1) {
+            return; // Early return if index is invalid
         }
+
+        assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Invalid task index during deletion.";
+        taskList.deleteTask(taskIndex, ui);
     }
 
-    /**
-     * Handles adding a Todo task.
-     */
     private static void handleTodoTask(String todoDesc, TaskList taskList, Ui ui) {
         if (todoDesc.isEmpty()) {
             ui.showError("Todo description is missing.");
-        } else {
-            Task todo = new Todo(todoDesc);
-            assert todo != null : "Todo creation failed.";
-            taskList.addTask(todo, ui);
+            return; // Early return for invalid todo description
         }
+
+        Task todo = new Todo(todoDesc);
+        assert todo != null : "Todo creation failed.";
+        taskList.addTask(todo, ui);
     }
 
-    /**
-     * Handles adding a Deadline task.
-     */
     private static void handleDeadlineTask(String input, TaskList taskList, Ui ui) {
         String[] deadlineParts = input.split("/by");
+
         if (deadlineParts.length < 2 || deadlineParts[0].isEmpty()) {
             ui.showError("Deadline description or 'by' input is missing.");
-        } else {
-            String deadlineDesc = deadlineParts[0].trim();
-            String by = deadlineParts[1].trim();
-            try {
-                Task deadline = new Deadline(deadlineDesc, by);
-                assert deadline != null : "Deadline creation failed.";
-                taskList.addTask(deadline, ui);
-            } catch (IllegalArgumentException e) {
-                ui.showError(e.getMessage());
-            }
+            return; // Early return for invalid deadline
+        }
+
+        String deadlineDesc = deadlineParts[0].trim();
+        String by = deadlineParts[1].trim();
+
+        try {
+            Task deadline = new Deadline(deadlineDesc, by);
+            assert deadline != null : "Deadline creation failed.";
+            taskList.addTask(deadline, ui);
+        } catch (IllegalArgumentException e) {
+            ui.showError(e.getMessage());
         }
     }
 
-    /**
-     * Handles adding an Event task.
-     */
     private static void handleEventTask(String input, TaskList taskList, Ui ui) {
         String[] eventParts = input.split("/from");
+
         if (eventParts.length < 2 || eventParts[0].isEmpty()) {
             ui.showError("Event description, 'from', or 'to' input is missing.");
-        } else {
-            String eventDesc = eventParts[0].trim();
-            String[] fromTo = eventParts[1].split("/to");
-            if (fromTo.length < 2 || fromTo[0].isEmpty()) {
-                ui.showError("Event 'from' or 'to' input is missing.");
-            } else {
-                String from = fromTo[0].trim();
-                String to = fromTo[1].trim();
-                try {
-                    Task event = new Event(eventDesc, from, to);
-                    assert event != null : "Event creation failed.";
-                    taskList.addTask(event, ui);
-                } catch (IllegalArgumentException e) {
-                    ui.showError(e.getMessage());
-                }
-            }
+            return; // Early return for invalid event description
+        }
+
+        String eventDesc = eventParts[0].trim();
+        String[] fromTo = eventParts[1].split("/to");
+
+        if (fromTo.length < 2 || fromTo[0].isEmpty()) {
+            ui.showError("Event 'from' or 'to' input is missing.");
+            return; // Early return for invalid 'from' or 'to' input
+        }
+
+        String from = fromTo[0].trim();
+        String to = fromTo[1].trim();
+
+        try {
+            Task event = new Event(eventDesc, from, to);
+            assert event != null : "Event creation failed.";
+            taskList.addTask(event, ui);
+        } catch (IllegalArgumentException e) {
+            ui.showError(e.getMessage());
         }
     }
 
-    /**
-     * Handles finding tasks by keyword.
-     */
     private static void handleFindTask(String[] userInputArr, String userInput, TaskList taskList, Ui ui) {
         if (userInputArr.length < 2) {
             ui.showError("Please indicate a keyword to search.");
-        } else {
-            String searchWord = userInput.substring(5).trim();
-            ArrayList<Task> filteredTasks = new ArrayList<>();
-            for (Task task : taskList.getTasks()) {
-                // 'contains' keyword will search for a substring of desc even though it is not a complete word
-                if (task.contains(searchWord)) {
-                    filteredTasks.add(task);
-                }
-            }
-            ui.showTaskList(filteredTasks);
+            return; // Early return for invalid search input
         }
+
+        String searchWord = userInput.substring(5).trim();
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+
+        for (Task task : taskList.getTasks()) {
+            if (task.contains(searchWord)) {
+                filteredTasks.add(task);
+            }
+        }
+
+        ui.showTaskList(filteredTasks);
+    }
+
+    /**
+     * Validates the user input and retrieves the task index.
+     *
+     * @param userInputArr The split user input array.
+     * @param taskList     The current task list.
+     * @param ui           The UI for displaying error messages.
+     * @return The task index if valid, otherwise -1.
+     */
+    private static int validateAndGetTaskIndex(String[] userInputArr, TaskList taskList, Ui ui) {
+        if (userInputArr.length < 2) {
+            ui.showError("Please indicate the task number.");
+            return -1; // Early return for missing task number
+        }
+
+        try {
+            int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
+            assert taskIndex >= 0 && taskIndex < taskList.getTasks().size() : "Task index out of bounds.";
+            return taskIndex;
+        } catch (NumberFormatException e) {
+            ui.showError("Invalid task number. Please enter a valid number.");
+        }
+
+        return -1; // Invalid input fallback
     }
 }

@@ -39,6 +39,7 @@ LutChat is a chatbot application that allows users to manage their tasks in a st
 - **Add Tasks:** Create different types of tasks (`todo`, `deadline`, `event`).
 - **List Tasks:** View all tasks currently stored.
 - **Mark as Done:** Mark tasks as completed.
+- **Mark as UnDone:** Unmarks tasks.
 - **Delete Tasks:** Remove tasks from the list.
 - **Save and Load:** Automatically saves tasks to a file and loads them when the application starts.
 
@@ -70,18 +71,23 @@ Displays all tasks in the list with their status (done/not done).
   2. [D][X] Submit assignment (by: 2024-09-30)
   ```
 
-### 5. Mark a Task as Done
+### 5. Mark a Task
 Marks a specified task as completed.
-- **Format:** `done <task number>`
-- **Example:** `done 1`
+- **Format:** `mark <task number>`
+- **Example:** `mark 1`
 
-### 6. Delete a Task
+### 6. Unmark a Task
+Marks a specified task as completed.
+- **Format:** `unmark <task number>`
+- **Example:** `unmark 1`
+
+### 7. Delete a Task
 Removes a task from the list.
 - **Format:** `delete <task number>`
 - **Example:** `delete 2`
 
-### 7. Exit the Application
-Saves the current list of tasks and exits the application.
+### 8. Exit the Application
+Saves the current list of tasks and greets goodbye.
 - **Format:** `bye`
 
 ## Saving and Loading
