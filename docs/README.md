@@ -2,6 +2,8 @@
 
 Mahesh Dall-E is a powerful task management tool designed to help you keep track of your todos, events, deadlines, and recurring tasks. With a simple and intuitive command-line interface, Mahesh Dall-E makes it easy to organize your tasks and stay on top of your schedule. All your data is stored locally in a human-readable text file, ensuring that your information is always accessible and easy to manage. Whether you're managing personal tasks or coordinating team activities, Mahesh Dall-E is here to help you stay organized and productive.
 
+![User Interface](Ui.png)
+
 ## Adding todos
 
 To add a todo, use the `todo` command followed by the task description.
