@@ -23,7 +23,7 @@ Use the `todo` command to add tasks with a specific todo.
 
 **Command Format**: `todo <description>`
 
-**Example**: `deadline read book`
+**Example**: `todo read book`
 
 **Expected Outcome**: 
 Friday will store the task and inform you that the todo has been added successfully.
