@@ -1,7 +1,6 @@
 package beeboo.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
@@ -9,7 +8,6 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 import beeboo.exception.InvalidDateException;
-import beeboo.exception.NoDescriptionException;
 
 /**
  * Tests for the Events class.
