@@ -124,3 +124,4 @@ Now you have X tasks in the list. Mamta dum dum
 ## Local Storage
 
 Mahesh Dall-E stores data locally in a text file in a human-readable format. This ensures that your tasks are easily accessible and can be manually edited if necessary.
+There is no manual save or exit command needed. You can simple close out of the app and your tasks will be saved.
