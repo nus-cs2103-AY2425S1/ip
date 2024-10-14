@@ -86,7 +86,7 @@ Removes a task from the list.
 - **Format:** `delete <task number>`
 - **Example:** `delete 2`
 
-### 8. Exit the Application
+### 8. Greeting Goodbye
 Saves the current list of tasks and greets goodbye.
 - **Format:** `bye`
 
@@ -96,7 +96,7 @@ LutChat automatically saves your tasks to a file every time you add, delete, or 
 
 ## Exiting the Application
 
-To exit the application, simply type the `bye` command. Your tasks will be saved automatically.
+To exit the application, simply close the tab of the application using the 'X' button at the top right hand corner.
 
 ## Troubleshooting
 
