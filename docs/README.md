@@ -13,7 +13,8 @@ Example: `todo Buy groceries`
 ```
 Got it. I've added this task:
   [T][ ] Buy groceries
-Now you have X tasks in the list. Mamta dum dum
+Now you have X tasks in the list.
+Mamta dum dum
 ```
 
 ## Adding events
@@ -29,7 +30,8 @@ Example: `event Team meeting /from 2023-10-15T10:00:00 /to 2023-10-15T12:00:00`
 ```
 Got it. I've added this task:
   [E][ ] Team meeting (from: Oct 15 2023, 10:00:00 to: Oct 15 2023, 12:00:00)
-Now you have X tasks in the list. Mamta dum dum
+Now you have X tasks in the list.
+Mamta dum dum
 ```
 
 ## Adding deadlines
@@ -45,7 +47,8 @@ Example: `deadline Submit report /by 2023-10-15T23:59:59`
 ```
 Got it. I've added this task:
   [D][ ] Submit report (by: Oct 15 2023, 23:59:00)
-Now you have X tasks in the list. Mamta dum dum
+Now you have X tasks in the list.
+Mamta dum dum
 ```
 
 ## Adding recurring tasks
@@ -59,7 +62,8 @@ Example: `recurring Water plants /every Monday`
 ```
 Got it. I've added this task:
   [R][ ] Water plants (every: Monday)
-Now you have X tasks in the list. Mamta dum dum
+Now you have X tasks in the list.
+Mamta dum dum
 ```
 
 ## Listing tasks
@@ -118,7 +122,8 @@ Example: `delete 1`
 ```
 Got it. I've removed this task:
   [T][ ] Buy groceries
-Now you have X tasks in the list. Mamta dum dum
+Now you have X tasks in the list.
+Mamta dum dum
 ```
 
 ## Local Storage
