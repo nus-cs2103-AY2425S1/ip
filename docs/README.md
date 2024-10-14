@@ -6,6 +6,8 @@ Mahesh Dall-E is a powerful task management tool designed to help you keep track
 
 To add a todo, use the `todo` command followed by the task description.
 
+**Command format:** `todo <task description>`
+
 Example: `todo Buy groceries`
 
 ```
@@ -17,6 +19,10 @@ Now you have X tasks in the list. Mamta dum dum
 ## Adding events
 
 To add an event, use the `event` command followed by the task description, start date, and end date.
+
+**Command format:** `event <task description> /from <start date> /to <end date>`
+
+**Date format:** `yyyy-MM-dd'T'HH:mm:ss`
 
 Example: `event Team meeting /from 2023-10-15T10:00:00 /to 2023-10-15T12:00:00`
 
@@ -30,6 +36,10 @@ Now you have X tasks in the list. Mamta dum dum
 
 To add a deadline, use the `deadline` command followed by the task description and the due date.
 
+**Command format:** `deadline <task description> /by <due date>`
+
+**Date format:** `yyyy-MM-dd'T'HH:mm:ss`
+
 Example: `deadline Submit report /by 2023-10-15T23:59:59`
 
 ```
@@ -42,6 +52,8 @@ Now you have X tasks in the list. Mamta dum dum
 
 To add a recurring task, use the `recurring` command followed by the task description and the recurrence interval.
 
+**Command format:** `recurring <task description> /every <recurrence interval>`
+
 Example: `recurring Water plants /every Monday`
 
 ```
@@ -53,6 +65,8 @@ Now you have X tasks in the list. Mamta dum dum
 ## Listing tasks
 
 To list all tasks, use the `list` command.
+
+**Command format:** `list`
 
 Example: `list`
 
@@ -69,6 +83,8 @@ Mamta dum dum
 
 To mark a task as done, use the `mark` command followed by the task number.
 
+**Command format:** `mark <task number>`
+
 Example: `mark 1`
 
 ```
@@ -81,6 +97,8 @@ Mamta dum dum
 
 To unmark a task as done, use the `unmark` command followed by the task number.
 
+**Command format:** `unmark <task number>`
+
 Example: `unmark 1`
 
 ```
@@ -92,6 +110,8 @@ Mamta dum dum
 ## Deleting tasks
 
 To delete a task, use the `delete` command followed by the task number.
+
+**Command format:** `delete <task number>`
 
 Example: `delete 1`
 
