@@ -17,7 +17,7 @@ public class Mahesh {
     /**
      * The relative path to the file used for storing tasks.
      */
-    private String path = "../../../../data/mahesh.txt";
+    private String path = "./data/mahesh.txt";
     private Storage store;
     private TaskList list;
 

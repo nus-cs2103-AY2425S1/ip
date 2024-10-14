@@ -25,7 +25,7 @@ public class Storage {
      * @param pathString the relative path to the file for storing tasks
      */
     public Storage(String pathString) {
-        this.pathString = "../" + pathString;
+        this.pathString = pathString;
     }
 
     /**
