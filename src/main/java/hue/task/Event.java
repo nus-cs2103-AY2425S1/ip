@@ -21,10 +21,15 @@ public class Event extends Task {
      * @param from        The start date and time of the event in the format "yyyy-MM-dd HH:mm".
      * @param to          The end date and time of the event in the format "yyyy-MM-dd HH:mm".
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws HueException{
         super(description);
-        this.from = DateUtils.parseDateTime(from);
-        this.to = DateUtils.parseDateTime(to);
+        try {
+            this.from = DateUtils.parseDateTime(from);
+            this.to = DateUtils.parseDateTime(to);
+        }
+        catch (DateTimeParseException e) {
+            throw new HueException("Invalid Date Format!");
+        }
     }
 
     @Override
@@ -58,16 +63,6 @@ public class Event extends Task {
      */
     @Override
     public void reschedule(String newDate) throws HueException {
-       /* try {
-            String[] dateParts = newDate.split(" ");
-            assert dateParts.length == 2 : "Please provide both from and to dates";
-            this.from = DateUtils.parseDateTime(dateParts[0]);
-            this.to = DateUtils.parseDateTime(dateParts[1]);
-        } catch (DateTimeParseException e) {
-            throw new HueException("Invalid Date format");
-        }
-
-        */
         throw new HueException("Cannot rescheudle an Event without 2 dates!");
 
     }
