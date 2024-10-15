@@ -1,3 +1,5 @@
-1 todo Mew 
-0 deadline mog with martin /by 2024-08-31 0800
-1 todo Mew2
+0 Todo fuck       
+0 deadline eat dick /by 2024-08-01 2000
+0 deadline pee /by 2024-08-01 2200
+0 deadline sleep /by 2024-09-12 2200
+0 event nappy /from 2024-09-24 1200 /to 2024-09-24 1400

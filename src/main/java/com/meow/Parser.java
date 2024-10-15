@@ -39,6 +39,8 @@ public class Parser {
     public String validateCommand(String inputType) throws Meowception {
         try {         
             String[] parts = inputType.split(" ");
+            System.out.println(inputType);
+            System.out.println(Arrays.toString(parts));
             Commands userCommand = Commands.valueOf(parts[0].toUpperCase());
             return outputTask(userCommand, inputType);
         } catch (StringIndexOutOfBoundsException e) {
@@ -157,7 +159,6 @@ public class Parser {
         case UPDATE:
             try {
                 if (!inputType.substring(7).trim().isEmpty()) {
-                    System.out.println("Input is, " + inputType.substring((7)));
                     return parseUpdateTask(inputType.substring(7));
                 } else {
                     throw new Meowception("100");
@@ -170,12 +171,11 @@ public class Parser {
             }
 
         case BYE:
-            break;
+            return "bye";
+            
         default:
             throw new Meowception("001");
         }
-
-        return inputType;
     }
             
     /**
@@ -334,7 +334,7 @@ public class Parser {
     private String updateDeadlineTask(String userInput) throws Meowception {
         try {
             String taskName = userInput.substring(0, userInput.indexOf(" /"));
-            String newTaskData = userInput.substring(userInput.indexOf("/new ") + 5);
+            String newTaskData = userInput.substring(userInput.indexOf(" /new ") + 5);
             if (userInput.contains("/by ")) {
                 return taskList.updateDeadlineTask("time", taskName, newTaskData);
             } else if (userInput.contains("/name ")) {
@@ -367,8 +367,6 @@ public class Parser {
         }
         return "Oopsies I can't update this task for some reason";
     }
-
-    
 
     /**
      * Closes the scanner

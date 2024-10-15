@@ -28,7 +28,7 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("/view/dialogbox.css").toExternalForm());
             stage.setScene(scene);
             
-            fxmlLoader.<MainWindow>getController().setMeow(meow);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setMeow(meow);  // inject the Meow instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

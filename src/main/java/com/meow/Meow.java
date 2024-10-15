@@ -71,11 +71,17 @@ public class Meow {
      * Returns the response from the chatbot to GUI
      * @param input of user
      * @return String response from chatbot
+     * @throws IOException 
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws IOException {
         try {
-            
-            return parser.validateCommand(input);
+            String response = parser.validateCommand(input);
+            save.saveTasks(tasks);
+            if (response.equals("bye")) {
+                return "Meow Meow goodnight! Meow will save your tasks now!";
+            } else {   
+                return response;
+            }
         } catch (Meowception e) {
             return e.toString();
         }

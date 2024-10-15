@@ -43,7 +43,7 @@ public class Save {
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task task = tasks.get(i);
                 String completed = task.isDone() ? "1" : "0";
-                writer.write(completed + " " + task.getTaskName() + " " + task.getExtra() +"\n");
+                writer.write(completed + " " + task.getType() + " " + task.getTaskName() + " " + task.getExtra() +"\n");
             }
             writer.close();
         } catch (java.io.IOException e) {
@@ -76,6 +76,7 @@ public class Save {
     public void load() throws Meowception, java.io.IOException {
         Parser parser = new Parser(taskList);
         List<String> tasks = read();
+        System.out.println(tasks);
         for (String task : tasks) {
             try {
                 String type = task.substring(0, 1);
@@ -87,6 +88,7 @@ public class Save {
                 throw e;
             } catch (java.lang.StringIndexOutOfBoundsException e) {
                 //pass
+                throw e;
             }
         }
     }
