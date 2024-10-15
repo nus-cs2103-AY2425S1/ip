@@ -15,12 +15,12 @@ class Parser {
      *
      * @param date the date(in string format) that the user types in
      */
-    public static void validateDateFormat(String date) throws DukeException {
+    public static void validateDateFormat(String date) throws SirPotatoException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             LocalDate.parse(date, dateFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Mate, the date must be in the format dd-MM-yyyy.");
+            throw new SirPotatoException("Mate, the date must be in the format dd-MM-yyyy.");
         }
     }
 
@@ -29,7 +29,7 @@ class Parser {
      *
      * @param userInput The user's input to the chatbot
      */
-    public static void checkForErrors(String userInput) throws DukeException {
+    public static void checkForErrors(String userInput) throws SirPotatoException {
         String[] sectionedString = userInput.trim().split("\\s+");
 
         switch (sectionedString[0]) {
@@ -67,46 +67,46 @@ class Parser {
             break;
         default:
             if (!userInput.trim().equals("bye") && !userInput.trim().equals("list")) {
-                throw new DukeException("I'm sorry, that is not a valid input");
+                throw new SirPotatoException("I'm sorry, that is not a valid input");
             }
         }
     }
 
     private static void checkForCommand(String userInput, String command,
-            int minLength, String errorMsg) throws DukeException {
+            int minLength, String errorMsg) throws SirPotatoException {
         if (!userInput.startsWith(command + " ")) {
-            throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            throw new SirPotatoException("Mate, you may have misspelt or forgotten to type the rest of your command");
         }
     }
 
-    private static void validateTaskNumber(String task, String command) throws DukeException {
+    private static void validateTaskNumber(String task, String command) throws SirPotatoException {
         if (!task.matches("\\d+")) {
-            throw new DukeException("Mate, please give a task number (not text) to " + command);
+            throw new SirPotatoException("Mate, please give a valid task number (not text) to " + command);
         }
     }
 
     // Helper method to validate deadline format
-    private static void validateDeadlineFormat(String userInput) throws DukeException {
+    private static void validateDeadlineFormat(String userInput) throws SirPotatoException {
         String[] sectionedString = userInput.split("/by ");
         if (sectionedString.length < 2 || sectionedString[0].substring(9).isEmpty() || sectionedString[1].isEmpty()) {
-            throw new DukeException("Mate, you need to give me a task description and deadline date");
+            throw new SirPotatoException("Mate, you need to give me a task description and deadline date");
         }
         validateDateFormat(sectionedString[1].trim());
     }
 
     // Helper method to validate event format
-    private static void validateEventFormat(String userInput) throws DukeException {
+    private static void validateEventFormat(String userInput) throws SirPotatoException {
         // Updated split to handle extra spaces around /from and /to
         String[] sectionedString = userInput.split("/from\\s+|\\s+/to\\s+");
 
         // Check if description is empty
         if (sectionedString[0].substring(6).trim().isEmpty()) {
-            throw new DukeException("Mate, the event description cannot be empty.");
+            throw new SirPotatoException("Mate, the event description cannot be empty.");
         }
 
         // Ensure both dates are provided and are valid
         if (sectionedString.length < 3 || sectionedString[1].trim().isEmpty() || sectionedString[2].trim().isEmpty()) {
-            throw new DukeException("Mate, an event should have a start and an end date.");
+            throw new SirPotatoException("Mate, an event should have a start and an end date.");
         }
 
         // Validate the start and end dates
@@ -115,9 +115,9 @@ class Parser {
     }
 
     // Helper method to validate sort category
-    private static void validateSortCategory(String category) throws DukeException {
+    private static void validateSortCategory(String category) throws SirPotatoException {
         if (!(category.equals("description") || category.equals("deadline"))) {
-            throw new DukeException("You have to sort by description or deadline");
+            throw new SirPotatoException("You have to sort by description or deadline");
         }
     }
 
@@ -138,9 +138,9 @@ class Parser {
      *
      * @param userInput User's input to the chatbot
      * @return Command object to be executed i.e AddCommand or MarkCommand
-     * @throws DukeException if the input is not valid
+     * @throws SirPotatoException if the input is not valid
      */
-    public static Command parseCommand(String userInput) throws DukeException {
+    public static Command parseCommand(String userInput) throws SirPotatoException {
         userInput = userInput.trim();
         checkForErrors(userInput);
 
@@ -180,7 +180,7 @@ class Parser {
             String categoryToSortBy = sectionedString[1];
             return new SortCommand(categoryToSortBy);
         } else {
-            throw new DukeException("That is not valid input mate. Please have another go.");
+            throw new SirPotatoException("That is not valid input mate. Please have another go.");
         }
     }
 }

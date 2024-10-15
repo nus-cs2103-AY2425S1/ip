@@ -1,14 +1,14 @@
 package sirpotato;
 
 /**
- * This is the DukeException
+ * This is the SirPotatoException
  * for when the user types incorrect inputs
  * such as forgetting the description of the task
  * or forgetting to put the /by
  */
-public class DukeException extends Exception {
+public class SirPotatoException extends Exception {
 
-    public DukeException(String message) {
+    public SirPotatoException(String message) {
         super(message);
     }
 

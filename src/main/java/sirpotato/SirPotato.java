@@ -65,7 +65,7 @@ public class SirPotato {
                 if (command instanceof ExitCommand) {
                     break;
                 }
-            } catch (DukeException | IOException e) {
+            } catch (SirPotatoException | IOException e) {
                 ui.respond(e.getMessage());
             }
         }
@@ -88,7 +88,7 @@ public class SirPotato {
         try {
             Command command = Parser.parseCommand(input);
             return command.execute(tasks, ui, storage);
-        } catch (DukeException | IOException e) {
+        } catch (SirPotatoException | IOException e) {
             return e.getMessage();
         }
     }
