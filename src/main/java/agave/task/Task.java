@@ -1,4 +1,4 @@
-package agave.Task;
+package agave.task;
 
 import agave.logic.Deadline;
 import agave.logic.Event;

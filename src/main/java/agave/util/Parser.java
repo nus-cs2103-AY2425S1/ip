@@ -1,6 +1,6 @@
-package agave.Util;
+package agave.util;
 
-import agave.Task.Task;
+import agave.task.Task;
 import agave.logic.Deadline;
 import agave.logic.Event;
 import agave.logic.ToDo;

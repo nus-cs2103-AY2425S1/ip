@@ -1,6 +1,6 @@
 package agave.logic;
 
-import agave.Task.Task;
+import agave.task.Task;
 
 /**
  * Represents a task that can be added to the task list.

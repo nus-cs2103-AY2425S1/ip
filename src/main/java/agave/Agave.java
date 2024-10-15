@@ -1,11 +1,11 @@
 package agave;
 
-import agave.Task.TaskList;
-import agave.Util.AgaveException;
-import agave.Util.Parser;
-import agave.Util.Storage;
-import agave.Util.Ui;
-import agave.Util.CommandHandler;
+import agave.task.TaskList;
+import agave.util.AgaveException;
+import agave.util.Parser;
+import agave.util.Storage;
+import agave.util.Ui;
+import agave.util.CommandHandler;
 
 import java.io.IOException;
 

@@ -1,6 +1,6 @@
-package agave.Util;
+package agave.util;
 
-import agave.Task.Task;
+import agave.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;

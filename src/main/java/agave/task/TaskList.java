@@ -1,6 +1,6 @@
-package agave.Task;
+package agave.task;
 
-import agave.Util.AgaveException;
+import agave.util.AgaveException;
 import agave.logic.Deadline;
 
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package agave;
 
-import agave.Task.Task;
-import agave.Task.TaskList;
-import agave.Util.AgaveException;
+import agave.task.Task;
+import agave.task.TaskList;
+import agave.util.AgaveException;
 import agave.logic.Deadline;
 import agave.logic.Event;
 import agave.logic.ToDo;

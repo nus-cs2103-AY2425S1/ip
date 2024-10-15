@@ -1,7 +1,7 @@
-package agave.Util;
+package agave.util;
 
-import agave.Task.Task;
-import agave.Task.TaskList;
+import agave.task.Task;
+import agave.task.TaskList;
 import javafx.application.Platform;
 
 
