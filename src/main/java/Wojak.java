@@ -33,19 +33,19 @@ public class Wojak extends Application {
 
     @Override
     public void start(Stage stage) {
-        // ListView to display chat messages
+
         ListView<Message> chatListView = new ListView<>();
 
-        // TextField for user input
+
         TextField userInput = new TextField();
         userInput.setPromptText("Type your command here...");
 
         OutputHandler outputHandler = new OutputHandler(chatListView);
 
-        // Button to send message
+
         Button sendButton = new Button("Send");
 
-        // Handle send button click
+
         sendButton.setOnAction(e -> {
             String input = userInput.getText();
             if (!input.isEmpty()) {
@@ -56,7 +56,11 @@ public class Wojak extends Application {
                 try {
                     Command command = parser.parse(input);
                     command.execute(taskList, outputHandler);
-                    chatListView.getItems().add(new Message("Command executed successfully.", false));
+                    chatListView.getItems().add(new Message("NOTICE: Command PARSED successfully. " +
+                            "A successfully PARSED" +
+                            "command does not mean the command was EXECUTED successfully. Any error messages" +
+                            "will be thrown onto the GUI. Don't assume that the command was successful " +
+                            "just because it was parsed successfully.", false));
                 } catch (Exception ex) {
                     chatListView.getItems().add(new Message(ex.getMessage(), false));
                 }
@@ -106,7 +110,7 @@ class MessageCell extends ListCell<Message> {
             setGraphic(null);
             setText(null);
         } else {
-            HBox messageBox = new HBox(10);  // Horizontal box for avatar and message
+            HBox messageBox = new HBox(10);
             messageBox.setFillHeight(true);
 
             // Load avatar image based on whether it's a user or bot message
@@ -124,12 +128,12 @@ class MessageCell extends ListCell<Message> {
 
             if (message.isUser()) {
                 // Align user messages to the left (user avatar first, then message)
-                messageBox.setAlignment(Pos.CENTER_LEFT);
-                messageBox.getChildren().addAll(avatarView, messageLabel);  // Avatar then message
-            } else {
-                // Align bot messages to the right (bot avatar first, then message)
                 messageBox.setAlignment(Pos.CENTER_RIGHT);
                 messageBox.getChildren().addAll(messageLabel, avatarView);  // Avatar then message
+            } else {
+                // Align bot messages to the right (bot avatar first, then message)
+                messageBox.setAlignment(Pos.CENTER_LEFT);
+                messageBox.getChildren().addAll(avatarView, messageLabel);  // Avatar then message
             }
 
             // Allow message label to grow horizontally
