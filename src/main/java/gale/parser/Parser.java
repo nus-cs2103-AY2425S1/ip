@@ -87,7 +87,11 @@ public class Parser {
         if (input.length() <= 5) {
             throw new GaleException(exceptionMsg);
         }
-        String description = input.substring(5).trim();
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            throw new GaleException(exceptionMsg);
+        }
+        String description = parts[1].trim();
         if (description.isEmpty()) {
             throw new GaleException(exceptionMsg);
         }
