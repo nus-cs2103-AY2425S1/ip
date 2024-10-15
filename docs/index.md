@@ -2,6 +2,7 @@
 layout: page
 title: Asta Bot 
 ---
+
 * Table of Contents
 {:toc}
 
@@ -43,14 +44,14 @@ to-dos with minimal effort.
 
 ## Command Documentation
 
-| No. |     Command Description     |                                   Format                                    |                            examples                             |
-|:---:|:---------------------------:|:---------------------------------------------------------------------------:|:---------------------------------------------------------------:|
-|  1  |        Add Todo task        |                            `todo <description>`                             |                     `todo read more books`                      |
-|  2  |      Add Deadline task      |               `deadline <description> /by <DD/MM/YYYY HH:mm>`               |            `deadline read book /by 17/09/2024 23:59`            |
-|  3  |       Add Event task        |    `event <description> /from <DD/MM/YYYY HH:mm> /to <DD/MM/YYYY HH:mm>`    | `event return book /from 17/09/2024 23:59 /to 18/09/2024 23:59` |
-|  4  |         Delete task         |                               `delete <task>`                               |                           `delete 1`                            |
-|  5  |        Find task(s)         |                              `find <keyword>`                               |                           `find book`                           |
-|  6  |         List tasks          |                                   `list`                                    |                             `list`                              |
-| 10  |         Mark a task         |                                `mark <task>`                                |                            `mark 1`                             |
-| 11  |        Unmark a task        |                               `unmark <task>`                               |                           `unmark 1`                            |
-| 12  | Add Recurring Deadline Task | `repeat deadline <description> /by 17/09/2024 2359 /<daily/weekly/monthly>` |    repeat deadline submit report /by 12/09/2024 1800 /weekly    |
+| No. |     Command Description     |                                   Format                                    |                           examples                            |
+|:---:|:---------------------------:|:---------------------------------------------------------------------------:|:-------------------------------------------------------------:|
+|  1  |        Add Todo task        |                            `todo <description>`                             |                    `todo read more books`                     |
+|  2  |      Add Deadline task      |               `deadline <description> /by <DD/MM/YYYY HHmm>`                |           `deadline read book /by 17/09/2024 2359`            |
+|  3  |       Add Event task        |     `event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>`     | `event return book /from 17/09/2024 2359 /to 18/09/2024 2359` |
+|  4  |         Delete task         |                               `delete <task>`                               |                          `delete 1`                           |
+|  5  |        Find task(s)         |                              `find <keyword>`                               |                          `find book`                          |
+|  6  |         List tasks          |                                   `list`                                    |                            `list`                             |
+| 10  |         Mark a task         |                                `mark <task>`                                |                           `mark 1`                            |
+| 11  |        Unmark a task        |                               `unmark <task>`                               |                          `unmark 1`                           |
+| 12  | Add Recurring Deadline Task | `repeat deadline <description> /by 17/09/2024 2359 /<daily/weekly/monthly>` |   repeat deadline submit report /by 12/09/2024 1800 /weekly   |
