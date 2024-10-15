@@ -54,7 +54,7 @@ public class ParserTest {
     @Test
     public void testParseFromStorage_withIncompleteEntry() {
         Path filePath = tempDir.resolve("incompleteEntry.txt");
-        StorageStub storage = new StorageStub(filePath.toString(), new String[] {"[D][X] ddd ", });
+        StorageStub storage = new StorageStub(filePath.toString(), new String[] {"[D][X] ddd "});
 
         assertThrows(MizzException.class, () -> {
             Parser.parseFromStorage(storage);
@@ -65,7 +65,7 @@ public class ParserTest {
     public void testParseFromStorage_withInvalidDate() {
         Path filePath = tempDir.resolve("invalidDate.txt");
         StorageStub storage = new StorageStub(filePath.toString(),
-                new String[] {"[D][X] ddd (by: InvalidDate)", });
+                new String[] {"[D][X] ddd (by: InvalidDate)"});
 
         assertThrows(InvalidDateException.class, () -> {
             Parser.parseFromStorage(storage);

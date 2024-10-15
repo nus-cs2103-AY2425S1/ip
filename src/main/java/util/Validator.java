@@ -12,7 +12,7 @@ import exceptions.UpdateMarkedException;
  */
 public class Validator {
     /**
-     * Method to validate the todo command.
+     * Validates the todo command.
      *
      * @param details The full split input from the user.
      * @throws ToDoException if the input is malformed.
