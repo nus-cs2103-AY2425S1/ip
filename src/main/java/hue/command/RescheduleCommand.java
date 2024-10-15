@@ -51,24 +51,32 @@ public class RescheduleCommand extends Command {
          Task task = tasks.get(taskIndex);
 
          if (task instanceof Deadline) { //accounts for both yyyy-mm-dd and MMM-dd-yyyy
-             if (dateEntry.length != 1) {
-                 throw new HueException("Please provide a valid date range!");
-             }
-             ((Deadline) task).reschedule(parts[2].trim());
+            rescheduleDeadline((Deadline) task);
          }
 
          if (task instanceof Event) {
-             if (dateEntry.length == 2) { // using yyyy-mm-dd
-                 ((Event) task).rescheduleEvent(dateEntry[0].trim(), dateEntry[1].trim());
-             } else if (dateEntry.length == 4) { //using MMM-dd-yyyy
-                 String[] reformattedDates = parts[2].split(" (?=\\d{1,2}/\\d{1,2}/\\d{4})");
-                 ((Event) task).rescheduleEvent(reformattedDates[0].trim(), reformattedDates[1].trim());
-             } else {
-                 throw new HueException("Please provide a valid date range!");
-             }
+            rescheduleEvent((Event) task);
          }
          storage.saveTasks(tasks);
          return ui.showRescheduleSuccess(task, String.join(" to ", dateEntry));
+    }
+
+    public void rescheduleDeadline(Deadline deadline) throws HueException {
+        if (dateEntry.length != 1) {
+            throw new HueException("Please provide a valid date range!");
+        }
+        deadline.reschedule(parts[2].trim());
+    }
+
+    public void rescheduleEvent(Event event) throws HueException{
+        if (dateEntry.length == 2) { // using yyyy-mm-dd
+            event.rescheduleEvent(dateEntry[0].trim(), dateEntry[1].trim());
+        } else if (dateEntry.length == 4) { //using MMM-dd-yyyy
+            String[] reformattedDates = parts[2].split(" (?=\\d{1,2}/\\d{1,2}/\\d{4})");
+            event.rescheduleEvent(reformattedDates[0].trim(), reformattedDates[1].trim());
+        } else {
+            throw new HueException("Please provide a valid date range!");
+        }
     }
 
 

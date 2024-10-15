@@ -42,6 +42,13 @@ public class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+    /**
+     * @return true if the task is done, false otherwise
+     */
+    public boolean hasDone() {
+        return this.isDone;
+    }
     /**
      * Converts the task to a format suitable for saving to a file.
      *

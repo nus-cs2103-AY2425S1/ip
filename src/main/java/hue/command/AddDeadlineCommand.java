@@ -36,7 +36,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, HueException {
         Task newTask = new Deadline(description, by);
         tasks.add(newTask);
 

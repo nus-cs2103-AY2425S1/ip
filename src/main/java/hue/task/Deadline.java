@@ -18,9 +18,13 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param by The due date and time of the task in the format "yyyy-MM-dd HH:mm".
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws HueException{
         super(description);
-        this.by = DateUtils.parseDateTime(by);
+        try {
+            this.by = DateUtils.parseDateTime(by);
+        } catch (DateTimeParseException e) {
+            throw new HueException("Invalid Date Format!");
+        }
     }
 
 

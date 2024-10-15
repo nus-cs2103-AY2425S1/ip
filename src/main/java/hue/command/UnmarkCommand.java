@@ -1,5 +1,6 @@
 package hue.command;
 
+import hue.Hue;
 import hue.HueException;
 import hue.ui.Ui;
 import hue.storage.Storage;
@@ -24,17 +25,22 @@ public class UnmarkCommand extends Command {
         try {
             this.taskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new HueException("Please give a valid task number to mark.");
+            throw new HueException("Please give a valid task number to unmark.");
         }
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, HueException {
-        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of range";
-        Task task = tasks.get(taskIndex);
-        task.unmarkDone();
-        storage.saveTasks(tasks);
-        return ui.showUnmarkTask(task);
+        try {
+            assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of range";
+            Task task = tasks.get(taskIndex);
+            assert task.hasDone() : "Task has not been done yet";
+            task.unmarkDone();
+            storage.saveTasks(tasks);
+            return ui.showUnmarkTask(task);
+        } catch (AssertionError e) {
+            throw new HueException(e.getMessage());
+        }
     }
 
 }
