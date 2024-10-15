@@ -179,14 +179,7 @@ public class Events extends Tasks {
     public void updateTime(String time) throws UpdateCommandException {
         try {
             if (time.contains("from") && time.contains("to")) {
-                String[] times = time.split("/");
-                this.startDate = TimeConverter.convertTime(times[0].substring(5).trim());
-                String endDate = times[1].substring(3).trim();
-                String[] endDates = endDate.split(" ");
-                LocalDateTime endDateTime = (endDates.length == 1)
-                        ? TimeConverter.convertTime(startDate.toLocalDate().toString() + " " + endDate)
-                        : TimeConverter.convertTime(endDate);
-                this.endDate = endDateTime;
+                updateDateAndTime(time);
             } else if (time.contains("from")) {
                 // no to only from
                 this.startDate = TimeConverter.convertTime(time.substring(5).trim());
@@ -200,5 +193,31 @@ public class Events extends Tasks {
             throw new UpdateCommandException("Invalid update Command");
         }
     }
+
+    /**
+     * Updates the start and end date/time based on the provided input string.
+     * The input string should be in the format "from <start-time> / to <end-time>",
+     * where <start-time> and <end-time> represent the times to be parsed.
+     *
+     * <p>If the end time does not specify a date (only time is provided),
+     * the date from the start time is used to construct the end date.</p>
+     *
+     * @param time the input string containing the "from" and "to" times,
+     *             e.g., "from 2024-10-15 10:00 / to 12:00"
+     * @throws DateTimeParseException if the provided time string is in an
+     *         incorrect format or cannot be parsed
+     */
+    public void updateDateAndTime(String time) throws DateTimeParseException {
+        String[] times = time.split("/");
+        this.startDate = TimeConverter.convertTime(times[0].substring(5).trim());
+        String endDate = times[1].substring(3).trim();
+        String[] endDates = endDate.split(" ");
+        LocalDateTime endDateTime = (endDates.length == 1)
+                ? TimeConverter.convertTime(startDate.toLocalDate().toString() + " " + endDate)
+                : TimeConverter.convertTime(endDate);
+        this.endDate = endDateTime;
+    }
+
 }
+
 
