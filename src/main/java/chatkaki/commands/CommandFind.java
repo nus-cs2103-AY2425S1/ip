@@ -50,38 +50,58 @@ public class CommandFind extends Command {
 
     @Override
     public String execute() {
+        if (isHelp || keyword.isEmpty()) {
+            return generateHelpMessage();
+        }
+
         StringBuilder listMessage = new StringBuilder("Here are the matching tasks in your list:");
-        int count = 0;
-        if ((isHelp || keyword.isEmpty()) && !isMatchFullWord && !isMatchDescription) {
-            return "Find tasks with a keyword." + System.lineSeparator()
-                    + "Usage: find <keyword> [-full] [-desc] [-help]" + System.lineSeparator()
-                    + "Options:" + System.lineSeparator()
-                    + "-full: Match full word only." + System.lineSeparator()
-                    + "-desc: Match keyword in description only." + System.lineSeparator()
-                    + "-help: Show help message.";
-        }
-        for (int i = 0; i < TaskList.getSize(); i++) {
-            String taskDescription = this.isMatchDescription
-                    ? TaskList.getTask(i).getDescription() : TaskList.getTask(i).toString();
-            if (isMatchFullWord) {
-                String[] words = taskDescription.split("[^a-zA-Z0-9]+");
-                for (String word : words) {
-                    if (word.equalsIgnoreCase(keyword)) {
-                        count++;
-                        listMessage.append("\n ").append(i + 1).append(". ").append(TaskList.getTask(i));
-                        break;
-                    }
-                }
-            } else {
-                if (taskDescription.contains(keyword)) {
-                    count++;
-                    listMessage.append("\n ").append(i + 1).append(". ").append(TaskList.getTask(i));
-                }
-            }
-        }
+        int count = findMatchingTasks(listMessage);
+
         if (count == 0) {
             return "No matching tasks found.";
         }
         return listMessage.toString();
+    }
+
+    private String generateHelpMessage() {
+        return "Find tasks with a keyword." + System.lineSeparator()
+                + "Usage: find <keyword> [-full] [-desc] [-help]" + System.lineSeparator()
+                + "Options:" + System.lineSeparator()
+                + "-full: Match full word only." + System.lineSeparator()
+                + "-desc: Match keyword in description only." + System.lineSeparator()
+                + "-help: Show help message.";
+    }
+
+    private int findMatchingTasks(StringBuilder listMessage) {
+        int count = 0;
+        for (int i = 0; i < TaskList.getSize(); i++) {
+            String taskDescription = this.isMatchDescription
+                    ? TaskList.getTask(i).getDescription() : TaskList.getTask(i).toString();
+            if (isMatchFullWord) {
+                count += matchFullWord(taskDescription, i, listMessage);
+            } else {
+                count += matchPartialWord(taskDescription, i, listMessage);
+            }
+        }
+        return count;
+    }
+
+    private int matchFullWord(String taskDescription, int index, StringBuilder listMessage) {
+        String[] words = taskDescription.split("[^a-zA-Z0-9]+");
+        for (String word : words) {
+            if (word.equalsIgnoreCase(keyword)) {
+                listMessage.append("\n ").append(index + 1).append(". ").append(TaskList.getTask(index));
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    private int matchPartialWord(String taskDescription, int index, StringBuilder listMessage) {
+        if (taskDescription.contains(keyword)) {
+            listMessage.append("\n ").append(index + 1).append(". ").append(TaskList.getTask(index));
+            return 1;
+        }
+        return 0;
     }
 }

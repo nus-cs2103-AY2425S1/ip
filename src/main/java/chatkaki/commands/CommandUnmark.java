@@ -15,7 +15,6 @@ public class CommandUnmark extends Command {
     public String execute() {
         int index = Integer.parseInt(inputs[1]);
         if (index < 1 || index > TaskList.getSize()) {
-            //Ui.printMessage("Invalid Task number.");
             return "Invalid Task number.";
         }
         Task task = TaskList.getTask(index - 1);

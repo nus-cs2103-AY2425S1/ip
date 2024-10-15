@@ -28,7 +28,6 @@ public class CommandList extends Command {
         for (int i = 0; i < TaskList.getSize(); i++) {
             listMessage.append("\n ").append(i + 1).append(". ").append(TaskList.getTask(i));
         }
-        //Ui.printMessage(listMessage.toString());
         return listMessage.toString();
     }
 }

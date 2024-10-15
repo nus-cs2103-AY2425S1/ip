@@ -22,7 +22,6 @@ public class CommandBye extends Command {
     @Override
     public String execute() {
         Storage.saveTasksToFile();
-        //return Ui.printMessage("Bye. Hope to see you again soon!");
         return "Bye. Hope to see you again soon!";
     }
 

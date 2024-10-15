@@ -41,7 +41,6 @@ public class Task {
      */
     public String markAsDone() {
         if (this.isDone) {
-            //System.out.println("Task was already done!");
             return "Task was already done!";
         }
         this.isDone = true;
@@ -53,7 +52,6 @@ public class Task {
      */
     public String markAsUndone() {
         if (!this.isDone) {
-            //System.out.println("Task was already undone!");
             return "Task was already undone!";
         }
         this.isDone = false;
@@ -66,11 +64,6 @@ public class Task {
      * @param message The message to print.
      */
     private String printTaskStatus(String message) {
-
-//        System.out.println("\n____________________________________________________________");
-//        System.out.println(" " + message);
-//        System.out.println(" " + this);
-//        System.out.println("____________________________________________________________\n");
         return message + "\n" + this;
     }
 

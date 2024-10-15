@@ -14,7 +14,6 @@ public class CommandTodo extends Command {
     @Override
     public String execute() {
         if (inputs.length <= 1) {
-            //Ui.printMessage("The description of a todo cannot be empty.");
             return "The description of a todo cannot be empty.";
         }
         return TaskList.addTask(new Todo(false, inputs[1]), false);

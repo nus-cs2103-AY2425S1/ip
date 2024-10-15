@@ -31,7 +31,6 @@ public class CommandEvent extends Command {
         String[] parts = inputs[1].split(" /from | /to ");
         if (parts.length != 3
                 || !DateTimeHelper.isValidDateFormat(parts[1]) || !DateTimeHelper.isValidDateFormat(parts[2])) {
-            //Ui.printMessage("Invalid Event format, it should contain /from and /to with valid dates.");
             return "Invalid Event format, it should contain /from and /to with valid dates.";
         }
         LocalDateTime start = DateTimeHelper.parseDate(parts[1]);

@@ -28,7 +28,7 @@ deadline TASK /by DATE TIME
 ### Example
 
 ```
-deadline Submit assignment /by 2023-10-15 23:59
+deadline Submit assignment /by 3/6/2002 0000
 
 ```
 
@@ -36,7 +36,7 @@ deadline Submit assignment /by 2023-10-15 23:59
 
 ```
 Got it. I've added this task:
-  [D][ ] Submit assignment (by: Oct 15 2023 11:59 PM)
+  [D][ ] Submit assignment (by: 3/6/2002 0000)
 Now you have X tasks in the list.
 ```
 ---
