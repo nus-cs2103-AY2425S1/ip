@@ -18,7 +18,6 @@ import niko.task.Event;
 import niko.task.Task;
 import niko.task.TaskList;
 
-
 /**
  * A utility class that provides methods for parsing date and time strings,
  * and for searching tasks based on dates.
@@ -33,9 +32,10 @@ public class DateTimeParser {
         initializeFormatters();
     }
 
+    /**
+     * Initializes the date and time formatters used for parsing.
+     */
     private static void initializeFormatters() {
-        // Initialize various date and time formatters.
-        dateTimeFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a", Locale.ENGLISH));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
@@ -49,8 +49,6 @@ public class DateTimeParser {
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         dateTimeFormatters.add(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
-        dateTimeFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy h:mm a"));
-        dateTimeFormatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
 
         dateOnlyFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy"));
         dateOnlyFormatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -63,8 +61,9 @@ public class DateTimeParser {
     /**
      * Searches for tasks in the given TaskList that match the specified date.
      *
-     * @param date The date string to search for.
+     * @param date     The date string to search for.
      * @param taskList The list of tasks to search through.
+     * @return The search result message.
      */
     public String searchTasks(String date, TaskList taskList) {
         ParsedDate parsedDate = parseDate(date);
@@ -80,6 +79,12 @@ public class DateTimeParser {
         return matchingTasks.isEmpty() ? ui.showNoMatchingTasksMessage() : ui.showTaskList(matchingTasks);
     }
 
+    /**
+     * Parses the given date string into a ParsedDate object.
+     *
+     * @param date The date string to parse.
+     * @return The parsed date as a ParsedDate object.
+     */
     private ParsedDate parseDate(String date) {
         DateTimeFormatter fullDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -112,6 +117,12 @@ public class DateTimeParser {
         return parsedDate;
     }
 
+    /**
+     * Retrieves the LocalDateTime of the given task.
+     *
+     * @param task The task to retrieve the date and time from.
+     * @return The LocalDateTime of the task, or null if the task is not a Deadline or Event.
+     */
     private LocalDateTime getTaskDateTime(Task task) {
         if (task instanceof Deadline) {
             return ((Deadline) task).getBy();
@@ -121,6 +132,13 @@ public class DateTimeParser {
         return null;
     }
 
+    /**
+     * Compares the parsed date with the task date time.
+     *
+     * @param parsedDate    The parsed date to compare.
+     * @param taskDateTime The task date time to compare.
+     * @return True if the dates match based on the parsed date type, false otherwise.
+     */
     private boolean compareTime(ParsedDate parsedDate, LocalDateTime taskDateTime) {
         if (parsedDate.isFullDate) {
             return taskDateTime.toLocalDate().isEqual(parsedDate.fullDate.toLocalDate());
@@ -132,6 +150,13 @@ public class DateTimeParser {
         return false;
     }
 
+    /**
+     * Parses the given date time string into a LocalDateTime object.
+     *
+     * @param dateTimeString The date time string to parse.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeParseException If the string cannot be parsed into a valid date time.
+     */
     public static LocalDateTime parseDateTime(String dateTimeString) throws DateTimeParseException {
         for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
@@ -151,22 +176,9 @@ public class DateTimeParser {
         throw new DateTimeParseException("Unable to parse date: " + dateTimeString, dateTimeString, 0);
     }
 
-    public static LocalDateTime convertDate(String inputDate) {
-        try {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a", Locale.ENGLISH);
-            return LocalDateTime.parse(inputDate, dateTimeFormatter);
-        } catch (DateTimeParseException ignored) {
-        }
-
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
-            LocalDate date = LocalDate.parse(inputDate, dateFormatter);
-            return date.atStartOfDay();
-        } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Unable to parse date: " + inputDate, inputDate, 0);
-        }
-    }
-
+    /**
+     * A private inner class representing a parsed date.
+     */
     private static class ParsedDate {
         LocalDateTime fullDate;
         YearMonth yearMonth;

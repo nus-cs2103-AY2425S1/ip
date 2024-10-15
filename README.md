@@ -76,13 +76,7 @@ Niko is designed to handle a wide range of errors gracefully, providing clear an
 
 ## User Guide
 
-For a comprehensive guide on how to use Niko Chatbot, including detailed instructions and examples, please visit the [Niko Chatbot User Guide](https://your-username.github.io/niko-chatbot/).
-
-### Accessing the User Guide
-
-- **View the User Guide**:
-   - Navigate to `https://publicmain.github.io/ip/` in your browser.
-   - Note: It may take 5-10 minutes for GitHub Pages to publish your site.
+For a comprehensive guide on how to use Niko Chatbot, including detailed instructions and examples, please visit the [Niko Chatbot User Guide](https://publicmain.github.io/ip/).
 
 
 

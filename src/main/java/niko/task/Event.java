@@ -23,18 +23,9 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description, TaskType.EVENT);
-        try {
-            this.start = DateTimeParser.convertDate(start);
-            this.end = DateTimeParser.convertDate(end);
-        } catch (DateTimeParseException ignore) {
-            // Intentionally left blank
-        }
-        try {
-            this.start = DateTimeParser.parseDateTime(start);
-            this.end = DateTimeParser.parseDateTime(end);
-        } catch (DateTimeParseException ignore) {
-            // Intentionally left blank
-        }
+        this.start = DateTimeParser.parseDateTime(start);
+        this.end = DateTimeParser.parseDateTime(end);
+
     }
 
     @Override

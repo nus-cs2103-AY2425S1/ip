@@ -2,7 +2,6 @@ package niko.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 import niko.common.DateTimeParser;
@@ -22,16 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
-        try {
-            this.by = DateTimeParser.convertDate(by);
-        } catch (DateTimeParseException ignore) {
-            // Intentionally left blank
-        }
-        try {
-            this.by = DateTimeParser.parseDateTime(by);
-        } catch (DateTimeParseException ignore) {
-            // Intentionally left blank
-        }
+        this.by = DateTimeParser.parseDateTime(by);
     }
 
     /**
@@ -42,6 +32,7 @@ public class Deadline extends Task {
     public LocalDateTime getBy() {
         return by;
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "

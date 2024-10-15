@@ -5,94 +5,155 @@
 
 Welcome to the **Niko Chatbot** repository! Niko is a feature-rich and user-friendly chatbot designed to help you manage tasks, set reminders, and keep track of your schedule effortlessly. Whether you're a student, professional, or someone looking to organize daily activities, Niko is here to assist you.
 
-## Table of Contents
 
-- [Features](#features)
-- [User Guide](#user-guide)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Examples](#examples)
-- [Error Handling](#error-handling)
-- [Contributing](#contributing)
-- [License](#license)
-- [Support](#support)
+### Add Todo Task:
 
-## Features
+- **ToDo Task**: `todo [description]`
 
-Niko Chatbot is packed with a variety of features to enhance your productivity and task management. Below is a detailed overview of each feature:
+eg todo eat
+```
+Got it! I've added this task:
+[T][ ] eat
+Now you have 1 tasks in the list, god bless you
+```
 
-### 1. **Task Management**
+### Add Deadline Task:
 
-Niko allows you to efficiently manage your tasks through various commands:
+- **Deadline Task**: `deadline [description] /by [due date]`
 
-- **Add Tasks**: Create different types of tasks such as Todos, Deadlines, and Events.
-    - **Todo**: Simple tasks without any deadlines.
-    - **Deadline**: Tasks with specific due dates and times.
-    - **Event**: Tasks that occur within a specific time frame.
+eg deadline eat /by 2024-11-12
+```
+Got it. l've added this task:
+[D][] eat (by: Nov 12 2024 11:59 PM)
+Now you have 59 tasks in the list. god bless you
+```
+### Add Event Task:
 
-- **List Tasks**: View all your current tasks in an organized manner.
+- **Event Task**: `event [description] /from [start time] /to [end time]`
 
-- **Mark Tasks as Done**: Update the status of your tasks upon completion.
+eg event eat /from 2024-11-12 /to 2024-11-13
+```
+Got it. l've added this task:
+[E][]eat (from: Nov 12 2024 11:59 PM to: Nov 13 2024 11:59 PM)
+Now you have 60 tasks in the list. god bless you
+```
+## Supported Date and Time Formats
 
-- **Unmark Tasks**: Revert a task's status from done to not done.
+This project supports the following date and time formats. When adding events or specifying date and time, please use any of the formats listed below.
 
-- **Delete Tasks**: Remove tasks that are no longer needed from your list.
+**Note**: If the time is not specified, the system will automatically set the time to **11:59 PM** by default.
 
-- **Find Tasks**: Search for specific tasks using keywords to quickly locate them.
+### Date and Time Formats
 
-### 2. **Persistent Storage**
+The following formats support both date and time input:
 
-- **Save & Load**: Automatically save your tasks to a local file and load them upon restarting the chatbot, ensuring that your data is preserved between sessions.
+- **MMM d yyyy h:mm a** (Locale.ENGLISH)  
+  Example: `Oct 15 2024 2:30 PM`
 
-### 3. **Robust Error Handling**
+- **d/M/yyyy HHmm**  
+  Example: `15/10/2024 1430`
 
-Niko is designed to handle a wide range of errors gracefully, providing clear and actionable feedback to users:
+- **dd/MM/yyyy HHmm**  
+  Example: `15/10/2024 1430`
 
-- **Command Format Errors**: Detects and informs users about incorrect command formats, such as missing parameters or using invalid characters.
+- **yyyy-MM-dd HHmm**  
+  Example: `2024-10-15 1430`
 
-- **Environment Issues**: Handles scenarios where expected files are missing, access is denied, or file contents are corrupted.
+- **yyyy/MM/dd HHmm**  
+  Example: `2024/10/15 1430`
 
-- **Data Consistency**: Ensures that task data remains consistent, such as preventing duplicate tasks or ensuring that event dates are logically correct.
+- **dd-MM-yyyy HHmm**  
+  Example: `15-10-2024 1430`
 
-### 4. **User Interface**
+- **dd.MM.yyyy HHmm**  
+  Example: `15.10.2024 1430`
 
-- **Command-Line Interface (CLI)**: Interact with Niko through a simple and intuitive command-line interface.
+- **d/M/yyyy HH:mm**  
+  Example: `15/10/2024 14:30`
 
-- **Graphical User Interface (GUI)**: For a more user-friendly experience, Niko can be extended with a GUI using JavaFX, allowing for visual interaction with tasks and commands.
+- **dd/MM/yyyy HH:mm**  
+  Example: `15/10/2024 14:30`
 
-### 5. **Customization**
+- **yyyy-MM-dd HH:mm**  
+  Example: `2024-10-15 14:30`
 
-- **Themes**: Customize the appearance of the chatbot through themes, enhancing the visual appeal to suit your preferences.
+- **yyyy/MM/dd HH:mm**  
+  Example: `2024/10/15 14:30`
 
-- **Flexible Date Formats**: Supports multiple date and time formats to accommodate different user needs.
+- **dd-MM-yyyy HH:mm**  
+  Example: `15-10-2024 14:30`
 
-### 6. **Extensibility**
+- **dd.MM.yyyy HH:mm**  
+  Example: `15.10.2024 14:30`
 
-- **Modular Design**: Niko is built with a modular architecture, making it easy to add new features or integrate with other applications.
+### Date-Only Formats
 
-- **API Integration**: Potential to integrate with external APIs for added functionalities like calendar syncing or notification services.
+The following formats support date input only, without specifying time:
 
-### 7. **Accessibility**
+- **d/M/yyyy**  
+  Example: `15/10/2024`
 
-- **Responsive Design**: Ensures that the chatbot interface adapts to different screen sizes and devices, providing a seamless experience across platforms.
+- **dd/MM/yyyy**  
+  Example: `15/10/2024`
 
-## User Guide
+- **yyyy-MM-dd**  
+  Example: `2024-10-15`
 
-For a comprehensive guide on how to use Niko Chatbot, including detailed instructions and examples, please visit the [Niko Chatbot User Guide](https://your-username.github.io/niko-chatbot/).
+- **yyyy/MM/dd**  
+  Example: `2024/10/15`
 
-### Accessing the User Guide
+- **dd-MM-yyyy**  
+  Example: `15-10-2024`
 
-- **View the User Guide**:
-    - Navigate to `https://publicmain.github.io/ip/` in your browser.
-    - Note: It may take 5-10 minutes for GitHub Pages to publish your site.
+- **dd.MM.yyyy**  
+  Example: `15.10.2024`
 
+### View all tasks in your list
 
+Type "list" to display all tasks currently in your list
 
-## Installation
+```
+Here are the tasks in your list:
+1. [T][ ] eat
+```
 
-### Prerequisites
+### Mark / Unmark / Delete tasks
 
-- **Java 11** or higher installed on your system.
-- **Git** installed for cloning the repository.
+Type mark followed by the corresponding number of the task in your list to mark it as done
 
+eg. mark 1
+
+```
+got it, bro, marked  as done:
+[T][X] eat
+```
+
+Type unmark followed by corresponding number of the task in your list to mark it as not done
+
+eg. unmark 1
+
+```
+emmm, changed your mind ah? okay, leave it to niko
+[T][ ] eat
+```
+
+Type del followed by the corresponding number of the task in your list to delete it
+
+eg. delete 1
+
+```
+Noted I've removed this task:
+[T][ ] eat
+Now you have 0 tasks in the list.
+```
+
+### Find tasks
+
+Type find followed by a keyword to find the matching tasks in your list
+
+eg. find eat
+
+```
+Here are the matching tasks in your list:
+1. [T][ ] eat
+```

@@ -64,9 +64,11 @@ public class Task {
     public void unmarkAsDone() {
         this.status = TaskStatus.NOT_DONE;
     }
+
     public String getDescription() {
         return this.description;
     }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
