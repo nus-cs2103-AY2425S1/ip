@@ -193,7 +193,7 @@ Hope you got that right...
 
 ### Finding a task using keyword: `find`
 
-Use this command to search for all tasks whose description contains the input <String> as a substring
+Use this command to search for all tasks whose description contains the input <String> as a substring, the search is case sensitive!
 
 Command: `find <String>`
 
@@ -208,7 +208,7 @@ Expected output:
 
 ### Clearing all Tasks: `clear`
 
-Use this command to add or update tag to a task.
+Use this command to clear all tasks from memory (as of now cannot be undone so be careful!)
 
 Command: `clear`
 
