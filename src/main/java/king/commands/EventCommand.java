@@ -14,6 +14,7 @@ import king.ui.Ui;
  * Represents a command to create an event and add it to the task list.
  */
 public class EventCommand extends Command {
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private String input;
 
     /**
@@ -37,27 +38,33 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KingException {
+        if (input == null || input.isBlank()) {
+            throw new KingException("Input cannot be null or empty.");
+        }
+
         String[] parts = input.split(" /from | /to ");
-        if (parts.length == 3) {
-            String description = parts[0].trim();
-            String fromDate = parts[1].trim();
-            String toDate = parts[2].trim();
-            try {
-                LocalDateTime parsedFromDate = LocalDateTime.parse(
-                        fromDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
-                );
-                LocalDateTime parsedToDate = LocalDateTime.parse(
-                        toDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")
-                );
-                Event event = new Event(description, parsedFromDate, parsedToDate);
-                tasks.add(event);
-                storage.save(tasks.getTaskList());
-                return ui.showTaskAdded(event, tasks.size());
-            } catch (DateTimeParseException e) {
-                return "Invalid event date format. Please use yyyy-MM-dd HHmm.";
+        if (parts.length != 3) {
+            throw new KingException("Invalid event format. Please use the format: description /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm.");
+        }
+
+        String description = parts[0].trim();
+        String fromDate = parts[1].trim();
+        String toDate = parts[2].trim();
+
+        try {
+            LocalDateTime parsedFromDate = LocalDateTime.parse(fromDate, DATE_FORMATTER);
+            LocalDateTime parsedToDate = LocalDateTime.parse(toDate, DATE_FORMATTER);
+
+            if (parsedFromDate.isAfter(parsedToDate)) {
+                throw new KingException("Start time must be before end time.");
             }
-        } else {
-            return "Invalid event date format. Please use yyyy-MM-dd HHmm.";
+
+            Event event = new Event(description, parsedFromDate, parsedToDate);
+            tasks.add(event);
+            storage.save(tasks.getTaskList());
+            return ui.showTaskAdded(event, tasks.size());
+        } catch (DateTimeParseException e) {
+            throw new KingException("Invalid date format. Please use yyyy-MM-dd HHmm.");
         }
     }
 

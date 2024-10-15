@@ -1,6 +1,6 @@
 # User Guide for King Chatbot
 ![King.png](../src/main/resources/images/King.png)
-## Features
+## Features!
 :information_source: Notes about the command format:
 
 - Words in UPPER_CASE are the parameters to be supplied by the user.
@@ -12,12 +12,13 @@
 - Extraneous parameters for commands that do not take in parameters (such as `bye`, `list`, and `remind`) will be ignored.
   - e.g., if the command specifies `list extra`, it will be interpreted as `list`.
 
+![img.png](img.png)
 ## Adding a task: `todo`
 Adds a todo item to the task list.
 
 **Format:** `todo TASK_DESCRIPTION`
 
-:bulb: Caution: A task cannot be added without any additional parameters.
+**Caution:** A task cannot be added without any parameters.
 
 **Examples:**
 - `todo Buy groceries`
@@ -42,6 +43,8 @@ Adds an event to the task list.
 **Examples:**
 - `event Meeting /from 2024-09-25 1400 /to 2024-09-25 1600`
 - `event Conference /from 2024-09-28 0900 /to 2024-09-28 1700`
+
+:exclamation: **Caution:** Start time has to be before end time.
 
 ## Listing all tasks: `list`
 Displays all tasks in the task list.
@@ -101,4 +104,4 @@ Task data is saved automatically after any command that modifies the data. No ma
 ## Editing the data file
 Task data is saved automatically as a JSON file at `[JAR file location]/data/tasks.json`. Advanced users can update data directly by editing this file.
 
-:exclamation: **Caution:** If your changes to the data file make its format invalid, the application will discard all data and start with an empty data file on the next run. It's recommended to back up the file before editing it.
+  **Caution:** If your changes to the data file make its format invalid, the application will discard all data and start with an empty data file on the next run. It's recommended to back up the file before editing it.
