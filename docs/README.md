@@ -10,7 +10,7 @@ Welcome to the **Niko Chatbot** repository! Niko is a feature-rich and user-frie
 
 - **ToDo Task**: `todo [description]`
 
-eg. `todo eat`
+eg. `todo eat` 
 ```
 Got it! I've added this task:
 [T][ ] eat
@@ -47,7 +47,7 @@ This project supports the following date and time formats. When adding events or
 
 The following formats support both date and time input:
 
-- **MMM d yyyy h:mm a** (Locale.ENGLISH)  
+- **MMM d yyyy h:mm a**
   Example: `Oct 15 2024 2:30 PM`
 
 - **d/M/yyyy HHmm**  
