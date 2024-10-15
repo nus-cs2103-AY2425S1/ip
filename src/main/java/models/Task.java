@@ -6,7 +6,7 @@ package models;
  * such as {@code Todo}, {@code Event}, and {@code Deadline}.
  * Each task has a description and a status indicating whether it is completed.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
