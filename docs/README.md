@@ -24,21 +24,37 @@ Hue is a task management chatbot that helps you keep track of your tasks efficie
 
 
 ### Adding Tasks
-- **To Do**: Input: `todo [task description]` | Output: `[T][ ] [task description]`
-- **Deadline**: Input: `deadline [task description] /by [date]` | Output: `[D][ ] [task description] (by: [date])`
-- **Event**: Input: `event [task description] /from [start date] /to [end date]` | Output: `[E][ ] [task description] (from: [start date] to: [end date])`
+- **To Do** 
+  * Input: `todo [task description]` 
+  * Output: `[T][ ] [task description]`
+- **Deadline** 
+  * Input: `deadline [task description] /by [date]` 
+  * Output: `[D][ ] [task description] (by: [date])`
+- **Event** 
+  * Input: `event [task description] /from [start date] /to [end date]` 
+  * Output: `[E][ ] [task description] (from: [start date] to: [end date])`
 ### Marking/Unmarking Tasks
-- **Mark**: Input: `mark [task number]` | Output: `[T/D/E][X]`
-- **Unmark**: Input `unmark [task number]` | Output: `[T/D/E][ ]`
+- **Mark**
+  * Input: `mark [task number]` 
+  * Output: `[T/D/E][X]`
+- **Unmark**
+  * Input `unmark [task number]` 
+  * Output: `[T/D/E][ ]`
 
 ### Deleting Tasks
-- **Delete**: Input `delete [task number]` | Output `Deleted: [task description]`
+- **Delete** 
+  * Input `delete [task number]` 
+  * Output `Deleted: [task description]`
 
 ### Finding Tasks
-- **Find**: Input: `find [keyword]` | Output: `Here are the tasks in your list that match the keyword [keyword]:`
+- **Find**
+  * Input: `find [keyword]` 
+  * Output: `Here are the tasks in your list that match the keyword [keyword]:`
 
 ### Rescheduling Tasks
-- **Reschedule**: Input: Deadline - `reschedule [task number] [new date]` or Event - `reschedule [task number] [new start date] [new end date]` Output: `Task Rescheduled: [task description] [new start date] ([new end date])`
+- **Reschedule** 
+  * Input: Deadline - `reschedule [task number] [new date]` or Event - `reschedule [task number] [new start date] [new end date]`
+  * Output: `Task Rescheduled: [task description] [new start date] ([new end date])`
 
 ## Error Handling
 - Invalid command format

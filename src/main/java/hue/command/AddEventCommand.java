@@ -26,7 +26,7 @@ public class AddEventCommand extends Command {
         try {
             String[] parts = fullCommand.split("/from|/to");
             if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-                throw new HueException("The description, start time and end time cannot be empty.");
+                throw new HueException("The description, start time and end time of an event cannot be empty.");
             }
             this.description = parts[0].substring(6).trim();
             this.from = parts[1].trim();

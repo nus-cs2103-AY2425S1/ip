@@ -71,9 +71,10 @@ public class Event extends Task {
         try {
             String[] fromParts = newFrom.split(" ");
             String[] toParts = newTo.split(" ");
-            assert (fromParts.length >= 0 && fromParts.length <= 2)
-                    && (toParts.length >= 0 && toParts.length <= 2)
-                    : "Please provide both from and to dates";
+            if ((fromParts.length < 0 || fromParts.length > 2)
+            || (toParts.length < 0 || toParts.length > 2)) {
+                throw new HueException("Please provide both from and to dates");
+            }
             this.from = DateUtils.parseDateTime(newFrom);
             this.to = DateUtils.parseDateTime(newTo);
         } catch (DateTimeParseException e) {

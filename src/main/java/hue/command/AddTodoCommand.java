@@ -23,7 +23,7 @@ public class AddTodoCommand extends Command {
     public AddTodoCommand(String fullCommand) throws HueException {
         String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new HueException("The descriptipn of a todo cannot be empty.");
+            throw new HueException("The description of a todo cannot be empty.");
         }
         this.description = parts[1].trim();
     }

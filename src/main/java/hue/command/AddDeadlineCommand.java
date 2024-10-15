@@ -26,12 +26,12 @@ public class AddDeadlineCommand extends Command {
         try {
             String[] parts = fullCommand.split("/by");
             if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                throw new HueException("The description and deadline of a task cannot be empty.");
+                throw new HueException("The description and date of a deadline cannot be empty.");
             }
             this.description = parts[0].substring(9).trim();
             this.by = parts[1].trim();
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-            throw new HueException("Please provide both a description and a deadline for the task");
+            throw new HueException("Please provide both a description and a date for the deadline");
         }
     }
 
