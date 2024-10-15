@@ -1,0 +1,9 @@
+todo CS2103T iP
+deadline CS2103T iP /by 2024-08-23
+event CS2103T briefing /from 2024-08-23 /to 2024-08-23
+mark 2
+mark 3
+list
+unmark 3
+list
+bye
