@@ -10,6 +10,7 @@ Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or
 2. [Features](#-features)
    - [Todo](#-adding-todo)
    - [Deadline](#-adding-deadline)
+   - [Event](#-adding-events)
    - [List](#-adding-events)
    - [Find](#-list)
    - [Mark/Unmark](#-mark-or-unmark)
@@ -47,6 +48,7 @@ added: [D][] return book (by 30 sep 2024 6:00pm)
 You have [size of list] tasks in the list
 ```
 the format of the date and time is YYYY-MM-DD HHMM no - in between time
+
 #### Adding Events
 Events are tasks that are from 1 time to another time. So another additional time constraint is added with /from ... /to
 Example:

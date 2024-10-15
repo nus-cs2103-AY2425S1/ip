@@ -15,7 +15,7 @@ import beeboo.task.ToDos;
  * It supports creating ToDos, Deadlines, and Events based on input parameters.
  * The created tasks can also be marked as done if specified.
  */
-public class TaskCreator {
+public class TaskLoader {
 
     /**
      * Creates a {@link Tasks} object based on the provided input parameters.

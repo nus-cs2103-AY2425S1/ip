@@ -50,7 +50,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String task = scanner.nextLine();
                 String[] splitted = task.split("\\|");
-                Tasks newTask = TaskCreator.createTask(splitted);
+                Tasks newTask = beeboo.components.TaskLoader.createTask(splitted);
                 if (newTask != null) {
                     list.add(newTask);
                 }
