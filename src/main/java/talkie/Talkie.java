@@ -95,14 +95,6 @@ public class Talkie {
         }
     }
 
-    /**
-     * The main entry point for the Talkie application.
-     * <p>
-     * Initializes a {@code Talkie} instance and starts the Talkie program loop.
-     * </p>
-     *
-     * @param args Command-line arguments (not used).
-     */
     public static void main(String[] args) {
         // Start of talkie.Talkie
         new Talkie().runTalkie();

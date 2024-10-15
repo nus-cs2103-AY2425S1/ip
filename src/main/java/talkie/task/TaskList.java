@@ -86,6 +86,10 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Sorts the task by description
+     *
+     */
     public void sortByDescription() {
         this.tasks = (ArrayList<Task>) this.tasks.stream()
                 .sorted((t1, t2) -> t1.getDesc().compareToIgnoreCase(t2.getDesc()))
