@@ -74,7 +74,6 @@ public class TaskList {
      * @param toDoList The ArrayList of the tasklist should you wish to specify
      */
     public void delete(int taskNumber, ArrayList<Task> toDoList) {
-        // ui.displayDeletionMessage(toDoList.get(taskNumber), toDoList);
         toDoList.remove(taskNumber);
     }
 

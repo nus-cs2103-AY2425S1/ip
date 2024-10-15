@@ -118,7 +118,6 @@ public class Ui {
     }
 
     /**
-     * When a user marks an item complete, this is the message that will be displayed
      * Prints and returns the marked item
      *
      * @param itemNumber the index number(starts at 1) of the item to be deleted
@@ -133,7 +132,6 @@ public class Ui {
     }
 
     /**
-     * When a user unmarks an item to incomplete, this is the message that will be displayed
      * Prints and returns unmarked item
      *
      * @param itemNumber the index number(starts at 1) of the item to be deleted
