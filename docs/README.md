@@ -1,5 +1,5 @@
 # User Guide for King Chatbot
-
+![King.png](../src/main/resources/images/King.png)
 ## Features
 :information_source: Notes about the command format:
 
@@ -12,17 +12,12 @@
 - Extraneous parameters for commands that do not take in parameters (such as `bye`, `list`, and `remind`) will be ignored.
   - e.g., if the command specifies `list extra`, it will be interpreted as `list`.
 
-## Viewing help : `help`
-Displays a message explaining how to access the help page.
-
-**Format:** `help`
-
 ## Adding a task: `todo`
 Adds a todo item to the task list.
 
 **Format:** `todo TASK_DESCRIPTION`
 
-:bulb: Tip: A task can be added without any additional parameters.
+:bulb: Caution: A task cannot be added without any additional parameters.
 
 **Examples:**
 - `todo Buy groceries`
@@ -94,11 +89,6 @@ Deletes the specified task from the task list.
 
 **Examples:**
 - `delete 2` deletes the second task.
-
-## Clearing all tasks: `clear`
-Removes all tasks from the task list.
-
-**Format:** `clear`
 
 ## Exiting the program: `exit`
 Exits the chatbot application.
