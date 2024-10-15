@@ -1,6 +1,5 @@
 # Edith User Guide
-![Edith demo](docs/Ui.png)  
-(This is a chatbot i created for my cs2103t individual project!)  
+![Edith demo](docs/Ui.png)
 Edith is a personal chatbot designed to help you manage your tasks and expenses efficiently. Whether you're looking to keep track of your to-do list, set deadlines, organize events, or manage your expenses, Edith can assist you with simple commands.  
 
 ## Features
