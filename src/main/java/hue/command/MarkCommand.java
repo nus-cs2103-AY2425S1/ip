@@ -30,11 +30,14 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws HueException, IOException {
-
-        assert taskIndex >= 0 && taskIndex < tasks.size(): "Task index is out of range";
-        Task task = tasks.get(taskIndex);
-        task.markDone();
-        storage.saveTasks(tasks);
-        return ui.showMarkTask(task);
+        try {
+            assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of range";
+            Task task = tasks.get(taskIndex);
+            task.markDone();
+            storage.saveTasks(tasks);
+            return ui.showMarkTask(task);
+        } catch (AssertionError e) {
+            throw new HueException(e.getMessage());
+        }
     }
 }

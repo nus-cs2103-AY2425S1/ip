@@ -20,8 +20,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws HueException {
         String keyword = this.input.substring(5).trim();
-        assert !keyword.isEmpty() : "Keyword should not be empty";
-
+        if (keyword.isEmpty()) throw new HueException("Keyword should not be empty");
         ArrayList<Task> result = new ArrayList<>();
 
         for (Task task : tasks.getTasks()) {
