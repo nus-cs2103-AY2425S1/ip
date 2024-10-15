@@ -1,6 +1,5 @@
 package hue.command;
 
-import hue.Hue;
 import hue.HueException;
 import hue.ui.Ui;
 import hue.storage.Storage;
@@ -13,10 +12,7 @@ import java.io.IOException;
 
 public class RescheduleCommand extends Command {
     private final int taskIndex;
-    private final String[] dateEntry;
-
-    private String[] parts;
-
+    private final String[] parts;
     /**
      * Constructs a {@code RescheduleCommand} by parsing the task index and new date(s) from the given input.
      * The expected format is:
@@ -37,13 +33,18 @@ public class RescheduleCommand extends Command {
      */
     public RescheduleCommand(String fullCommand) throws HueException {
         try {
-            parts = fullCommand.split(" ", 3);
-            this.taskIndex = Integer.parseInt(parts[1]) - 1;
-            this.dateEntry = parts[2].split(" ");
+
+            this.parts = fullCommand.split("/by | /from | /to");
+            String[] beforeBy = parts[0].trim().split(" ");
+            taskIndex = Integer.parseInt(beforeBy[1]) - 1;
+            if (parts[1].trim().isEmpty()) {
+                throw new HueException("Please provide a valid task number and new date(s)");
+            }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new HueException("Please provide a valid task number and new date(s)");
         }
     }
+
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws HueException, IOException {
@@ -52,7 +53,7 @@ public class RescheduleCommand extends Command {
          }
          Task task = tasks.get(taskIndex);
 
-         if (task instanceof Deadline) { //accounts for both yyyy-mm-dd and MMM-dd-yyyy
+         if (task instanceof Deadline) {
             rescheduleDeadline((Deadline) task);
          }
 
@@ -60,25 +61,18 @@ public class RescheduleCommand extends Command {
             rescheduleEvent((Event) task);
          }
          storage.saveTasks(tasks);
-         return ui.showRescheduleSuccess(task, String.join(" to ", dateEntry));
+         return ui.showRescheduleSuccess(task, String.join(" to ", parts));
     }
 
     public void rescheduleDeadline(Deadline deadline) throws HueException {
-        if (dateEntry.length != 1) {
-            throw new HueException("Please provide a valid date range!");
-        }
-        deadline.reschedule(parts[2].trim());
+        deadline.reschedule(parts[1].trim());
     }
 
     public void rescheduleEvent(Event event) throws HueException{
-        if (dateEntry.length == 2) { // using yyyy-mm-dd
-            event.rescheduleEvent(dateEntry[0].trim(), dateEntry[1].trim());
-        } else if (dateEntry.length == 4) { //using MMM-dd-yyyy
-            String[] reformattedDates = parts[2].split(" (?=\\d{1,2}/\\d{1,2}/\\d{4})");
-            event.rescheduleEvent(reformattedDates[0].trim(), reformattedDates[1].trim());
-        } else {
-            throw new HueException("Please provide a valid date range!");
-        }
+        String[] eventDate = parts;
+        String from = eventDate[1].trim();
+        String to = eventDate[2].trim();
+        event.rescheduleEvent(from, to);
     }
 
 
