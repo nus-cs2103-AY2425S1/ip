@@ -6,16 +6,16 @@ Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or
 
 ## Table of contents
 
-1. [Quick Start](#-quick-start)
-2. [Features](#-features)
-   - [Todo](#-adding-todo)
-   - [Deadline](#-adding-deadline)
-   - [Event](#-adding-events)
-   - [List](#-adding-events)
-   - [Find](#-list)
-   - [Mark/Unmark](#-mark-or-unmark)
-   - [Deletion](#-deletion)
-   - [Update](#-update)
+1. [Quick Start](#quick-start)
+2. [Features](#features)
+   - [Todo](#adding-todo)
+   - [Deadline](#adding-deadline)
+   - [Event](#adding-events)
+   - [List](#list)
+   - [Find](#find)
+   - [Mark/Unmark](#mark-or-unmark)
+   - [Deletion](#deletion)
+   - [Update](#update)
 
 ### Quick Start
 1. Ensure you have Java 17 or above installed in your Computer.
