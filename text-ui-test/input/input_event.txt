@@ -1,0 +1,3 @@
+event read /from today /to tomorrow
+list
+bye
