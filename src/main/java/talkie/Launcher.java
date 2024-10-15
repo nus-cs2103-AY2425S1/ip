@@ -11,16 +11,6 @@ import javafx.application.Application;
  * </p>
  */
 public class Launcher {
-
-    /**
-     * The main method of the Launcher class.
-     * <p>
-     * This method invokes the {@code Application.launch} method, passing the {@code Main} class and any command-line
-     * arguments. This effectively starts the JavaFX application by delegating to the {@code Main} class.
-     * </p>
-     *
-     * @param args Command-line arguments passed to the application.
-     */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }

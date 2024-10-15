@@ -5,6 +5,10 @@ import talkie.components.Ui;
 import talkie.exception.TalkieException;
 import talkie.task.TaskList;
 
+/**
+ * Represents a command to sort the list of tasks.
+ * This command sorts the tasks by their description and displays the sorted list.
+ */
 public class SortCommand extends Command {
 
     private final String fullCommand;
