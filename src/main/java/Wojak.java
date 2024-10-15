@@ -7,6 +7,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -78,6 +80,13 @@ public class Wojak extends Application {
         // Create the scene and set it on the stage
         Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
+
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                sendButton.fire();
+            }
+        });
+
         stage.setTitle("Wojak Chatbot");
         stage.show();
     }
