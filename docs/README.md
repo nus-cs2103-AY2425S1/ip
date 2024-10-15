@@ -86,11 +86,11 @@ Nice! I've marked this task as done
 
 #### Example
 ```
-search book
+find book
 ```
 
 #### Description
-Search tasks' that has description that contains the string query (in this case, "book")
+Search tasks that has description that contains the string query (in this case, "book")
 
 #### Output (on success)
 ```
