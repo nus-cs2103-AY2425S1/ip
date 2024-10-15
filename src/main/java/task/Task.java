@@ -1,9 +1,7 @@
 package task;
 
 /**
- * The {@code Task} class represents a generic task with a description and a done status.
- * It provides basic functionalities such as marking a task as done or not done,
- * and retrieving the task's type, status, and description.
+ * The Task class represents a generic task with a description and a done status.
  */
 public class Task {
 
@@ -11,7 +9,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructs a new {@code Task} with the specified description.
+     * Constructs a new Task with the specified description.
      * By default, the task is initially not marked as done.
      *
      * @param desc The description of the task.
@@ -22,14 +20,14 @@ public class Task {
     }
 
     /**
-     * Marks the task as done by setting the {@code isDone} flag to {@code true}.
+     * Marks the task as done by setting the isDone flag to true.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks the task as not done by setting the {@code isDone} flag to {@code false}.
+     * Marks the task as not done by setting the isDone flag to false.
      */
     public void markNotDone() {
         this.isDone = false;
@@ -48,7 +46,7 @@ public class Task {
     /**
      * Returns the completion status of the task.
      *
-     * @return {@code true} if the task is marked as done, {@code false} otherwise.
+     * @return true if the task is marked as done, false otherwise.
      */
     public Boolean getDone() {
         return this.isDone;

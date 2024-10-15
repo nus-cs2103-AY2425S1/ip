@@ -94,7 +94,9 @@ public class Parser {
                     return message.printTaskNotExists(taskNumber);
                 } else {
                     storage.save(tasks);
-                    return message.printHeader("delete") + toBeRemoved + message.printTaskCount(tasks.getTaskCount());
+                    return message.printHeader("delete") +
+                            toBeRemoved +
+                            message.printTaskCount(tasks.getTaskCount());
                 }
             } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
                 return message.printEmptyID();
@@ -137,7 +139,9 @@ public class Parser {
                 }
                 storage.save(tasks);
                 return message.printAddTask(newTask, tasks.getTaskCount());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | DescriptionNotFoundException e) {
+            } catch (StringIndexOutOfBoundsException |
+                     ArrayIndexOutOfBoundsException |
+                     DescriptionNotFoundException e) {
                 return message.printEmptyError(TaskType.DEADLINE);
             }
         }
@@ -161,7 +165,9 @@ public class Parser {
                 }
                 storage.save(tasks);
                 return message.printAddTask(newTask, tasks.getTaskCount());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | DescriptionNotFoundException e) {
+            } catch (StringIndexOutOfBoundsException |
+                     ArrayIndexOutOfBoundsException |
+                     DescriptionNotFoundException e) {
                 return message.printEmptyError(TaskType.EVENT);
             }
         }
@@ -191,7 +197,7 @@ public class Parser {
      * Parses a date and time string into a LocalDateTime object.
      *
      * @param dateTimeStr The date and time string to parse.
-     * @return The parsed LocalDateTime object, or {@code null} if parsing fails.
+     * @return The parsed LocalDateTime object, or null if parsing fails.
      */
     public LocalDateTime parseDateTime(String dateTimeStr) {
         try {

@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * The {@code TaskList} class manages a list of {@code Task} objects.
- * It provides functionalities for adding, removing, marking, and searching tasks,
- * as well as listing tasks and handling task creation based on their types.
+ * The TaskList class manages a list of Task objects.
  */
 public class TaskList {
 
@@ -18,14 +16,14 @@ public class TaskList {
     private final Validator VALIDATE = new Validator();
 
     /**
-     * Constructs an empty {@code TaskList}.
+     * Constructs an empty TaskList.
      */
     public TaskList() {
         this.TASKS = new ArrayList<>();
     }
 
     /**
-     * Returns the list of tasks as an {@code ArrayList}.
+     * Returns the list of tasks as an ArrayList.
      *
      * @return The list of tasks.
      */
@@ -37,7 +35,7 @@ public class TaskList {
      * Retrieves a task by its ID (1-based index).
      *
      * @param id The ID of the task.
-     * @return The {@code Task} object if found, {@code null} otherwise.
+     * @return The Task object if found, null otherwise.
      */
     public Task getTaskByID(int id){
         if (VALIDATE.outOfBound(TASKS.size(), id)) {
@@ -71,7 +69,7 @@ public class TaskList {
      * @param type The type of task (ToDo, Deadline, Event).
      * @param desc The description of the task.
      * @param args Optional date arguments for Deadline and Event tasks.
-     * @return The created {@code Task} object.
+     * @return The created Task object.
      */
     public Task createTask(TaskType type, String desc, LocalDateTime... args) {
         return switch (type) {
@@ -85,7 +83,7 @@ public class TaskList {
      * Marks the task at the given index as done.
      *
      * @param index The 1-based index of the task to mark as done.
-     * @return {@code true} if the task was successfully marked, {@code false} otherwise.
+     * @return true if the task was successfully marked, false otherwise.
      */
     public Boolean markTask(int index) {
         if (VALIDATE.outOfBound(TASKS.size(), index)) {
@@ -99,7 +97,7 @@ public class TaskList {
      * Marks the task at the given index as not done.
      *
      * @param index The 1-based index of the task to unmark.
-     * @return {@code true} if the task was successfully unmarked, {@code false} otherwise.
+     * @return true if the task was successfully unmarked, false otherwise.
      */
     public Boolean unmarkTask(int index) {
         if (VALIDATE.outOfBound(TASKS.size(), index)) {
@@ -113,7 +111,7 @@ public class TaskList {
      * Deletes the task at the given index.
      *
      * @param index The 1-based index of the task to delete.
-     * @return {@code true} if the task was successfully deleted, {@code false} otherwise.
+     * @return true if the task was successfully deleted, false otherwise.
      */
     public Boolean deleteTask(int index) {
         if (VALIDATE.outOfBound(TASKS.size(), index)) {
@@ -127,7 +125,7 @@ public class TaskList {
      * Adds a new task to the list, ensuring no duplicates are added.
      *
      * @param newTask The task to be added.
-     * @return {@code true} if the task was successfully added, {@code false} if it's a duplicate.
+     * @return true if the task was successfully added, false if it's a duplicate.
      */
     public Boolean addTask(Task newTask) {
         if (VALIDATE.detectDuplicates(TASKS, newTask)) {
@@ -141,7 +139,7 @@ public class TaskList {
      * Searches for tasks that contain the specified keyword in their descriptions.
      *
      * @param keyword The keyword to search for.
-     * @return A string representation of tasks that match the keyword, or {@code null} if none are found.
+     * @return A string representation of tasks that match the keyword, or null if none are found.
      */
     public String findTask(String keyword) {
         String foundTasks = TASKS.stream()
@@ -158,7 +156,7 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      *
-     * @return A string representation of all tasks in the list, or {@code null} if the list is empty.
+     * @return A string representation of all tasks in the list, or null if the list is empty.
      */
     public String listTask() {
         String result = IntStream.range(0, TASKS.size())

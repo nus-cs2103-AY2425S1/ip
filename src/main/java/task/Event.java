@@ -4,20 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Event} class represents a task that occurs during a specific period of time.
- * It extends the {@code Task} class and includes {@code LocalDateTime} objects to store
- * the start and end times of the event.
+ * The Event class represents a task that occurs during a specific period of time.
  */
 public class Event extends Task {
     private final LocalDateTime FROM;
     private final LocalDateTime TO;
 
     /**
-     * Constructs a new {@code Event} task with a description, start time, and end time.
+     * Constructs a new Event task with a description, start time, and end time.
      *
      * @param desc The description of the event.
-     * @param from The start date and time of the event, as a {@code LocalDateTime} object.
-     * @param to   The end date and time of the event, as a {@code LocalDateTime} object.
+     * @param from The start date and time of the event, as a LocalDateTime object.
+     * @param to   The end date and time of the event, as a LocalDateTime object.
      */
     public Event(String desc, LocalDateTime from, LocalDateTime to) {
         super(desc);
@@ -36,7 +34,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the {@code Event} task,
+     * Returns a string representation of the Event task,
      * including the description, formatted start time, and end time.
      * The times are displayed in the format "MMM dd yyyy, h:mm a".
      *
@@ -51,7 +49,7 @@ public class Event extends Task {
     /**
      * Returns the start date and time of the event.
      *
-     * @return A {@code LocalDateTime} object representing the start time.
+     * @return A LocalDateTime object representing the start time.
      */
     public LocalDateTime getFrom() {
         return this.FROM;
@@ -60,7 +58,7 @@ public class Event extends Task {
     /**
      * Returns the end date and time of the event.
      *
-     * @return A {@code LocalDateTime} object representing the end time.
+     * @return A LocalDateTime object representing the end time.
      */
     public LocalDateTime getTo() {
         return this.TO;

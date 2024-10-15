@@ -7,14 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The {@code Validator} class provides utility methods for validating tasks and file operations.
- * It ensures files exist, checks for duplicate tasks, and validates task indexes.
+ * The Validator class provides utility methods for validating tasks and file operations.
  */
 public class Validator {
 
     /**
-     * Checks if the file at the given {@code filePath} exists.
-     * If the file or its directory doesn't exist, they are created.
+     * Checks if the file at the given filePath exists.
      *
      * @param filePath The path of the file to check.
      */
@@ -45,14 +43,16 @@ public class Validator {
      *
      * @param tasks   The list of existing tasks.
      * @param newTask The new task to check for duplicates.
-     * @return {@code true} if a duplicate task is found, otherwise {@code false}.
+     * @return true if a duplicate task is found, otherwise false.
      */
     public Boolean detectDuplicates(ArrayList<Task> tasks, Task newTask) {
         for (Task task : tasks) {
             if (!task.getDesc().equals(newTask.getDesc())) {
                 continue;
             }
-            if (isDuplicateDeadline(task, newTask) | isDuplicateEvent(task, newTask) | isDuplicateToDo(task, newTask)) {
+            if (isDuplicateDeadline(task, newTask) |
+                    isDuplicateEvent(task, newTask) |
+                    isDuplicateToDo(task, newTask)) {
                 return true;
             }
         }
@@ -60,11 +60,11 @@ public class Validator {
     }
 
     /**
-     * Checks if two {@code Deadline} tasks are duplicates by comparing their due dates.
+     * Checks if two Deadline tasks are duplicates by comparing their due dates.
      *
      * @param task    The existing task in the list.
      * @param newTask The new task to check.
-     * @return {@code true} if both tasks are {@code Deadline} tasks with the same due date, otherwise {@code false}.
+     * @return true if both tasks are Deadline tasks with the same due date, otherwise false.
      */
     private Boolean isDuplicateDeadline(Task task, Task newTask) {
         if (task instanceof Deadline existingDeadline && newTask instanceof Deadline newDeadline) {
@@ -74,11 +74,11 @@ public class Validator {
     }
 
     /**
-     * Checks if two {@code Event} tasks are duplicates by comparing their start and end times.
+     * Checks if two Event tasks are duplicates by comparing their start and end times.
      *
      * @param task    The existing task in the list.
      * @param newTask The new task to check.
-     * @return {@code true} if both tasks are {@code Event} tasks with the same start and end times, otherwise {@code false}.
+     * @return true if both tasks are Event tasks with the same start and end times.
      */
     private Boolean isDuplicateEvent(Task task, Task newTask) {
         if (task instanceof Event existingEvent && newTask instanceof Event newEvent) {
@@ -89,11 +89,11 @@ public class Validator {
     }
 
     /**
-     * Checks if two {@code ToDo} tasks are duplicates by comparing their descriptions.
+     * Checks if two ToDo tasks are duplicates by comparing their descriptions.
      *
      * @param task    The existing task in the list.
      * @param newTask The new task to check.
-     * @return {@code true} if both tasks are {@code ToDo} tasks with the same description, otherwise {@code false}.
+     * @return true if both tasks are ToDo tasks with the same description, otherwise false.
      */
     private Boolean isDuplicateToDo(Task task, Task newTask) {
         return task instanceof ToDo && newTask instanceof ToDo;
@@ -105,7 +105,7 @@ public class Validator {
      *
      * @param limit The size of the task list.
      * @param index The index to validate.
-     * @return {@code true} if the index is within the bounds, otherwise {@code false}.
+     * @return true if the index is within the bounds, otherwise false.
      */
     public Boolean outOfBound(int limit, int index) {
         return index >= 1 && index <= limit;

@@ -25,14 +25,17 @@ public class MainWindow extends AnchorPane {
     public Button sendButton;
     private Will will;
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog("Hello! I'm Will.\nWhat can I do for you?", dukeImage));
+        String greeting = "Hello! I'm Will.\nWhat can I do for you?";
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greeting, dukeImage));
     }
 
     public void setWill(Will w) {

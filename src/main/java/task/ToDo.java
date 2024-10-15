@@ -1,13 +1,12 @@
 package task;
 
 /**
- * The {@code ToDo} class represents a task that needs to be done without any specific deadline or event duration.
- * It extends the {@code Task} class and specifies that the task type is "[T]".
+ * The ToDo class represents a task that needs to be done without any specific deadline or event duration.
  */
 public class ToDo extends Task {
 
     /**
-     * Constructs a new {@code ToDo} task with the given description.
+     * Constructs a new ToDo task with the given description.
      *
      * @param desc The description of the task.
      */

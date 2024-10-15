@@ -4,17 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Deadline} class represents a task that has a specific deadline.
- * It extends the {@code Task} class and includes a {@code LocalDateTime} object to store the due date.
+ * The Deadline class represents a task that has a specific deadline.
  */
 public class Deadline extends Task {
     private final LocalDateTime BY;
 
     /**
-     * Constructs a new {@code Deadline} task with a description and a due date.
+     * Constructs a new Deadline task with a description and a due date.
      *
      * @param desc The description of the task.
-     * @param by   The due date and time for the task, as a {@code LocalDateTime} object.
+     * @param by   The due date and time for the task, as a LocalDateTime object.
      */
     public Deadline(String desc, LocalDateTime by) {
         super(desc);
@@ -32,7 +31,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the {@code Deadline} task,
+     * Returns a string representation of the Deadline task,
      * including the description and formatted deadline.
      * The deadline is displayed in the format "MMM dd yyyy, h:mm a".
      *
@@ -47,7 +46,7 @@ public class Deadline extends Task {
     /**
      * Returns the due date and time of the task.
      *
-     * @return A {@code LocalDateTime} object representing the deadline.
+     * @return A LocalDateTime object representing the deadline.
      */
     public LocalDateTime getBy(){
         return this.BY;

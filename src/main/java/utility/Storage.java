@@ -6,17 +6,16 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Storage} class handles the loading and saving of tasks to and from a file.
- * It interacts with the {@code TaskList} to store tasks in a text file and load them on startup.
+ * The Storage class handles the loading and saving of tasks to and from a file.
  */
 public class Storage {
 
     private static final String FILEPATH = "./data/db.txt";
 
     /**
-     * Loads tasks from the file specified by {@code FILEPATH} and populates the given {@code TaskList}.
+     * Loads tasks from the file specified by {@code FILEPATH} and populates the given TaskList.
      *
-     * @param tasks The {@code TaskList} to populate with the loaded tasks.
+     * @param tasks The TaskList to populate with the loaded tasks.
      */
     public void load(TaskList tasks) {
         new Validator().checkFileExists(FILEPATH);
@@ -54,7 +53,7 @@ public class Storage {
     }
 
     /**
-     * Saves the tasks from the given {@code TaskList} to the file specified by {@code FILEPATH}.
+     * Saves the tasks from the given TaskList to the file specified by FILEPATH.
      * Each task is written in the format of type, status, description, and date/time if applicable.
      *
      * @param tasks The {@code TaskList} containing tasks to be saved.
@@ -71,10 +70,10 @@ public class Storage {
     }
 
     /**
-     * Converts a {@code Task} object into a string representation for file storage.
+     * Converts a Task object into a string representation for file storage.
      * The format varies depending on the type of task (ToDo, Deadline, Event).
      *
-     * @param task The {@code Task} to be converted into a string.
+     * @param task The Task to be converted into a string.
      * @return A string representation of the task, suitable for file storage.
      */
     public String getString(Task task) {
