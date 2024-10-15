@@ -65,6 +65,10 @@ public class Deadlines extends Tasks {
             throw new InvalidDateException(text);
         }
         String deadlineDate = date.substring(2).trim();
+        if (!deadlineDate.matches("[0-9]+")) {
+            throw new InvalidDateException("Invalid date format: " + deadlineDate);
+        }
+
         LocalDateTime dateTime;
         try {
             dateTime = TimeConverter.convertTime(deadlineDate);

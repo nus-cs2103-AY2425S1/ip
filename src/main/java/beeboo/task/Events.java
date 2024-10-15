@@ -126,6 +126,9 @@ public class Events extends Tasks {
             throw new InvalidDateException("Invalid date format: " + datePart);
         }
         String dateString = datePart.substring(expectedPrefix.length()).trim();
+        if (!dateString.matches("[0-9]+")) {
+            throw new InvalidDateException("Invalid date: " + dateString);
+        }
         try {
             return TimeConverter.convertTime(dateString);
         } catch (DateTimeParseException e) {
@@ -140,8 +143,11 @@ public class Events extends Tasks {
      * @param startDateTime the start date and time of the event
      * @return the parsed LocalDateTime object for the end date
      */
-    private static LocalDateTime parseEndDateTime(String endDatePart, LocalDateTime startDateTime) {
+    private static LocalDateTime parseEndDateTime(String endDatePart, LocalDateTime startDateTime) throws InvalidDateException{
         String endDate = endDatePart.substring(2).trim();
+        if (!endDate.matches("[0-9]+")) {
+            throw new InvalidDateException("Invalid date format: " + endDate);
+        }
         String[] endDates = endDate.split(" ");
         LocalDateTime endDateTime = (endDates.length == 1)
                 ? TimeConverter.convertTime(startDateTime.toLocalDate().toString() + " " + endDate)
