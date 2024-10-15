@@ -10,7 +10,7 @@ Welcome to the **Niko Chatbot** repository! Niko is a feature-rich and user-frie
 
 - **ToDo Task**: `todo [description]`
 
-eg todo eat
+eg. `todo eat`
 ```
 Got it! I've added this task:
 [T][ ] eat
@@ -21,7 +21,7 @@ Now you have 1 tasks in the list, god bless you
 
 - **Deadline Task**: `deadline [description] /by [due date]`
 
-eg deadline eat /by 2024-11-12
+eg. `deadline eat /by 2024-11-12`
 ```
 Got it. l've added this task:
 [D][] eat (by: Nov 12 2024 11:59 PM)
@@ -31,7 +31,7 @@ Now you have 59 tasks in the list. god bless you
 
 - **Event Task**: `event [description] /from [start time] /to [end time]`
 
-eg event eat /from 2024-11-12 /to 2024-11-13
+eg. `event eat /from 2024-11-12 /to 2024-11-13`
 ```
 Got it. l've added this task:
 [E][]eat (from: Nov 12 2024 11:59 PM to: Nov 13 2024 11:59 PM)
@@ -110,7 +110,7 @@ The following formats support date input only, without specifying time:
 
 ### View all tasks in your list
 
-Type "list" to display all tasks currently in your list
+Type `list` to display all tasks currently in your list
 
 ```
 Here are the tasks in your list:
@@ -119,27 +119,27 @@ Here are the tasks in your list:
 
 ### Mark / Unmark / Delete tasks
 
-Type mark followed by the corresponding number of the task in your list to mark it as done
+Type `mark` followed by the corresponding number of the task in your list to mark it as done
 
-eg. mark 1
+eg. `mark 1`
 
 ```
 got it, bro, marked  as done:
 [T][X] eat
 ```
 
-Type unmark followed by corresponding number of the task in your list to mark it as not done
+Type `unmark` followed by corresponding number of the task in your list to mark it as not done
 
-eg. unmark 1
+eg. `unmark 1`
 
 ```
 emmm, changed your mind ah? okay, leave it to niko
 [T][ ] eat
 ```
 
-Type del followed by the corresponding number of the task in your list to delete it
+Type `delete` followed by the corresponding number of the task in your list to delete it
 
-eg. delete 1
+eg. `delete 1`
 
 ```
 Noted I've removed this task:
@@ -149,9 +149,9 @@ Now you have 0 tasks in the list.
 
 ### Find tasks
 
-Type find followed by a keyword to find the matching tasks in your list
+Type `find` followed by a keyword to find the matching tasks in your list
 
-eg. find eat
+eg. `find eat`
 
 ```
 Here are the matching tasks in your list:
