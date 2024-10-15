@@ -77,6 +77,9 @@ class Parser {
         if (!userInput.startsWith(command + " ")) {
             throw new SirPotatoException("Mate, you may have misspelt or forgotten to type the rest of your command");
         }
+        if (userInput.trim().length() <= minLength) {
+            throw new SirPotatoException(errorMsg);
+        }
     }
 
     private static void validateTaskNumber(String task, String command) throws SirPotatoException {
@@ -149,10 +152,10 @@ class Parser {
         } else if (userInput.trim().equals("list")) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {
-            int itemNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            int itemNumber = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
             return new MarkCommand(itemNumber);
         } else if (userInput.startsWith("unmark")) {
-            int itemNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            int itemNumber = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
             return new UnmarkCommand(itemNumber);
         } else if (userInput.startsWith("todo")) {
             String description = userInput.substring(5);
@@ -172,11 +175,11 @@ class Parser {
             LocalDate to = parseDate(sectionedString[2]);
             return new AddCommand(new Event(description, from, to));
         } else if (userInput.startsWith("delete")) {
-            String[] sectionedString = userInput.split(" ");
+            String[] sectionedString = userInput.split("\\s+");
             int itemToDelete = Integer.parseInt(sectionedString[1]) - 1;
             return new DeleteCommand(itemToDelete);
         } else if (userInput.startsWith("sort")) {
-            String[] sectionedString = userInput.split(" ");
+            String[] sectionedString = userInput.split("\\s+");
             String categoryToSortBy = sectionedString[1];
             return new SortCommand(categoryToSortBy);
         } else {

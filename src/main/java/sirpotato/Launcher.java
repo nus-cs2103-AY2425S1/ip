@@ -1,3 +1,5 @@
+package sirpotato;
+
 import javafx.application.Application;
 
 /**
