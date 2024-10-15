@@ -65,6 +65,9 @@ public class Wojak extends Application {
                     chatListView.getItems().add(new Message(ex.getMessage(), false));
                 }
 
+                // Added since some person said not having this is a problem
+                chatListView.scrollTo(chatListView.getItems().size() - 1);
+
                 // Clear the input field
                 userInput.clear();
             }
