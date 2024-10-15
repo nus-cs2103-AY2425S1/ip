@@ -141,7 +141,7 @@ Here are the matching tasks in your list:
 ```
 
 ### Bye
-Terminates the application and saves all tasks in the task list to a specified text file.
+Replies with a goodbye message.
 
 **Format:** `b`
 
