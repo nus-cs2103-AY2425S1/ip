@@ -52,7 +52,7 @@ public class Ui {
      * Displays an parser error message.
      */
     public String showParserError() {
-        return "This command is invalid. Read the user guide to see what I can do you nut.";
+        return "This command is invalid. Read the user guide to see what I can do minion.";
     }
 
     /**

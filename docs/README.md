@@ -12,7 +12,7 @@
 - Extraneous parameters for commands that do not take in parameters (such as `bye`, `list`, and `remind`) will be ignored.
   - e.g., if the command specifies `list extra`, it will be interpreted as `list`.
 
-![img.png](img.png)
+![Ui.png](Ui.png)
 ## Adding a task: `todo`
 Adds a todo item to the task list.
 
