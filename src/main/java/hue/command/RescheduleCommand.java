@@ -47,7 +47,9 @@ public class RescheduleCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws HueException, IOException {
-         assert taskIndex >= 0 && taskIndex < tasks.size() : "The task index is out of range";
+         if (taskIndex < 0 || taskIndex >= tasks.size()) {
+             throw new HueException("Please provide a valid task number to reschedule.");
+         }
          Task task = tasks.get(taskIndex);
 
          if (task instanceof Deadline) { //accounts for both yyyy-mm-dd and MMM-dd-yyyy

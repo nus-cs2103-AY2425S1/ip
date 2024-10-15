@@ -31,16 +31,16 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, HueException {
-        try {
-            assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of range";
-            Task task = tasks.get(taskIndex);
-            assert task.hasDone() : "Task has not been done yet";
-            task.unmarkDone();
-            storage.saveTasks(tasks);
-            return ui.showUnmarkTask(task);
-        } catch (AssertionError e) {
-            throw new HueException(e.getMessage());
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new HueException("Please give a valid task number to unmark.");
         }
+        Task task = tasks.get(taskIndex);
+        if (!task.hasDone()) {
+            throw new HueException("Task has not been done yet");
+        }
+        task.unmarkDone();
+        storage.saveTasks(tasks);
+        return ui.showUnmarkTask(task);
     }
 
 }

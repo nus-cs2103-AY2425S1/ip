@@ -31,14 +31,12 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, HueException {
-        try {
-            assert taskIndex >= 0 && taskIndex < tasks.size() : "The task index is out of range";
-            Task removedTask = tasks.remove(taskIndex);
-            storage.saveTasks(tasks);
-            return ui.showDeleteTask(removedTask, tasks.size());
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new HueException("Please provide a valid task number to delete");
         }
-        catch (AssertionError e) {
-            throw new HueException(e.getMessage());
-        }
+        Task removedTask = tasks.remove(taskIndex);
+        storage.saveTasks(tasks);
+        return ui.showDeleteTask(removedTask, tasks.size());
+
     }
 }
