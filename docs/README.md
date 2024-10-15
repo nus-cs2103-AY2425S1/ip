@@ -54,7 +54,7 @@ Hue is a task management chatbot that helps you keep track of your tasks efficie
 ### Rescheduling Tasks
 - **Reschedule** 
   * Input: Deadline - `reschedule [task number] /by [new date]` or Event - `reschedule [task number] /from [new start date] /to [new end date]`
-  * Output: `Task Rescheduled: [task description] [new start date] ([new end date])`
+  * Output: `Task Rescheduled: [task description] [new start date] [new end date]`
 
 ## Error Handling
 - Invalid command format
