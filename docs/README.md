@@ -19,8 +19,8 @@ Hue is a task management chatbot that helps you keep track of your tasks efficie
 ## Commands
 
 ### Valid Date Formats 
-- `yyyy-MM-dd` (e.g. 2021-01-01)
-- `dd/MM/yyyy HHmm` (e.g. 01/01/2021 1800)
+- `YYYY-MM-DD` (e.g. 2021-01-01)
+- `DD/MM/YYYY HHmm` (e.g. 01/01/2021 1800)
 
 
 ### Adding Tasks
