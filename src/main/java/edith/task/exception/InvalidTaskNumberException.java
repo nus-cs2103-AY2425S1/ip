@@ -11,7 +11,7 @@ public class InvalidTaskNumberException extends Exception {
      */
     public InvalidTaskNumberException() {
         super("""
-                oops! that's an invalid task number. please try again." +
+                oops! that's an invalid task number. please try again.
                 for a full list of commands, send command.""");
     }
 }

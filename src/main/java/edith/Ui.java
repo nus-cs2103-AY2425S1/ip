@@ -51,36 +51,40 @@ public class Ui {
      */
     public static String handleUserInput(String userInput, ToDoList toDoList, Expenses expenses) {
         Parser.Command command = Parser.getCommand(userInput);
-        switch (command) {
-        case COMMAND:
-            return showCommands();
-        case LIST:
-            return printList(toDoList);
-        case MARK:
-        case UNMARK:
-            return changeTaskStatus(userInput, toDoList);
-        case TODO:
-        case DEADLINE:
-        case EVENT:
-            return addTask(userInput, toDoList);
-        case DELETE:
-            return delete(userInput, toDoList);
-        case FIND:
-            return find(userInput, toDoList);
-        case BYE:
-            return bidFarewell();
-        case EXPENSE: {
-            return handleExpenseUserInput(userInput, expenses);
-        }
-        case INVALID:
-        default:
-            try {
-                otherCommand();
-            } catch (InvalidCommandException e) {
-                showError(e.getMessage());
-                return e.getMessage();
+        try {
+            switch (command) {
+            case COMMAND:
+                return showCommands();
+            case LIST:
+                return printList(toDoList);
+            case MARK:
+            case UNMARK:
+                return changeTaskStatus(userInput, toDoList);
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                return addTask(userInput, toDoList);
+            case DELETE:
+                return delete(userInput, toDoList);
+            case FIND:
+                return find(userInput, toDoList);
+            case BYE:
+                return bidFarewell();
+            case EXPENSE: {
+                return handleExpenseUserInput(userInput, expenses);
             }
-            break;
+            case INVALID:
+            default:
+                try {
+                    otherCommand();
+                } catch (InvalidCommandException e) {
+                    showError(e.getMessage());
+                    return e.getMessage();
+                }
+                break;
+            }
+        } catch (Exception e) {
+            return "Invalid input. Please try again.";
         }
         return "Invalid input. Please try again.";
     }
