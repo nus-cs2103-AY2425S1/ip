@@ -1,5 +1,9 @@
 package sirpotato;
 
+/**
+ * Without modifying the task list, displays a modified task list
+ * sorted by, either, description or deadline
+ */
 public class SortCommand extends Command {
 
     private String categoryToSortBy;
@@ -14,5 +18,5 @@ public class SortCommand extends Command {
         //System.out.println(SORTED_LIST_MSG + ui.listTasks(tasks.sortBy(categoryToSortBy)));
         return ui.displaySortedTasks(tasks);
     }
-    
+
 }

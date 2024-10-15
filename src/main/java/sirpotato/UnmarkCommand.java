@@ -1,9 +1,13 @@
 package sirpotato;
 
+/**
+ * Marks a task as incomplete
+ */
 public class UnmarkCommand extends Command {
-    
+
+    private static final String UNMARK_FAIL_ERROR_MSG = "Sorry, that is not a valid item number to unmark";
+
     private int itemNumber;
-    private final String UNMARK_FAIL_ERROR_MSG = "Sorry, that is not a valid item number to unmark";
 
     public UnmarkCommand(int itemNumber) {
         this.itemNumber = itemNumber;
@@ -19,5 +23,4 @@ public class UnmarkCommand extends Command {
             return UNMARK_FAIL_ERROR_MSG;
         }
     }
-    
 }

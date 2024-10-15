@@ -1,16 +1,15 @@
 package sirpotato;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-import java.util.Scanner; 
-import java.util.ArrayList; 
 
 
 /**
@@ -20,17 +19,17 @@ public class Storage {
 
     private String filePath;
     private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    
+
     /**
-     * Initiates the storage class using the specified file name 
-     * 
+     * Initiates the storage class using the specified file name
+     *
      * @param filePath the string form of the file path to the chat's history text file
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        try { 
-            File f = new File(filePath); 
-            File parentDir = f.getParentFile(); 
+        try {
+            File f = new File(filePath);
+            File parentDir = f.getParentFile();
 
             if (parentDir != null && !parentDir.exists()) {
                 if (parentDir.mkdirs()) {
@@ -54,7 +53,7 @@ public class Storage {
 
     /**
      * Converts date in text file to LocalDate object
-     * 
+     *
      * @return LocalDate object in the dd-MM-yyyy format
      */
     private LocalDate parseData(String dateToParse) throws DateTimeParseException {
@@ -64,9 +63,9 @@ public class Storage {
 
     /**
      * Loads the existing file data into the toDoList
-     * 
+     *
      * @return a loaded to-do list
-     * @throws FileNotFoundException If the data file is not found 
+     * @throws FileNotFoundException If the data file is not found
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> toDoList = new ArrayList<Task>();
@@ -97,8 +96,8 @@ public class Storage {
 
     /**
      * Saves the toDoList and writes it to the data file
-     * 
-     * @param toDoList the toDoList that will be saved 
+     *
+     * @param toDoList the toDoList that will be saved
      */
     public void writeToFile(ArrayList<Task> toDoList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -110,14 +109,12 @@ public class Storage {
             if (task instanceof Deadline) {
                 textToAdd += " | " + ((Deadline) task).getByDate().format(saveFormatter);
             } else if (task instanceof Event) {
-                textToAdd += " | " + ((Event) task).getFromDate().format(saveFormatter) + " | " + 
-                ((Event) task).getToDate().format(saveFormatter);
+                textToAdd += " | " + ((Event) task).getFromDate().format(saveFormatter) + " | "
+                        + ((Event) task).getToDate().format(saveFormatter);
             }
             fw.write(textToAdd + System.lineSeparator());
         }
         fw.close();
     }
-
-
 
 }

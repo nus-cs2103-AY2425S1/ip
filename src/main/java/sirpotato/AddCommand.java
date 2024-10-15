@@ -12,7 +12,7 @@ public class AddCommand extends Command {
 
     /**
      * Returns the task being added
-     * 
+     *
      * @return The task being added
      */
     public Task getTask() {

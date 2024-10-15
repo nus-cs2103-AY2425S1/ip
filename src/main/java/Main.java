@@ -2,11 +2,10 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import sirpotato.SirPotato;
 
 /**
@@ -26,7 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("SirPotato chatbot");
-            fxmlLoader.<MainWindow>getController().setBot(sp);  // inject the Bot instance
+            fxmlLoader.<MainWindow>getController().setBot(sp); // inject the Bot instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

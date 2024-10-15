@@ -2,6 +2,9 @@ package sirpotato;
 
 import java.io.IOException;
 
+/**
+ * Saves all the data when the user types 'bye'
+ */
 public class ExitCommand extends Command {
 
     @Override

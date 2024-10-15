@@ -5,7 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import sirpotato.SirPotato;
 
 /**
@@ -31,7 +30,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /**Injects the SirPotato instance */
+    /**
+     * Injects the SirPotato instance
+    */
     public void setBot(SirPotato s) {
         sp = s;
         dialogContainer.getChildren().add(DialogBox.getDukeDialog("Welcome to Sir Potato.", botImage));

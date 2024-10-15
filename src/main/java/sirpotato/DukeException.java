@@ -7,9 +7,9 @@ package sirpotato;
  * or forgetting to put the /by
  */
 public class DukeException extends Exception {
-    
+
     public DukeException(String message) {
         super(message);
     }
-    
+
 }

@@ -1,16 +1,16 @@
 # SirPotato - Task Management Chatbot
 
 ![Product Screenshot](Ui.png);
-SirPotato is your all-in-one task management chatbot. It will handle and manage 
-your tasks so that you may **enjoy your day stress-free.** It is optimized for use via a 
-Command Line Interface (CLI) while still maintaining an aesthetic Graphical User Interface(GUI). 
+SirPotato is your all-in-one task management chatbot. It will handle and manage
+your tasks so that you may **enjoy your day stress-free.** It is optimized for use via a
+Command Line Interface (CLI) while still maintaining an aesthetic Graphical User Interface(GUI).
 
 ## Table of contents
 
 - [Quick Start Guide](#quick-start-guide)
 - [Features](#features)
 - [Usage](#usage)
-  - [Adding Tasks: `add`](#adding-tasks)
+  - [Adding Tasks](#adding-tasks)
   - [Marking Tasks as Done: `mark`](#marking-tasks-as-done)
   - [Unmarking Tasks: `unmark`](#unmarking-tasks)
   - [Deleting Tasks: `delete`](#deleting-tasks)
@@ -33,7 +33,7 @@ Command Line Interface (CLI) while still maintaining an aesthetic Graphical User
 7. Refer to the [Features](#features) below for further details on how to use the bot
 
 
-## Features 
+## Features
 
 1. **Task Management**: Add, delete, mark, unmark, list, and sort tasks.
 2. **Three Types of Tasks**:
@@ -42,7 +42,7 @@ Command Line Interface (CLI) while still maintaining an aesthetic Graphical User
    - **Event**: Tasks that start and end at specific dates/times(also in dd-mm-yyyy format).
 3. **Sort Tasks**: You can sort tasks by description or deadline.
 
-## Usage 
+## Usage
 
 Do note that for all following commands, please do not put a space before the command i.e do `command` but do not do " command" or "     command", where command would be replaced with the actual command you wish to execute. If you do, the chatbot will return an error message saying that your input is not valid.
 
@@ -52,7 +52,7 @@ You may add three types of tasks, as mentioned in the features.
 
 #### 1. **Todo**
 Format:
-``` 
+```
 todo <description>
 ```
 Example:
@@ -119,7 +119,7 @@ list
 
 ### Sorting tasks
 
-You may sort your tasks either by deadline or by description. Note that using this command won't modify your current list, but it will just show you the list in the sorted order you described in ascending order.
+You may sort your tasks either by `deadline` or by `description`. Note that using this command won't modify your current list, but it will just show you the list in the sorted order you described in ascending order.
 
 Use the following command:
 ```
@@ -146,9 +146,9 @@ The above command will return any tasks which have a description that contains '
 
 ## Saving Data
 
-Once you are finished with the chatbot, simply type ```bye```. SirPotato will then automatically save your data to the file it loaded earlier. Nothing else is needed from you and you may then close the application by hitting the x in the top left corner of the window. 
+Once you are finished with the chatbot, simply type ```bye```. SirPotato will then automatically save your data to the file it loaded earlier. Nothing else is needed from you and you may then close the application by hitting the x in the top left corner of the window.
 
-## Known issues 
+## Known issues
 
 1. **Forgetting to use `bye` when finished.** If you forget to use the `bye` command when exiting, it will not save your data to the file.
 
@@ -170,7 +170,7 @@ Once you are finished with the chatbot, simply type ```bye```. SirPotato will th
 | `unmark <task_number>`             | Unmarks a task as not done                                 | `unmark 1`                                               |
 | `delete <task_number>`             | Deletes a task                                             | `delete 2`                                               |
 | `sort description`                 | Sorts tasks by description                                 | `sort description`                                       |
-| `sort deadline`                    | Sorts tasks by deadline                                    | `sort deadline` 
+| `sort deadline`                    | Sorts tasks by deadline                                    | `sort deadline`
 | `find <search_string>`       |  Finds tasks matching the search_string | `search book`
 | `bye` | Saves your data | `bye`
 

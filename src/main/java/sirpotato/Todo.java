@@ -1,5 +1,8 @@
 package sirpotato;
 
+/**
+ * Represents a task with just a description
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

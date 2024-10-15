@@ -1,9 +1,14 @@
 package sirpotato;
 
+/**
+ * Marks a task from the task list as complete
+ */
 public class MarkCommand extends Command {
 
+    private static final String MARK_FAIL_ERROR_MSG = "Sorry, that is not a valid item number to mark";
+
     private int itemNumber;
-    private final String MARK_FAIL_ERROR_MSG = "Sorry, that is not a valid item number to mark";
+
 
     public MarkCommand(int itemNumber) {
         this.itemNumber = itemNumber;
@@ -18,7 +23,7 @@ public class MarkCommand extends Command {
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             return MARK_FAIL_ERROR_MSG;
         }
-        
+
     }
-    
+
 }

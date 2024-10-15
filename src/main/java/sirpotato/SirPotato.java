@@ -1,22 +1,13 @@
 package sirpotato;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
-
-import java.util.ArrayList; 
-import java.util.Scanner;  
-
 /**
-* SirPotato is the name of the chatbot 
+* SirPotato is the name of the chatbot
 * that we will be using in this project
-* Contains the method to start the chat 
-* 
+* Contains the method to start the chat
+*
 * @author Rahul Agarwal
 */
 public class SirPotato {
@@ -60,7 +51,7 @@ public class SirPotato {
 
     /**
      * Starts the chat with the bot. Keeps accepting user input until the user types 'bye'.
-     * Saves the data to a file as you go / creates a file if one doesn't exist 
+     * Saves the data to a file as you go / creates a file if one doesn't exist
      */
     public void startChat() {
         ui.displayWelcomeMessage();
@@ -89,7 +80,7 @@ public class SirPotato {
 
     /**
      * Generates the response for the user's chat message.
-     * 
+     *
      * @param input The user's input to the chatbot
      * @return The chatbot's response after doing the specified instruction
      */

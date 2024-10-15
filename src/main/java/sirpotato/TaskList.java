@@ -1,10 +1,9 @@
 package sirpotato;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A custom class to hold the list of tasks
@@ -17,7 +16,7 @@ public class TaskList {
 
     /**
      * Initalises a tasklist with the given ArrayList of tasks
-     * 
+     *
      * @param toDoList an ArrayList of tasks in the to-do list
      */
     public TaskList(ArrayList<Task> toDoList) {
@@ -40,7 +39,7 @@ public class TaskList {
 
     /**
      * Marks a certain item in the task list as finished
-     * 
+     *
      * @param itemNumber The item you wish to mark finished(starts with index 1 for item 1)
      */
     public void mark(int itemNumber) {
@@ -50,7 +49,7 @@ public class TaskList {
 
     /**
      * Unmarks a certain item in the task list as finished
-     * 
+     *
      * @param itemNumber The item you wish to unmark finished(starts with index 1 for item 1)
      */
     public void unmark(int itemNumber) {
@@ -60,7 +59,7 @@ public class TaskList {
 
     /**
      * Adds a task to the tasklist
-     * 
+     *
      * @param task The task you wish to add
      */
     public void addTask(Task task) {
@@ -70,7 +69,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list
-     * 
+     *
      * @param taskNumber The number of the task you wish to delete
      * @param toDoList The ArrayList of the tasklist should you wish to specify
      */
@@ -81,7 +80,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list
-     * 
+     *
      * @param taskNumber The number of the task you wish to delete
      */
     public void delete(int taskNumber) {
@@ -90,7 +89,7 @@ public class TaskList {
 
     /**
      * Returns the task (starts at index 0)
-     * 
+     *
      * @return Task at that index(starting at 0)
      */
     public Task getTask(int itemNumber) {
@@ -103,16 +102,16 @@ public class TaskList {
 
     /**
      * Returns a TaskList that contains the tasks sorted in the category specified
-     * 
+     *
      * @param categoryToSortBy the category by which to sort, either by deadline, or by description
-     * @return TaskList containing the tasks in sorted order 
+     * @return TaskList containing the tasks in sorted order
      */
     public TaskList sortBy(String categoryToSortBy) {
         if (categoryToSortBy.equals("deadline")) {
             ArrayList<Task> deadlineTasks = toDoList.stream()
                                    .filter(Task::isDeadline)
                                    .collect(Collectors.toCollection(ArrayList::new));
-            
+
             Collections.sort(deadlineTasks, Comparator.comparing(task -> ((Deadline) task).getByDate()));
             return new TaskList(new ArrayList<Task>(deadlineTasks));
         } else if (categoryToSortBy.equals("description")) {
