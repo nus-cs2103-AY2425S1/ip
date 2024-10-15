@@ -33,6 +33,7 @@ public class MarkCommand extends Command {
         try {
             assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of range";
             Task task = tasks.get(taskIndex);
+            assert !task.hasDone() : "Task has already been done";
             task.markDone();
             storage.saveTasks(tasks);
             return ui.showMarkTask(task);

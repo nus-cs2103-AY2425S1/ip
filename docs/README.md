@@ -44,6 +44,8 @@ Hue is a task management chatbot that helps you keep track of your tasks efficie
 - Invalid command format
 - Date parsing issues
 - Invalid Task Range (Delete and Mark/Unmark)
+- Marking a task that is already marked
+- Unmarking a task that has not been marked yet
 
 ## Additional Information
 For further assistance, please contact hughsoongks@gmail.com.

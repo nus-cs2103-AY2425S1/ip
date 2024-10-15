@@ -41,13 +41,10 @@ public class Parser {
         case "reschedule":
             return new RescheduleCommand(fullCommand);
         default:
-            throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
+            throw new HueException("I'm sorry, but I don't know what the term \"" + fullCommand + "\" means. Womp Womp :(");
         }
     }
 
-    public static void throwException() throws HueException {
-        throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
-    }
 
 }
 
