@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import beeboo.components.TimeConverter;
 import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
+import beeboo.exception.UpdateCommandException;
 
 
 /**
@@ -65,10 +66,6 @@ public class Deadlines extends Tasks {
             throw new InvalidDateException(text);
         }
         String deadlineDate = date.substring(2).trim();
-        if (!deadlineDate.matches("[0-9]+")) {
-            throw new InvalidDateException("Invalid date format: " + deadlineDate);
-        }
-
         LocalDateTime dateTime;
         try {
             dateTime = TimeConverter.convertTime(deadlineDate);
@@ -102,7 +99,11 @@ public class Deadlines extends Tasks {
     }
 
     @Override
-    public void updateTime(String time) {
-        this.date = TimeConverter.convertTime(time);
+    public void updateTime(String time) throws UpdateCommandException {
+        try {
+            this.date = TimeConverter.convertTime(time);
+        } catch (DateTimeParseException e) {
+            throw new UpdateCommandException("Invalid Update command");
+        }
     }
 }

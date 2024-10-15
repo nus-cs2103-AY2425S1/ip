@@ -1,11 +1,16 @@
 package beeboo.command;
 
+import java.time.format.DateTimeParseException;
+
 import beeboo.components.Storage;
 import beeboo.components.TaskList;
 import beeboo.components.Ui;
+import beeboo.exception.InvalidDateException;
 import beeboo.exception.InvalidIndexException;
 import beeboo.exception.NoDescriptionException;
+import beeboo.exception.UpdateCommandException;
 import beeboo.task.Tasks;
+
 
 /**
  * Represents a command to mark a task as done or not done in the chatbot's task list.
@@ -28,7 +33,7 @@ public class UpdateCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException ,
-            NoDescriptionException {
+            NoDescriptionException, InvalidDateException , UpdateCommandException {
         String command = super.command;
         int index = command.indexOf(' ');
         if (index == -1) {
@@ -40,7 +45,11 @@ public class UpdateCommand extends Command {
         }
         Tasks taskToChange = tasks.get(taskIndex - 1);
         String rest = command.substring(index + 1).trim();
-        taskToChange.updateTime(rest);
+        try {
+            taskToChange.updateTime(rest);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException("Invalid date: " + rest);
+        }
         storage.saveItem(tasks);
         return ui.updateMessage(taskIndex, taskToChange);
     }

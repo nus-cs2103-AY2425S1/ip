@@ -1,5 +1,7 @@
 package beeboo.task;
 
+import beeboo.exception.UpdateCommandException;
+
 /**
  * The Tasks class represents a generic task with a description and completion status.
  * It serves as the base class for specific types of tasks such as deadlines, events, and to-dos.
@@ -81,5 +83,5 @@ public abstract class Tasks {
         return description;
     }
 
-    public abstract void updateTime(String time);
+    public abstract void updateTime(String time) throws UpdateCommandException;
 }

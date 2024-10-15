@@ -14,6 +14,7 @@ Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or
    - [Find](#-list)
    - [Mark/Unmark](#-mark-or-unmark)
    - [Deletion](#-deletion)
+   - [Update](#-update)
 
 ### Quick Start
 1. Ensure you have Java 17 or above installed in your Computer.
@@ -96,4 +97,33 @@ Example Output:
 Ok I have removed the following item
 [T][X] read book
 You have [size of list] tasks left;
+```
+#### Update
+Editing the task at a specific index. Different formatting for 
+different tasks. 
+
+**Deadline**:
+```
+update 1 2024-09-30 1800
+```
+Example output:
+```
+Task 4 has been updated to: [D][] return book (by 30 Sep 2024 6:00pm)
+```
+
+**Event**:
+```
+update 2 from 2024-09-30 1800/to 2000
+```
+Example output:
+```
+Task 2 has been updated to: [E][] meeting (from 30 Sep 2024 6:00pm to 30 Sep 2024 8:00pm)
+```
+OR
+```
+update 2 from 2024-09-30 1800/to 2024-10-30 2000
+```
+Example output:
+```
+Task 2 has been updated to: [E][] meeting (from 30 Sep 2024 6:00pm to 30 Oct 2024 8:00pm)
 ```

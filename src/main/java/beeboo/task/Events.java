@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import beeboo.components.TimeConverter;
 import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
+import beeboo.exception.UpdateCommandException;
 
 /**
  * The Events class represents an event task with a start date and an end date.
@@ -126,9 +127,6 @@ public class Events extends Tasks {
             throw new InvalidDateException("Invalid date format: " + datePart);
         }
         String dateString = datePart.substring(expectedPrefix.length()).trim();
-        if (!dateString.matches("[0-9]+")) {
-            throw new InvalidDateException("Invalid date: " + dateString);
-        }
         try {
             return TimeConverter.convertTime(dateString);
         } catch (DateTimeParseException e) {
@@ -144,11 +142,8 @@ public class Events extends Tasks {
      * @return the parsed LocalDateTime object for the end date
      */
     private static LocalDateTime parseEndDateTime(String endDatePart,
-                                                  LocalDateTime startDateTime) throws InvalidDateException {
+                                                  LocalDateTime startDateTime) throws DateTimeParseException {
         String endDate = endDatePart.substring(2).trim();
-        if (!endDate.matches("[0-9]+")) {
-            throw new InvalidDateException("Invalid date format: " + endDate);
-        }
 
         String[] endDates = endDate.split(" ");
         LocalDateTime endDateTime = (endDates.length == 1)
@@ -177,22 +172,26 @@ public class Events extends Tasks {
      * @param time the string specifying the time update
      */
     @Override
-    public void updateTime(String time) {
-        if (time.contains("from")) {
-            if (time.contains("to")) {
-                String[] times = time.split("/");
-                this.startDate = TimeConverter.convertTime(times[0].substring(5).trim());
-                String endDate = times[1].substring(3).trim();
-                String[] endDates = endDate.split(" ");
-                LocalDateTime endDateTime = (endDates.length == 1)
-                        ? TimeConverter.convertTime(startDate.toLocalDate().toString() + " " + endDate)
-                        : TimeConverter.convertTime(endDate);
-                this.endDate = endDateTime;
+    public void updateTime(String time) throws UpdateCommandException {
+        try {
+            if (time.contains("from")) {
+                if (time.contains("to")) {
+                    String[] times = time.split("/");
+                    this.startDate = TimeConverter.convertTime(times[0].substring(5).trim());
+                    String endDate = times[1].substring(3).trim();
+                    String[] endDates = endDate.split(" ");
+                    LocalDateTime endDateTime = (endDates.length == 1)
+                            ? TimeConverter.convertTime(startDate.toLocalDate().toString() + " " + endDate)
+                            : TimeConverter.convertTime(endDate);
+                    this.endDate = endDateTime;
+                } else {
+                    this.startDate = TimeConverter.convertTime(time.substring(5).trim());
+                }
             } else {
-                this.startDate = TimeConverter.convertTime(time.substring(5).trim());
+                this.endDate = TimeConverter.convertTime(time.substring(3).trim());
             }
-        } else {
-            this.endDate = TimeConverter.convertTime(time.substring(3).trim());
+        } catch (DateTimeParseException e) {
+            throw new UpdateCommandException("Invalid update Command");
         }
     }
 }
