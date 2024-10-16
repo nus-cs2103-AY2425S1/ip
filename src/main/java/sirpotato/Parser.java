@@ -72,6 +72,15 @@ class Parser {
         }
     }
 
+    /**
+     * Checks for full command word and the first field
+     *
+     * @param userInput The user input to be checked
+     * @param command The command we are checking for
+     * @param minLength The minimum string length the command should be
+     * @param errorMsg The error message you would like to display if it doesn't detect proper command
+     * @throws SirPotatoException
+     */
     private static void checkForCommand(String userInput, String command,
             int minLength, String errorMsg) throws SirPotatoException {
         if (!userInput.startsWith(command + " ")) {
@@ -82,13 +91,25 @@ class Parser {
         }
     }
 
-    private static void validateTaskNumber(String task, String command) throws SirPotatoException {
-        if (!task.matches("\\d+")) {
+    /**
+     * Checks that given task number is not text but made up of digits
+     *
+     * @param taskNumber The task number
+     * @param command The command being executed
+     * @throws SirPotatoException
+     */
+    private static void validateTaskNumber(String taskNumber, String command) throws SirPotatoException {
+        if (!taskNumber.matches("\\d+")) {
             throw new SirPotatoException("Mate, please give a valid task number (not text) to " + command);
         }
     }
 
-    // Helper method to validate deadline format
+    /**
+     * Ensures deadline inputs are correctly formatted
+     *
+     * @param userInput The deadline input command detected
+     * @throws SirPotatoException
+     */
     private static void validateDeadlineFormat(String userInput) throws SirPotatoException {
         String[] sectionedString = userInput.split("/by ");
         if (sectionedString.length < 2 || sectionedString[0].substring(9).isEmpty() || sectionedString[1].isEmpty()) {
@@ -97,27 +118,33 @@ class Parser {
         validateDateFormat(sectionedString[1].trim());
     }
 
-    // Helper method to validate event format
+    /**
+     * Ensures event inputs are correctly formatted
+     *
+     * @param userInput The user input event command detected
+     * @throws SirPotatoException
+     */
     private static void validateEventFormat(String userInput) throws SirPotatoException {
-        // Updated split to handle extra spaces around /from and /to
         String[] sectionedString = userInput.split("/from\\s+|\\s+/to\\s+");
 
-        // Check if description is empty
         if (sectionedString[0].substring(6).trim().isEmpty()) {
             throw new SirPotatoException("Mate, the event description cannot be empty.");
         }
 
-        // Ensure both dates are provided and are valid
         if (sectionedString.length < 3 || sectionedString[1].trim().isEmpty() || sectionedString[2].trim().isEmpty()) {
             throw new SirPotatoException("Mate, an event should have a start and an end date.");
         }
 
-        // Validate the start and end dates
         validateDateFormat(sectionedString[1].trim());
         validateDateFormat(sectionedString[2].trim());
     }
 
-    // Helper method to validate sort category
+    /**
+     * Validates the sort category
+     *
+     * @param category The category the user is trying to sort by
+     * @throws SirPotatoException
+     */
     private static void validateSortCategory(String category) throws SirPotatoException {
         if (!(category.equals("description") || category.equals("deadline"))) {
             throw new SirPotatoException("You have to sort by description or deadline");
