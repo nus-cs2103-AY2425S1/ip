@@ -318,7 +318,8 @@ public class Parser {
      */
     private String updateTodoTask(String userInput) throws Meowception {
         try {
-            String oldTaskname = userInput.substring(0, userInput.indexOf("/new "));
+            String oldTaskname = userInput.substring(0, userInput.indexOf(" /new "));
+            System.out.println(oldTaskname + "monkey");
             String newTaskname = userInput.substring(userInput.indexOf("/new ") + 5);
             return taskList.updateTodoTask(oldTaskname, newTaskname);
         } catch (StringIndexOutOfBoundsException e) {
@@ -334,7 +335,7 @@ public class Parser {
     private String updateDeadlineTask(String userInput) throws Meowception {
         try {
             String taskName = userInput.substring(0, userInput.indexOf(" /"));
-            String newTaskData = userInput.substring(userInput.indexOf(" /new ") + 5);
+            String newTaskData = userInput.substring(userInput.indexOf("/new ") + 5);
             if (userInput.contains("/by ")) {
                 return taskList.updateDeadlineTask("time", taskName, newTaskData);
             } else if (userInput.contains("/name ")) {

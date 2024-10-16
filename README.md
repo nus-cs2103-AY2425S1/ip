@@ -83,6 +83,8 @@ You can update specfic details for existing tasks. Via the update command
 
 Command syntax for Todo tasks: `update todo <taskname> /new <data>`
 Command syntax for Other tasks: `update <tasktype> <taskname> /<characteristic to change> /new <new data>`
+Characteristics for Deadline tasks: `/name, /by`
+Characteristics for Event tasks: `/name, /to, /from`
 
 Todo Task Excample: `update todo meet friends /new meet parents`
 Deadline Task Example: `update deadline CS1231S HW /name /new Do CS1231S Assignment`

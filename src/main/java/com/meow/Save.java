@@ -87,8 +87,7 @@ public class Save {
             } catch (Meowception e) {
                 throw e;
             } catch (java.lang.StringIndexOutOfBoundsException e) {
-                //pass
-                throw e;
+                //pass             
             }
         }
     }

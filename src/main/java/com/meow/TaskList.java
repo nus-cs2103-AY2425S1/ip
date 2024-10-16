@@ -119,6 +119,7 @@ public class TaskList {
      */
     public String updateTodoTask(String oldName, String newName) throws Meowception {
         for (Task task : tasks) {
+            System.out.println(task.getTaskName() + "monkey");
             if (task.getTaskName().equals(oldName) && task.getType().equals("Todo")) {
                 task.setTaskName(newName);
                 return "    Meow has updated this task hehe";
