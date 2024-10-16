@@ -25,27 +25,51 @@ Bao got it! Bao is now tracking: T | 0 | study for midterms
 - `deadline [task description] /by [date time]`: Creates a deadline task
 - `event [task description] /from [date time] /to [date time]`: Creates an event task
 
+#### Example Inputs and Usage
+Date time input is in (DD-MM-YYYY HHmm) format
+- `todo clean room`
+- `deadline tp task /by 30-09-2024 1800`
+- `event cohesion /from 30-09-2024 1600 /to 30-09-2024 2200`
 
 ### List Tasks
 - `list`: Displays all tasks in the list
 
+#### Example Inputs and Usage
+- `list`
+
 ### Occurring On 
 - `on [date time]`: Displays all tasks in the list occurring on the given date
+
+#### Example Inputs and Usage
+- `on 30-09-2024`
 
 ### Mark/Unmark Task
 - `mark [index]`: Marks task at index as completed
 - `unmark [index]`: Unmarks task at index
 
+#### Example Inputs and Usage
+- `mark 1`
+- `unmark 2`
+
 ### Delete Task
 - `delete [index]`: Deletes task at index
+
+#### Example Inputs and Usage
+- `delete 1`
 
 ### Tag/Untag Task
 - `tag [index] [description]`: Tags task at index with the description
 - `untag [index] [description]`: Untags task at index with the description
 
+#### Example Inputs and Usage
+- `tag 1 important`
+- `untag 2 important`
+
 ### Find Task
 - `find [keyword]`: Finds tasks with description containing the keyword
 
+#### Example Inputs and Usage
+- `find clean`
 
 ## Download Bao
 To employ Bao,

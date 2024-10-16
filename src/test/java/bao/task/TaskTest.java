@@ -1,15 +1,16 @@
 package bao.task;
 
-import bao.main.Bao;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import bao.main.Bao;
 
 public class TaskTest {
     public static final String TEST_FILE_PATH = "data/test_task.json.txt";
@@ -50,16 +51,16 @@ public class TaskTest {
         assertInstanceOf(Deadline.class, task);
         assertEquals("cs2103t ip", task.getDescription());
         assertFalse(task.isDone());
-        assertEquals(LocalDateTime.of(2024, 8, 29, 16, 00),
-                ((Deadline) task).getDate());
+        assertEquals(LocalDateTime.of(2024, 8, 29, 16, 00), (
+                (Deadline) task).getDate());
 
         input = "D | 1 | cs2103t ip | 2024-08-29 1600";
         task = Task.fromString(input);
         assertInstanceOf(Deadline.class, task);
         assertEquals("cs2103t ip", task.getDescription());
         assertTrue(task.isDone());
-        assertEquals(LocalDateTime.of(2024, 8, 29, 16, 00),
-                ((Deadline) task).getDate());
+        assertEquals(LocalDateTime.of(2024, 8, 29, 16, 00), (
+                (Deadline) task).getDate());
     }
 
     /**
@@ -72,20 +73,20 @@ public class TaskTest {
         assertInstanceOf(Event.class, task);
         assertEquals("block event", task.getDescription());
         assertFalse(task.isDone());
-        assertEquals(LocalDateTime.of(2024, 8, 27, 21, 00),
-                ((Event) task).getFromDateTime());
-        assertEquals(LocalDateTime.of(2024, 8, 27, 23, 00),
-                ((Event) task).getToDateTime());
+        assertEquals(LocalDateTime.of(2024, 8, 27, 21, 00), (
+                (Event) task).getFromDateTime());
+        assertEquals(LocalDateTime.of(2024, 8, 27, 23, 00), (
+                (Event) task).getToDateTime());
 
         input = "E | 1 | block event | 2024-08-27 2100 - 2024-08-27 2300";
         task = Task.fromString(input);
         assertInstanceOf(Event.class, task);
         assertEquals("block event", task.getDescription());
         assertTrue(task.isDone());
-        assertEquals(LocalDateTime.of(2024, 8, 27, 21, 00),
-                ((Event) task).getFromDateTime());
-        assertEquals(LocalDateTime.of(2024, 8, 27, 23, 00),
-                ((Event) task).getToDateTime());
+        assertEquals(LocalDateTime.of(2024, 8, 27, 21, 00), (
+                (Event) task).getFromDateTime());
+        assertEquals(LocalDateTime.of(2024, 8, 27, 23, 00), (
+                (Event) task).getToDateTime());
     }
 
     /**

@@ -1,20 +1,22 @@
 package bao.main;
 
-import bao.task.Deadline;
-import bao.task.Event;
-import bao.task.Task;
-import bao.task.ToDo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import bao.task.Deadline;
+import bao.task.Event;
+import bao.task.Task;
+import bao.task.ToDo;
 
 public class BaoTest {
     public static final String TEST_FILE_PATH = "data/test_bao.json.txt";
@@ -52,16 +54,16 @@ public class BaoTest {
         assertInstanceOf(Deadline.class, task2);
         assertEquals("cs2103t ip", task2.getDescription());
         assertTrue(task2.isDone());
-        assertEquals(LocalDateTime.of(2024, 8, 29, 16, 00),
-                ((Deadline) task2).getDate());
+        assertEquals(LocalDateTime.of(2024, 8, 29, 16, 00), (
+                (Deadline) task2).getDate());
 
         Task task3 = bao.getTaskList().getTask(2);
         assertInstanceOf(Event.class, task3);
         assertEquals("block event", task3.getDescription());
         assertFalse(task3.isDone());
-        assertEquals(LocalDateTime.of(2024, 8, 27, 21, 00),
-                ((Event) task3).getFromDateTime());
-        assertEquals(LocalDateTime.of(2024, 8, 27, 23, 00),
-                ((Event) task3).getToDateTime());
+        assertEquals(LocalDateTime.of(2024, 8, 27, 21, 00), (
+                (Event) task3).getFromDateTime());
+        assertEquals(LocalDateTime.of(2024, 8, 27, 23, 00), (
+                (Event) task3).getToDateTime());
     }
 }
