@@ -63,10 +63,24 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Displays the list of tasks.
+     *
+     * @param taskList The TaskList object that contains the current list of tasks.
+     * @param ui       The Ui object for interacting with the user interface.
+     */
     private static void handleListCommand(TaskList taskList, Ui ui) {
         ui.showTaskList(taskList.getTasks());
     }
 
+    /**
+     * Marks or unmarks a task based on user input.
+     *
+     * @param userInputArr The split user input array.
+     * @param taskList     The TaskList object that contains the current list of tasks.
+     * @param ui           The Ui object for interacting with the user interface.
+     * @param isMarking    A boolean indicating whether to mark (true) or unmark (false) the task.
+     */
     private static void handleTaskCommand(String[] userInputArr, TaskList taskList, Ui ui, boolean isMarking) {
         int taskIndex = validateAndGetTaskIndex(userInputArr, taskList, ui);
         if (taskIndex == -1) {
@@ -81,6 +95,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task based on user input.
+     *
+     * @param userInputArr The split user input array.
+     * @param taskList     The TaskList object that contains the current list of tasks.
+     * @param ui           The Ui object for interacting with the user interface.
+     */
     private static void handleTaskDeletion(String[] userInputArr, TaskList taskList, Ui ui) {
         int taskIndex = validateAndGetTaskIndex(userInputArr, taskList, ui);
         if (taskIndex == -1) {
@@ -91,6 +112,13 @@ public class Parser {
         taskList.deleteTask(taskIndex, ui);
     }
 
+    /**
+     * Adds a todo task based on user input.
+     *
+     * @param todoDesc The description of the todo task.
+     * @param taskList The TaskList object that contains the current list of tasks.
+     * @param ui       The Ui object for interacting with the user interface.
+     */
     private static void handleTodoTask(String todoDesc, TaskList taskList, Ui ui) {
         if (todoDesc.isEmpty()) {
             ui.showError("Todo description is missing.");
@@ -102,6 +130,13 @@ public class Parser {
         taskList.addTask(todo, ui);
     }
 
+    /**
+     * Adds a deadline task based on user input.
+     *
+     * @param input    The full input string provided by the user.
+     * @param taskList The TaskList object that contains the current list of tasks.
+     * @param ui       The Ui object for interacting with the user interface.
+     */
     private static void handleDeadlineTask(String input, TaskList taskList, Ui ui) {
         String[] deadlineParts = input.split("/by");
 
@@ -122,6 +157,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds an event task based on user input.
+     *
+     * @param input    The full input string provided by the user.
+     * @param taskList The TaskList object that contains the current list of tasks.
+     * @param ui       The Ui object for interacting with the user interface.
+     */
     private static void handleEventTask(String input, TaskList taskList, Ui ui) {
         String[] eventParts = input.split("/from");
 
@@ -150,6 +192,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds tasks based on a keyword from the user input.
+     *
+     * @param userInputArr The split user input array.
+     * @param userInput    The full input string provided by the user.
+     * @param taskList     The TaskList object that contains the current list of tasks.
+     * @param ui           The Ui object for interacting with the user interface.
+     */
     private static void handleFindTask(String[] userInputArr, String userInput, TaskList taskList, Ui ui) {
         if (userInputArr.length < 2) {
             ui.showError("Please indicate a keyword to search.");
