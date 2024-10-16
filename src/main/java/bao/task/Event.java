@@ -44,7 +44,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "E | " + super.toString() + " | "
-                + from.format(Bao.getOutputDateFormat()) + "-" + to.format(Bao.getOutputDateFormat())
+                + from.format(Bao.getOutputDateFormat()) + " - " + to.format(Bao.getOutputDateFormat())
                 + getTagsAsString();
     }
 

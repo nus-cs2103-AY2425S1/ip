@@ -111,6 +111,10 @@ public class Parser {
     }
 
     private static String handleDeadline(String args, TaskList tasks, Storage storage) {
+        if (args.isEmpty()) {
+            return "Bao needs a description of the task!";
+        }
+
         String[] argParts = args.split(" /by ");
         assert argParts.length >= 2 : "Bao needs a proper description and deadline for the task!";
         try {
@@ -126,6 +130,10 @@ public class Parser {
     }
 
     private static String handleEvent(String args, TaskList tasks, Storage storage) {
+        if (args.isEmpty()) {
+            return "Bao needs a description of the task!";
+        }
+
         String[] argParts = args.split(" /from | /to ");
         assert argParts.length >= 3 : "Bao needs a proper description and duration for the task!";
         try {
@@ -156,7 +164,7 @@ public class Parser {
 
     private static String handleOn(String args, TaskList tasks) {
         try {
-            LocalDate date = LocalDate.parse(args, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate date = LocalDate.parse(args, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             StringBuilder response = new StringBuilder("Bao showing tasks on "
                     + date.format(Bao.getDateOnlyFormat()) + ":");
             boolean found = false;
@@ -182,7 +190,7 @@ public class Parser {
             }
             return response.toString();
         } catch (DateTimeParseException e) {
-            return "Bao needs a valid date format such as 2024-08-28";
+            return "Bao needs a valid date format such as 28-08-2024";
         }
     }
 
