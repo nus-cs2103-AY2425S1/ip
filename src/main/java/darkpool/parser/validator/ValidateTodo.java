@@ -12,7 +12,7 @@ import darkpool.DarkpoolException;
 public class ValidateTodo {
 
     /**
-     * validate method is used to validate the user input for the todo command.
+     * Validate method is used to validate the user input for the todo command.
      *
      * @param userInput The user input to be validated.
      * @throws DarkpoolException If the user input is invalid.

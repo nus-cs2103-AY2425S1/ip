@@ -11,9 +11,9 @@ import darkpool.DarkpoolException;
 public class ValidateDeadline {
 
     /**
-     * validate method checks if the deadline command is valid.
+     * Validate method checks if the deadline command contains the deadline.
      * @param userInput The user input command.
-     * @throws DarkpoolException If the deadline command is invalid.
+     * @throws DarkpoolException If the deadline command does not contain the deadline.
      */
     public static void validate(String[] userInput) throws DarkpoolException {
         if (userInput.length < 2 || Objects.equals(userInput[1], "")) {
@@ -22,7 +22,7 @@ public class ValidateDeadline {
     }
 
     /**
-     * validateBy method checks if the deadline command contains the keyword "/by".
+     * ValidateBy method checks if the deadline command contains the keyword "/by".
      * @param text The user input command.
      * @throws DarkpoolException If the deadline command does not contain the keyword "/by".
      */
@@ -33,7 +33,7 @@ public class ValidateDeadline {
     }
 
     /**
-     * validateEmptyDesc method checks if the deadline description is empty.
+     * ValidateEmptyDesc method checks if the deadline description is empty.
      * @param desc The deadline description.
      * @throws DarkpoolException If the deadline description is empty.
      */
@@ -44,7 +44,7 @@ public class ValidateDeadline {
     }
 
     /**
-     * validateArrayLength method checks if the deadline command contains multiple deadlines.
+     * ValidateArrayLength method checks if the deadline command contains multiple deadlines.
      * @param array The user input command.
      * @throws DarkpoolException If the deadline command contains multiple deadlines.
      */

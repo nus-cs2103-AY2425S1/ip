@@ -13,7 +13,7 @@ import darkpool.task.Event;
 public class ValidateEvent {
 
     /**
-     * validate method is a method that validates the user input for event tasks.
+     * Validate method is a method that validates the user input for event tasks.
      * It checks if the user input is in the correct format.
      * @param userInput the user input to be validated
      * @throws DarkpoolException if the user input is in the wrong format
@@ -25,7 +25,7 @@ public class ValidateEvent {
     }
 
     /**
-     * validateTo method is a method that validates the 'to' part of the user input for event tasks.
+     * ValidateTo method is a method that validates the 'to' part of the user input for event tasks.
      * It checks if the 'to' part is in the correct format.
      * @param toParts the 'to' part of the user input to be validated
      * @throws DarkpoolException if the 'to' part is in the wrong format
@@ -41,7 +41,7 @@ public class ValidateEvent {
     }
 
     /**
-     * validateFrom method is a method that validates the 'from' part of the user input for event tasks.
+     * ValidateFrom method is a method that validates the 'from' part of the user input for event tasks.
      * It checks if the 'from' part is in the correct format.
      * @param fromParts the 'from' part of the user input to be validated
      * @throws DarkpoolException if the 'from' part is in the wrong format
@@ -57,7 +57,7 @@ public class ValidateEvent {
     }
 
     /**
-     * validateAndCreateEvent method is a method that validates the user input and creates an event task.
+     * ValidateAndCreateEvent method is a method that validates the user input and creates an event task.
      * It checks if the user input is in the correct format and creates an event task.
      * @param desc the description of the event task
      * @param from the 'from' part of the user input
