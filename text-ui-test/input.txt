@@ -1,0 +1,13 @@
+todo
+todo study
+event
+event meeting /from: 2024-08-25 09:30 /to: 2024-08-25 11:00
+deadline
+deadline assignment /by: 2024-08-25 14:00
+list
+mark 1
+list
+unmark 1
+delete 2
+list
+bye
