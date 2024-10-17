@@ -85,7 +85,7 @@ public class Ui {
     }
 
     /**
-     * A message to denote successful addition of the task to the TaskList.
+     * Prints a message to denote successful addition of the task to the TaskList.
      * @return a string to affirm the user.
      */
     public String affirm() {
