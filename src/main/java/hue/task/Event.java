@@ -26,8 +26,7 @@ public class Event extends Task {
         try {
             this.from = DateUtils.parseDateTime(from);
             this.to = DateUtils.parseDateTime(to);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new HueException("Invalid Date Format!");
         }
     }
