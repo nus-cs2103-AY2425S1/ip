@@ -1,0 +1,6 @@
+D | 0 | return book | 2024-06-24
+E | 0 | project meeting | 2024-08-26 | 2024-08-26
+T | 1 | join sports club
+T | 0 | borrow book
+D | 0 | return book | 2024-08-25
+E | 0 | project meeting | 2024-08-23 | 2024-08-25
