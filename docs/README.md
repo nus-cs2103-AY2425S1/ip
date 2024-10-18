@@ -2,7 +2,7 @@
 
 <img width="905" alt="Screenshot 2024-09-16 at 10 54 18 AM" src="https://github.com/user-attachments/assets/614ec9fb-6803-4883-bec8-f87c772997cf">
 
-Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or events.
+Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or events for your everyday needs.
 
 ## Table of contents
 
