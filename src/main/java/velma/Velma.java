@@ -273,20 +273,26 @@ public class Velma {
             throw new VelmaException("Sorry boss! Please specify which task.");
         }
         try {
-            Integer.parseInt(parts[1]);
+            Integer taskIndex = Integer.parseInt(parts[1]) - 1;
+
+            if (taskIndex < 1 || taskIndex > tasks.getSize()) {
+                throw new VelmaException("Sorry boss! Please specify a valid task number.");
+            }
+
+            Task task = tasks.getTask(taskIndex);
+            task.changeIsDoneStatus();
+
+            if (command == Command.MARK) {
+                response.append("Nice! I have marked this task as done:\n");
+            } else {
+                response.append("OK! I have marked this task as not done yet:\n");
+            }
+
+            response.append(task);
+            storage.save(tasks.getTasks());
         } catch (NumberFormatException e) {
             throw new VelmaException("Sorry boss! Please specify a valid task number.");
         }
-        int taskIndex = Integer.parseInt(parts[1]) - 1;
-        Task task = tasks.getTask(taskIndex);
-        task.changeIsDoneStatus();
-        if (command == Command.MARK) {
-            response.append("Nice! I have marked this task as done:\n");
-        } else {
-            response.append("OK! I have marked this task as not done yet:\n");
-        }
-        response.append(task);
-        storage.save(tasks.getTasks());
     }
 
     /**
@@ -300,15 +306,26 @@ public class Velma {
         if (parts.length < 2) {
             throw new VelmaException("Sorry boss! Please specify which task to delete.");
         }
-        int taskIndex = Integer.parseInt(parts[1]) - 1;
-        Task taskToDelete = tasks.getTask(taskIndex);
-        tasks.deleteTask(taskIndex);
-        response.append("Noted. I've removed this task:\n")
-                .append(taskToDelete)
-                .append("\nNow you have ")
-                .append(tasks.getSize())
-                .append(" tasks in the list.");
-        storage.save(tasks.getTasks());
+
+        try {
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+
+            if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+                throw new VelmaException("Sorry boss! Please specify a valid task number.");
+            }
+
+            Task taskToDelete = tasks.getTask(taskIndex);
+            tasks.deleteTask(taskIndex);
+            response.append("Noted. I've removed this task:\n")
+                    .append(taskToDelete)
+                    .append("\nNow you have ")
+                    .append(tasks.getSize())
+                    .append(" tasks in the list.");
+            storage.save(tasks.getTasks());
+        } catch (NumberFormatException e) {
+            throw new VelmaException("Sorry boss! Please specify a valid task number.");
+        }
+
     }
 
     private void handleFindCommand(String input, StringBuilder response) throws VelmaException {
