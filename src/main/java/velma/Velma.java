@@ -205,14 +205,15 @@ public class Velma {
     private void handleEventCommand(String input, StringBuilder response) throws VelmaException {
         String[] parts = input.replaceFirst("event\\s+", "").split(" /from | /to ");
         if (parts.length < 3) {
-            throw new VelmaException("Sorry boss! An event needs a valid start time and end time! Please use /from HHmm /to HHmm");
+            throw new VelmaException("Sorry boss! An event needs a valid start time "
+                    + "and end time! Please use /from HHmm /to HHmm");
         }
         String description = parts[0];
         String startTime = parts[1];
         String endTime = parts[2];
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
-            LocalTime start =  LocalTime.parse(startTime, formatter);
+            LocalTime start = LocalTime.parse(startTime, formatter);
             LocalTime end = LocalTime.parse(endTime, formatter);
 
             if (start.isAfter(end)) {

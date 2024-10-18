@@ -1,6 +1,9 @@
 package velma.task;
 
-public class After extends Task{
+/**
+ * After task class.
+ */
+public class After extends Task {
     protected String after;
 
     /**

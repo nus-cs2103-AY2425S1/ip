@@ -10,7 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
-public class MainWindow extends AnchorPane{
+/**
+ * MainWindow class - main window of the application
+ */
+public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML

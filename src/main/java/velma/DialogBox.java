@@ -14,6 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
+/**
+ * DialogBox class - dialog box that contains the dialog and display picture
+ */
 public class DialogBox extends HBox {
 
     @FXML

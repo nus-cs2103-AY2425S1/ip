@@ -5,11 +5,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-
+/**
+ * A GUI for Velma using FXML.
+ */
 public class Main extends Application {
 
     private Velma velma = new Velma("./data/velma.txt");
