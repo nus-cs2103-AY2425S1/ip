@@ -1,24 +1,72 @@
-# Duke project template
+# Alfred User Guide🤵🏻
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to Alfred, your personal task management assistant. Alfred helps you keep track of tasks, deadlines,
+and events through simple text commands.
 
-## Setting up in Intellij
+## Quick Reference
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+### Adding Tasks
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- **ToDo**: Add a simple task without a date.
+  - **Command**: `todo <description>`
+  - **Example**: `todo Read a book`
+
+- **Deadline**: Add a task with a deadline.
+  - **Command**: `deadline <description> /by <YYYY-MM-DD>`
+  - **Example**: `deadline Submit report /by 2023-12-01`
+
+- **Event**: Add a task occurring at a specific time.
+  - **Command**: `event <description> /at <YYYY-MM-DD>`
+  - **Example**: `event Team meeting /at 2023-11-15`
+
+---
+
+### Managing Tasks
+
+### Managing Tasks
+
+- **List Tasks**: View all your tasks.
+  - **Command**: `list`
+
+- **Mark as Done**: Mark a task as completed.
+  - **Command**: `mark <task number>`
+  - **Example**: `mark 2`
+
+- **Unmark Task**: Mark a task as not done.
+  - **Command**: `unmark <task number>`
+  - **Example**: `unmark 2`
+
+- **Delete Task**: Remove a task from the list.
+  - **Command**: `delete <task number>`
+  - **Example**: `delete 3`
+
+---
+
+### Advanced Features
+
+- **Find Tasks**: Search for tasks containing a keyword.
+  - **Command**: `find <keyword>`
+  - **Example**: `find assignment`
+
+- **Tag Task**: Add a tag to a task.
+  - **Command**: `tag <task number> <tag>`
+  - **Example**: `tag 1 urgent`
+
+- **Untag Task**: Remove a tag from a task.
+  - **Command**: `untag <task number> <tag>`
+  - **Example**: `untag 1 urgent`
+
+---
+
+### Exiting the Application
+
+- **Exit**: Exit Alfred.
+  - **Command**: `bye`
+
+---
+
+### Notes
+
+- **Automatic Saving**: Alfred saves your tasks automatically every time the task list changes. This includes adding, deleting, marking, unmarking, tagging, or untagging tasks. Your task list is always saved and up-to-date.
+
+---

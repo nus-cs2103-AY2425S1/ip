@@ -1,0 +1,38 @@
+.label {
+    /* Light grey background for incoming messages */
+    -fx-background-color: #f0f0f0;
+
+    /* Rounded corners */
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+
+    /* Padding to add space inside the message box */
+    -fx-padding: 10px 15px;
+
+    /* Light grey border */
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.reply-label {
+    /* Blue background for outgoing messages */
+    -fx-background-color: #14213D;
+
+    /* Matching rounded corners */
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+
+    /* White text for better contrast */
+    -fx-text-fill: white;
+
+    /* Padding inside the message box */
+    -fx-padding: 10px 15px;
+
+    /* Borderless outgoing message */
+    -fx-border-color: transparent;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+}
