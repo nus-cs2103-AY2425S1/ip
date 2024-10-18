@@ -2,6 +2,7 @@ package velma;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -209,14 +210,28 @@ public class Velma {
         String description = parts[0];
         String startTime = parts[1];
         String endTime = parts[2];
-        Task newEvent = new Event(description, startTime, endTime);
-        tasks.addTask(newEvent);
-        response.append("Got it. I've added this task:\n")
-                .append(newEvent)
-                .append("\nNow you have ")
-                .append(tasks.getSize())
-                .append(" tasks in the list.");
-        storage.save(tasks.getTasks());
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+            LocalTime start =  LocalTime.parse(startTime, formatter);
+            LocalTime end = LocalTime.parse(endTime, formatter);
+
+            if (start.isAfter(end)) {
+                throw new VelmaException("Sorry boss! The start time cannot be after the end time.");
+            }
+
+            Task newEvent = new Event(description, startTime, endTime);
+            tasks.addTask(newEvent);
+            response.append("Got it. I've added this task:\n")
+                    .append(newEvent)
+                    .append("\nNow you have ")
+                    .append(tasks.getSize())
+                    .append(" tasks in the list.");
+            storage.save(tasks.getTasks());
+        } catch (DateTimeParseException e) {
+            throw new VelmaException("Sorry boss! The time format is incorrect. Please use HHmm.");
+
+        }
+
     }
 
     /**
