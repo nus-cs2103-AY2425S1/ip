@@ -9,6 +9,7 @@ public class Opus {
 
     private Storage storage;
     private TaskList taskList;
+    private boolean isExit = false;
 
     /**
      * Initializes the Opus application with the specified file path for storage.
@@ -20,9 +21,26 @@ public class Opus {
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
     }
+
+    /**
+     * Handles the bye command by saving tasks to storage and setting the exit flag.
+     *
+     * @return The response message indicating the application will exit.
+     * @throws OpusException If an error occurs while saving tasks.
+     */
     private String handleByeCommand() throws OpusException {
         storage.save(taskList.getTasks());
+        isExit = true; // Set the exit flag
         return "Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Returns whether the application should exit.
+     *
+     * @return True if the application should exit, false otherwise.
+     */
+    public boolean isExit() {
+        return isExit;
     }
 
     /**

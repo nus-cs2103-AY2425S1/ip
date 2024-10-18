@@ -1,5 +1,6 @@
 package opus;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -102,5 +103,9 @@ public class Main extends Application {
                 DialogBox.getOpusDialog(opusText, opusImage)
         );
         userInput.clear();
+
+        if (opus.isExit()) {
+            Platform.exit();
+        }
     }
 }
