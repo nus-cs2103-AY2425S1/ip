@@ -19,7 +19,7 @@ Beeboo is a easy to use app used to manage your tasks, be it todos, deadlines or
 
 ### Quick Start
 1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest .jar file from [Beeboo.jar](https://github.com/rubinnn/ip/releases/tag/v0.3-release-2)
+2. Download the latest .jar file from [Beeboo.jar](https://github.com/rubinnn/ip/releases/tag/v0.3-release)
 3. Copy the file to the folder you want to use as the home folder for your Beeboo.
 4. Open a terminal and navigate to the folder where the .jar file is located.
 5. Run the command java -jar beeboo.jar-all.jar to start the app.
