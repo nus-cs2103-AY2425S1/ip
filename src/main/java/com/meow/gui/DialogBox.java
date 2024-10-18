@@ -35,7 +35,6 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-
         dialog.setText(text);
         
         displayPicture.setImage(img);
@@ -44,7 +43,6 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(100); // Adjust to your desired width
         displayPicture.setFitHeight(100);
 
-        //displayPicture.setClip(new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, Math.min(displayPicture.getFitWidth(), displayPicture.getFitHeight()) / 2));
         dialog.getStyleClass().add(styleClass);
 
     }
@@ -70,4 +68,3 @@ public class DialogBox extends HBox {
         return db;
     }
 }
-

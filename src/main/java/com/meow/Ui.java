@@ -58,7 +58,6 @@ public class Ui {
      * @return void
      */
     public void showMeowceptionError(String msg) {
-        //Meowception meowception = new Meowception(code);
         System.out.println("    " + "_____________________________________________________________________");
         System.out.println("     " + msg);
         System.out.println("    " + "_____________________________________________________________________\n");

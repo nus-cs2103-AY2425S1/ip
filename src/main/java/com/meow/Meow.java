@@ -26,7 +26,9 @@ public class Meow {
         tasks = new TaskList();
         ui = new Ui();
         try {
+            System.out.println("meow saved start");
             save = new Save(tasks);
+            System.out.println("meow saved");
         } catch (Meowception e) {
             ui.showMeowceptionError(e.toString());
         } catch (IOException e) {
@@ -41,6 +43,7 @@ public class Meow {
      */
     public void run() {
         parser = new Parser(tasks);
+        save.saveTasks(tasks);
         ui.printStartMessage();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -53,7 +56,7 @@ public class Meow {
             }
             input = sc.nextLine();
         }
-        save.saveTasks(tasks);
+        
         ui.printExitMessage();
         sc.close();
     }

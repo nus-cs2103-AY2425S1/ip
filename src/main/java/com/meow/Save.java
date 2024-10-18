@@ -76,7 +76,6 @@ public class Save {
     public void load() throws Meowception, java.io.IOException {
         Parser parser = new Parser(taskList);
         List<String> tasks = read();
-        System.out.println(tasks);
         for (String task : tasks) {
             try {
                 String type = task.substring(0, 1);
@@ -87,7 +86,9 @@ public class Save {
             } catch (Meowception e) {
                 throw e;
             } catch (java.lang.StringIndexOutOfBoundsException e) {
-                //pass             
+                //pass          
+            } catch (Exception e) {
+                System.out.println("StringIndexOutOfBoundsException: Database may be incorrectly formatted"); 
             }
         }
     }

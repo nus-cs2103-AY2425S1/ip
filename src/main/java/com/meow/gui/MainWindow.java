@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Meow instance */
     public void setMeow(Meow d) {
+        System.out.println("meow gets fucking set lah dickhead");
         meow = d;
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(meow.getWelcomeMessage(), meowImage)
