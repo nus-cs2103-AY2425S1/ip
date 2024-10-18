@@ -1,4 +1,4 @@
-package opus;
+package opus.exceptions;
 
 /**
  * Represents an exception thrown when the description of a task is empty.

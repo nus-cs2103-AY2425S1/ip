@@ -1,4 +1,4 @@
-package opus;
+package opus.tasks;
 
 /**
  * Represents a ToDo task, which is a basic task without any date or time associated with it.

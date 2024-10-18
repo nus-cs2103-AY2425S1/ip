@@ -2,6 +2,8 @@ package opus;
 
 import java.util.ArrayList;
 
+import opus.tasks.Task;
+
 /**
  * Manages a list of tasks in the application. Supports adding, retrieving,
  * removing, and listing tasks.

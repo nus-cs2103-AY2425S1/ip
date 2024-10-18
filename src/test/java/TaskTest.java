@@ -1,5 +1,5 @@
-import opus.ToDo;
-import opus.Task;
+import opus.tasks.Task;
+import opus.tasks.ToDo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
