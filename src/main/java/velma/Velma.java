@@ -181,7 +181,7 @@ public class Velma {
     private void handleDeadlineCommand(String input, StringBuilder response) throws VelmaException {
         String[] parts = input.replaceFirst("deadline\\s*", "").split(" /by ");
         if (parts.length < 2) {
-            throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
+            throw new VelmaException("Sorry boss! Your deadline task needs task description and deadline!");
         }
         String description = parts[0];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
