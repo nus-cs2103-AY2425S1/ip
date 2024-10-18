@@ -19,7 +19,7 @@ public class Instruction {
     }
 
     /**
-     * For debug purposes.
+     * Method used for debugging by getting the entire instruction array as provided in the constructor.
      *
      * @return The full command including first word.
      */

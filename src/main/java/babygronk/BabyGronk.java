@@ -120,7 +120,7 @@ public class BabyGronk {
     }
 
     /**
-     * Public method for GUI responses.
+     * API for between GUI and code, processes user input and returns an appropriate response string.
      *
      * @param input Input String.
      * @return Response to given string.
@@ -135,7 +135,7 @@ public class BabyGronk {
     }
 
     /**
-     * Public method for GUI DialogBox colors.
+     * Returns a {@code commandTypes} to set the color of {@code DialogBox} accordingly.
      *
      * @return CommandType as a string.
      */
