@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import opus.tasks.Deadline;
+import opus.tasks.Event;
+import opus.tasks.Task;
+import opus.tasks.ToDo;
+
 /**
  * The Storage class handles the loading and saving of tasks from/to a file.
  * It reads tasks from a file to initialize the task list and writes tasks to

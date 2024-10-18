@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import opus.commands.CommandResult;
 
 
 
@@ -97,14 +98,15 @@ public class Main extends Application {
 
     private void handleUserInput() {
         String userText = userInput.getText();
-        String opusText = opus.getResponse(userInput.getText());
+        CommandResult commandResult = opus.getResponse(userText);
+        String opusText = commandResult.getFeedbackToUser();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getOpusDialog(opusText, opusImage)
         );
         userInput.clear();
 
-        if (opus.isExit()) {
+        if (commandResult.isExit()) {
             Platform.exit();
         }
     }

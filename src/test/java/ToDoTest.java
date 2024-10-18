@@ -1,7 +1,7 @@
-import opus.ToDo;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import opus.tasks.ToDo;
 
 
 public class ToDoTest {

@@ -1,6 +1,7 @@
-import opus.Deadline; // Regular import
-
 import org.junit.jupiter.api.Test; // Special import
+
+import opus.tasks.Deadline;
+
 import static org.junit.jupiter.api.Assertions.assertEquals; // Static import
 
 public class DeadlineTest {

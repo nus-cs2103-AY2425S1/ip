@@ -1,4 +1,4 @@
-package opus;
+package opus.tasks;
 
 /**
  * Represents a generic task in the application. Each task has a description and

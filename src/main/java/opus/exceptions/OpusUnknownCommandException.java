@@ -1,4 +1,4 @@
-package opus;
+package opus.exceptions;
 
 /**
  * Represents an exception thrown when an unknown or unsupported command is entered by the user.
