@@ -257,6 +257,11 @@ public class Velma {
         if (parts.length < 2) {
             throw new VelmaException("Sorry boss! Please specify which task.");
         }
+        try {
+            Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new VelmaException("Sorry boss! Please specify a valid task number.");
+        }
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         Task task = tasks.getTask(taskIndex);
         task.changeIsDoneStatus();
