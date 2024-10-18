@@ -1,9 +1,8 @@
-package Papagu.Ui;
+package papagu.ui;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
@@ -37,7 +36,7 @@ public class Events extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy", Locale.ENGLISH);
         String formattedDate = this.date.format(formatter);
 
-        return "E | " + (super.isDone() ? "1" : "0") + " | " 
+        return "E | " + (super.isDone() ? "1" : "0") + " | "
                 + super.getDescription() + " | " + formattedDate + " "
                         + this.start + "-" + this.end;
     }
@@ -50,8 +49,7 @@ public class Events extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
         String formattedDate = this.date.format(formatter);
-
-        return "[E]" + super.toString() 
+        return "[E]" + super.toString()
                 + " (from: " + formattedDate + " " + this.start + " to: " + this.end + ")";
     }
 }

@@ -1,4 +1,4 @@
-package Papagu.Ui;
+package papagu.ui;
 
 /**
  * The TaskList class represents list of tasks input by user.
@@ -26,7 +26,6 @@ public class TaskList {
         this.tasks[this.taskCount] = task;
         this.taskCount++;
     }
-    
     /**
      * Marks a task as done.
      * @param taskNumber

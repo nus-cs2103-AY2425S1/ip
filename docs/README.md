@@ -3,7 +3,7 @@
 
 ![Ui.png](Ui.png)
 
-Papagu is a chatbot designed to help you manage your tasks. It is operated via a command line interface with a GUI to show you some nice images :D
+Papagu is a chatbot designed to help you manage your tasks. It is operated via a command line interface with a gui to show you some nice images :D
 There are three types of tasks that Papagu can help you manage: todos, deadlines, and events.
 
 ## Adding todos

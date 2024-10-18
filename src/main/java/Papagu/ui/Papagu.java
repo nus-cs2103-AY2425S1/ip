@@ -1,4 +1,4 @@
-package Papagu.Ui;
+package papagu.ui;
 
 
 import java.io.ByteArrayOutputStream;
@@ -61,6 +61,7 @@ public class Papagu {
             Ui.printBye();
             System.setOut(originalOut);
             String capturedOutput = outputStream.toString();
+            System.exit(0);
             return capturedOutput;
         } else {
             Parser.parseInput(tasks, input, this.storage);

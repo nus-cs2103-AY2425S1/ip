@@ -1,4 +1,4 @@
-package Papagu.Ui;
+package papagu.ui;
 
 
 import java.io.File;

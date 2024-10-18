@@ -1,4 +1,4 @@
-package Papagu.Ui;
+package papagu.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +55,7 @@ public class Parser {
      * @param file
      * @param taskList
      */
-	public static void parseFile(File file, TaskList taskList) {
+    public static void parseFile(File file, TaskList taskList) {
         try {
             assert file.exists() : "File does not exist";
             Scanner fileScanner = new Scanner(file);
@@ -72,7 +72,7 @@ public class Parser {
                 } else if (taskType.equals("D")) {
                     assert parts.length == 4 : "Deadline task has wrong input format";
                     parseFileDeadline(parts, isDone.equals("1"), taskList);
-                } else if (taskType.equals("E")) {  
+                } else if (taskType.equals("E")) {
                     assert parts.length == 4 : "Event task has wrong input format";
                     parseFileEvent(parts, isDone.equals("1"), taskList);
                 }
@@ -148,17 +148,12 @@ public class Parser {
         String description = input[2];
 
         String[] dateTime = input[3].split(" ");
-                   
         String[] dates = dateTime[0].split("-");
         String month = String.format("%02d", monthConverter(dates[0]));
         String day = String.format("%02d", Integer.parseInt(dates[1]));
         String year = dates[2];
-                    
         LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
-
         String[] times = dateTime[1].split("-");
-
-
         LocalTime start = LocalTime.parse(times[0]);
         LocalTime end = LocalTime.parse(times[1]);
 
@@ -184,7 +179,7 @@ public class Parser {
             String taskType = typeDetails[0];
             if (taskType.equals("bye")) {
                 Ui.printBye();
-            } else if(taskType.equals("help")) {
+            } else if (taskType.equals("help")) {
                 Ui.printHelp();
             } else if (taskType.equals("list")) {
                 Ui.printList(taskList);
@@ -194,7 +189,7 @@ public class Parser {
                 parseUnmark(typeDetails, taskList, storage);
             } else if (taskType.equals("find")) {
                 parseFind(typeDetails, taskList);
-            } else if(taskType.equals("delete")) {
+            } else if (taskType.equals("delete")) {
                 parseDelete(typeDetails, taskList, storage);
             } else if (taskType.equals("todo")) {
                 parseInputTodo(typeDetails, taskList, storage);
@@ -206,7 +201,7 @@ public class Parser {
                 Ui.printUnkownCommand();
             }
         } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -216,7 +211,7 @@ public class Parser {
      * @param taskList
      * @param storage
      */
-    public static void parseInputTodo(String[] input, TaskList taskList, Storage storage) throws IllegalTodoException{
+    public static void parseInputTodo(String[] input, TaskList taskList, Storage storage) throws IllegalTodoException {
         if (input.length != 2) {
             throw new IllegalTodoException("Wrong input format for todo");
         }
@@ -232,7 +227,8 @@ public class Parser {
      * @param tasklist
      * @param storage
      */
-    public static void parseInputDeadline(String[] input, TaskList tasklist, Storage storage) throws IllegalDeadlineException{
+    public static void parseInputDeadline(String[] input, TaskList tasklist, Storage storage)
+            throws IllegalDeadlineException {
         String[] parts = input[1].split(" /by ");
 
         if (parts.length != 2) {
@@ -264,7 +260,8 @@ public class Parser {
      * @param tasklist
      * @param storage
      */
-    public static void parseInputEvent(String[] input, TaskList tasklist, Storage storage) throws IllegalEventException{
+    public static void parseInputEvent(String[] input, TaskList tasklist, Storage storage)
+            throws IllegalEventException {
         String[] parts = input[1].split(" /from ");
 
         if (parts.length != 2) {

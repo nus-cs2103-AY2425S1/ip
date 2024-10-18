@@ -1,8 +1,8 @@
-package Papagu.Ui;
+package papagu.ui;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
@@ -33,7 +33,7 @@ public class Deadlines extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy", Locale.ENGLISH);
         String formattedDate = this.date.format(formatter);
 
-        return "D | " + (super.isDone() ? "1" : "0") + " | " 
+        return "D | " + (super.isDone() ? "1" : "0") + " | "
                 + super.getDescription() + " | "
                         + formattedDate + " " + this.time;
     }
@@ -47,8 +47,6 @@ public class Deadlines extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
         String formattedDate = this.date.format(formatter);
-        
         return "[D]" + super.toString() + " (by: " + formattedDate + " " + this.time + ")";
     }
-    
 }

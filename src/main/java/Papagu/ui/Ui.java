@@ -1,4 +1,4 @@
-package Papagu.Ui;
+package papagu.ui;
 
 /**
  * Handles UI interactions with the user.
@@ -79,7 +79,7 @@ public class Ui {
     /**
      * prints the added message
      * use for all task types
-     * @param task
+     * @param task the task that was added
      */
     public static void printAdded(Task task) {
         printLine();
@@ -97,7 +97,7 @@ public class Ui {
 
     /**
      * Prints out the list for the find command
-     * @param list
+     * @param list the list of tasks
      */
     public static void printFound(TaskList list) {
         printLine();
@@ -114,7 +114,8 @@ public class Ui {
         System.out.println("Here are the commands you can use:");
         System.out.println("1. todo <description> - Adds a todo task to the list");
         System.out.println("2. deadline <description> /by <D/MM/YYY> <hhmm> - Adds a deadline task to the list");
-        System.out.println("3. event <description> /from <D/MM/YYY> <hhmm> /to <hhmm> - Adds an event task to the list");
+        System.out.println("3. event <description> /from <D/MM/YYY> <hhmm> /to <hhmm> - "
+                + "Adds an event task to the list");
         System.out.println("4. list - Lists all tasks in the list");
         System.out.println("5. mark <task number> - Marks a task as done");
         System.out.println("6. unmark <task number> - Marks a task as not done");

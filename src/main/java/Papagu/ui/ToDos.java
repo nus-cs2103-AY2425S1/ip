@@ -1,4 +1,4 @@
-package Papagu.Ui;
+package papagu.ui;
 
 /**
  * The ToDos class represents a task with just a description
@@ -9,7 +9,7 @@ public class ToDos extends Task {
      * Constuctor for a new todo object
      * @param description
      */
-    public ToDos(String description) throws IllegalTodoException{
+    public ToDos(String description) throws IllegalTodoException {
         super(description);
     }
 
@@ -31,5 +31,4 @@ public class ToDos extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-    
 }
