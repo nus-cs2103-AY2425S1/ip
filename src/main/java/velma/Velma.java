@@ -329,6 +329,12 @@ public class Velma {
 
     }
 
+    /**
+     * Handles the find command
+     * @param input
+     * @param response
+     * @throws VelmaException
+     */
     private void handleFindCommand(String input, StringBuilder response) throws VelmaException {
         String keyword = input.replaceFirst("find\\s*", "");
         ArrayList<Task> foundTasks = tasks.findTasks(keyword);

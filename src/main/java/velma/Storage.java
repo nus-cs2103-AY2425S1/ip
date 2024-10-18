@@ -26,7 +26,6 @@ public class Storage {
         this.filepath = filepath;
     }
 
-
     /**
      * Loads tasks from a file located at "/Users/zeonchew04/ip/data/velma.txt" and returns them as
      * an ArrayList of Velma.task.Task objects.
@@ -51,9 +50,7 @@ public class Storage {
      *
      * @throws IllegalArgumentException if an unknown task type is encountered in the file.
      */
-
     public ArrayList<Task> load() {
-        // Load the file
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filepath);
         if (!file.exists()) {
@@ -61,55 +58,97 @@ public class Storage {
             return list;
         }
 
-        /** used co-pilot to automate finish writing the similar cases
-         *
-         */
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" ", 3);
-                Task task;
-                switch (parts[0].charAt(1)) {
-                case 'T':
-                    task = new Todo(parts[2]);
-                    break;
-                case 'A':
-                    String[] afterParts = parts[2].split(" \\(after: ", 2);
-                    String afterDescription = afterParts[0];
-                    String afterString = afterParts[1]
-                            .substring(0, afterParts[1].length() - 1);
-                    task = new After(afterDescription, afterString);
-                    break;
-                case 'D':
-                    String[] deadlineParts = parts[2].split(" \\(by: ", 2);
-                    String deadlineDescription = deadlineParts[0];
-                    String byString = deadlineParts[1]
-                            .substring(0, deadlineParts[1].length() - 1);
-                    DateTimeFormatter formatter = DateTimeFormatter
-                            .ofPattern("MMM dd yyyy HHmm"); // Remove closing parenthesis
-                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
-                    task = new Deadline(deadlineDescription, by);
-                    break;
-                case 'E':
-                    String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
-                    String eventDescription = eventParts[0];
-                    String startTimeString = eventParts[1];
-                    String endTimeString = eventParts[2].substring(0, eventParts[2].length() - 1);
-                    task = new Event(eventDescription, startTimeString, endTimeString);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown task type: " + parts[0]);
+                Task task = parseTask(line);
+                if (task != null) {
+                    list.add(task);
                 }
-                if (parts[1].equals("[X]")) {
-                    task.changeIsDoneStatus();
-                }
-                list.add(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred while loading tasks.");
         }
         System.out.println(list);
         return list;
+    }
+
+    /**
+     * Parse method for different types of task
+     * @param line
+     * @return task after parsed
+     */
+    private Task parseTask(String line) {
+        String[] parts = line.split(" ", 3);
+        Task task;
+        switch (parts[0].charAt(1)) {
+        case 'T':
+            task = createTodoTask(parts);
+            break;
+        case 'A':
+            task = createAfterTask(parts);
+            break;
+        case 'D':
+            task = createDeadlineTask(parts);
+            break;
+        case 'E':
+            task = createEventTask(parts);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + parts[0]);
+        }
+        if (parts[1].equals("[X]")) {
+            task.changeIsDoneStatus();
+        }
+        return task;
+    }
+
+    /**
+     * Create to-do task
+     * @param parts
+     * @return todo task
+     */
+    private Task createTodoTask(String[] parts) {
+        return new Todo(parts[2]);
+    }
+
+    /**
+     * Create after task
+     * @param parts
+     * @return after task
+     */
+    private Task createAfterTask(String[] parts) {
+        String[] afterParts = parts[2].split(" \\(after: ", 2);
+        String afterDescription = afterParts[0];
+        String afterString = afterParts[1].substring(0, afterParts[1].length() - 1);
+        return new After(afterDescription, afterString);
+    }
+
+    /**
+     * Create deadline task
+     * @param parts
+     * @return deadline task
+     */
+    private Task createDeadlineTask(String[] parts) {
+        String[] deadlineParts = parts[2].split(" \\(by: ", 2);
+        String deadlineDescription = deadlineParts[0];
+        String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        LocalDateTime by = LocalDateTime.parse(byString, formatter);
+        return new Deadline(deadlineDescription, by);
+    }
+
+    /**
+     * Create event task
+     * @param parts
+     * @return event task
+     */
+    private Task createEventTask(String[] parts) {
+        String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
+        String eventDescription = eventParts[0];
+        String startTimeString = eventParts[1];
+        String endTimeString = eventParts[2].substring(0, eventParts[2].length() - 1);
+        return new Event(eventDescription, startTimeString, endTimeString);
     }
 
 
