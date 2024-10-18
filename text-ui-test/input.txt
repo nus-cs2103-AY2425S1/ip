@@ -1,0 +1,9 @@
+todo borrow book
+list
+deadline ca1/by 2024-02-24
+mark 2
+delete 1
+event meeting /from 2024-02-28 0600 /to 0800
+list
+unmark 4
+bye
