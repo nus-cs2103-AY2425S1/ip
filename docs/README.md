@@ -109,6 +109,6 @@ Sure. Task deleted:
 
 - Logic issue: adding multiple task numbers when marking or delete is not supported. Only the first task number will be processed.
 - Syntax issue: any extra inputs beyond the initial required ones specified by the command will be ignored.
-### Commands affect:
+### Commands affected:
 `todo` `event` `deadline` `mark` `unmark` `list` `delete`
 ---
