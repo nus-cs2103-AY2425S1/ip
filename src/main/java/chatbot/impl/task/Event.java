@@ -15,6 +15,10 @@ public class Event extends Task {
         try {
             this.from = DateTime.parseDate(from);
             this.to = DateTime.parseDate(to);
+
+            if (this.from.isAfter(this.to)) {
+                throw new IllegalArgumentException("Invalid date range. 'from' date should be before 'to' date");
+            }
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid date format. Please use yyyy-mm-dd");
         }
