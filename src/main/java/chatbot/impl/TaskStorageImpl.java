@@ -107,8 +107,7 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         }
         try {
             tasks.add(new Event(description, from, to));
-        return handleAddSuccess();
-
+            return handleAddSuccess();
         } catch (IllegalArgumentException e) {
             return new TaskStorageResultImpl(e.getMessage());
         }
@@ -205,11 +204,6 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         try {
             Files.createDirectories(FILE_PATH.getParent());
             File myObj = FILE_PATH.toFile();
-            if (myObj.createNewFile()) {
-                // System.out.println("File created: " + myObj.getName());
-            } else {
-                // System.out.println("File already exists. Writing to file...");
-            }
 
             // Write to the file
             FileWriter writer = new FileWriter(myObj, false); // false for overwrite mode
@@ -218,7 +212,6 @@ public class TaskStorageImpl implements TaskStorage<Command> {
             }
             writer.close();
 
-            // System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             return new TaskStorageResultImpl("Something went wrong when saving");
         }
