@@ -50,7 +50,7 @@ Got it. I've added this task:
 ## Adding After
 An after task is specified to start after something. To add an after task:
 
-Example: Submit peer review after class
+Example: `Submit peer review after class`
 
 Velma will process this command and add your after task into the task list.
 

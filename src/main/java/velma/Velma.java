@@ -15,6 +15,9 @@ import velma.task.Task;
 import velma.task.TaskList;
 import velma.task.Todo;
 
+/**
+ * Represents the chatbot Velma.
+ */
 
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
