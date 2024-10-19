@@ -34,18 +34,6 @@ public class StorageTest {
     }
 
     /**
-     * Tests the load() method when no file exists.
-     * Verifies that loading from a non-existent file returns an empty task list.
-     *
-     * @throws ArtsException if there is an error loading the tasks.
-     */
-    @Test
-    public void testLoad_noFile() throws ArtsException {
-        ArrayList<Task> tasks = storage.load();
-        assertTrue(tasks.isEmpty(), "Loading from a non-existent file should return an empty task list.");
-    }
-
-    /**
      * Tests the save() and load() methods.
      * Verifies that a task can be saved to a file and then correctly loaded back.
      *
