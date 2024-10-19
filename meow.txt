@@ -1,0 +1,4 @@
+0 Todo /new hehe 
+0 Todo eat food          
+0 deadline 2024-09-12 2200 /by 2024-08-02 1200
+1 event gt /from 2024-01-01 1000 /to 2024-01-02 1000

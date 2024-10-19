@@ -1,0 +1,79 @@
+/* Style for the HBox container */
+:root {
+    -fx-background-image: url('../images/background.jpg');
+    -fx-background-size: cover; /* Cover the entire area */
+    -fx-background-repeat: no-repeat; /* Do not repeat the image */
+    -fx-background-position: center center; /* Center the background image */
+    -fx-background-color: transparent;
+}
+
+HBox {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+
+
+/* Style for the ImageView */
+#displayPicture {
+    -fx-background-color: #2c0707; /* Optional, background color behind the image */
+    -fx-background-radius: 50%; /* Circular background */
+    -fx-border-color: #222222; /* Border color */
+    -fx-border-width: 4; /* Border width */
+}
+
+
+.sent-message {
+    -fx-background-color: #38d30e; /* Green for sent messages */
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-max-width: 450; /* Adjust based on your needs */
+    -fx-border-color: #2b8a3f; /* Darker green border for better visibility */
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    position: relative;
+    /* Adding extra padding to accommodate the tail */
+    -fx-padding: 10 150 10 15;
+}
+
+.sent-message::after {
+    content: "";
+    position: absolute;
+    bottom: -10px; /* Adjust based on the size of the tail */
+    left: 10px; /* Position of the tail */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent; /* Tail color */
+    border-right: 10px solid transparent; /* Tail color */
+    border-top: 10px solid #38d30e; /* Tail color */
+}
+
+.received-message {
+    -fx-background-color: #529ff1; /* Blue for received messages */
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-font-size: 14px;
+    -fx-max-width: 350; /* Adjust based on your needs */
+    -fx-border-color: #0056b3; /* Darker blue border for better visibility */
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    position: relative;
+    /* Adding extra padding to accommodate the tail */
+    -fx-padding: 10 15 10 15;
+}
+
+.received-message::after {
+    content: "";
+    position: absolute;
+    bottom: -10px; /* Adjust based on the size of the tail */
+    right: 10px; /* Position of the tail */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent; /* Tail color */
+    border-right: 10px solid transparent; /* Tail color */
+    border-top: 10px solid #007bff; /* Tail color */
+}
+

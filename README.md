@@ -1,24 +1,112 @@
-# Duke project template
+# Meow chatbot user guide
+![alt text](image.png)
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Are you feeling lonely? Love cat girls? Hate being disorganised?
+Here is where the meow chatbot comes in !!! It helps you organise
+all your tasks from todo to events incoming !!!
 
-## Setting up in Intellij
+## Mark Tasks
+You can mark existing tasks as completed via the mark command
+Command syntax: `mark <Task Index>`
+Example: `mark 1`
+```
+expected output
+task 1 has been marked
+```
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Unmark Tasks
+You can mark existing tasks as completed via the mark command
+Command syntax: `unmark <Task Index>`
+Example: `unmark 1`
+```
+expected output
+task 1 has been unmarked
+```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## List Tasks
+You can use this command to list out all current available tasks
+Command syntax: `list`
+Example: `list`
+
+## Find Tasks
+You can use this command to find specfic task names which contain the word
+Command syntax: `find <keyword>`
+Example: `find meow`
+
+```
+expected outcome
+all tasks name which contains meow will be listed
+todo meow with cat
+todo meow with martin
+```
+
+## Adding deadlines
+You can add deadline task via the deadline command
+Command syntax: `deadline <taskname> /by <time>`
+it requires an additional input
+
+Example: `deadline sleep /by 2024-09-24 2200`
+
+Do make sure that time is formatted correctly as
+`YYYY-MM-DD HHmm`
+
+Expected outcome is that a new deadline task is added and meow informs you
+
+```
+expected output
+Meow has added this task hehe:
+    [D][] sleep (by: 2200 Sep 24 2024)
+    neow you have x tasks in the list
+```
+
+## Adding Events
+
+You can add Events task via the event command
+Command syntax: `event <eventName> /from 2024-09-24 1200 /to 2024-09-24 1400`
+Example: `event sleep> /from <time> /to <time>`
+
+Do make sure that time is formatted correctly as
+`YYYY-MM-DD HHmm`
+
+Expected outcome is that a new deadline task is added and meow informs you
+
+```
+expected output
+Meow has added this task hehe:
+    [E][] sleep (at: 1200 Sep 24 2024 to: 1400 Sep 24 2024)
+    neow you have x tasks in the list
+```
+
+
+## Update feature
+You can update specfic details for existing tasks. Via the update command
+
+Command syntax for Todo tasks: `update todo <taskname> /new <data>`
+Command syntax for Other tasks: `update <tasktype> <taskname> /<characteristic to change> /new <new data>`
+Characteristics for Deadline tasks: `/name, /by`
+Characteristics for Event tasks: `/name, /to, /from`
+
+Todo Task Excample: `update todo meet friends /new meet parents`
+Deadline Task Example: `update deadline CS1231S HW /name /new Do CS1231S Assignment`
+
+
+Do make sure that time is formatted correctly as
+`YYYY-MM-DD HHmm`
+
+Expected outcome is that a new deadline task is added and meow informs you
+
+```
+expected output
+Task Todo meet friends is now changed to meet parents
+Task Deadline Do CS1231S HW is now changed to Do CS1231S Assignment
+```
+
+## Delete Tasks
+This command deletes the specific task based on its index in the list.
+Command syntax: `delete <index>`
+For example: `delete 2`
+
+```
+expected outcome
+deletes and removes task 2 from the list
+```

@@ -1,0 +1,18 @@
+/* dialogbox.css */
+.dialog-box {
+    -fx-background-color: #e10000;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1;
+}
+
+.dialog-text {
+    -fx-background-color: #38d30e;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-max-width: 200; /* Adjust based on your needs */
+}
