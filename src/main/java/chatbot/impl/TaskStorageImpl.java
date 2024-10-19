@@ -107,8 +107,7 @@ public class TaskStorageImpl implements TaskStorage<Command> {
         }
         try {
             tasks.add(new Event(description, from, to));
-        return handleAddSuccess();
-
+            return handleAddSuccess();
         } catch (IllegalArgumentException e) {
             return new TaskStorageResultImpl(e.getMessage());
         }
