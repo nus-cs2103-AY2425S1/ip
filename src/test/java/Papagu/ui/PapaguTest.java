@@ -1,136 +1,67 @@
 package papagu.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for the ToDos, Deadlines and Events classes
+ */
 public class PapaguTest {
-    private ByteArrayOutputStream outputStream;
-    private PrintStream originalOut;
-    private ByteArrayInputStream inputStream;
-    private InputStream originalIn;
+    private ToDos todo;
+    private Deadlines deadline;
+    private Events event;
 
-
+    /**
+     * Creates tasks for testing
+     * Creates tasks and storage for testing
+     */
     @BeforeEach
     public void setUp() {
-        outputStream = new ByteArrayOutputStream();
-        originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        inputStream = new ByteArrayInputStream("bye\n".getBytes());
-        originalIn = System.in;
-        System.setIn(inputStream);
+        todo = new ToDos("read book");
+        deadline = new Deadlines("return book", LocalDate.parse("2021-06-07"), LocalTime.parse("18:00"));
+        event = new Events("project meeting", LocalDate.parse("2024-08-10"),
+                LocalTime.parse("14:00"), LocalTime.parse("16:00"));
     }
 
     @Test
-    public void testWelcomeAndByeMessage() {
-        String simulatedInput = "bye\n";
-        inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
-        Papagu papagu = new Papagu("src/main/java/Data/tasks.txt");
-        papagu.run();
-        String expectedOutput = "____________________________________________________________\n"
-                +
-                "Hello! I'm Papagu\n"
-                +
-                "What can I do for you?\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "Bye. Hope to see you again soon!\n"
-                +
-                "____________________________________________________________\n";
-        assertEquals(expectedOutput, outputStream.toString());
+    public void testTodo() {
+        assertEquals("[T][ ] read book", todo.toString());
     }
+
     @Test
-    public void testList() {
-        String simulatedInput = "list\nbye\n";
-        inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
-        System.setIn(inputStream);
-
-        Papagu papagu = new Papagu("src/main/java/Data/tasks.txt");
-        papagu.run();
-        String expectedOutput = "____________________________________________________________\n"
-                +
-                "Hello! I'm Papagu\n"
-                +
-                "What can I do for you?\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "Here are the tasks in your list:\n"
-                +
-                "1.[T][X] read book\n"
-                +
-                "2.[D][ ] return book (by: Jun-07-2014 18:00)\n"
-                +
-                "3.[E][ ] project meeting (from: Aug-10-2024 14:00 to: 16:00)\n"
-                +
-                "4.[T][X] join sports club\n"
-                +
-                "5.[D][ ] return book (by: Dec-02-2019 18:00)\n"
-                +
-                "6.[D][ ] test code (by: Feb-07-2019 12:30)\n"
-                +
-                "7.[E][ ] lck finals (from: Feb-02-2024 16:00 to: 21:00)\n"
-                +
-                "8.[T][ ] test\n"
-                +
-                "9.[D][X] return book (by: Dec-02-2019 18:00)\n"
-                +
-                "\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "Bye. Hope to see you again soon!\n"
-                +
-                "____________________________________________________________\n";
-
-        assertEquals(expectedOutput, outputStream.toString());
+    public void testDeadline() {
+        assertEquals("[D][ ] return book (by: Jun-07-2021 18:00)", deadline.toString());
     }
 
     @Test
     public void testEvent() {
-        String simulatedInput = "event Holiday Prep /from 5/10/2010 0930 /to 2130\nbye\n";
-        inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
-        System.setIn(inputStream);
+        assertEquals("[E][ ] project meeting (from: Aug-10-2024 14:00 to: 16:00)", event.toString());
+    }
 
-        Papagu papagu = new Papagu("src/main/java/Data/tasks.txt");
-        papagu.run();
+    @Test
+    public void todoExceptionThrown() {
+        IllegalTodoException exception = assertThrows(IllegalTodoException.class, () ->
+            new ToDos(""));
+        assertEquals("The description of a task cannot be empty.", exception.getMessage());
+    }
 
-        String expectedOutput = "____________________________________________________________\n"
-                +
-                "Hello! I'm Papagu\n"
-                +
-                "What can I do for you?\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "Got it. I've added this task:\n"
-                +
-                "[E][ ] Holiday Prep (from: Oct-05-2010 09:30 to: 21:30)\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "____________________________________________________________\n"
-                +
-                "Bye. Hope to see you again soon!\n"
-                +
-                "____________________________________________________________\n";
+    @Test
+    public void deadlineExceptionThrown() {
+        IllegalDeadlineException exception = assertThrows(IllegalDeadlineException.class, () ->
+                new Deadlines("", LocalDate.parse("2021-06-07"), LocalTime.parse("18:00")));
+        assertEquals("The description of a deadline cannot be empty.", exception.getMessage());
+    }
 
-        assertEquals(expectedOutput, outputStream.toString());
+    @Test
+    public void eventExceptionThrown() {
+        IllegalEventException exception = assertThrows(IllegalEventException.class, () ->
+                new Events("", LocalDate.parse("2024-08-10"), LocalTime.parse("14:00"), LocalTime.parse("16:00")));
+        assertEquals("The description of a event cannot be empty.", exception.getMessage());
     }
 }

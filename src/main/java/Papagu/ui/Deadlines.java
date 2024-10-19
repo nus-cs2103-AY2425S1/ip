@@ -18,10 +18,13 @@ public class Deadlines extends Task {
      * @param date
      * @param time
      */
-    public Deadlines(String description, LocalDate date, LocalTime time) {
+    public Deadlines(String description, LocalDate date, LocalTime time) throws IllegalDeadlineException {
         super(description);
         this.date = date;
         this.time = time;
+        if (description.isEmpty()) {
+            throw new IllegalDeadlineException("The description of a deadline cannot be empty.");
+        }
     }
 
     /**

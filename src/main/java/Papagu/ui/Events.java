@@ -20,11 +20,14 @@ public class Events extends Task {
      * @param start
      * @param end
      */
-    public Events(String description, LocalDate date, LocalTime start, LocalTime end) {
+    public Events(String description, LocalDate date, LocalTime start, LocalTime end) throws IllegalEventException {
         super(description);
         this.date = date;
         this.start = start;
         this.end = end;
+        if (description.isEmpty()) {
+            throw new IllegalEventException("The description of a event cannot be empty.");
+        }
     }
 
     /**

@@ -317,7 +317,7 @@ public class Parser {
         int num = Integer.parseInt(taskNumber) - 1;
         taskList.markTaskAsNotDone(num);
         storage.save();
-        Ui.printMarkAsDone(taskList, num);
+        Ui.printMarkAsNotDone(taskList, num);
     }
 
     /**

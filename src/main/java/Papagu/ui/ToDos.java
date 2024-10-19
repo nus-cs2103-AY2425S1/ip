@@ -11,6 +11,9 @@ public class ToDos extends Task {
      */
     public ToDos(String description) throws IllegalTodoException {
         super(description);
+        if (description.isEmpty()) {
+            throw new IllegalTodoException("The description of a task cannot be empty.");
+        }
     }
 
     /**
