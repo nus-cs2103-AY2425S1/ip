@@ -9,7 +9,7 @@ public class Task {
 
     /**
      * Constructor for task class
-     * @param description
+     * @param description - description of the task
      */
     public Task(String description) {
         this.description = description;
