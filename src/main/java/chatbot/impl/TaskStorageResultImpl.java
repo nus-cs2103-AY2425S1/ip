@@ -30,10 +30,6 @@ public class TaskStorageResultImpl implements TaskStorageResult<Command> {
     @Override
     public boolean equals(Object other) {
         if (other instanceof TaskStorageResultImpl other_casted) {
-//            System.out.println("MY MusSSAGE:");
-//            System.out.println(message);
-//            System.out.println("OTHER MESSAGE:");
-//            System.out.println(other_casted.message);
             return message.equals(other_casted.message);
         }
         return false;
