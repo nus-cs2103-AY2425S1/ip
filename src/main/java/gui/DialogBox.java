@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 /**
  * Represents the dialog box in the GUI.
@@ -16,7 +18,6 @@ public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
-
 
     /**
      * Constructor for DialogBox
@@ -27,14 +28,14 @@ public class DialogBox extends HBox {
         text = new Label(s);
         displayPicture = new ImageView(i);
 
-        //Styling the dialog box
+        // Styling the dialog box
         text.setWrapText(true);
+        text.setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
         this.setAlignment(Pos.TOP_RIGHT);
-
         this.getChildren().addAll(text, displayPicture);
-
+        HBox.setHgrow(text, Priority.ALWAYS);
     }
 
     /**

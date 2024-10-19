@@ -1,12 +1,12 @@
 package gui;
 
-import Papagu.ui.Papagu;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import papagu.ui.Papagu;
 /**
  * Controller for the main GUI.
  */
@@ -29,6 +29,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setPapagu(Papagu papagu) {
         this.papagu = papagu;
+
         String welcomeMessage = "Hello! I'm Papagu\nWhat can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getPapaguDialog(welcomeMessage, papaguImage));
     }

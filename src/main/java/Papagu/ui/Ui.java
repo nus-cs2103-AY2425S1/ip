@@ -42,6 +42,7 @@ public class Ui {
     public static void printMarkAsDone(TaskList list, int taskNumber) {
         printLine();
         System.out.println("Nice! I've marked this task as done:");
+        System.out.println(list.getTask(taskNumber));
         printLine();
     }
 
@@ -53,6 +54,7 @@ public class Ui {
     public static void printMarkAsNotDone(TaskList list, int taskNumber) {
         printLine();
         System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(list.getTask(taskNumber));
         printLine();
     }
 
