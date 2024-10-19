@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/nerd.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/atlas.jpg"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         String introduction = "Hello! I'm Atlas.\n" +
