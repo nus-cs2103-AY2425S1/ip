@@ -144,7 +144,7 @@ public class Arts {
     }
 
     /**
-     * Main method to start the Arts application.
+     * Starts the Arts application.
      *
      * @param args Command line arguments.
      */
