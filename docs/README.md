@@ -60,7 +60,7 @@ Optionally sorts the task by date in ascending order.
 * **Example(s)**:
   * `list`
 * **Output**:
-* 
+
 ```
 Here are your tasks:
 
