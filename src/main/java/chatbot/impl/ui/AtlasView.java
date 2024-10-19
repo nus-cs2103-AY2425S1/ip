@@ -37,6 +37,12 @@ public class AtlasView implements MessageView<Command> {
         this.scanner = scanner;
     }
 
+    /**
+     * <p>
+     *     Reads the user input from the console
+     * </p>
+     * @return the user input
+     */
     public String listen() {
         System.out.print("Me > ");
         String text = scanner.nextLine();  // Read user input
@@ -44,6 +50,10 @@ public class AtlasView implements MessageView<Command> {
         return text;
     }
 
+    /**
+     * <p> Sends a response to the user </p>
+     * @param response
+     */
     public void send(String response) {
         String[] lines = response.split("\n");
         for (String line : lines) {
@@ -52,11 +62,18 @@ public class AtlasView implements MessageView<Command> {
 
     }
 
+    /**
+     * <p> Finishes the message </p>
+     * <p> Adds a line separator </p>
+     */
     public void endMessage() {
         System.out.println(BOT_INDENT + SEP);
         System.out.println();
     }
 
+    /**
+     * <p> Introduces the chatbot </p>
+     */
     public void introduce() {
         send("""
             ....   .                              ....        .                        ....            .     
@@ -123,6 +140,9 @@ public class AtlasView implements MessageView<Command> {
         endMessage();
     }
 
+    /**
+     * <p> Exits the chatbot </p>
+     */
     public void exit() {
         send("Goodbye! Have a great day ahead!");
         endMessage();

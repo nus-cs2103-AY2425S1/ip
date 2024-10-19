@@ -27,6 +27,9 @@ public class AtlasGUI implements ChatBot {
     @Override
     public void start() {}
 
+    /**
+     * Generates a response for the user's chat message.
+     */
     @Override
     public String getResponse(String input) {
 
