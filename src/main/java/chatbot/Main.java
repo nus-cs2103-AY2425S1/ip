@@ -35,6 +35,9 @@ public class Main extends Application {
 
     private ChatBot bot;
 
+    /**
+     * Initializes the chatbot.
+     */
     public void initBot() {
         Scanner scanner = new Scanner(System.in);
         MessageView<Command> messageView = new AtlasView();
@@ -43,6 +46,10 @@ public class Main extends Application {
         bot = new AtlasGUI(scanner, messageView, taskStorage);
     }
 
+    /**
+     * Starts the chatbot GUI.
+     * @param stage The stage to display the GUI.
+     */
     @Override
     public void start(Stage stage) {
         try {
