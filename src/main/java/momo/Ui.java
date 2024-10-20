@@ -14,9 +14,9 @@ public class Ui {
 
 
     /**
-     * Hihihih.
-     * @param list
-     * @return
+     * Prints out the list of tasks.
+     * @param list representing Task list.
+     * @return String of user's Task list.
      */
     public String printList(TaskList list) {
 
