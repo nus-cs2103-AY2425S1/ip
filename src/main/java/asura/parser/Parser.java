@@ -31,57 +31,62 @@ public class Parser {
         }
         int selection;
         String taskString = String.join(" ", splitCommand.subList(1, splitCommand.size()));
-        List<String> descriptionArray;
 
-        switch (prefix) {
-        case "list":
-            return new ListCommand();
-        case "mark":
-            selection = Integer.parseInt(splitCommand.get(1)) - 1;
-            return new MarkCommand(selection);
-        case "unmark":
-            selection = Integer.parseInt(splitCommand.get(1)) - 1;
-            return new UnmarkCommand(selection);
-        case "todo":
-            return new TodoCommand(taskString);
-        case "deadline":
-            int byIndex = splitCommand.indexOf("/by");
-            descriptionArray = splitCommand.subList(1, byIndex);
-            if (descriptionArray.isEmpty()) {
-                throw new AsuraException("The description todo cannot be empty.");
+        return switch (prefix) {
+            case "list" -> new ListCommand();
+            case "mark" -> {
+                selection = Integer.parseInt(splitCommand.get(1)) - 1;
+                yield new MarkCommand(selection);
             }
-            List<String> dateArray = splitCommand.subList(byIndex + 1, splitCommand.size());
-            if (dateArray.isEmpty()) {
-                throw new AsuraException("The date cannot be empty.");
+            case "unmark" -> {
+                selection = Integer.parseInt(splitCommand.get(1)) - 1;
+                yield new UnmarkCommand(selection);
             }
-            return new DeadlineCommand(descriptionArray, dateArray);
-        case "event":
-            int fromIndex = splitCommand.indexOf("/from");
-            int toIndex = splitCommand.indexOf("/to");
-            descriptionArray = splitCommand.subList(1, fromIndex);
-            if (descriptionArray.isEmpty()) {
-                throw new AsuraException("The description todo cannot be empty.");
+            case "todo" -> new TodoCommand(taskString);
+            case "deadline" -> parseDeadline(splitCommand);
+            case "event" -> parseEvent(splitCommand);
+            case "delete" -> {
+                selection = Integer.parseInt(splitCommand.get(1)) - 1;
+                yield new DeleteCommand(selection);
             }
-            List<String> fromArray = splitCommand.subList(fromIndex + 1, toIndex);
-            if (fromArray.isEmpty()) {
-                throw new AsuraException("The from date cannot be empty.");
-            }
-            List<String> toArray = splitCommand.subList(toIndex + 1, splitCommand.size());
-            if (toArray.isEmpty()) {
-                throw new AsuraException("The to date cannot be empty.");
-            }
-            return new EventCommand(descriptionArray, fromArray, toArray);
-        case "delete":
-            selection = Integer.parseInt(splitCommand.get(1)) - 1;
-            return new DeleteCommand(selection);
-        case "bye":
-            return new ByeCommand();
-        case "find":
-            return new FindCommand(taskString);
-        case "help":
-            return new HelpCommand();
-        default:
-            throw new AsuraException("Invalid input");
+            case "bye" -> new ByeCommand();
+            case "find" -> new FindCommand(taskString);
+            case "help" -> new HelpCommand();
+            default -> throw new AsuraException("Invalid input");
+        };
+    }
+
+    private static DeadlineCommand parseDeadline(List<String> splitCommand) throws AsuraException {
+        List<String> descriptionArray;
+        int byIndex = splitCommand.indexOf("/by");
+        descriptionArray = splitCommand.subList(1, byIndex);
+        if (descriptionArray.isEmpty()) {
+            throw new AsuraException("The description todo cannot be empty.");
         }
+        List<String> dateArray = splitCommand.subList(byIndex + 1, splitCommand.size());
+        if (dateArray.isEmpty()) {
+            throw new AsuraException("The date cannot be empty.");
+        }
+
+        return new DeadlineCommand(descriptionArray, dateArray);
+    }
+
+    private static EventCommand parseEvent(List<String> splitCommand) throws AsuraException {
+        List<String> descriptionArray;
+        int fromIndex = splitCommand.indexOf("/from");
+        int toIndex = splitCommand.indexOf("/to");
+        descriptionArray = splitCommand.subList(1, fromIndex);
+        if (descriptionArray.isEmpty()) {
+            throw new AsuraException("The description todo cannot be empty.");
+        }
+        List<String> fromArray = splitCommand.subList(fromIndex + 1, toIndex);
+        if (fromArray.isEmpty()) {
+            throw new AsuraException("The from date cannot be empty.");
+        }
+        List<String> toArray = splitCommand.subList(toIndex + 1, splitCommand.size());
+        if (toArray.isEmpty()) {
+            throw new AsuraException("The to date cannot be empty.");
+        }
+        return new EventCommand(descriptionArray, fromArray, toArray);
     }
 }
