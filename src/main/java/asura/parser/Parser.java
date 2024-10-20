@@ -56,6 +56,12 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses a command representing a deadline task and converts it into a {@code DeadlineCommand} object.
+     * @param splitCommand A list of strings representing the command input split by spaces.
+     * @return A {@code DeadlineCommand} object created from the provided description and due date.
+     * @throws AsuraException If the description or due date is missing from the command.
+     */
     private static DeadlineCommand parseDeadline(List<String> splitCommand) throws AsuraException {
         List<String> descriptionArray;
         int byIndex = splitCommand.indexOf("/by");
@@ -71,6 +77,12 @@ public class Parser {
         return new DeadlineCommand(descriptionArray, dateArray);
     }
 
+    /**
+     * Parses a command representing an event task and converts it into an {@code EventCommand} object.
+     * @param splitCommand A list of strings representing the command input split by spaces.
+     * @return An {@code EventCommand} object created from the provided description, start time, and end time.
+     * @throws AsuraException If the description, start time, or end time is missing from the command.
+     */
     private static EventCommand parseEvent(List<String> splitCommand) throws AsuraException {
         List<String> descriptionArray;
         int fromIndex = splitCommand.indexOf("/from");

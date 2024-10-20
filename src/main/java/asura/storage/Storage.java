@@ -54,6 +54,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Parses a line of text representing a task and converts it into a {@code Task} object.
+     * @param line The line of text to parse.
+     * @return The corresponding {@code Task} object (Todo, Event, or Deadline).
+     * @throws AsuraException if the task is unrecognized.
+     */
     private Task parseTask(String line) throws AsuraException {
         String[] task = line.split("\\|");
         Task result = switch (task[0]) {
