@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

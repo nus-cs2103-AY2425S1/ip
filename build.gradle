@@ -5,9 +5,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-checkstyle {
-    toolVersion = '10.2'
-}
 
 repositories {
     mavenCentral()
@@ -60,6 +57,7 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
+    enableAssertions = true
 }

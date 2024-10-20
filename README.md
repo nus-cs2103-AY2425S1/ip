@@ -1,6 +1,6 @@
-# Timo User Guide
+# timo User Guide
 
-Welcome to Timo, your personal assistant bot! Timo is designed with the intention
+Welcome to timo, your personal assistant bot! timo is designed with the intention
 to aid you in **managing** daily tasks.
 #####
 - Have an interview to take note?
@@ -9,8 +9,8 @@ to aid you in **managing** daily tasks.
 #####
 - Have a deadline that you must remember to hit?
 #####
-Use **Timo** to take note of them! With features like add, delete, mark, unmark, undo etc...
-### let Timo change your life!
+Use **timo** to take note of them! With features like add, delete, mark, unmark, undo etc...
+### let timo change your life!
 
 #
 

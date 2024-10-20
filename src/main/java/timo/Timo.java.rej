@@ -1,4 +1,4 @@
-diff a/src/main/java/Timo/Timo.java b/src/main/java/Timo/Timo.java	(rejected hunks)
+diff a/src/main/java/timo/timo.java b/src/main/java/timo/timo.java	(rejected hunks)
 @@ -11,7 +11,7 @@
  import java.time.format.DateTimeFormatter;
  

@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -227,38 +227,37 @@ public class Parser {
                 String commandToUndo = undo.getFirst();
                 String action = undo.getFirst().split(" ", 2)[0];
 
-                //do the opposite of the one in commandList, then thats it
+                //do the opposite of the one in commandList, then that is it
                 //undo the command: show command, then show what we did like we add it, then we have
                 //how many tasks left
-                switch (action) {
-                case "todo":
+                if (action.equals("todo")) {
                     Task undoTodo = this.taskList.delete(this.taskList.showList().size() - 1);
                     String undoTodoCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
                     return undoTodoCommand + this.ui.printDelete(undoTodo, this.taskList);
-                case "deadline":
+                } else if (action.equals("deadline")) {
                     Task undoDeadline = this.taskList.delete(this.taskList.showList().size() - 1);
                     String undoDeadlineCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
                     return undoDeadlineCommand + this.ui.printDelete(undoDeadline, this.taskList);
-                case "event":
+                } else if (action.equals("event")) {
                     Task undoEvent = this.taskList.delete(this.taskList.showList().size() - 1);
                     String undoEventCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
                     return undoEventCommand + this.ui.printDelete(undoEvent, this.taskList);
-                case "mark":
+                } else if (action.equals("mark")) {
                     String undoMarkCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
                     int numberToUnmark = Integer.valueOf(undo.getFirst().split(" ", 2)[1]);
                     Task markedTaskToUndo = this.taskList.unmark(numberToUnmark);
                     return undoMarkCommand + this.ui.printUnmark(markedTaskToUndo);
-                case "unmark":
+                } else if (action.equals("unmark")) {
                     String undoUnmarkCommand = "----------------------------\n" + "undo command: " + commandToUndo
                             + "\n";
                     int numberToMark = Integer.valueOf(undo.getFirst().split(" ", 2)[1]);
                     Task unmarkedTaskToUndo = this.taskList.unmark(numberToMark);
                     return undoUnmarkCommand + this.ui.printUnmark(unmarkedTaskToUndo);
-                case "delete":
+                } else if (action.equals("delete")) {
                     int positionToAddDeletedTask = Integer.valueOf(undo.getFirst().split(" ", 2)[1]);
                     Task taskToAddBack = undo.getSecond();
                     this.taskList.add(taskToAddBack, positionToAddDeletedTask);
@@ -268,8 +267,9 @@ public class Parser {
                             + "added " + undo.getSecond() + "\n"
                             + this.ui.listSize(this.taskList);
                     return undoDeleteCommand;
-                default:
+                } else {
                     assert false : "Problem with command list";
+                    return this.ui.printCommandError(new TimoException("Proble with command list"));
                 }
             } catch (EmptyStackException e) {
                 return this.ui.undoError();

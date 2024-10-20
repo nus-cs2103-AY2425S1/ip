@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 import javafx.application.Application;
 

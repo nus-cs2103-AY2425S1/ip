@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,8 +76,10 @@ public class Storage {
                     //getting important values to create the Event
                     String[] eventSplit = details.split(" \\(from: | to: |\\)");
 
-                    LocalDateTime fromInDatetimeFormat = LocalDateTime.parse(eventSplit[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-                    LocalDateTime toInDatetimeFormat = LocalDateTime.parse(eventSplit[2], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                    LocalDateTime fromInDatetimeFormat = LocalDateTime.parse(eventSplit[1],
+                            DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                    LocalDateTime toInDatetimeFormat = LocalDateTime.parse(eventSplit[2],
+                            DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
 
                     //see if the task has been done or not
                     if (Character.compare(tmp.charAt(4), 'X') == 0) {

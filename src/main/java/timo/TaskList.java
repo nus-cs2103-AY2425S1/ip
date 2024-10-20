@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Timo timo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image TimoImage = new Image(this.getClass().getResourceAsStream("/images/DaTimo.png"));
+    private Image timoImage = new Image(this.getClass().getResourceAsStream("/images/DaTimo.png"));
 
     /**
      * Initialize the program
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getTimoDialog("Hello! Welcome to Timo, your assistant. How can I help you today?",
-                TimoImage));
+                timoImage));
     }
 
     /** Injects the Timo instance */
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTimoDialog(response, TimoImage)
+                DialogBox.getTimoDialog(response, timoImage)
         );
         userInput.clear();
 

@@ -1,4 +1,4 @@
-package Timo;
+package timo;
 
 /**
  * Deals with outputting information to the user
