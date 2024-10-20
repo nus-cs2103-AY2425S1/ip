@@ -13,7 +13,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * No operations are performed when the user exits the program.
+     * Returns a farewell message without modifying tasks.
      * @param tasklist The list of tasks of the user.
      * @param ui The UI object to give user feedback.
      * @param storage The storage object to save/load tasks.
