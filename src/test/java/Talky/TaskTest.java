@@ -9,6 +9,6 @@ public class TaskTest {
     @Test
     public void invalidSaveFormat() {
         Deadline test = new Deadline("name", LocalDate.of(2020, 1, 18).atStartOfDay());
-        assertEquals("Talky.Deadline name 18/01/2020 0000 false", test.toSaveFormat());
+        assertEquals("Deadline name 18/01/2020 0000 false", test.toSaveFormat());
     }
 }

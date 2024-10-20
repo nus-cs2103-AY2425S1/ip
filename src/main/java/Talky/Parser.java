@@ -32,11 +32,7 @@ public class Parser {
      */
     public static String[] commandArgs(String commandLine, String commandType) throws TalkyException {
         String args = "";
-        if (commandLine.split(" ").length == 1) {
-            if (!(commandType.equals("list") || commandType.equals("bye") || commandType.equals("help"))) {
-                throw new TalkyException("Invalid Command");
-            }
-        } else {
+        if (commandLine.split(" ").length != 1) {
             args = commandLine.split(" ", 2)[1];
         }
         switch (commandType) {
@@ -57,10 +53,10 @@ public class Parser {
             }
             return args.split(" ");
         case "todo":
-            if (args.split(" ").length != 1) {
+            if (args.split(" ").length == 0) {
                 throw new TalkyException("Follow this format: todo [name]");
             }
-            return args.split(" ");
+            return args.split("todo");
         case "deadline":
             String[] deadlineArgs = args.split(" /by ");
             if (deadlineArgs.length != 2) {
