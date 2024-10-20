@@ -49,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("Timo.Launcher")
+    mainClass.set("timo.Launcher")
 }
 
 shadowJar {
