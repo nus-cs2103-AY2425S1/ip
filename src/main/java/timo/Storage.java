@@ -47,50 +47,7 @@ public class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String tmp = s.nextLine();
-                if (tmp.startsWith("[T]")) {
-                    String[] a = tmp.split("] ", 2);
-                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Todo(true, a[1]));
-                    } else {
-                        arr.add(new Todo(false, a[1]));
-                    }
-                } else if (tmp.startsWith("[D]")) {
-                    //remove the [D][?] from the line
-                    String a = tmp.split("] ")[1];
-
-                    //get the important values to create the Deadline
-                    String[] deadlineSplit = a.split(" \\(by: |\\)");
-
-                    LocalDateTime datetime = LocalDateTime.parse(deadlineSplit[1],
-                                             DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-
-
-                    //see if the task has been done or not
-                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Deadline(true, deadlineSplit[0], datetime));
-                    } else {
-                        arr.add(new Deadline(false, deadlineSplit[0], datetime));
-                    }
-                } else if (tmp.startsWith("[E]")) {
-                    String details = tmp.split("] ", 2)[1];
-                    //getting important values to create the Event
-                    String[] eventSplit = details.split(" \\(from: | to: |\\)");
-
-                    LocalDateTime fromInDatetimeFormat = LocalDateTime.parse(eventSplit[1],
-                            DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-                    LocalDateTime toInDatetimeFormat = LocalDateTime.parse(eventSplit[2],
-                            DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-
-                    //see if the task has been done or not
-                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Event(true, eventSplit[0], fromInDatetimeFormat, toInDatetimeFormat));
-                    } else {
-                        assert Character.compare(tmp.charAt(4), ' ') == 0 : "Error in file";
-                        arr.add(new Event(false, eventSplit[0], fromInDatetimeFormat, toInDatetimeFormat));
-                    }
-                } else {
-                    continue;
-                }
+                addTaskToArray(tmp, arr);
             }
             return arr;
         } else {
@@ -162,9 +119,9 @@ public class Storage {
         //create new file if file does not exist
         File file = new File(this.filepath);
 
-
         try {
-            boolean filecreated = file.createNewFile();
+            boolean isParentDirectoryCreated = file.getParentFile().mkdirs();
+            boolean isFilecreated = file.createNewFile();
 
             //delete all contents in the file
             FileWriter fil = new FileWriter(this.filepath);
