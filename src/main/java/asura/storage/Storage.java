@@ -44,31 +44,30 @@ public class Storage {
             }
             Scanner scanner = new Scanner(data);
             while (scanner.hasNextLine()) {
-                String[] task = scanner.nextLine().split("\\|");
-                int status = Integer.parseInt(task[1]);
-                switch (task[0]) {
-                case "T":
-                    Todo todo = new Todo(task[2]);
-                    taskList.add(todo);
-                    break;
-                case "E":
-                    Event event = new Event(task[2], task[3], task[4]);
-                    taskList.add(event);
-                    break;
-                case "D":
-                    Deadline deadline = new Deadline(task[2], LocalDateTime.parse(task[3]));
-                    taskList.add(deadline);
-                    break;
-                }
-                if (status == 1) {
-                    taskList.get(taskList.size() - 1).markAsDone();
-                }
+                Task task = parseTask(scanner.nextLine());
+                taskList.add(task);
             }
         } catch (Exception e) {
             throw new AsuraException(e.getMessage());
         }
 
         return taskList;
+    }
+
+    private Task parseTask(String line) throws AsuraException {
+        String[] task = line.split("\\|");
+        Task result = switch (task[0]) {
+            case "T" -> new Todo(task[2]);
+            case "E" -> new Event(task[2], task[3], task[4]);
+            case "D" -> new Deadline(task[2], LocalDateTime.parse(task[3]));
+            default -> throw new AsuraException("Unknown task: " + task[0]);
+        };
+
+        if (Integer.parseInt(task[1]) == 1) {
+            result.markAsDone();
+        }
+
+        return result;
     }
 
     /**
