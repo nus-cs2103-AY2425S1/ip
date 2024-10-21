@@ -59,8 +59,10 @@ public class Parser {
                 case "delete":
                     String[] deleteParts = input.split(" ", 2);
                     Integer index = Integer.parseInt(deleteParts[1]);
+                    Task deletedTask = taskList.getTask(index - 1);
                     taskList.deleteFromList(index - 1);
-                    return ui.printDelete(index - 1, taskList);
+                    int taskListSize = taskList.getListSize();
+                    return ui.printDelete(deletedTask, taskListSize);
                 case "snooze":
                     String[] snoozeParts = input.split(" ", 3);
                     Integer snoozeIndex = Integer.parseInt(snoozeParts[1]);
