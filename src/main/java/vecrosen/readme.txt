@@ -1,0 +1,1 @@
+As streams are optional, we shall not be implementing it.

@@ -1,0 +1,14 @@
+todo Visit Grandma
+deadline Do homework /by Friday
+event /begin January /by February /end Saturday
+event new year /begin January /by February /end Saturday
+list
+mark 2
+mark 3
+mark 4
+list
+unmark 3
+list
+delete 1
+list
+bye
