@@ -10,21 +10,23 @@ public class Parser {
     }
 
     public String parseInput(String input, TaskList taskList, Storage storage, Ui ui) {
-        
-        // Assert that the important objects passed are not null
+
         assert input != null : "Input cannot be null.";
         assert taskList != null : "TaskList cannot be null.";
         assert storage != null : "Storage cannot be null.";
         assert ui != null : "Ui cannot be null.";
 
-        Task task = null;
+        Task task = null; // Initialize as null
         ui.printWelcome();
+
         if (input.equals("bye")) {
             return ui.printGoodbye();
         }
+
         if (input.equals("list")) {
             return ui.printList(taskList);
         }
+
         if (input.startsWith("mark ")) {
             String[] string = input.split(" ");
             Integer index = Integer.parseInt(string[1]);
@@ -66,22 +68,29 @@ public class Parser {
 
                     Task taskToSnooze = taskList.getTask(snoozeIndex - 1);
 
-                    // Snooze the task without using instanceof
                     if (taskToSnooze instanceof Snoozable) {
                         ((Snoozable) taskToSnooze).snooze(newDate);
                         storage.saveTasks(taskList.getTasks());
                         return ui.printSnooze(taskToSnooze, newDate);
                     }
+                    break;
                 default:
                     throw new NoisyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+
+            // Only add and save the task if it was created
+            if (task != null) {
+                taskList.addToList(task);
+                storage.saveTasks(taskList.getTasks());
+                return ui.printAdd(task, taskList);
+            }
+
         } catch (NoisyException e) {
-            System.out.println(e);
+            return e.getMessage(); // Return the custom exception message
         }
 
-        taskList.addToList(task);
-        storage.saveTasks(taskList.getTasks());
-        return ui.printAdd(task, taskList);
+        return "Unknown command";
     }
+
 }
 
