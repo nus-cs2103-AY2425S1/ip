@@ -39,17 +39,17 @@ public class Storage {
     public List<Task> load() throws FileNotFoundException {
         File f = new File(this.filepath);
 
-        //initialise array to store the values
-        List<Task> arr = new ArrayList<Task>();
+        //initialise taskList to store the values
+        List<Task> taskList = new ArrayList<Task>();
 
         //check if the file exists
         if (f.exists()) {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                String tmp = s.nextLine();
-                addTaskToArray(tmp, arr);
+                String storedLine = s.nextLine();
+                addTaskToArray(storedLine, taskList);
             }
-            return arr;
+            return taskList;
         } else {
             throw new FileNotFoundException("file not found!");
         }
@@ -57,50 +57,77 @@ public class Storage {
     }
 
     /**
-     * create the relevant Task and add it to the array
-     * @param tmp the Task read from one line in text file
-     * @param arr the array that will store all tasks
+     * adds a todo to taskList
+     * @param storedLine
+     * @param taskList
      */
-    public void addTaskToArray(String tmp, List<Task> arr) {
-        if (tmp.startsWith("[T]")) {
-            String[] a = tmp.split("] ", 2);
-            if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                arr.add(new Todo(true, a[1]));
-            } else {
-                arr.add(new Todo(false, a[1]));
-            }
-        } else if (tmp.startsWith("[D]")) {
-            //remove the [D][?] from the line
-            String temporary = tmp.split("] ")[1];
-
-            //get the important values to create the Deadline
-            String[] deadlineDetails = temporary.split(" \\(by: |\\)");
-
-            LocalDateTime datetime = LocalDateTime.parse(deadlineDetails[1],
-                                     DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-
-            //see if the task has been done or not
-            if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                arr.add(new Deadline(true, deadlineDetails[0], datetime));
-            } else {
-                arr.add(new Deadline(false, deadlineDetails[0], datetime));
-            }
+    public void addTodoToArray(String storedLine, List<Task> taskList) {
+        String[] splitStoredLine = storedLine.split("] ", 2);
+        if (Character.compare(storedLine.charAt(4), 'X') == 0) {
+            taskList.add(new Todo(true, splitStoredLine[1]));
         } else {
-            //removing the [E][?] from the line
-            String details = tmp.split("] ", 2)[1];
-            //getting important values to create the Event
-            String[] eventDetails = details.split(" \\(from: | to: |\\)");
+            taskList.add(new Todo(false, splitStoredLine[1]));
+        }
+    }
 
-            LocalDateTime fromDatetime = LocalDateTime.parse(eventDetails[1],
-                                         DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-            LocalDateTime toDatetime = LocalDateTime.parse(eventDetails[1],
-                                       DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-            //see if the task has been done or not
-            if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                arr.add(new Event(true, eventDetails[0], fromDatetime, toDatetime));
-            } else {
-                arr.add(new Event(false, eventDetails[0], fromDatetime, toDatetime));
-            }
+    /**
+     * adds a deadline to taskList
+     * @param storedLine
+     * @param taskList
+     */
+    public void addDeadlineToArray(String storedLine, List<Task> taskList) {
+        //remove the [D][?] from the line
+        String splitStoredLine = storedLine.split("] ")[1];
+
+        //get the important values to create the Deadline
+        String[] deadlineDetails = splitStoredLine.split(" \\(by: |\\)");
+
+        LocalDateTime datetime = LocalDateTime.parse(deadlineDetails[1],
+                DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+
+        //see if the task has been done or not
+        if (Character.compare(storedLine.charAt(4), 'X') == 0) {
+            taskList.add(new Deadline(true, deadlineDetails[0], datetime));
+        } else {
+            taskList.add(new Deadline(false, deadlineDetails[0], datetime));
+        }
+    }
+
+    /**
+     * adds an Event to taskList
+     * @param storedLine
+     * @param taskList
+     */
+    public void addEventToArray(String storedLine, List<Task> taskList) {
+        //removing the [E][?] from the line
+        String splitStoredLine = storedLine.split("] ", 2)[1];
+        //getting important values to create the Event
+        String[] eventDetails = splitStoredLine.split(" \\(from: | to: |\\)");
+
+        LocalDateTime fromDatetime = LocalDateTime.parse(eventDetails[1],
+                DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        LocalDateTime toDatetime = LocalDateTime.parse(eventDetails[1],
+                DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        //see if the task has been done or not
+        if (Character.compare(storedLine.charAt(4), 'X') == 0) {
+            taskList.add(new Event(true, eventDetails[0], fromDatetime, toDatetime));
+        } else {
+            taskList.add(new Event(false, eventDetails[0], fromDatetime, toDatetime));
+        }
+    }
+
+    /**
+     * create the relevant Task and add it to the taskList
+     * @param storedLine the Task read from one line in text file
+     * @param taskList the taskList that will store all tasks
+     */
+    public void addTaskToArray(String storedLine, List<Task> taskList) {
+        if (storedLine.startsWith("[T]")) {
+            addTodoToArray(storedLine, taskList);
+        } else if (storedLine.startsWith("[D]")) {
+            addDeadlineToArray(storedLine, taskList);
+        } else {
+            addEventToArray(storedLine, taskList);
         }
     }
 
@@ -111,11 +138,11 @@ public class Storage {
      * in the file and writes each task in the provided list to the file, with each task on a new line.
      * </p>
      *
-     * @param arr A `List` of `Task` objects to be stored in the file.
+     * @param taskList A `List` of `Task` objects to be stored in the file.
      *
      * @see Task
      */
-    public void store(List<Task> arr) {
+    public void store(List<Task> taskList) {
         //create new file if file does not exist
         File file = new File(this.filepath);
 
@@ -131,7 +158,7 @@ public class Storage {
 
             //create FileWriter to append to file
             FileWriter fw = new FileWriter(this.filepath, true);
-            for (Task i: arr) {
+            for (Task i: taskList) {
                 fw.write(i + "\n");
             }
             fw.close();
