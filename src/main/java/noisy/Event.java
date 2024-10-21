@@ -26,6 +26,12 @@ public class Event extends Task implements Snoozable{
         this.endDate = endDate;
     }
 
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
+        super(description);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
 
     /**
      * Formats the Event task in a specific format for saving into a file.

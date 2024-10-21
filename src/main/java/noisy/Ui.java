@@ -10,7 +10,7 @@ public class Ui {
     public String printWelcome() {
 
         return "____________________________________________________________\n"
-                + " Hello! I'm noisy.noisy\n"
+                + " Hello! I'm Noisy\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
     }
@@ -39,14 +39,12 @@ public class Ui {
                 "____________________________________________________________\n";
     }
 
-    public String printDelete(int i, TaskList taskList) {
-        Task deletedTask = taskList.getTask(i - 1);
-        taskList.deleteFromList(i - 1);
+    public String printDelete(Task task, int i) {
 
         return "____________________________________________________________\n" +
                 " Noted. I've removed this task:\n" +
-                deletedTask + "\n" +
-                "Now you have " + taskList.getListSize() + " tasks in the list\n" +
+                task + "\n" +
+                "Now you have " + i + " tasks in the list\n" +
                 "____________________________________________________________\n";
     }
 
