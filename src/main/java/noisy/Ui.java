@@ -10,7 +10,7 @@ public class Ui {
     public String printWelcome() {
 
         return "____________________________________________________________\n"
-                + " Hello! I'm noisy.noisy\n"
+                + " Hello! I'm Noisy\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
     }

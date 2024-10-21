@@ -9,6 +9,11 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
      public abstract String formatTask();
 
     public void markDone() {

@@ -33,6 +33,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setDuke(Noisy n) {
         noisy  = n;
+        // Display welcome message on startup
+        String welcomeMessage = noisy.getWelcomeMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
     }
 
     /**

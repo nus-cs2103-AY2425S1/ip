@@ -23,6 +23,11 @@ public class Deadline extends Task implements Snoozable{
         this.deadline = deadline;
     }
 
+    public Deadline(String description, LocalDate deadline) {
+        super(description);
+        this.deadline = deadline;
+    }
+
     /**
      * Formats the Deadline task in a specific format for saving into a file.
      * Format: D | description | status | deadline

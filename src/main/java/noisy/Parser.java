@@ -49,20 +49,20 @@ public class Parser {
                     break;
                 case "Deadline":
                     input = input.trim();
-                    String[] deadlineParts = input.split(" ", 4);
-                    task = new Deadline(deadlineParts[1], Boolean.parseBoolean(deadlineParts[2]), this.parseDate(deadlineParts[3]));
+                    String[] deadlineParts = input.split(" ", 3);
+                    task = new Deadline(deadlineParts[1], this.parseDate(deadlineParts[2]));
                     break;
                 case "Event":
-                    String[] eventParts = input.split(" ", 5);
-                    task = new Event(eventParts[1], false, this.parseDate(eventParts[3]), this.parseDate(eventParts[4]));
+                    String[] eventParts = input.split(" ", 4);
+                    task = new Event(eventParts[1], this.parseDate(eventParts[2]), this.parseDate(eventParts[3]));
                     break;
                 case "delete":
-                    String[] deleteParts = input.split(" ");
+                    String[] deleteParts = input.split(" ", 2);
                     Integer index = Integer.parseInt(deleteParts[1]);
                     taskList.deleteFromList(index - 1);
                     return ui.printDelete(index - 1, taskList);
                 case "snooze":
-                    String[] snoozeParts = input.split(" ");
+                    String[] snoozeParts = input.split(" ", 3);
                     Integer snoozeIndex = Integer.parseInt(snoozeParts[1]);
                     LocalDate newDate = this.parseDate(snoozeParts[2]);
 

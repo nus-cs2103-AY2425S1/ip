@@ -10,6 +10,7 @@ package noisy;
  */
 
 public class Noisy {
+    Ui ui;
 
     Storage storage;
     TaskList taskList;
@@ -17,6 +18,7 @@ public class Noisy {
     public Noisy(TaskList taskList, Storage storage) {
         this.storage = storage;
         this.taskList = taskList;
+        this.ui = new Ui();
     }
 
 
@@ -26,6 +28,10 @@ public class Noisy {
         Parser parser = new Parser();
         Ui ui = new Ui();
         return parser.parseInput(input, taskList, storage, ui);
+    }
+
+    public String getWelcomeMessage() {
+        return ui.printWelcome();
     }
 }
 
