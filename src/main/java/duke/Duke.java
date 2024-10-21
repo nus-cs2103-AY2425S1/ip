@@ -18,8 +18,6 @@ public class Duke {
     public static int EVENT = 2;
 
 
-
-
     public static boolean isEmptyString(String str) {
         for(int i=0; i<str.length(); i++) {
             if(str.charAt(i) != ' ')
@@ -29,7 +27,7 @@ public class Duke {
         return true;
     }
 
-    public String exitCommand = "bye";
+    public String exitCommand = "bye!";
     public String listCommand = "list";
 
     public String openingText = "Hello! I'm Jeff\n " +
@@ -45,6 +43,8 @@ public class Duke {
 
     public Scanner inputReader = new Scanner(System.in);
     public Parser parser = new Parser();
+
+    boolean hasOpened = false;
 
     public String getResponse(String input) {
         parser.readInput(input);
@@ -76,106 +76,157 @@ public class Duke {
             assert input.length() > 5;
 
             if(input.length() == 4) {
-                ui.printError("Error: The description of a todo cannot be empty. Terminating program.");
+                ui.printError("Error: The description of a todo cannot be empty.");
                 response = "Error: The description of a todo cannot be empty.";
+                return response;
             }
 
             String taskName = parser.getArgument('\n');
 
             if(isEmptyString(taskName)) {
-                ui.printError("Error: The description of a todo cannot be empty. Terminating program.");
+                ui.printError("Error: The description of a todo cannot be empty.");
                 response = "Error: The description of a todo cannot be empty.";
+                return response;
             }
 
             taskName = taskName.trim();
-            response = taskList.addTask(new Task(taskName, TODO));
+
+            if(taskName.length() == 0) {
+                ui.printError("Error: The description of a todo cannot be empty.");
+                response = "Error: The description of a todo cannot be empty.";
+                return response;
+            }
+
+            response = taskList.addTask(new Todo(taskName));
         } else if(command.equals("deadline")) {
             assert input.length() > 9;
 
 
             if(input.length() <= 9) {
-                ui.printError("Error: The description of a deadline cannot be empty. Terminating program.");
+                ui.printError("Error: The description of a deadline cannot be empty.");
                 response = "Error: The description of a deadline cannot be empty.";
+                return response;
             }
 
-            String taskName = parser.getArgument('/', 4);
+            String taskName = "";
+
+            try {
+                taskName = parser.getArgumentStr("/by ", 4);
+            } catch (ArgumentNotFoundException e) {
+                //System.out.println(e.getMessage());
+                return e.getMsg();
+            }
 
             if(isEmptyString(taskName)) {
-                ui.printError("Error: The description of a deadline cannot be empty. Terminating program.");
+                ui.printError("Error: The description of a deadline cannot be empty.");
                 response = "Error: The description of a deadline cannot be empty.";
+                return response;
             }
 
             if(input.length() <= 9 + taskName.length() + 4) {
-                ui.printError("Error: No deadline provided. Terminating program.");
+                ui.printError("Error: No deadline provided.");
                 response = "Error: No deadline provided.";
+                return response;
             }
 
             String deadline = parser.getArgument('\n');
             deadline = deadline.trim();
 
             if(isEmptyString(deadline)) {
-                ui.printError("Error: No deadline provided. Terminating program.");
+                ui.printError("Error: No deadline provided.");
                 response = "Error: No deadline provided.";
+                return response;
             }
 
             taskName = taskName.trim();
 
-            response = taskList.addTask(new Task(taskName, DEADLINE, deadline));
+            if(isEmptyString(taskName)) {
+                ui.printError("Error: The description of a deadline cannot be empty.");
+                response = "Error: The description of a deadline cannot be empty.";
+                return response;
+            }
+
+            response = taskList.addTask(new Deadline(taskName, deadline));
 
         } else if(command.equals("event")) {
 
             assert input.length() > 6;
 
             if(input.length() <= 5) {
-                ui.printError("Error: The description of an event cannot be empty. Terminating program.");
+                ui.printError("Error: The description of an event cannot be empty.");
                 response = "Error: The description of an event cannot be empty.";
+                return response;
             }
 
-            String taskName = parser.getArgument('/', 6);
+            String taskName = "";
+
+            try {
+                taskName = parser.getArgumentStr("/from ", 6);
+            } catch (ArgumentNotFoundException e) {
+                return e.getMsg();
+            }
 
             if(isEmptyString(taskName)) {
-                ui.printError("Error: The description of an event cannot be empty. Terminating program.");
+                ui.printError("Error: The description of an event cannot be empty.");
                 response = "Error: The description of an event cannot be empty.";
+                return response;
             }
 
             if(input.length() <= 6 + taskName.length() + 6) {
-                ui.printError("Error: No start time provided for event. Terminating program.");
+                ui.printError("Error: No start time provided for event.");
                 response = "Error: No start time provided for event.";
+                return response;
             }
 
-            String startTime = parser.getArgument('/', 4);
+            String startTime;
+
+            try {
+                startTime = parser.getArgumentStr("/to ", 4);
+            } catch(ArgumentNotFoundException e) {
+                return e.getMsg();
+            }
 
             if(isEmptyString(startTime)) {
-                ui.printError("Error: No start time provided for event. Terminating program.");
+                ui.printError("Error: No start time provided for event.");
                 response = "Error: No start time provided for event.";
+                return response;
             }
 
             if(input.length() <= 6 + taskName.length() + 6 + startTime.length() + 4) {
-                ui.printError("Error: No end time provided for event. Terminating program.");
+                ui.printError("Error: No end time provided for event.");
                 response = "Error: No end time provided for event.";
+                return response;
             }
 
             String endTime = parser.getArgument('\n');
             endTime = endTime.trim();
 
             if(isEmptyString(endTime)) {
-                ui.printError("Error: No end time provided for event. Terminating program.");
+                ui.printError("Error: No end time provided for event.");
                 response = "Error: No end time provided for event.";
+                return response;
             }
 
             taskName = taskName.trim();
             startTime = startTime.trim();
 
+            if(isEmptyString(taskName)) {
+                ui.printError("Error: The description of an event cannot be empty.");
+                response = "Error: The description of an event cannot be empty.";
+                return response;
+            }
+
             String[] eventTimings = new String[] {startTime, endTime};
 
 
-            response = taskList.addTask(new Task(taskName, EVENT, eventTimings));
+            response = taskList.addTask(new Event(taskName, eventTimings));
         } else if(command.equals("delete")) {
             assert input.length() > 7;
 
             if(input.length() <= 7) {
-                ui.printError("Error: You need to specify which task to delete. Terminating program.");
+                ui.printError("Error: You need to specify which task to delete.");
                 response = "Error: You need to specify which task to delete.";
+                return response;
             }
 
             int rankToDelete = Integer.valueOf(parser.getArgument('\n'));
@@ -186,14 +237,15 @@ public class Duke {
             assert input.length() > 5;
 
             if(input.length() <= 5) {
-                ui.printError("Error: You need to give a search query. Terminating program.");
+                ui.printError("Error: You need to give a search query.");
                 response = "Error: You need to give a search query.";
+                return response;
             }
             String query = parser.getArgument('\n');
             response = taskList.fetchQuery(query);
         }  else {
 
-            System.out.println("Error: Invalid input, terminating program.");
+            System.out.println("Error: Invalid input.");
             return "Error: Invalid input";
         }
 

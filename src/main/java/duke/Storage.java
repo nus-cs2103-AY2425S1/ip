@@ -65,11 +65,11 @@ public class Storage {
             for(int i=0; i<tasksLen; ++i) {
                 Task task = tasks.get(i);
                 String toWrite = "";
-                if (task.type == TODO) {
+                if (task instanceof Todo) {
                     toWrite += "T|";
-                } else if (task.type == DEADLINE) {
+                } else if (task instanceof Deadline) {
                     toWrite += "D|";
-                } else if (task.type == EVENT) {
+                } else if (task instanceof  Event) {
                     toWrite += "E|";
                 }
 
@@ -82,16 +82,18 @@ public class Storage {
                 toWrite += task.name;
                 toWrite += "|";
 
-                if(task.type == TODO) {
+                if(task instanceof Todo) {
                     toWrite += "||";
                 }
 
-                if(task.type == DEADLINE) {
-                    toWrite += task.deadline + "||";
+                if(task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    toWrite += deadline.deadline + "||";
                 }
 
-                if(task.type == EVENT) {
-                    toWrite += task.eventTimings[0] + "|" + task.eventTimings[1] + "|";
+                if(task instanceof Event) {
+                    Event event = (Event) task;
+                    toWrite += event.eventTimings[0] + "|" + event.eventTimings[1] + "|";
                 }
 
                 toWrite += '\n';
@@ -146,12 +148,12 @@ public class Storage {
                 Task task;
 
                 if(taskType.equals("T")) {
-                    task = new Task(taskDescription, TODO);
+                    task = new Todo(taskDescription);
                 } else if (taskType.equals("D")) {
-                    task = new Task(taskDescription, DEADLINE, deadline1);
+                    task = new Deadline(taskDescription, deadline1);
                 } else {
                     String[] eventTimings = new String[] {deadline1, deadline2};
-                    task = new Task(taskDescription, EVENT, eventTimings);
+                    task = new Event(taskDescription, eventTimings);
                 }
 
                 if(isMarked.equals("1")) {

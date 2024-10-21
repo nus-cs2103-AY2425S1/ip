@@ -41,7 +41,7 @@ public class TaskList {
     }
 
     /**
-     * Returns void, just adds task to our array of tasks
+     * Returns String, just adds task to our array of tasks
      *
      * @param task the task to add
      */
@@ -55,7 +55,7 @@ public class TaskList {
     }
 
     /**
-     * Returns void, just deletes a task from our array of tasks
+     * Returns String, just deletes a task from our array of tasks
      *
      * @param rank the 1-indexed index of the task we wish to remove
      */
@@ -75,7 +75,7 @@ public class TaskList {
     }
 
     /**
-     * Returns void, prints all the tasks out to the terminal
+     * Returns String, prints all the tasks out to the terminal
      */
     String listTasks() {
         int numberOfMessages = tasks.size();
@@ -94,7 +94,7 @@ public class TaskList {
     }
 
     /**
-     * Returns void, just marks a task in our array of tasks
+     * Returns String, just marks a task in our array of tasks
      *
      * @param rank the 1-indexed index of the task we wish to mark
      * in our array of tasks
@@ -115,7 +115,7 @@ public class TaskList {
     }
 
     /**
-     * Returns void, just unmarks a task in our array of tasks
+     * Returns String, just unmarks a task in our array of tasks
      *
      * @param rank the 1-indexed index of the task we wish to unmark
      * in our array of tasks
@@ -161,7 +161,7 @@ public class TaskList {
     }
 
     /**
-     * Returns void, prints out all tasks that match the search query
+     * Returns String, prints out all tasks that match the search query
      *
      * @param query the search query used to filter out tasks
      */

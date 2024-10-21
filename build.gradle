@@ -28,6 +28,9 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
+sourceCompatibility = '17'    // Ensures the code is compatible with Java 17 (class file version 61)
+targetCompatibility = '17'
+
 test {
     useJUnitPlatform()
 

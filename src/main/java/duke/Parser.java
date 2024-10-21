@@ -82,6 +82,39 @@ public class Parser {
         return userInput.substring(startIndex, oldPtr);
     }
 
+    /**
+     * Returns a substring of this.userInput starting from ptr
+     * until the first instance of the escapeString that
+     * appears past ptr, and then advances the ptr by advanceAmount
+     *
+     * @param escapeString the escape character that determines
+     * the end of the substring we should return
+     * @return the substring from ptr to escapeCharacter (exclusive)
+     */
+    public String getArgumentStr(String escapeString, int advanceAmount) throws ArgumentNotFoundException {
+        int len = userInput.length();
+        int escapeLen = escapeString.length();
+        int startIndex = ptr;
+
+        while(ptr < len) {
+            if(ptr + escapeLen < len && userInput.substring(ptr, ptr + escapeLen).equals(escapeString)) {
+                break;
+            }
+            ptr++;
+        }
+
+        if(ptr >= len) {
+            String errMsg = escapeString + " argument not present!";
+            ArgumentNotFoundException e = new ArgumentNotFoundException(errMsg);
+            throw e;
+        }
+
+        int oldPtr = ptr;
+        ptr += advanceAmount;
+
+        return userInput.substring(startIndex, oldPtr);
+    }
+
     String userInput;
     int ptr;
 }

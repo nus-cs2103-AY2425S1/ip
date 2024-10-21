@@ -68,7 +68,7 @@ Nice! I've marked this task as done:
 
 Usage: unmark (task number)
 
-Example: `mark 1`
+Example: `unmark 1`
 
 Expected Outcome: Task 1 is marked
 
