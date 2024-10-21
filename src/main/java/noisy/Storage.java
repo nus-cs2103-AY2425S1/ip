@@ -31,11 +31,11 @@ public class Storage {
                         tasks.add(new Todo(splitString[1], Boolean.parseBoolean(splitString[2])));
                         break;
                     case "D":
-                        System.out.println("Adding task" + new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].stripLeading())));
-                        tasks.add(new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].stripLeading())));
+                        System.out.println("Adding task" + new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].trim())));
+                        tasks.add(new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].trim())));
                         break;
                     case "E":
-                        tasks.add(new Event(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3]), parser.parseDate(splitString[4])));
+                        tasks.add(new Event(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].trim()), parser.parseDate(splitString[4].trim())));
                         break;
                 }
             }

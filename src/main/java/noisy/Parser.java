@@ -9,6 +9,16 @@ public class Parser {
         return LocalDate.parse(date);
     }
 
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true; // The string can be parsed as an integer
+        } catch (NumberFormatException e) {
+            return false; // The string is not a valid integer
+        }
+    }
+
+
     public String parseInput(String input, TaskList taskList, Storage storage, Ui ui) {
 
         assert input != null : "Input cannot be null.";
@@ -17,30 +27,34 @@ public class Parser {
         assert ui != null : "Ui cannot be null.";
 
         Task task = null; // Initialize as null
-        ui.printWelcome();
-
-        if (input.equals("bye")) {
-            return ui.printGoodbye();
-        }
-
-        if (input.equals("list")) {
-            return ui.printList(taskList);
-        }
-
-        if (input.startsWith("mark ")) {
-            String[] string = input.split(" ");
-            Integer index = Integer.parseInt(string[1]);
-            taskList.markDoneFromList(index - 1);
-            return ui.printMark(index, taskList);
-        }
-
-        if (input.startsWith("find ")) {
-            String keyword = input.split(" ", 2)[1];
-            return ui.printFind(taskList, keyword);
-        }
 
         try {
             switch (input.split(" ")[0]) {
+                case "bye":
+                    return ui.printGoodbye();
+                case "list":
+                    return ui.printList(taskList);
+                case "mark":
+                    String[] string = input.split(" ");
+                    if (string.length < 2) {
+                        throw new NoisyException("OOPS!!! Please specify the task number to mark as done.");
+                    }
+
+                    if (!isInteger(string[1])) {
+                        throw new NoisyException("OOPS!!! Please enter a valid task number.");
+                    }
+
+                    int index = Integer.parseInt(string[1]);
+                    if (index < 1 || index > taskList.getListSize()) {
+                        throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
+                    }
+
+                    taskList.markDoneFromList(index - 1);
+                    return ui.printMark(index, taskList);
+
+                case "find":
+                    String keyword = input.split(" ", 2)[1];
+                    return ui.printFind(taskList, keyword);
                 case "todo":
                     if (input.split(" ", 2).length < 2) {
                         throw new NoisyException("OOPS!!! The description of a todo cannot be empty.");
@@ -58,14 +72,14 @@ public class Parser {
                     break;
                 case "delete":
                     String[] deleteParts = input.split(" ", 2);
-                    Integer index = Integer.parseInt(deleteParts[1]);
+                    index = Integer.parseInt(deleteParts[1]);
                     Task deletedTask = taskList.getTask(index - 1);
                     taskList.deleteFromList(index - 1);
                     int taskListSize = taskList.getListSize();
                     return ui.printDelete(deletedTask, taskListSize);
                 case "snooze":
                     String[] snoozeParts = input.split(" ", 3);
-                    Integer snoozeIndex = Integer.parseInt(snoozeParts[1]);
+                    int snoozeIndex = Integer.parseInt(snoozeParts[1]);
                     LocalDate newDate = this.parseDate(snoozeParts[2]);
 
                     Task taskToSnooze = taskList.getTask(snoozeIndex - 1);
