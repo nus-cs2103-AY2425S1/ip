@@ -97,7 +97,13 @@ public class Parser {
                     return ui.printDelete(deletedTask, taskListSize);
                 case "snooze":
                     String[] snoozeParts = input.split(" ", 3);
+                    if (!isInteger(snoozeParts[1])) {
+                        throw new NoisyException("OOPS!!! Please enter a valid task number.");
+                    }
                     int snoozeIndex = Integer.parseInt(snoozeParts[1]);
+                    if (snoozeIndex < 1 || snoozeIndex > taskList.getListSize()) {
+                        throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
+                    }
                     LocalDate newDate = this.parseDate(snoozeParts[2]);
 
                     Task taskToSnooze = taskList.getTask(snoozeIndex - 1);
