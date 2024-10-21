@@ -44,13 +44,13 @@ public class Parser {
                         throw new NoisyException("OOPS!!! Please enter a valid task number.");
                     }
 
-                    int index = Integer.parseInt(string[1]);
-                    if (index < 1 || index > taskList.getListSize()) {
+                    int index1 = Integer.parseInt(string[1]);
+                    if (index1 < 1 || index1 > taskList.getListSize()) {
                         throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
                     }
 
-                    taskList.markDoneFromList(index - 1);
-                    return ui.printMark(index, taskList);
+                    taskList.markDoneFromList(index1 - 1);
+                    return ui.printMark(index1, taskList);
 
                 case "find":
                     String keyword = input.split(" ", 2)[1];
@@ -68,13 +68,31 @@ public class Parser {
                     break;
                 case "Event":
                     String[] eventParts = input.split(" ", 4);
+                    LocalDate earlierDate = this.parseDate(eventParts[2]);
+                    LocalDate laterDate = this.parseDate(eventParts[3]);
+                    int comparisonResult = earlierDate.compareTo(laterDate);
+                    if (comparisonResult > 0) {
+                        throw new NoisyException("OOPS!!! The start date of an event cannot be after the end date.");
+                    }
+                    if (comparisonResult == 0) {
+                        throw new NoisyException("OOPS!!! The start date of an event cannot be the same as the end date.");
+                    }
                     task = new Event(eventParts[1], this.parseDate(eventParts[2]), this.parseDate(eventParts[3]));
                     break;
                 case "delete":
                     String[] deleteParts = input.split(" ", 2);
-                    index = Integer.parseInt(deleteParts[1]);
-                    Task deletedTask = taskList.getTask(index - 1);
-                    taskList.deleteFromList(index - 1);
+                    if (deleteParts.length < 2) {
+                        throw new NoisyException("OOPS!!! Please specify the task number to mark as done.");
+                    }
+                    if (!isInteger(deleteParts[1])) {
+                        throw new NoisyException("OOPS!!! Please enter a valid task number.");
+                    }
+                    int index2 = Integer.parseInt(deleteParts[1]);
+                    if (index2 < 1 || index2 > taskList.getListSize()) {
+                        throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
+                    }
+                    Task deletedTask = taskList.getTask(index2 - 1);
+                    taskList.deleteFromList(index2 - 1);
                     int taskListSize = taskList.getListSize();
                     return ui.printDelete(deletedTask, taskListSize);
                 case "snooze":
