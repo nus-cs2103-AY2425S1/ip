@@ -40,7 +40,6 @@ public class JohnCena {
         try {
             Command command = inputHandler.handleInput(input);
             return command.execute();
-            //return "Command executed successfully.";
         } catch (CenaException e) {
             return "OOPS!!! " + e.getMessage();
         }
