@@ -3,6 +3,12 @@
 /out/
 /*.iml
 
+# class files
+src/main/java/*.class
+
+# data files
+data/
+
 # Gradle build files
 /.gradle/
 /build/
