@@ -1,8 +1,9 @@
 package johncena.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * This class tests the Todo class.

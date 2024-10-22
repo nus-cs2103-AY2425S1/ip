@@ -1,9 +1,18 @@
 package johncena.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import johncena.art.Logo;
 import johncena.commands.Command;
@@ -14,18 +23,16 @@ import johncena.tasks.Deadline;
 import johncena.tasks.Event;
 import johncena.tasks.Task;
 import johncena.tasks.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class tests the InputHandler class.
+ */
 public class InputHandlerTest {
+
+    private static final String TEST_FILE_PATH = "./data/CenaTaskListTest.txt";
 
     private InputHandler inputHandler;
     private ArrayList<Task> tasks;
-    private final String TEST_FILE_PATH = "./data/CenaTaskListTest.txt";
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -210,7 +217,8 @@ public class InputHandlerTest {
         assertEquals(1, tasks.size());
         assertTrue(tasks.get(0) instanceof Deadline);
 
-        String expectedOutput = " Noted. I've removed this task. Now, you can't see me and neither can you see that task:\n"
+        String expectedOutput = " Noted. I've removed this task. Now, you can't see me"
+                + " and neither can you see that task:\n"
                 + "   [T][ ] read book\n"
                 + " Now you have 1 tasks in the list.\n";
         assertEquals(expectedOutput.trim(), actualOutput.trim());

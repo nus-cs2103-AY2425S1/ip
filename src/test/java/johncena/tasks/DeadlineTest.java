@@ -1,8 +1,12 @@
 package johncena.tasks;
 
-import johncena.exceptions.CenaInvalidDeadlineException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import johncena.exceptions.CenaInvalidDeadlineException;
+
+
 
 /**
  * This class tests the Deadline class.
