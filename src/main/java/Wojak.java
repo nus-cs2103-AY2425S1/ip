@@ -124,7 +124,6 @@ class MessageCell extends ListCell<Message> {
             avatarView.setFitWidth(30);
 
             // Create a label that combines the sender name and message text
-            String senderName = message.isUser() ? "User: " : "Wojak: ";
             Label messageLabel = new Label(message.getText());
             messageLabel.setWrapText(true);
             messageLabel.setMaxWidth(250);  // Limit the width of the message
