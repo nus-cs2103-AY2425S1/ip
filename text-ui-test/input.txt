@@ -1,0 +1,7 @@
+todo read
+deadline borrow /by Sat
+event return /from Sun /to Tue
+list
+mark 2
+list
+bye
