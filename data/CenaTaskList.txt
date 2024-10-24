@@ -1,0 +1,8 @@
+T | 0 | eat dinner
+E | 0 | birthday | 2024-09-22 0001 ~ 2024-09-22 2359
+A | 0 | party | 2024-09-25 1600
+T | 0 | eat lunch
+D | 0 | submit report | 2024-09-22 1600
+T | 0 | eat dinner
+T | 0 | fly
+T | 0 | testing
