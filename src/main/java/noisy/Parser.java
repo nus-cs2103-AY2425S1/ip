@@ -1,0 +1,136 @@
+package noisy;
+
+import java.time.LocalDate;
+
+public class Parser {
+
+    public LocalDate parseDate(String date) {
+        assert date != null && !date.isEmpty() : "Date string cannot be null or empty.";
+        return LocalDate.parse(date);
+    }
+
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true; // The string can be parsed as an integer
+        } catch (NumberFormatException e) {
+            return false; // The string is not a valid integer
+        }
+    }
+
+
+    public String parseInput(String input, TaskList taskList, Storage storage, Ui ui) {
+
+        assert input != null : "Input cannot be null.";
+        assert taskList != null : "TaskList cannot be null.";
+        assert storage != null : "Storage cannot be null.";
+        assert ui != null : "Ui cannot be null.";
+
+        Task task = null; // Initialize as null
+
+        try {
+            switch (input.split(" ")[0]) {
+                case "bye":
+                    return ui.printGoodbye();
+                case "list":
+                    return ui.printList(taskList);
+                case "mark":
+                    String[] string = input.split(" ");
+                    if (string.length < 2) {
+                        throw new NoisyException("OOPS!!! Please specify the task number to mark as done.");
+                    }
+
+                    if (!isInteger(string[1])) {
+                        throw new NoisyException("OOPS!!! Please enter a valid task number.");
+                    }
+
+                    int index1 = Integer.parseInt(string[1]);
+                    if (index1 < 1 || index1 > taskList.getListSize()) {
+                        throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
+                    }
+
+                    taskList.markDoneFromList(index1 - 1);
+                    return ui.printMark(index1, taskList);
+
+                case "find":
+                    String keyword = input.split(" ", 2)[1];
+                    return ui.printFind(taskList, keyword);
+                case "todo":
+                    if (input.split(" ", 2).length < 2) {
+                        throw new NoisyException("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    task = new Todo(input.split(" ", 2)[1], false);
+                    break;
+                case "Deadline":
+                    input = input.trim();
+                    String[] deadlineParts = input.split(" ", 3);
+                    task = new Deadline(deadlineParts[1], this.parseDate(deadlineParts[2]));
+                    break;
+                case "Event":
+                    String[] eventParts = input.split(" ", 4);
+                    LocalDate earlierDate = this.parseDate(eventParts[2]);
+                    LocalDate laterDate = this.parseDate(eventParts[3]);
+                    int comparisonResult = earlierDate.compareTo(laterDate);
+                    if (comparisonResult > 0) {
+                        throw new NoisyException("OOPS!!! The start date of an event cannot be after the end date.");
+                    }
+                    if (comparisonResult == 0) {
+                        throw new NoisyException("OOPS!!! The start date of an event cannot be the same as the end date.");
+                    }
+                    task = new Event(eventParts[1], this.parseDate(eventParts[2]), this.parseDate(eventParts[3]));
+                    break;
+                case "delete":
+                    String[] deleteParts = input.split(" ", 2);
+                    if (deleteParts.length < 2) {
+                        throw new NoisyException("OOPS!!! Please specify the task number to mark as done.");
+                    }
+                    if (!isInteger(deleteParts[1])) {
+                        throw new NoisyException("OOPS!!! Please enter a valid task number.");
+                    }
+                    int index2 = Integer.parseInt(deleteParts[1]);
+                    if (index2 < 1 || index2 > taskList.getListSize()) {
+                        throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
+                    }
+                    Task deletedTask = taskList.getTask(index2 - 1);
+                    taskList.deleteFromList(index2 - 1);
+                    int taskListSize = taskList.getListSize();
+                    return ui.printDelete(deletedTask, taskListSize);
+                case "snooze":
+                    String[] snoozeParts = input.split(" ", 3);
+                    if (!isInteger(snoozeParts[1])) {
+                        throw new NoisyException("OOPS!!! Please enter a valid task number.");
+                    }
+                    int snoozeIndex = Integer.parseInt(snoozeParts[1]);
+                    if (snoozeIndex < 1 || snoozeIndex > taskList.getListSize()) {
+                        throw new NoisyException("OOPS!!! Task number must be between 1 and " + taskList.getListSize() + ".");
+                    }
+                    LocalDate newDate = this.parseDate(snoozeParts[2]);
+
+                    Task taskToSnooze = taskList.getTask(snoozeIndex - 1);
+
+                    if (taskToSnooze instanceof Snoozable) {
+                        ((Snoozable) taskToSnooze).snooze(newDate);
+                        storage.saveTasks(taskList.getTasks());
+                        return ui.printSnooze(taskToSnooze, newDate);
+                    }
+                    break;
+                default:
+                    throw new NoisyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+
+            // Only add and save the task if it was created
+            if (task != null) {
+                taskList.addToList(task);
+                storage.saveTasks(taskList.getTasks());
+                return ui.printAdd(task, taskList);
+            }
+
+        } catch (NoisyException e) {
+            return e.getMessage(); // Return the custom exception message
+        }
+
+        return "Unknown command";
+    }
+
+}
+
