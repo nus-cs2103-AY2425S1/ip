@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+bao.main.Main-Class: bao.main.Bao
+
