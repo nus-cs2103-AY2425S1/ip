@@ -66,12 +66,22 @@ public class Duke {
 
             int rankToMark = Integer.valueOf(parser.getArgument('\n'));
 
-            response = taskList.markTask(rankToMark);
+            try {
+                response = taskList.markTask(rankToMark);
+            } catch (TaskOutOfBounds e) {
+                return e.getMsg();
+            }
+
         } else if(command.equals("unmark")) {
 
             int rankToUnmark = Integer.valueOf(parser.getArgument('\n'));
 
-            response = taskList.unmarkTask(rankToUnmark);
+            try {
+                response = taskList.unmarkTask(rankToUnmark);
+            } catch (TaskOutOfBounds e) {
+                return e.getMsg();
+            }
+
         } else if(command.equals("todo")) {
             assert input.length() > 5;
 
@@ -231,7 +241,11 @@ public class Duke {
 
             int rankToDelete = Integer.valueOf(parser.getArgument('\n'));
 
-            response = taskList.deleteTask(rankToDelete);
+            try {
+                response = taskList.deleteTask(rankToDelete);
+            } catch (TaskOutOfBounds e) {
+                return e.getMsg();
+            }
 
         }  else if(command.equals("find")) {
             assert input.length() > 5;

@@ -59,13 +59,12 @@ public class TaskList {
      *
      * @param rank the 1-indexed index of the task we wish to remove
      */
-    String deleteTask(int rank) {
+    String deleteTask(int rank) throws TaskOutOfBounds {
         assert rank >= 1;
         assert rank <= tasks.size();
 
         if(rank < 1 || rank > tasks.size()) {
-            System.out.println("Error: The task number is out of bounds. Terminating program.");
-            System.exit(0);
+            throw new TaskOutOfBounds("Error: The task index number is out of bounds.");
         }
 
         Task toRemove = tasks.get(rank-1);
@@ -99,13 +98,12 @@ public class TaskList {
      * @param rank the 1-indexed index of the task we wish to mark
      * in our array of tasks
      */
-    String markTask(int rank) {
+    String markTask(int rank) throws TaskOutOfBounds {
         assert rank >= 1;
         assert rank <= tasks.size();
 
         if(rank < 1 || rank > tasks.size()) {
-            System.out.println("Error: The task number is out of bounds. Terminating program.");
-            System.exit(0);
+            throw new TaskOutOfBounds("Error: The task index number is out of bounds.");
         }
         Task task = tasks.get(rank - 1);
 
@@ -120,13 +118,12 @@ public class TaskList {
      * @param rank the 1-indexed index of the task we wish to unmark
      * in our array of tasks
      */
-    String unmarkTask(int rank) {
+    String unmarkTask(int rank) throws TaskOutOfBounds {
         assert rank >= 1;
         assert rank <= tasks.size();
 
         if(rank < 1 || rank > tasks.size()) {
-            System.out.println("Error: The task number is out of bounds. Terminating program.");
-            System.exit(0);
+            throw new TaskOutOfBounds("Error: The task index number is out of bounds.");
         }
 
         Task task = tasks.get(rank - 1);
