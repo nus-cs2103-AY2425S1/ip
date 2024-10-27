@@ -64,11 +64,11 @@ public class CommandList {
     }
 
     /**
-     * Allows users to create their own commands to for easier use
+     * Creates new aliases for existing commands
      *
      * @param commandToAlias   an existing command name
      * @param alias            the alias the user wants to use to call their specified command
-     * @throws YapperException if the command name is does not exist or the alias is already in use
+     * @throws YapperException if the command name does not exist or the alias is already in use
      */
     public String bindCustomCommandAlias(String alias, String commandToAlias) throws YapperException {
         if (unaliasableCommands.contains(commandToAlias)) {
