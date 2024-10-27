@@ -1,10 +1,14 @@
+import controllers.InputParser;
+import controllers.OutputHandler;
+import controllers.commands.Command;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -14,15 +18,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import controllers.InputParser;
-import controllers.commands.Command;
-import controllers.OutputHandler;
 import lib.DbDriverInterface;
 import lib.FileDbDriver;
 import models.Message;
 import models.TaskList;
-
-import javafx.scene.control.ListView;
 
 
 public class Wojak extends Application {

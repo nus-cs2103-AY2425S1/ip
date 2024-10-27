@@ -1,9 +1,8 @@
 package controllers.commands;
 
 import controllers.OutputHandler;
-import models.Task;
-import models.Todo;
 import models.TaskList;
+import models.Todo;
 
 /**
  * Represents a command to add a {@code Todo} task to the task management system.

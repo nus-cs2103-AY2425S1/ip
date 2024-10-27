@@ -1,7 +1,7 @@
 package controllers.commands;
 
-import models.TaskList;
 import controllers.OutputHandler;
+import models.TaskList;
 
 /**
  * Represents a command to mark a task as completed in the task management system.

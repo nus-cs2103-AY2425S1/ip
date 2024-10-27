@@ -1,7 +1,7 @@
 package controllers.commands;
 
-import models.Task;
 import controllers.OutputHandler;
+import models.Task;
 import models.TaskList;
 
 /**

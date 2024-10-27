@@ -1,8 +1,9 @@
 package models;
 
-import java.util.ArrayList;
 import lib.ActiveRecord;
 import lib.DbDriverInterface;
+
+import java.util.ArrayList;
 
 /**
  * Represents a list of tasks in the task management system.
