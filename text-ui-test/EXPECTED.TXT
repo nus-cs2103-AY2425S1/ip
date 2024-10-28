@@ -1,7 +1,13 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! This is your friendly neighbourhood Spiderman.
+What can I do for you?
+Cool! I'll add this to your task list!
+You now have 1 tasks in your task list.
+Cool! I'll add this to your task list!
+You now have 2 tasks in your task list.
+Cool! I'll add this to your task list!
+You now have 3 tasks in your task list.
+1. [T][ ] buy book
+2. [D][ ] sell book (by: Oct 9 2024)
+3. [E][ ] project meeting (from: 1 Dec 2024, 12:30:00 pm to: 1 Dec 2024, 6:30:00 pm)
+Tasks have been saved to tasks.txt.
+Bye. Hope to see you again soon!
