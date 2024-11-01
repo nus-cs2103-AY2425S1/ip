@@ -13,5 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-gui-test/ACTUAL.TXT
+text-gui-test/EXPECTED-UNIX.TXT
+
+# Binary files
+*.class
+*.jar
+*.exe
+
+# Temporary files
+*.log
+
+
