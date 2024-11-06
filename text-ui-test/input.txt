@@ -1,0 +1,19 @@
+list
+todo read book
+deadline borrow book | by 2/12/2019 1800
+event project meeting | from 2/12/2019 1800 | to 2/12/2019 2000
+todo join sports club
+mark 5
+mark 6
+mark 8
+unmark 6
+todo borrow book
+deadline return book | by 2/1/2020 1800
+event project meeting | from 2/1/2020 1800 | to 2/1/2020 2000
+sleep
+/help
+todo
+deadline submit assignment
+event karaoke at Nathan's
+event karaoke at Nathan's | from 2/1/2020 1800
+bye
