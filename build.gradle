@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '17.0.7'
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // Include JavaFX dependencies for all platforms
+    ['win', 'mac', 'linux'].each { platform ->
+        implementation "org.openjfx:javafx-base:$javaFxVersion:$platform"
+        implementation "org.openjfx:javafx-controls:$javaFxVersion:$platform"
+        implementation "org.openjfx:javafx-fxml:$javaFxVersion:$platform"
+        implementation "org.openjfx:javafx-graphics:$javaFxVersion:$platform"
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['java']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+    }
+}
+
+application {
+    mainClass.set('chatbuddy.MainLauncher') // Use MainLauncher as the entry point
+}
+
+shadowJar {
+    archiveBaseName.set('ChatBuddy')
+    archiveClassifier.set(null)
+    archiveVersion.set('2.0')
+    configurations = [project.configurations.runtimeClasspath]
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

@@ -1,0 +1,61 @@
+/* Style for the text input box */
+#userInput {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+/* Style for the send button */
+#sendButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+}
+
+#sendButton:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Style for the chat bubbles */
+.dialog-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 3);
+    -fx-wrap-text: true;
+}
+
+/* Style for the user chat bubble (aligning to the right) */
+.dialog-box.user {
+    -fx-background-color: #d1ecf1;
+    -fx-alignment: center-right;
+}
+
+/* Style for the ChatBuddy response bubble (aligning to the left) */
+.dialog-box.chatbuddy {
+    -fx-background-color: #ffe6e6;
+    -fx-alignment: center-left;
+}
+
+/* Style for the image in the chat bubble */
+.dialog-box .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-border-radius: 50%;
+}
+
+/* Styling for the chat container (ScrollPane content) */
+#dialogContainer {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+/* General font styling */
+.root {
+    -fx-font-family: 'Helvetica', sans-serif;
+}
