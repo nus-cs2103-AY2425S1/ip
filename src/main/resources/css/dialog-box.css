@@ -1,0 +1,26 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #EE82EE, #E6E6FA);
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 3px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.label: hover {
+    -fx-background-color: #7FFFD4;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-color: #87CEFA
+
+}
+
+.displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}

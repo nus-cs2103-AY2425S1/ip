@@ -1,0 +1,7 @@
+todo Buy bread
+event Attend Lecture /from Friday 10am /to Friday 12pm
+deadline Read a book /by Saturday 10 am
+list
+mark 1
+unmark 1
+bye
