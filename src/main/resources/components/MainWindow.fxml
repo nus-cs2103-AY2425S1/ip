@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" minHeight="400.0" minWidth="300.0" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guy.gui.MainWindow">
+    <children>
+        <VBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox fx:id="dialogContainer" spacing="15">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                    </VBox>
+                </content>
+            </ScrollPane>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <TextField fx:id="entry" onAction="#handleUserInput" promptText="Enter a command..." HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="System" size="14.0" />
+                    </font>
+                </TextField>
+                <Button fx:id="send" mnemonicParsing="false" onAction="#handleUserInput" text="Enter">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
