@@ -22,3 +22,5 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+   Acknowledgments: Some parts of the code are adapted from Github Copilot and ChatGPT.
