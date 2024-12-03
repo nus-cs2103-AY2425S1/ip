@@ -25,7 +25,7 @@ https://github.com/lancehaha/ip/releases/tag/A-Release
   ```
 3. run the jar file with java17 and javafx components
 + ```angular2html
-  java -jar killjoy.jar
+  java -jar ChatgptMoreOOP.jar
   ```
 
 ## Features
