@@ -1,24 +1,77 @@
-# Duke project template
+# Bestie User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![img.png](docs/Ui.png)
 
-## Setting up in Intellij
+## Meet Bestie, your personal task assistant chatbot!
+Bestie is your personal task tracker assistant designed to help you keep organised and stay on top of your tasks. 
+Effortlessly add, manage, and track your tasks with simple commands. Whether you're juggling work deadlines, 
+todos or personal events, Bestie keeps everything in one place for you to have a peace of mind.
+Bestie makes task management feel less like a chore and more like a breeze. Say goodbye to feeling overwhelmed and 
+say hello to productivity!
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+## Key features
+### Adding Todos: `todo`
+To add a new todo, use the command 
+
+`todo (name of task) /priority (high/medium/low)`
+
+The `priority` tag indicates the priority of the task, and you can choose between high, medium and low.
+
+Example command: `todo read book /priority low`
+
+### Adding Deadlines: `deadline`
+
+To add a new deadline task, use the command
+
+`deadline (name of task) /by YYYY-MM-DD HHMM /priority (high/medium/low)`
+
+Ensure that the date is of the correct format of Year-Month-Day and the time is in 24 hour time. 
+
+Example command: `deadline submit work /by 2024-09-20 1800 /priority high` 
+
+
+### Adding Events: `event`
+
+To add a new event, use the command 
+
+`event (name of event) /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM /priority (low/medium/high)`
+
+Ensure that the date is of the correct format of Year-Month-Day and the time is in 24 hour time.
+
+Example command: `event meeting /from 2024-09-18 1900 /to 2024-09-19 2000 /priority high`
+
+
+### Marking tasks as completed: `mark`
+To mark a task as completed, use the `mark (index of task)` command. Ensure to correctly input the task of the index 
+you would like to mark as completed. 
+
+### Marking tasks as incomplete: `unmark`
+By default, all tasks added to the task list are unmarked. However, if you had previously marked 
+a task as complete that you would now like to mark as incomplete, you can do so via the 
+`unmark (index of task)` command. Ensure to correctly input the task of the index you would like to 
+mark as incomplete. 
+
+### Searching for tasks by keyword: `find` 
+To search for tasks that contain specific keywords, use the command
+`find (keyword)`.
+
+This will generate a list of tasks in your current task list that contain the keyword.
+
+### Searching for tasks by priority: `priority`
+To obtain a list of all existing tasks of a certain priority, use the command 
+`priority (high/medium/low)`. 
+
+This will generate a list of tasks in your current task list that have the specified priority.
+
+
+### Deleting tasks: `delete`
+To delete a particular task, use the command `delete (index of task)`, ensuring that you key in 
+the index of the task in your existing task list to be deleted.
+
+
+### Closing the app and Saving your tasks: `bye` 
+**This step is important to ensure your tasks are properly saved in your task list!**
+
+Use the command `bye` before exiting the app to ensure your tasks are saved. 
