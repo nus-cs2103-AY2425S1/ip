@@ -1,0 +1,5 @@
+T | 0 | read book
+D | 0 | return book | 2024-09-01 1523
+E | 0 | jogging | 2024-09-20 1600 | 2024-09-20 1500
+T | 1 | go out to have dinner
+T | 0 | play video game
