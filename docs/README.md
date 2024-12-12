@@ -1,30 +1,132 @@
-# Duke User Guide
+# Barney User Guide
 
-// Update the title above to match the actual product name
+![Ui.png](./Ui.png)
 
-// Product screenshot goes here
+Barney the dinosaur is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
+If you can type fast, Barney can help you manage your tasks faster than traditional GUI apps.
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+### List all task: `list`
 
-// Describe the action and its outcome.
+List all the tasks in the application.
 
-// Give examples of usage
+Format: `list`
 
-Example: `keyword (optional arguments)`
+### Mark a task: `mark`
 
-// A description of the expected outcome goes here
+Mark a task as done.
 
-```
-expected output
-```
+Format: `mark INDEX`
 
-## Feature ABC
+- Marks the task at the specified `INDEX` as done.
+- Index must be a positive integer 1, 2, 3, ...
 
-// Feature details
+### Unmark a task: `unmark`
 
+Unmark a task as done.
 
-## Feature XYZ
+Format: `unmark INDEX`
 
-// Feature details
+- Marks the task at the specified `INDEX` as undone.
+- Index must be a positive integer 1, 2, 3, ...
+
+### Tag a task: `tag`
+
+Tag a task with a keyword.
+
+Format: `tag INDEX /tag KEYWORD`
+
+- Tags the task at the specified `INDEX` with the `KEYWORD`.
+- Index must be a positive integer 1, 2, 3, ...
+- There must be a `/tag` before the `KEYWORD`.
+- To remove a tag, use the `tag INDEX /tag`.
+
+Examples
+
+- `tag 2 /tag important`
+- `tag 3 /tag urgent`
+
+### Adding a todo task: `todo`
+
+Adds a todo task to the list.
+
+Format: `todo DESCRIPTION`
+
+- The `DESCRIPTION` must not be empty.
+- The `DESCRIPTION` can contain spaces.
+
+Examples
+
+- `todo read book`
+- `todo return book`
+- `todo buy book`
+
+### Adding a deadline task: `deadline`
+
+Adds a deadline task to the list.
+
+Format: `deadline DESCRIPTION /by DATE`
+
+- The `DESCRIPTION` must not be empty.
+- The `DESCRIPTION` can contain spaces.
+- The `DATE` can be in any format.
+- The `DATE` must be after the `/by`.
+- The `/by` must be present.
+
+Examples
+
+- `deadline return book /by 2021-09-30`
+- `deadline return book /by 2021-09-30 1800`
+- `deadline return book /by 2021-09-30 6pm`
+
+### Adding an event task: `event`
+
+Adds an event task to the list.
+
+Format: `event DESCRIPTION /from DATE /to DATE`
+
+- The `DESCRIPTION` must not be empty.
+- The `DESCRIPTION` can contain spaces.
+- The `DATE` can be in any format.
+- The `DATE` must be after the `/from` and before the `/to`.
+- The `/from` and `/to` must be present.
+
+Examples
+
+- `event project meeting /from 2021-09-30 1800 /to 2021-09-30 2000`
+- `event project meeting /from 2021-09-30 6pm /to 2021-09-30 8pm`
+- `event project meeting /from 2021-09-30 1800 /to 2021-09-30 8pm`
+
+### Finding a task: `find`
+
+Finds tasks that contain the keyword.
+
+Format: `find KEYWORD`
+
+- The `KEYWORD` must not be empty.
+- The `KEYWORD` can contain spaces.
+- The `KEYWORD` is case-sensitive.
+- The `KEYWORD` can be a partial match.
+
+Examples
+
+- `find book`
+- `find return`
+- `find project`
+
+### Deleting a task: `delete`
+
+Deletes a task from the list.
+
+Format: `delete INDEX`
+
+- Deletes the task at the specified `INDEX`.
+- Index must be a positive integer 1, 2, 3, ...
+- The task will be permanently removed from the list.
+
+### Exiting the application: `bye`
+
+Exits the application.
+
+Format: `bye`
