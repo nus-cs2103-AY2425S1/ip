@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+.vscode/
 
 # Gradle build files
 /.gradle/
@@ -13,5 +14,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# text-ui-test actual result
+text-ui-test/ACTUAL.TXT
+
+
+# java class files
+*.class
+
+# data files
+data/

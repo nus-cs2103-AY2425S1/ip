@@ -1,24 +1,94 @@
-# Duke project template
+# Duch User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+### Duch, A ChatBot to manage your life
 
-## Setting up in Intellij
+![alt text](docs/Ui.png)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Having trouble with all the endless tasks in your life ? Duch will manage them for you.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## All commands
+[deadline](#deadline)<br/>
+[todo](#todo)<br/>
+[event](#event)<br/>
+[list](#list)<br/>
+[mark](#mark-and-unmark)<br/>
+[unmark](#mark-and-unmark)<br/>
+[find](#find)<br/>
+[undo](#undo)<br/>
+
+## Important
+[Exiting safely](#important-to-close-duch)
+
+## Format of dates
+All dates need to be in the format `DD/MM/YYYY hhmm`
+
+## Deadline
+
+You can add a deadline task. It is a special task that has a date, which is its deadline. The format of the date has to be in `DD/MM/YYYY hhmm`. Example: `12/02/2002 1800`.
+
+Too add a deadline task, enter `deadline <description> /by <date>`
+
+Example: `deadline hw /by 12/01/2002 1800`
+
+If successful, Duch will acknowledge the creating of a new Deadline task
+
+## Todo
+
+A todo task is simply a description of a task. There are no dates whatsover
+
+To add a todo task, enter `todo <description>`,
+
+Example: `todo cook dinner`
+
+If successful, Duch will acknowledge the creation of a new Todo task
+
+## Event
+
+An event task is an event with a from and to date
+
+To add a event task, enter `event <description> /from <date> /to <date>`
+
+Example: `event rag day /from 12/01/2002 1200 /to 12/02/2002 1200`
+
+If successful, Duch will acknowledge the creation of a new Event task
+
+## List
+
+By typing in `list`, Duch will display all your tasks for you
+
+## Mark and Unmark
+
+Duch can help you mark and unmark events. First, get the index of the task using list, then type `mark <index of task>`. To unmark, simply type `unmark <index of task>`
+
+Example: `mark 3` `unmark 4`
+
+If mark is successful, Duch will acknowledge it
+
+## Find
+
+Duch can help you find tasks that contain a keywork. Simply type `find <keyword>` and Duch will list all tasks containing that keyword
+
+Example: `find cs2103t`
+
+If successful, Duch will acknowledge it, and list all tasks containing that keyword.
+
+
+
+## Delete
+
+Duch can help you delete tasks. Simply type `delete <index of task you want to delete>`
+
+Example: `delete 2`
+
+
+## Undo
+
+Duch can undo the last executed command, if you change your mind. Simply type `undo` and that is it. 
+
+If the last executed command is one of `todo, deadline, even, mark, unmark, delete`, Duch will display the updated list of tasks. 
+
+If the last executed task is one of `list, find`, Duch will only acknowledge the success of the command, but since there is no change to the tasks, Duch will not display the updated list of tasks.
+
+## Important: To close Duch
+
+To close Duch, type `bye`. Do not click `X` to close the window, otherwise Duch will not save your tasks 

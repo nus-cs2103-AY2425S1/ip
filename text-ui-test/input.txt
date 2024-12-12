@@ -1,0 +1,9 @@
+todo borrow book
+deadline return book /by 20/08/2024 1700
+event project meeting /from 20/08/2024 1700 /to 20/09/2024 1700
+list
+deadline return money
+todo
+event holiday /fro 20/08/2024 1700
+deadline go run /by 12/31/2024 1700
+bye
