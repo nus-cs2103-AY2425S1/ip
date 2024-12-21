@@ -30,6 +30,7 @@ public final class Parser {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_TOGGLE = "toggle";
     public static final String COMMAND_UNCHECK = "uncheck";
+
     public Parser() {}
 
     /**

@@ -32,6 +32,10 @@ public abstract class Ui {
     private final Colress colress;
     private Status status;
 
+    /**
+     * Instantiates colress and status field of Ui.
+     * The Ui object has a status field which is an indication of what type of input is being expected from the user.
+     */
     public Ui(Colress colress) {
         this.colress = colress;
         this.status = Status.COMMAND;

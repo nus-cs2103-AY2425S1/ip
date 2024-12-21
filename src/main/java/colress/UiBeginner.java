@@ -22,9 +22,8 @@ public final class UiBeginner extends Ui {
     private Command currCommand;
 
     /**
-     * Constructs Ui.
+     * Constructs Ui for Beginner mode.
      * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
-     * The Ui object also has a boolean field that reflects whether the exit command has been called by the user.
      */
     public UiBeginner(Colress colress) {
         super(colress);
@@ -32,8 +31,7 @@ public final class UiBeginner extends Ui {
     }
 
     /**
-     * Checks current status of the Ui, which is an indication of what type of input is being expected from the user,
-     * and calls the corresponding processing method to process the user input.
+     * Checks current status of the Ui and calls the corresponding processing method to process the user input.
      *
      * @param taskList A TaskList object that is passed to the processing methods that require them to correctly
      *                 process user input.

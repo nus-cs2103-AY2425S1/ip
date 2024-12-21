@@ -94,6 +94,9 @@ public final class Colress {
         }
     }
 
+    /**
+     * Toggles between Beginner and Advanced modes for command input.
+     */
     public boolean toggleMode() {
         this.isBeginnerMode = !isBeginnerMode;
         this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);
