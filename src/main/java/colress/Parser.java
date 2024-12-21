@@ -12,6 +12,7 @@ import colress.command.DeleteCommand;
 import colress.command.ExitCommand;
 import colress.command.FindCommand;
 import colress.command.ListCommand;
+import colress.command.ToggleCommand;
 import colress.command.UncheckCommand;
 import colress.exception.EmptyInputException;
 import colress.exception.UnknownCommandException;
@@ -27,6 +28,7 @@ public final class Parser {
     public static final String COMMAND_EXIT = "exit";
     public static final String COMMAND_FIND = "find";
     public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_TOGGLE = "toggle";
     public static final String COMMAND_UNCHECK = "uncheck";
     public Parser() {}
 
@@ -52,6 +54,8 @@ public final class Parser {
             return new ListCommand();
         case COMMAND_UNCHECK:
             return new UncheckCommand();
+        case COMMAND_TOGGLE:
+            return new ToggleCommand();
         default:
             throw new UnknownCommandException();
         }

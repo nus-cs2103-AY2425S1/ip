@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
-import java.util.Objects;
 
 import colress.command.AddCommand;
 import colress.command.Command;
@@ -15,33 +14,11 @@ import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
 /**
- * Represents the Ui of the Colress chatbot.
+ * Represents the Beginner mode Ui of the Colress chatbot.
  */
-public final class Ui extends Uii {
-    public static final String MESSAGE_GREETING = "Oh, excuse me! My name is Colress.\n"
-            + "May I have a look at your tasks?";
-    public static final String MESSAGE_LIST_EMPTY = "It looks like your list is empty.";
-    public static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR =
-            "What is this?! You did not seem to have entered a valid date/time! Try Again.";
-    public static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR =
-            "What is this?! You did not seem to have entered a valid number! Try Again.";
-    public static final String PROMPT_DATE = "Come! Enter the date (in the form yyyy-mm-dd).";
-    public static final String PROMPT_DEADLINE = "Come! Enter the deadline (in the form yyyy-mm-dd).";
-    public static final String PROMPT_DEADLINE_DESCRIPTION = "Come! Enter the description of the deadline.";
-    public static final String PROMPT_EVENT_DATE = "Come! Enter the date of the event (in the form yyyy-mm-dd).";
-    public static final String PROMPT_EVENT_DESCRIPTION = "Come! Enter the description of the event.";
-    public static final String PROMPT_EVENT_END_TIME =
-            "Come! Enter the ending time of the event (in the form hh:mm).";
-    public static final String PROMPT_EVENT_START_TIME =
-            "Come! Enter the starting time of the event (in the form hh:mm).";
-    public static final String PROMPT_KEYWORD = "Come! Enter the keyword to find in the list.";
-    public static final String PROMPT_TASK_DESCRIPTION = "Come! Enter the description of the task.";
-    public static final String PROMPT_TASK_NUMBER = "Come! Enter the task number."
-            + "You can enter multiple numbers with a space between them";
-    public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
-    private final Colress colress;
+public final class UiBeginner extends Ui {
+
     private final Parser parser;
-    private Status status;
     private Command currCommand;
 
     /**
@@ -49,22 +26,9 @@ public final class Ui extends Uii {
      * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object also has a boolean field that reflects whether the exit command has been called by the user.
      */
-    public Ui(Colress colress) {
-        this.colress = colress;
+    public UiBeginner(Colress colress) {
+        super(colress);
         this.parser = new Parser();
-        this.status = Status.COMMAND;
-    }
-
-    public String welcome() {
-        return MESSAGE_GREETING;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Status getStatus() {
-        return this.status;
     }
 
     /**
@@ -74,8 +38,9 @@ public final class Ui extends Uii {
      * @param taskList A TaskList object that is passed to the processing methods that require them to correctly
      *                 process user input.
      */
+    @Override
     public String processInput(String input, TaskList taskList) {
-        switch(this.status) {
+        switch(getStatus()) {
         case COMMAND:
             return processCommand(input, taskList);
         case TASKTYPE:
@@ -93,7 +58,7 @@ public final class Ui extends Uii {
         case KEYWORD:
             return processKeyword(input, taskList);
         default:
-            colress.setCommandType("error");
+            setCommandType("error");
             return "There is an error. Try again.";
         }
     }
@@ -106,13 +71,14 @@ public final class Ui extends Uii {
      * @param taskList A TaskList object that is passed to the start method of the commands to allow the commands to
      *                 perform operations on the list of tasks.
      */
+    @Override
     public String processCommand(String input, TaskList taskList) {
         try {
             this.currCommand = parser.getCommand(input);
-            colress.setCommandType(currCommand.toString());
+            setCommandType(currCommand.toString());
             return currCommand.start(this, taskList);
         } catch (UnknownCommandException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return e.getMessage();
         }
     }
@@ -122,6 +88,7 @@ public final class Ui extends Uii {
      * for a keyword to find in the list of tasks.
      * If the given TaskList is empty, return an empty list message.
      */
+    @Override
     public String promptKeyword(TaskList taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
@@ -137,13 +104,14 @@ public final class Ui extends Uii {
      * @param input The user input.
      * @param taskList The TaskList to print the list of tasks from.
      */
+    @Override
     public String processKeyword(String input, TaskList taskList) {
         try {
             input = parser.getString(input);
             currCommand.initialise(input);
             return currCommand.execute(this, taskList);
         } catch (EmptyInputException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return e.getMessage();
         }
     }
@@ -152,6 +120,7 @@ public final class Ui extends Uii {
      * Sets status of the UI to expect a task type for the user's next input and returns a prompt to the user
      * for a task type to add to the list of tasks.
      */
+    @Override
     public String promptTaskType() {
         setStatus(Status.TASKTYPE);
         return PROMPT_TASK_TYPE;
@@ -163,13 +132,14 @@ public final class Ui extends Uii {
      * The method catches an IllegalArgumentException if user input is not a recognisable task type, and returns an
      * error message to the user.
      */
+    @Override
     public String processTaskType(String input) {
         try {
             TaskType result = parser.getTaskType(input);
             currCommand.initialise(result);
             return promptDescription(result);
         } catch (IllegalArgumentException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return new UnknownTaskTypeException().getMessage();
         }
     }
@@ -179,6 +149,7 @@ public final class Ui extends Uii {
      * for a description of the task to add to the list of tasks. The prompt returned depends on the type of task
      * to be added, indicated by the TaskType argument.
      */
+    @Override
     public String promptDescription(TaskType taskType) {
         setStatus(Status.DESCRIPTION);
         switch (taskType) {
@@ -200,6 +171,7 @@ public final class Ui extends Uii {
      * @param input The user input.
      * @param taskList The TaskList to add the task to.
      */
+    @Override
     public String processDescription(String input, TaskList taskList) {
         try {
             // A typecast is required here because not all command objects have the getTaskType method.
@@ -216,11 +188,11 @@ public final class Ui extends Uii {
             case DEADLINE, EVENT:
                 return promptDate(currTaskType, taskList);
             default:
-                colress.setCommandType("error");
+                setCommandType("error");
                 return "There is an error. Try again.";
             }
         } catch (EmptyInputException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return e.getMessage();
         }
     }
@@ -234,6 +206,7 @@ public final class Ui extends Uii {
      * @param taskType The type of the task to be added.
      * @param taskList The TaskList to add the task to.
      */
+    @Override
     public String promptDate(TaskType taskType, TaskList taskList) {
         if (currCommand instanceof DateCommand && taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
@@ -259,6 +232,7 @@ public final class Ui extends Uii {
      * @param input The user input.
      * @param taskList The TaskList to add the task to or print from.
      */
+    @Override
     public String processDate(String input, TaskList taskList) {
         LocalDate result;
         try {
@@ -270,7 +244,7 @@ public final class Ui extends Uii {
             }
             return currCommand.execute(this, taskList);
         } catch (DateTimeParseException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
     }
@@ -279,6 +253,7 @@ public final class Ui extends Uii {
      * Checks whether a start time or an end time is expected using the timeType argument and sets the status of the UI
      * to expect the right time. The corresponding prompt is then returned.
      */
+    @Override
     public String promptTime(String timeType) {
         if (timeType.equals("from")) {
             setStatus(Status.STARTTIME);
@@ -296,13 +271,14 @@ public final class Ui extends Uii {
      *
      * @param input The user input.
      */
+    @Override
     public String processStartTime(String input) {
         try {
             LocalTime result = parser.readTime(input);
             currCommand.initialise(result);
             return promptTime("to");
         } catch (DateTimeParseException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
     }
@@ -314,6 +290,7 @@ public final class Ui extends Uii {
      *
      * @param input The user input.
      */
+    @Override
     public String processEndTime(String input, TaskList taskList) {
         try {
             LocalTime result = parser.readTime(input);
@@ -327,10 +304,10 @@ public final class Ui extends Uii {
             currCommand.initialise(result);
             return currCommand.execute(this, taskList);
         } catch (EndTimeException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return e.getMessage();
         } catch (DateTimeParseException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
     }
@@ -339,6 +316,7 @@ public final class Ui extends Uii {
      * Prompts the user to enter the task number of the task to operate on, reads it using its Parser object
      * and returns it.
      */
+    @Override
     public String promptTaskNumber(TaskList taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
@@ -355,12 +333,13 @@ public final class Ui extends Uii {
      * @param input The user input.
      * @param taskList The TaskList to perform operations on.
      */
+    @Override
     public String processTaskNumber(String input, TaskList taskList) {
         try {
             int[] result = parser.getTaskNumber(input);
             for (int i: result) {
                 if (taskList.isOutOfBounds(i)) {
-                    colress.setCommandType("error");
+                    setCommandType("error");
                     return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
                 }
             }
@@ -368,7 +347,7 @@ public final class Ui extends Uii {
             currCommand.initialise(result);
             return currCommand.execute(this, taskList);
         } catch (NumberFormatException e) {
-            colress.setCommandType("error");
+            setCommandType("error");
             return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }
     }
@@ -377,50 +356,39 @@ public final class Ui extends Uii {
      * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
      * of tasks in the given TaskList.
      */
+    @Override
     public String printTasks(TaskList taskList) {
         setStatus(Status.COMMAND);
-        if (taskList.isEmpty()) {
-            return MESSAGE_LIST_EMPTY;
-        }
-
-        return taskList.retrieveTasks();
+        return super.printTasks(taskList);
     }
 
     /**
      * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
      * of tasks in the given TaskList that falls on the specified date.
      */
+    @Override
     public String printTasks(TaskList taskList, LocalDate date) {
         setStatus(Status.COMMAND);
-        if (taskList.isEmpty()) {
-            return MESSAGE_LIST_EMPTY;
-        }
-
-        String result = taskList.retrieveTasks(date);
-        return Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result;
+        return super.printTasks(taskList, date);
     }
 
     /**
      * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
      * of tasks in the given TaskList whose description contains the specified keyword.
      */
+    @Override
     public String printTasks(TaskList taskList, String keyword) {
         setStatus(Status.COMMAND);
-        if (taskList.isEmpty()) {
-            return MESSAGE_LIST_EMPTY;
-        }
-
-        String result = taskList.retrieveTasks(keyword);
-        return Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result;
+        return super.printTasks(taskList, keyword);
     }
 
     /**
      * Sets the status of the UI to expect a call to storage to write the modified task list to the task file.
      * Return the given message and the current list of tasks.
      */
+    @Override
     public String printConfirmationMessage(TaskList taskList, String message) {
-        String result = message + "\n\n" + printTasks(taskList);
         setStatus(Status.WRITE);
-        return result;
+        return super.printConfirmationMessage(taskList, message);
     }
 }

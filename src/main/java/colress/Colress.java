@@ -9,11 +9,12 @@ import colress.exception.FileCorruptedException;
  * Represents the Colress chatbot.
  */
 public final class Colress {
-    private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
+    private Ui ui;
     private String commandType;
     private boolean hasError;
+    private boolean isBeginnerMode;
 
     /**
      * Constructs Colress.
@@ -25,25 +26,13 @@ public final class Colress {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public Colress(String filePath) {
-        this.ui = new Ui(this);
+        this.ui = new UiAdvanced(this);
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
         this.commandType = "greet";
         this.hasError = false;
+        this.isBeginnerMode = false;
     }
-
-    /**
-     * Runs the Colress chatbot.
-     * The method first calls the Ui object to print a welcome message for the user.
-     * The method then calls the Storage object to load tasks from the text file.
-     * If the Storage object is unable to read a non-empty file and load the tasks, Colress will prompt the user to
-     * delete the corrupted file.
-     * The method then calls the Ui object to print the list of tasks for the user.
-     * The method contains a loop that checks whether an exit command has been called, and if so, exits the loop and
-     * the program.
-     * In the loop, Ui object processes the input, then the Storage object writes any changes to the list of tasks
-     * to the text file.
-     */
 
     public String greetUser() {
         return ui.welcome();
@@ -74,7 +63,7 @@ public final class Colress {
     public String getResponse(String input) {
         try {
             String result = ui.processInput(input, taskList);
-            if (ui.getStatus() == Status.WRITE) {
+            if (isBeginnerMode && ui.getStatus() == Status.WRITE) {
                 storage.writeToTaskFile(taskList);
                 ui.setStatus(Status.COMMAND);
             }
@@ -103,5 +92,11 @@ public final class Colress {
         } else {
             this.commandType = commandType;
         }
+    }
+
+    public boolean toggleMode() {
+        this.isBeginnerMode = !isBeginnerMode;
+        this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);
+        return isBeginnerMode;
     }
 }
