@@ -16,10 +16,15 @@ import colress.UiBeginner;
 public final class DateCommand extends ListCommand {
     public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
             + "Here's the correct format: date DATE";
-    public static final int EXPECTED_ARG_NUMBER = 2;
+    public static final int EXPECTED_ARG_NUMBER = 1;
     private LocalDate date;
+
     public DateCommand() {
         super();
+    }
+
+    public DateCommand(String[] arguments) {
+        super(arguments);
     }
 
     @Override
@@ -42,10 +47,11 @@ public final class DateCommand extends ListCommand {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
+        String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, MESSAGE_INVALID_FORMAT);
         try {
-            ui.parseDate(args[1]);
+            ui.parseDate(args[0]);
             return ui.printTasks(taskList, date);
         } catch (DateTimeParseException e) {
             ui.setCommandType("error");

@@ -16,10 +16,15 @@ import colress.UiBeginner;
 public final class UncheckCommand extends Command {
     public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
             + "Here's the correct format: uncheck NUMBERS";
-    public static final int EXPECTED_ARG_NUMBER = 2;
+    public static final int EXPECTED_ARG_NUMBER = 1;
     private int[] taskNumbers;
+
     public UncheckCommand() {
         super("Splendid! I have marked this task on your list as not done:");
+    }
+
+    public UncheckCommand(String[] arguments) {
+        super("Splendid! I have marked this task on your list as not done:", arguments);
     }
 
     @Override
@@ -52,10 +57,11 @@ public final class UncheckCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
+        String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, MESSAGE_INVALID_FORMAT);
         try {
-            ui.parseTaskNumbers(args[1], taskList);
+            ui.parseTaskNumbers(args[0], taskList);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.setCommandType("error");
             return Ui.MESSAGE_NOT_A_VALID_NUMBER_ERROR;

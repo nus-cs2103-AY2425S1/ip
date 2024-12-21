@@ -32,18 +32,17 @@ public final class UiAdvanced extends Ui {
      */
     @Override
     public String processInput(String input, TaskList taskList) {
-        String[] args = input.split(",");
         try {
-            parseCommand(args[0]);
+            parseCommand(input);
         } catch (UnknownCommandException e) {
             setCommandType("error");
             return e.getMessage();
         }
-        return currCommand.execute(this, taskList, args);
+        return currCommand.execute(this, taskList);
     }
 
     private void parseCommand(String input) throws UnknownCommandException {
-        this.currCommand = getParser().getCommand(input);
+        this.currCommand = getParser().parseCommand(input);
         setCommandType(currCommand.toString());
     }
 

@@ -3,6 +3,8 @@ package colress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import colress.command.AddCommand;
 import colress.command.CheckCommand;
@@ -56,6 +58,39 @@ public final class Parser {
             return new ListCommand();
         case COMMAND_UNCHECK:
             return new UncheckCommand();
+        case COMMAND_TOGGLE:
+            return new ToggleCommand();
+        default:
+            throw new UnknownCommandException();
+        }
+    }
+
+    /**
+     * Reads user input and returns the corresponding Command.
+     * Throws an UnknownCommandException if an invalid command is detected.
+     */
+    public Command parseCommand(String input) throws UnknownCommandException {
+        input = input.trim();
+        int whitespace = input.indexOf(" ");
+        String commandWord = input.substring(0, whitespace);
+        String[] arguments = input.substring(whitespace + 1).split(",");
+        switch (commandWord.toLowerCase()) {
+        case COMMAND_ADD:
+            return new AddCommand(arguments);
+        case COMMAND_CHECK:
+            return new CheckCommand(arguments);
+        case COMMAND_DATE:
+            return new DateCommand(arguments);
+        case COMMAND_DELETE:
+            return new DeleteCommand(arguments);
+        case COMMAND_EXIT:
+            return new ExitCommand();
+        case COMMAND_FIND:
+            return new FindCommand(arguments);
+        case COMMAND_LIST:
+            return new ListCommand();
+        case COMMAND_UNCHECK:
+            return new UncheckCommand(arguments);
         case COMMAND_TOGGLE:
             return new ToggleCommand();
         default:

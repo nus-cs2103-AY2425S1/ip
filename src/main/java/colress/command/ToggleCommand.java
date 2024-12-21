@@ -6,10 +6,12 @@ import java.time.LocalTime;
 import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
-import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 
+/**
+ * Represents the toggle command that toggles the mode of the program between Beginner and Advanced.
+ */
 public class ToggleCommand extends Command {
     public ToggleCommand() {
         super("Sure, I have toggled the mode to %s.");
@@ -30,7 +32,7 @@ public class ToggleCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
         return String.format(getSuccessfulExecutionMessage(), ui.toggleMode() ? "Beginner" : "Advanced");
     }
 

@@ -12,10 +12,15 @@ import colress.exception.EmptyInputException;
 public final class FindCommand extends ListCommand {
     public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
             + "Here's the correct format: find KEYWORD";
-    public static final int EXPECTED_ARG_NUMBER = 2;
+    public static final int EXPECTED_ARG_NUMBER = 1;
     private String keyword;
+
     public FindCommand() {
         super();
+    }
+
+    public FindCommand(String[] arguments) {
+        super(arguments);
     }
 
     @Override
@@ -38,10 +43,11 @@ public final class FindCommand extends ListCommand {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
+        String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, MESSAGE_INVALID_FORMAT);
         try {
-            ui.parseKeyword(args[1]);
+            ui.parseKeyword(args[0]);
             return ui.printTasks(taskList, keyword);
         } catch (EmptyInputException e) {
             ui.setCommandType("error");

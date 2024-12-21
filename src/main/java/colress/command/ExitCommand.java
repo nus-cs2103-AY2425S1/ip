@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
-import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import javafx.application.Platform;
@@ -15,6 +14,7 @@ import javafx.application.Platform;
  * Represents the exit command that exits the program.
  */
 public final class ExitCommand extends Command {
+
     public ExitCommand() {
         super("Well then, I hope to see you again sometime.");
     }
@@ -35,7 +35,7 @@ public final class ExitCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
         Platform.exit();
         return getSuccessfulExecutionMessage();
     }

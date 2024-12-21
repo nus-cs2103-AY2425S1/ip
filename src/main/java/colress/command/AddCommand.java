@@ -24,9 +24,9 @@ import colress.task.ToDo;
 public final class AddCommand extends Command {
     public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
             + "Here's the correct format: add TASK TYPE, DESCRIPTION, [DATE], [START TIME], [END TIME]";
-    public static final int EXPECTED_ARG_NUMBER_TODO = 3;
-    public static final int EXPECTED_ARG_NUMBER_DEADLINE = 4;
-    public static final int EXPECTED_ARG_NUMBER_EVENT = 6;
+    public static final int EXPECTED_ARG_NUMBER_TODO = 2;
+    public static final int EXPECTED_ARG_NUMBER_DEADLINE = 3;
+    public static final int EXPECTED_ARG_NUMBER_EVENT = 5;
     private TaskType taskType;
     private String description;
     private LocalDate date;
@@ -40,6 +40,15 @@ public final class AddCommand extends Command {
      */
     public AddCommand() {
         super("Splendid! I have added this task to your list:\n");
+        hasStartTime = false;
+    }
+
+    /**
+     * Constructs an AddCommand with the given successfulExecutionMessage and arguments. The AddCommand field has
+     * no start time field to begin with by default
+     */
+    public AddCommand(String[] arguments) {
+        super("Splendid! I have added this task to your list:\n", arguments);
         hasStartTime = false;
     }
 
@@ -102,22 +111,23 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
+        String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_TODO, MESSAGE_INVALID_FORMAT);
         Task task;
         try {
-            ui.parseTaskType(args[1]);
-            ui.parseDescription(args[2]);
+            ui.parseTaskType(args[0]);
+            ui.parseDescription(args[1]);
             switch (taskType) {
             case DEADLINE:
                 checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_DEADLINE, MESSAGE_INVALID_FORMAT);
-                ui.parseDate(args[3]);
+                ui.parseDate(args[2]);
                 task = new Deadline(description, date);
                 break;
             case EVENT:
                 checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_EVENT, MESSAGE_INVALID_FORMAT);
-                ui.parseStartTime(args[4]);
-                ui.parseEndTime(args[5]);
+                ui.parseStartTime(args[3]);
+                ui.parseEndTime(args[4]);
                 task = new Event(description, date, startTime, endTime);
                 break;
             default:

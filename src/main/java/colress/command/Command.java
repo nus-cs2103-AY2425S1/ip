@@ -14,15 +14,31 @@ import colress.exception.InvalidCommandFormatException;
  */
 public abstract class Command {
     private final String successfulExecutionMessage;
+    private String[] arguments;
 
     public Command(String successfulExecutionMessage) {
         this.successfulExecutionMessage = successfulExecutionMessage;
+    }
+
+    /**
+     * Constructs a command with its arguments.
+     */
+    public Command(String successfulExecutionMessage, String[] arguments) {
+        this.successfulExecutionMessage = successfulExecutionMessage;
+        this.arguments = arguments;
     }
 
     public String getSuccessfulExecutionMessage() {
         return successfulExecutionMessage;
     }
 
+    public String[] getArguments() {
+        return arguments;
+    }
+
+    /**
+     * Checks if the number of arguments supplied to the command is valid.
+     */
     public void checkNumberOfArgs(String[] args, int expectedArgNumber, String invalidCommandFormatMessage)
             throws InvalidCommandFormatException {
         if (args.length != expectedArgNumber) {
@@ -38,5 +54,5 @@ public abstract class Command {
     public abstract void initialise(LocalTime input);
 
     public abstract String execute(UiBeginner ui, TaskList taskList);
-    public abstract String execute(UiAdvanced ui, TaskList taskList, String[] arguments);
+    public abstract String execute(UiAdvanced ui, TaskList taskList);
 }

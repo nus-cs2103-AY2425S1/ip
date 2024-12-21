@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
-import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 
@@ -16,6 +15,10 @@ import colress.UiBeginner;
 public class ListCommand extends Command {
     public ListCommand() {
         super("");
+    }
+
+    public ListCommand(String[] arguments) {
+        super("", arguments);
     }
 
     @Override
@@ -33,7 +36,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList, String[] args) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
         return ui.printTasks(taskList);
     }
 
