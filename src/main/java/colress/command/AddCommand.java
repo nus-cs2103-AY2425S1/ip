@@ -115,7 +115,7 @@ public final class AddCommand extends Command {
         String[] args = getArguments();
         Task task;
         try {
-            checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_TODO, COMMAND_FORMAT);
+            checkMinimumNumberOfArgs(args, EXPECTED_ARG_NUMBER_TODO, COMMAND_FORMAT);
             ui.parseTaskType(args[0]);
             ui.parseDescription(args[1]);
             switch (taskType) {
@@ -126,6 +126,7 @@ public final class AddCommand extends Command {
                 break;
             case EVENT:
                 checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_EVENT, COMMAND_FORMAT);
+                ui.parseDate(args[2]);
                 ui.parseStartTime(args[3]);
                 ui.parseEndTime(args[4]);
                 task = new Event(description, date, startTime, endTime);
@@ -143,6 +144,13 @@ public final class AddCommand extends Command {
         }
         return ui.printConfirmationMessage(taskList,
                 getSuccessfulExecutionMessage() + taskList.addTask(task));
+    }
+
+    private void checkMinimumNumberOfArgs(String[] args, int expectedArgNumber, String commandFormat)
+            throws InvalidCommandFormatException {
+        if (args.length < expectedArgNumber) {
+            throw new InvalidCommandFormatException(String.format(MESSAGE_INVALID_FORMAT, commandFormat));
+        }
     }
 
     @Override
