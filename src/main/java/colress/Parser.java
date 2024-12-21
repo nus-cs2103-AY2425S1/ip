@@ -3,8 +3,6 @@ package colress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import colress.command.AddCommand;
 import colress.command.CheckCommand;
@@ -72,8 +70,17 @@ public final class Parser {
     public Command parseCommand(String input) throws UnknownCommandException {
         input = input.trim();
         int whitespace = input.indexOf(" ");
-        String commandWord = input.substring(0, whitespace);
-        String[] arguments = input.substring(whitespace + 1).split(",");
+        String commandWord;
+        String[] arguments;
+
+        if (whitespace == -1) {
+            commandWord = input;
+            arguments = null;
+        } else {
+            commandWord = input.substring(0, whitespace);
+            arguments = input.substring(whitespace + 1).split(",");
+        }
+
         switch (commandWord.toLowerCase()) {
         case COMMAND_ADD:
             return new AddCommand(arguments);

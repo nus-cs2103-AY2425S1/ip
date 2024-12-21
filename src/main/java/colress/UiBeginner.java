@@ -332,16 +332,6 @@ public final class UiBeginner extends Ui {
 
     /**
      * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
-     * of tasks in the given TaskList.
-     */
-    @Override
-    public String printTasks(TaskList taskList) {
-        setStatus(Status.COMMAND);
-        return super.printTasks(taskList);
-    }
-
-    /**
-     * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
      * of tasks in the given TaskList that falls on the specified date.
      */
     @Override
@@ -358,15 +348,5 @@ public final class UiBeginner extends Ui {
     public String printTasks(TaskList taskList, String keyword) {
         setStatus(Status.COMMAND);
         return super.printTasks(taskList, keyword);
-    }
-
-    /**
-     * Sets the status of the UI to expect a call to storage to write the modified task list to the task file.
-     * Return the given message and the current list of tasks.
-     */
-    @Override
-    public String printConfirmationMessage(TaskList taskList, String message) {
-        setStatus(Status.WRITE);
-        return super.printConfirmationMessage(taskList, message);
     }
 }

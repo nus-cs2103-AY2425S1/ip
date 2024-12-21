@@ -105,9 +105,11 @@ public abstract class Ui {
     }
 
     /**
+     * Sets the status of the UI to expect a call to storage to write the modified task list to the task file.
      * Return the given message and the current list of tasks.
      */
     public String printConfirmationMessage(TaskList taskList, String message) {
+        setStatus(Status.WRITE);
         return message + "\n\n" + printTasks(taskList);
     }
 
