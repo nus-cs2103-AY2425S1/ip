@@ -12,6 +12,7 @@ import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
+import colress.exception.InvalidCommandFormatException;
 import colress.exception.UnknownTaskTypeException;
 import colress.task.Deadline;
 import colress.task.Event;
@@ -22,8 +23,7 @@ import colress.task.ToDo;
  * Represents the add command that add a task to the list of tasks.
  */
 public final class AddCommand extends Command {
-    public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
-            + "Here's the correct format: add TASK TYPE, DESCRIPTION, [DATE], [START TIME], [END TIME]";
+    public static final String COMMAND_FORMAT = "add TASK TYPE, DESCRIPTION, [DATE], [START TIME], [END TIME]";
     public static final int EXPECTED_ARG_NUMBER_TODO = 2;
     public static final int EXPECTED_ARG_NUMBER_DEADLINE = 3;
     public static final int EXPECTED_ARG_NUMBER_EVENT = 5;
@@ -113,19 +113,19 @@ public final class AddCommand extends Command {
     @Override
     public String execute(UiAdvanced ui, TaskList taskList) {
         String[] args = getArguments();
-        checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_TODO, MESSAGE_INVALID_FORMAT);
         Task task;
         try {
+            checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_TODO, COMMAND_FORMAT);
             ui.parseTaskType(args[0]);
             ui.parseDescription(args[1]);
             switch (taskType) {
             case DEADLINE:
-                checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_DEADLINE, MESSAGE_INVALID_FORMAT);
+                checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_DEADLINE, COMMAND_FORMAT);
                 ui.parseDate(args[2]);
                 task = new Deadline(description, date);
                 break;
             case EVENT:
-                checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_EVENT, MESSAGE_INVALID_FORMAT);
+                checkNumberOfArgs(args, EXPECTED_ARG_NUMBER_EVENT, COMMAND_FORMAT);
                 ui.parseStartTime(args[3]);
                 ui.parseEndTime(args[4]);
                 task = new Event(description, date, startTime, endTime);
@@ -134,7 +134,7 @@ public final class AddCommand extends Command {
                 assert taskType == TaskType.TODO;
                 task = new ToDo(description);
             }
-        } catch (UnknownTaskTypeException | EmptyInputException | EndTimeException e) {
+        } catch (InvalidCommandFormatException | UnknownTaskTypeException | EmptyInputException | EndTimeException e) {
             ui.setCommandType("error");
             return e.getMessage();
         } catch (DateTimeParseException e) {

@@ -14,8 +14,7 @@ import colress.UiBeginner;
  * Represents the date command that prints tasks from the list of tasks that fall on a specific date.
  */
 public final class DateCommand extends ListCommand {
-    public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
-            + "Here's the correct format: date DATE";
+    public static final String COMMAND_FORMAT = "date DATE";
     public static final int EXPECTED_ARG_NUMBER = 1;
     private LocalDate date;
 
@@ -49,7 +48,7 @@ public final class DateCommand extends ListCommand {
     @Override
     public String execute(UiAdvanced ui, TaskList taskList) {
         String[] args = getArguments();
-        checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, MESSAGE_INVALID_FORMAT);
+        checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {
             ui.parseDate(args[0]);
             return ui.printTasks(taskList, date);

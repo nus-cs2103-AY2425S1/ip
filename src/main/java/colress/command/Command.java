@@ -13,6 +13,8 @@ import colress.exception.InvalidCommandFormatException;
  * Encapsulates the behaviour of a command.
  */
 public abstract class Command {
+    public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!\n"
+            + "Here's the correct format: %s";
     private final String successfulExecutionMessage;
     private String[] arguments;
 
@@ -39,10 +41,10 @@ public abstract class Command {
     /**
      * Checks if the number of arguments supplied to the command is valid.
      */
-    public void checkNumberOfArgs(String[] args, int expectedArgNumber, String invalidCommandFormatMessage)
+    public void checkNumberOfArgs(String[] args, int expectedArgNumber, String commandFormat)
             throws InvalidCommandFormatException {
         if (args.length != expectedArgNumber) {
-            throw new InvalidCommandFormatException(invalidCommandFormatMessage);
+            throw new InvalidCommandFormatException(String.format(MESSAGE_INVALID_FORMAT, commandFormat));
         }
     }
 

@@ -14,8 +14,7 @@ import colress.UiBeginner;
  * Represents the delete command that removes a task from the list of tasks.
  */
 public final class DeleteCommand extends Command {
-    public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!"
-            + "Here's the correct format: delete NUMBERS";
+    public static final String COMMAND_FORMAT = "delete NUMBERS";
     public static final int EXPECTED_ARG_NUMBER = 1;
     private int[] taskNumbers;
 
@@ -58,7 +57,7 @@ public final class DeleteCommand extends Command {
     @Override
     public String execute(UiAdvanced ui, TaskList taskList) {
         String[] args = getArguments();
-        checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, MESSAGE_INVALID_FORMAT);
+        checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {
             ui.parseTaskNumbers(args[0], taskList);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
