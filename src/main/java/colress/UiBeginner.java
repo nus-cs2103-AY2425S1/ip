@@ -18,16 +18,10 @@ import colress.exception.UnknownTaskTypeException;
  */
 public final class UiBeginner extends Ui {
 
-    private final Parser parser;
     private Command currCommand;
 
-    /**
-     * Constructs Ui for Beginner mode.
-     * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
-     */
     public UiBeginner(Colress colress) {
         super(colress);
-        this.parser = new Parser();
     }
 
     /**
@@ -69,10 +63,9 @@ public final class UiBeginner extends Ui {
      * @param taskList A TaskList object that is passed to the start method of the commands to allow the commands to
      *                 perform operations on the list of tasks.
      */
-    @Override
     public String processCommand(String input, TaskList taskList) {
         try {
-            this.currCommand = parser.getCommand(input);
+            this.currCommand = getParser().getCommand(input);
             setCommandType(currCommand.toString());
             return currCommand.start(this, taskList);
         } catch (UnknownCommandException e) {
@@ -86,7 +79,6 @@ public final class UiBeginner extends Ui {
      * for a keyword to find in the list of tasks.
      * If the given TaskList is empty, return an empty list message.
      */
-    @Override
     public String promptKeyword(TaskList taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
@@ -102,10 +94,9 @@ public final class UiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to print the list of tasks from.
      */
-    @Override
     public String processKeyword(String input, TaskList taskList) {
         try {
-            input = parser.getString(input);
+            input = getParser().getString(input);
             currCommand.initialise(input);
             return currCommand.execute(this, taskList);
         } catch (EmptyInputException e) {
@@ -118,7 +109,6 @@ public final class UiBeginner extends Ui {
      * Sets status of the UI to expect a task type for the user's next input and returns a prompt to the user
      * for a task type to add to the list of tasks.
      */
-    @Override
     public String promptTaskType() {
         setStatus(Status.TASKTYPE);
         return PROMPT_TASK_TYPE;
@@ -130,10 +120,9 @@ public final class UiBeginner extends Ui {
      * The method catches an IllegalArgumentException if user input is not a recognisable task type, and returns an
      * error message to the user.
      */
-    @Override
     public String processTaskType(String input) {
         try {
-            TaskType result = parser.getTaskType(input);
+            TaskType result = getParser().getTaskType(input);
             currCommand.initialise(result);
             return promptDescription(result);
         } catch (IllegalArgumentException e) {
@@ -147,7 +136,6 @@ public final class UiBeginner extends Ui {
      * for a description of the task to add to the list of tasks. The prompt returned depends on the type of task
      * to be added, indicated by the TaskType argument.
      */
-    @Override
     public String promptDescription(TaskType taskType) {
         setStatus(Status.DESCRIPTION);
         switch (taskType) {
@@ -169,7 +157,6 @@ public final class UiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to add the task to.
      */
-    @Override
     public String processDescription(String input, TaskList taskList) {
         try {
             // A typecast is required here because not all command objects have the getTaskType method.
@@ -177,7 +164,7 @@ public final class UiBeginner extends Ui {
             // Therefore, this is a safe typecast.
             assert currCommand instanceof AddCommand : "Current Command should be an AddCommand";
             AddCommand c = (AddCommand) currCommand;
-            input = parser.getString(input);
+            input = getParser().getString(input);
             c.initialise(input);
             TaskType currTaskType = c.getTaskType();
             switch (currTaskType) {
@@ -204,7 +191,6 @@ public final class UiBeginner extends Ui {
      * @param taskType The type of the task to be added.
      * @param taskList The TaskList to add the task to.
      */
-    @Override
     public String promptDate(TaskType taskType, TaskList taskList) {
         if (currCommand instanceof DateCommand && taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
@@ -230,11 +216,10 @@ public final class UiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to add the task to or print from.
      */
-    @Override
     public String processDate(String input, TaskList taskList) {
         LocalDate result;
         try {
-            result = parser.readDate(input);
+            result = getParser().readDate(input);
             currCommand.initialise(result);
 
             if (currCommand instanceof AddCommand && ((AddCommand) currCommand).getTaskType() == TaskType.EVENT) {
@@ -251,7 +236,6 @@ public final class UiBeginner extends Ui {
      * Checks whether a start time or an end time is expected using the timeType argument and sets the status of the UI
      * to expect the right time. The corresponding prompt is then returned.
      */
-    @Override
     public String promptTime(String timeType) {
         if (timeType.equals("from")) {
             setStatus(Status.STARTTIME);
@@ -269,10 +253,9 @@ public final class UiBeginner extends Ui {
      *
      * @param input The user input.
      */
-    @Override
     public String processStartTime(String input) {
         try {
-            LocalTime result = parser.readTime(input);
+            LocalTime result = getParser().readTime(input);
             currCommand.initialise(result);
             return promptTime("to");
         } catch (DateTimeParseException e) {
@@ -288,15 +271,14 @@ public final class UiBeginner extends Ui {
      *
      * @param input The user input.
      */
-    @Override
     public String processEndTime(String input, TaskList taskList) {
         try {
-            LocalTime result = parser.readTime(input);
+            LocalTime result = getParser().readTime(input);
             // A typecast is required here because not all command objects have the getTaskType method.
             // The only command that will lead to this method being called is the AddCommand command.
             // Therefore, this is a safe typecast.
             AddCommand c = (AddCommand) currCommand;
-            if (!c.isValidEndTime(result)) {
+            if (c.isInvalidEndTime(result)) {
                 throw new EndTimeException();
             }
             currCommand.initialise(result);
@@ -314,7 +296,6 @@ public final class UiBeginner extends Ui {
      * Prompts the user to enter the task number of the task to operate on, reads it using its Parser object
      * and returns it.
      */
-    @Override
     public String promptTaskNumber(TaskList taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
@@ -331,10 +312,9 @@ public final class UiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to perform operations on.
      */
-    @Override
     public String processTaskNumber(String input, TaskList taskList) {
         try {
-            int[] result = parser.getTaskNumber(input);
+            int[] result = getParser().getTaskNumber(input);
             for (int i: result) {
                 if (taskList.isOutOfBounds(i)) {
                     setCommandType("error");

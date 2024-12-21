@@ -30,14 +30,17 @@ public abstract class Ui {
     public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
 
     private final Colress colress;
+    private final Parser parser;
     private Status status;
 
     /**
      * Instantiates colress and status field of Ui.
+     * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object has a status field which is an indication of what type of input is being expected from the user.
      */
     public Ui(Colress colress) {
         this.colress = colress;
+        this.parser = new Parser();
         this.status = Status.COMMAND;
     }
 
@@ -47,6 +50,10 @@ public abstract class Ui {
 
     public Colress getColress() {
         return colress;
+    }
+
+    public Parser getParser() {
+        return parser;
     }
 
     public void setStatus(Status status) {
@@ -109,18 +116,4 @@ public abstract class Ui {
     }
 
     public abstract String processInput(String input, TaskList taskList);
-    public abstract String processCommand(String input, TaskList taskList);
-    public abstract String promptKeyword(TaskList taskList);
-    public abstract String processKeyword(String input, TaskList taskList);
-    public abstract String promptTaskType();
-    public abstract String processTaskType(String input);
-    public abstract String promptDescription(TaskType taskType);
-    public abstract String processDescription(String input, TaskList taskList);
-    public abstract String promptDate(TaskType taskType, TaskList taskList);
-    public abstract String processDate(String input, TaskList taskList);
-    public abstract String promptTime(String timeType);
-    public abstract String processStartTime(String timeType);
-    public abstract String processEndTime(String timeType, TaskList taskList);
-    public abstract String promptTaskNumber(TaskList taskList);
-    public abstract String processTaskNumber(String input, TaskList taskList);
 }
