@@ -3,6 +3,8 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Objects;
 
 import colress.Parser;
 import colress.TaskList;
@@ -49,6 +51,20 @@ public final class AddCommand extends Command {
      */
     public AddCommand(String[] arguments) {
         super("Splendid! I have added this task to your list:\n", arguments);
+        hasStartTime = false;
+    }
+
+    /**
+     * Constructs an AddCommand with the given fields.
+     */
+    public AddCommand(String[] arguments, TaskType taskType, String description,
+                      LocalDate date, LocalTime startTime, LocalTime endTime) {
+        super("Splendid! I have added this task to your list:\n", arguments);
+        this.taskType = taskType;
+        this.description = description;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         hasStartTime = false;
     }
 
@@ -153,12 +169,31 @@ public final class AddCommand extends Command {
         }
     }
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
     @Override
     public String toString() {
         return Parser.COMMAND_ADD;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AddCommand)) {
+            return false;
+        }
+
+        AddCommand otherAddCommand = (AddCommand) other;
+        return Arrays.equals(getArguments(), otherAddCommand.getArguments())
+                && Objects.equals(taskType, otherAddCommand.taskType)
+                && Objects.equals(description, otherAddCommand.description)
+                && Objects.equals(date, otherAddCommand.date)
+                && Objects.equals(startTime, otherAddCommand.startTime)
+                && Objects.equals(endTime, otherAddCommand.endTime);
     }
 }
