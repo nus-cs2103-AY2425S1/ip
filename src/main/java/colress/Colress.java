@@ -63,7 +63,7 @@ public final class Colress {
     public String getResponse(String input) {
         try {
             String result = ui.processInput(input, taskList);
-            if (isBeginnerMode && ui.getStatus() == Status.WRITE) {
+            if (ui.getStatus() == Status.WRITE) {
                 storage.writeToTaskFile(taskList);
                 ui.setStatus(Status.COMMAND);
             }
@@ -94,6 +94,9 @@ public final class Colress {
         }
     }
 
+    /**
+     * Toggles between Beginner and Advanced modes for command input.
+     */
     public boolean toggleMode() {
         this.isBeginnerMode = !isBeginnerMode;
         this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);

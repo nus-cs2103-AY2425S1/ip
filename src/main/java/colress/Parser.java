@@ -30,6 +30,7 @@ public final class Parser {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_TOGGLE = "toggle";
     public static final String COMMAND_UNCHECK = "uncheck";
+
     public Parser() {}
 
     /**
@@ -37,6 +38,7 @@ public final class Parser {
      * Throws an UnknownCommandException if an invalid command is detected.
      */
     public Command getCommand(String input) throws UnknownCommandException {
+        input = input.trim();
         switch (input.toLowerCase()) {
         case COMMAND_ADD:
             return new AddCommand();
@@ -62,10 +64,53 @@ public final class Parser {
     }
 
     /**
+     * Reads user input and returns the corresponding Command.
+     * Throws an UnknownCommandException if an invalid command is detected.
+     */
+    public Command parseCommand(String input) throws UnknownCommandException {
+        input = input.trim();
+        int whitespace = input.indexOf(" ");
+        String commandWord;
+        String[] arguments;
+
+        if (whitespace == -1) {
+            commandWord = input;
+            arguments = null;
+        } else {
+            commandWord = input.substring(0, whitespace);
+            arguments = input.substring(whitespace + 1).split(",");
+        }
+
+        switch (commandWord.toLowerCase()) {
+        case COMMAND_ADD:
+            return new AddCommand(arguments);
+        case COMMAND_CHECK:
+            return new CheckCommand(arguments);
+        case COMMAND_DATE:
+            return new DateCommand(arguments);
+        case COMMAND_DELETE:
+            return new DeleteCommand(arguments);
+        case COMMAND_EXIT:
+            return new ExitCommand();
+        case COMMAND_FIND:
+            return new FindCommand(arguments);
+        case COMMAND_LIST:
+            return new ListCommand();
+        case COMMAND_UNCHECK:
+            return new UncheckCommand(arguments);
+        case COMMAND_TOGGLE:
+            return new ToggleCommand();
+        default:
+            throw new UnknownCommandException();
+        }
+    }
+
+    /**
      * Takes an input and returns the corresponding task type.
      * Throws an UnknownTaskTypeException if an invalid task type is detected.
      */
     public TaskType getTaskType(String input) throws IllegalArgumentException {
+        input = input.trim();
         return TaskType.valueOf(input.toUpperCase());
     }
 
@@ -74,6 +119,7 @@ public final class Parser {
      * Throws a DateTimeParseException if an invalid task type is detected.
      */
     public LocalDate readDate(String input) throws DateTimeParseException {
+        input = input.trim();
         return LocalDate.parse(input);
     }
 
@@ -82,6 +128,7 @@ public final class Parser {
      * Throws a DateTimeParseException if an invalid task type is detected.
      */
     public LocalTime readTime(String input) throws DateTimeParseException {
+        input = input.trim();
         return LocalTime.parse(input);
     }
 
@@ -90,6 +137,7 @@ public final class Parser {
      * Throws a NumberFormatException if a number is not detected.
      */
     public int[] getTaskNumber(String input) throws NumberFormatException {
+        input = input.trim();
         String[] inputs = input.split(" ");
         int[] result = new int[inputs.length];
         for (int i = 0; i < inputs.length; i++) {
@@ -99,6 +147,7 @@ public final class Parser {
     }
 
     public String getString(String input) throws EmptyInputException {
+        input = input.trim();
         if (input.isEmpty()) {
             throw new EmptyInputException();
         }
