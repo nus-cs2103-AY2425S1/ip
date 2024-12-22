@@ -51,46 +51,60 @@ import colress.exception.EmptyInputException;
 import colress.exception.UnknownCommandException;
 
 public class ParserTest {
+    private final Parser parser = new Parser();
+
     @Test
-    public void getCommandTest() throws UnknownCommandException {
-        Parser parser = new Parser();
-
-        // AddCommand
+    public void getCommand_validAddCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_ADD), new AddCommand());
+    }
 
-        // CheckCommand
+    @Test
+    public void getCommand_validCheckCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_CHECK), new CheckCommand());
+    }
 
-        // DateCommand
+    @Test
+    public void getCommand_validDateCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_DATE), new DateCommand());
+    }
 
-        // DeleteCommand
+    @Test
+    public void getCommand_validDeleteCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_DELETE), new DeleteCommand());
+    }
 
-        // ExitCommand
+    @Test
+    public void getCommand_validExitCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_EXIT), new ExitCommand());
+    }
 
-        // FindCommand
+    @Test
+    public void getCommand_validFindCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_FIND), new FindCommand());
+    }
 
-        // ListCommand
+    @Test
+    public void getCommand_validListCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_LIST), new ListCommand());
+    }
 
-        // ToggleCommand
+    @Test
+    public void getCommand_validToggleCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_TOGGLE), new ToggleCommand());
+    }
 
-        // UncheckCommand
+    @Test
+    public void getCommand_validUncheckCommand_success() throws UnknownCommandException {
         assertEquals(parser.getCommand(VALID_COMMAND_UNCHECK), new UncheckCommand());
+    }
 
-        // Unknown command
+    @Test
+    public void getCommand_unknownCommand_exceptionThrown() {
         assertThrows(UnknownCommandException.class, () -> parser.getCommand(INVALID_COMMAND));
     }
 
     @Test
-    public void parseCommandTest() throws UnknownCommandException {
-        Parser parser = new Parser();
-
-        // AddCommand
+    public void parseCommand_validAddCommand_success() throws UnknownCommandException {
         // To-Do
         assertEquals(parser.parseCommand(VALID_COMMAND_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_TODO
                         + DELIMITER + VALID_DESCRIPTION_ONE),
@@ -104,120 +118,149 @@ public class ParserTest {
 
         // Event
         assertEquals(parser.parseCommand(VALID_COMMAND_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_EVENT
-                + DELIMITER + VALID_DESCRIPTION_ONE + DELIMITER + VALID_DATE_ARGUMENT_ONE + DELIMITER
+                        + DELIMITER + VALID_DESCRIPTION_ONE + DELIMITER + VALID_DATE_ARGUMENT_ONE + DELIMITER
                         + VALID_FROM_TIME_ARGUMENT_ONE + DELIMITER + VALID_TO_TIME_ARGUMENT_ONE),
                 new AddCommand(new String[]{VALID_TASK_TYPE_ARGUMENT_EVENT, VALID_DESCRIPTION_ONE,
                     VALID_DATE_ARGUMENT_ONE, VALID_FROM_TIME_ARGUMENT_ONE, VALID_TO_TIME_ARGUMENT_ONE}));
+    }
 
-        // CheckCommand
+    @Test
+    public void parseCommand_validCheckCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_CHECK + WHITESPACE + VALID_TASK_NUMBERS_ARGUMENT_ONE),
                 new CheckCommand(new String[]{VALID_TASK_NUMBERS_ARGUMENT_ONE}));
+    }
 
-        // DateCommand
+    @Test
+    public void parseCommand_validDateCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_DATE + WHITESPACE + VALID_DATE_ARGUMENT_ONE),
                 new DateCommand(new String[]{VALID_DATE_ARGUMENT_ONE}));
+    }
 
-        // DeleteCommand
+    @Test
+    public void parseCommand_validDeleteCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_DELETE + WHITESPACE + VALID_TASK_NUMBERS_ARGUMENT_ONE),
                 new DeleteCommand(new String[]{VALID_TASK_NUMBERS_ARGUMENT_ONE}));
+    }
 
-        // ExitCommand
+    @Test
+    public void parseCommand_validExitCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_EXIT), new ExitCommand());
+    }
 
-        // FindCommand
+    @Test
+    public void parseCommand_validFindCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_FIND + WHITESPACE + VALID_KEYWORD_ONE),
                 new FindCommand(new String[]{VALID_KEYWORD_ONE}));
+    }
 
-        // ListCommand
+    @Test
+    public void parseCommand_validListCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_LIST), new ListCommand());
+    }
 
-        // ToggleCommand
+    @Test
+    public void parseCommand_validToggleCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_TOGGLE), new ToggleCommand());
+    }
 
-        // UncheckCommand
+    @Test
+    public void parseCommand_validUncheckCommand_success() throws UnknownCommandException {
         assertEquals(parser.parseCommand(VALID_COMMAND_UNCHECK + WHITESPACE + VALID_TASK_NUMBERS_ARGUMENT_ONE),
                 new UncheckCommand(new String[]{VALID_TASK_NUMBERS_ARGUMENT_ONE}));
+    }
 
-        // Unknown command
+    @Test
+    public void parseCommand_unknownCommand_exceptionThrown() {
         assertThrows(UnknownCommandException.class, () -> parser.parseCommand(INVALID_COMMAND));
     }
 
     @Test
-    public void getTaskTypeTest() throws IllegalArgumentException {
-        Parser parser = new Parser();
-
-        // To-Do
+    public void getTaskType_validToDoArgument_success() throws IllegalArgumentException {
         assertEquals(parser.getTaskType(VALID_TASK_TYPE_ARGUMENT_TODO), TaskType.TODO);
+    }
 
-        // Deadline
+    @Test
+    public void getTaskType_validDeadlineArgument_success() throws IllegalArgumentException {
         assertEquals(parser.getTaskType(VALID_TASK_TYPE_ARGUMENT_DEADLINE), TaskType.DEADLINE);
+    }
 
-        // Event
+    @Test
+    public void getTaskType_validEventArgument_success() throws IllegalArgumentException {
         assertEquals(parser.getTaskType(VALID_TASK_TYPE_ARGUMENT_EVENT), TaskType.EVENT);
+    }
 
-        // empty input
+    @Test
+    public void getTaskType_emptyInput_exceptionThrown() throws IllegalArgumentException {
         assertThrows(IllegalArgumentException.class, () -> parser.getTaskType(""));
+    }
 
-        // Invalid input
+    @Test
+    public void getTaskType_invalidInput_exceptionThrown() throws IllegalArgumentException {
         assertThrows(IllegalArgumentException.class, () -> parser.getTaskType(INVALID_TASK_TYPE_ARGUMENT));
     }
 
     @Test
-    public void readDateTest() throws DateTimeParseException {
-        Parser parser = new Parser();
-
-        // valid input
+    public void readDate_validInput_success() throws DateTimeParseException {
         assertEquals(parser.readDate(VALID_DATE_ARGUMENT_ONE), VALID_DATE_ONE);
+    }
 
-        // valid input with whitespaces
+    @Test
+    public void readDate_validInputWithWhitespaces_success() throws DateTimeParseException {
         assertEquals(parser.readDate(WHITESPACE + VALID_DATE_ARGUMENT_ONE + WHITESPACE), VALID_DATE_ONE);
+    }
 
-        // invalid input
+    @Test
+    public void readDate_invalidInput_exceptionThrown() throws DateTimeParseException {
         assertThrows(DateTimeParseException.class, () -> parser.readDate(INVALID_DATE_ARGUMENT));
     }
 
     @Test
-    public void readTimeTest() throws DateTimeParseException {
-        Parser parser = new Parser();
-
-        // valid input
+    public void readTime_validInput_success() throws DateTimeParseException {
         assertEquals(parser.readTime(VALID_TO_TIME_ARGUMENT_ONE), VALID_TO_TIME_ONE);
+    }
 
-        // valid input with whitespaces
+    @Test
+    public void readTime_validInputWithWhitespaces_success() throws DateTimeParseException {
         assertEquals(parser.readTime(WHITESPACE + VALID_TO_TIME_ARGUMENT_ONE + WHITESPACE), VALID_TO_TIME_ONE);
+    }
 
-        // invalid input
+    @Test
+    public void readTime_invalidInput_exceptionThrown() throws DateTimeParseException {
         assertThrows(DateTimeParseException.class, () -> parser.readTime(INVALID_TIME_ARGUMENT));
     }
 
     @Test
-    public void getTaskNumberTest() throws NumberFormatException {
-        Parser parser = new Parser();
-
-        // one valid input
+    public void getTaskNumber_oneValidInput_success() throws NumberFormatException {
         assertArrayEquals(parser.getTaskNumber(VALID_TASK_NUMBERS_ARGUMENT_TWO), VALID_TASK_NUMBERS_TWO);
+    }
 
-        // multiple valid inputs
+    @Test
+    public void getTaskNumber_multipleValidInputs_success() throws NumberFormatException {
         assertArrayEquals(parser.getTaskNumber(VALID_TASK_NUMBERS_ARGUMENT_ONE), VALID_TASK_NUMBERS_ONE);
+    }
 
-        // invalid input
+    @Test
+    public void getTaskNumber_invalidInput_exceptionThrown() throws NumberFormatException {
         assertThrows(NumberFormatException.class, () -> parser.getTaskNumber(INVALID_TASK_NUMBERS_ARGUMENT));
+    }
 
-        // empty input
+    @Test
+    public void getTaskNumber_emptyInput_exceptionThrown() throws NumberFormatException {
         assertThrows(NumberFormatException.class, () -> parser.getTaskNumber(""));
     }
 
     @Test
-    public void getStringTest() throws EmptyInputException {
-        Parser parser = new Parser();
-
-        // valid input
+    public void getString_validInput_success() throws EmptyInputException {
         assertEquals(parser.getString(VALID_KEYWORD_ONE), VALID_KEYWORD_ONE);
+    }
 
-        // valid input with whitespaces
+    @Test
+    public void getString_validInputWithWhitespaces_success() throws EmptyInputException {
         assertEquals(parser.getString(WHITESPACE + VALID_KEYWORD_ONE + WHITESPACE), VALID_KEYWORD_ONE);
+    }
 
-        // empty input
+    @Test
+    public void getString_emptyInput_exceptionThrown() {
         assertThrows(EmptyInputException.class, () -> parser.getString(""));
     }
 }
