@@ -54,10 +54,10 @@ public final class Parser {
             return new FindCommand();
         case COMMAND_LIST:
             return new ListCommand();
-        case COMMAND_UNCHECK:
-            return new UncheckCommand();
         case COMMAND_TOGGLE:
             return new ToggleCommand();
+        case COMMAND_UNCHECK:
+            return new UncheckCommand();
         default:
             throw new UnknownCommandException();
         }
@@ -96,10 +96,10 @@ public final class Parser {
             return new FindCommand(arguments);
         case COMMAND_LIST:
             return new ListCommand();
-        case COMMAND_UNCHECK:
-            return new UncheckCommand(arguments);
         case COMMAND_TOGGLE:
             return new ToggleCommand();
+        case COMMAND_UNCHECK:
+            return new UncheckCommand(arguments);
         default:
             throw new UnknownCommandException();
         }
