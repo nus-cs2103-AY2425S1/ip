@@ -56,7 +56,7 @@ public final class Colress {
         }
     }
 
-    public String getTasks() {
+    private String getTasks() {
         return ui.printTasks(taskList);
     }
 
@@ -64,8 +64,7 @@ public final class Colress {
         try {
             String result = ui.processInput(input, taskList);
             if (ui.getStatus() == Status.WRITE) {
-                storage.writeToTaskFile(taskList);
-                ui.setStatus(Status.COMMAND);
+                writeToTaskFile();
             }
             return result;
         } catch (IOException e) {
@@ -74,8 +73,9 @@ public final class Colress {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Running Colress...");
+    private void writeToTaskFile() throws IOException {
+        storage.writeToTaskFile(taskList);
+        ui.setStatus(Status.COMMAND);
     }
 
     public String getCommandType() {
@@ -101,5 +101,9 @@ public final class Colress {
         this.isBeginnerMode = !isBeginnerMode;
         this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);
         return isBeginnerMode;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Running Colress...");
     }
 }
