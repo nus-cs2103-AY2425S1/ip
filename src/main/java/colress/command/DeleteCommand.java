@@ -9,6 +9,7 @@ import colress.TaskType;
 import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.exception.InvalidCommandFormatException;
 
 /**
  * Represents the delete command that removes a task from the list of tasks.
@@ -55,7 +56,7 @@ public final class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

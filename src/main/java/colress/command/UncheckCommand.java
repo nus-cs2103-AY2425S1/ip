@@ -9,6 +9,7 @@ import colress.TaskType;
 import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.exception.InvalidCommandFormatException;
 
 /**
  * Represents the check command that marks a task in the list of tasks as not done.
@@ -56,7 +57,7 @@ public final class UncheckCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

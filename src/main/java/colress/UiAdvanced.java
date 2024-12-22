@@ -9,6 +9,7 @@ import colress.command.AddCommand;
 import colress.command.Command;
 import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
+import colress.exception.InvalidCommandFormatException;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
@@ -34,11 +35,11 @@ public final class UiAdvanced extends Ui {
     public String processInput(String input, TaskList taskList) {
         try {
             parseCommand(input);
-        } catch (UnknownCommandException e) {
+            return currCommand.execute(this, taskList);
+        } catch (UnknownCommandException | InvalidCommandFormatException e) {
             setCommandType("error");
             return e.getMessage();
         }
-        return currCommand.execute(this, taskList);
     }
 
     private void parseCommand(String input) throws UnknownCommandException {

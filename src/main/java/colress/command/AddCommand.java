@@ -111,11 +111,11 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         Task task;
         try {
-            checkMinimumNumberOfArgs(args, EXPECTED_ARG_NUMBER_TODO, COMMAND_FORMAT);
+            checkMinimumNumberOfArgs(args);
             ui.parseTaskType(args[0]);
             ui.parseDescription(args[1]);
             switch (taskType) {
@@ -135,7 +135,7 @@ public final class AddCommand extends Command {
                 assert taskType == TaskType.TODO;
                 task = new ToDo(description);
             }
-        } catch (InvalidCommandFormatException | UnknownTaskTypeException | EmptyInputException | EndTimeException e) {
+        } catch (UnknownTaskTypeException | EmptyInputException | EndTimeException e) {
             ui.setCommandType("error");
             return e.getMessage();
         } catch (DateTimeParseException e) {
@@ -146,10 +146,10 @@ public final class AddCommand extends Command {
                 getSuccessfulExecutionMessage() + taskList.addTask(task));
     }
 
-    private void checkMinimumNumberOfArgs(String[] args, int expectedArgNumber, String commandFormat)
+    private void checkMinimumNumberOfArgs(String[] args)
             throws InvalidCommandFormatException {
-        if (args.length < expectedArgNumber) {
-            throw new InvalidCommandFormatException(String.format(MESSAGE_INVALID_FORMAT, commandFormat));
+        if (args.length < EXPECTED_ARG_NUMBER_TODO) {
+            throw new InvalidCommandFormatException(String.format(MESSAGE_INVALID_FORMAT, COMMAND_FORMAT));
         }
     }
 

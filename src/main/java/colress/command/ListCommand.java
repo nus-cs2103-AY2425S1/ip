@@ -8,6 +8,7 @@ import colress.TaskList;
 import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.exception.InvalidCommandFormatException;
 
 /**
  * Represents the list command that prints all tasks from the list of tasks.
@@ -36,7 +37,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         return ui.printTasks(taskList);
     }
 

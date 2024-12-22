@@ -43,7 +43,7 @@ public abstract class Command {
      */
     public void checkNumberOfArgs(String[] args, int expectedArgNumber, String commandFormat)
             throws InvalidCommandFormatException {
-        if (args.length != expectedArgNumber) {
+        if (args == null || args.length != expectedArgNumber) {
             throw new InvalidCommandFormatException(String.format(MESSAGE_INVALID_FORMAT, commandFormat));
         }
     }
@@ -56,5 +56,5 @@ public abstract class Command {
     public abstract void initialise(LocalTime input);
 
     public abstract String execute(UiBeginner ui, TaskList taskList);
-    public abstract String execute(UiAdvanced ui, TaskList taskList);
+    public abstract String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException;
 }

@@ -5,6 +5,7 @@ import colress.TaskList;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.EmptyInputException;
+import colress.exception.InvalidCommandFormatException;
 
 /**
  * Represents the find command which prints a list of tasks that contain a specified keyword
@@ -42,7 +43,7 @@ public final class FindCommand extends ListCommand {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {
