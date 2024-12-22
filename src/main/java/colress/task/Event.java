@@ -73,4 +73,21 @@ public class Event extends Task {
             return String.format("[ ] | EVENT | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return getDescription().equals(otherEvent.getDescription())
+                && this.date.equals(otherEvent.date)
+                && this.from.equals(otherEvent.from)
+                && this.to.equals(otherEvent.to);
+    }
 }

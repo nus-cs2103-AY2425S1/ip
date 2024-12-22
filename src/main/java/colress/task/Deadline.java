@@ -52,4 +52,18 @@ public class Deadline extends Task {
             return String.format("[ ] | DEADLINE | %s | %s", getDescription(), this.deadline);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherDeadline = (Deadline) other;
+        return getDescription().equals(otherDeadline.getDescription()) && this.deadline.equals(otherDeadline.deadline);
+    }
 }

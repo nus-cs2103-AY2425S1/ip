@@ -53,4 +53,18 @@ public class ToDo extends Task {
             return String.format("[ ] | TODO | %s", getDescription());
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ToDo)) {
+            return false;
+        }
+
+        ToDo otherToDo = (ToDo) other;
+        return getDescription().equals(otherToDo.getDescription());
+    }
 }
