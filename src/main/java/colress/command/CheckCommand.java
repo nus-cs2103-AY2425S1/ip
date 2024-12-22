@@ -2,6 +2,7 @@ package colress.command;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 import colress.Parser;
 import colress.TaskList;
@@ -25,6 +26,14 @@ public final class CheckCommand extends Command {
 
     public CheckCommand(String[] arguments) {
         super("Splendid! I have marked this task on your list as done:", arguments);
+    }
+
+    /**
+     * Constructs a CheckCommand with the given fields.
+     */
+    public CheckCommand(String[] arguments, int[] taskNumbers) {
+        super("Splendid! I have marked this task on your list as done:", arguments);
+        this.taskNumbers = taskNumbers;
     }
 
     @Override
@@ -72,5 +81,20 @@ public final class CheckCommand extends Command {
     @Override
     public String toString() {
         return Parser.COMMAND_CHECK;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CheckCommand)) {
+            return false;
+        }
+
+        CheckCommand otherCheckCommand = (CheckCommand) other;
+        return Arrays.equals(getArguments(), otherCheckCommand.getArguments())
+                && Arrays.equals(taskNumbers, otherCheckCommand.taskNumbers);
     }
 }

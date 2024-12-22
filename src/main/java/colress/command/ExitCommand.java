@@ -45,6 +45,15 @@ public final class ExitCommand extends Command {
         return Parser.COMMAND_EXIT;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other instanceof ExitCommand;
+    }
+
     public void initialise(String input) {
     }
     public void initialise(TaskType input) {

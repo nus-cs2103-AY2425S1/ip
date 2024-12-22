@@ -2,6 +2,8 @@ package colress.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Objects;
 
 import colress.Parser;
 import colress.TaskList;
@@ -25,6 +27,14 @@ public final class DateCommand extends ListCommand {
 
     public DateCommand(String[] arguments) {
         super(arguments);
+    }
+
+    /**
+     * Constructs a DateCommand with the given fields.
+     */
+    public DateCommand(String[] arguments, LocalDate date) {
+        super(arguments);
+        this.date = date;
     }
 
     @Override
@@ -62,5 +72,20 @@ public final class DateCommand extends ListCommand {
     @Override
     public String toString() {
         return Parser.COMMAND_DATE;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DateCommand)) {
+            return false;
+        }
+
+        DateCommand otherDateCommand = (DateCommand) other;
+        return Arrays.equals(getArguments(), otherDateCommand.getArguments())
+                && Objects.equals(date, otherDateCommand.date);
     }
 }

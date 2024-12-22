@@ -46,6 +46,15 @@ public class ListCommand extends Command {
         return Parser.COMMAND_LIST;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other instanceof ListCommand;
+    }
+
     public void initialise(String input) {
     }
     public void initialise(TaskType input) {

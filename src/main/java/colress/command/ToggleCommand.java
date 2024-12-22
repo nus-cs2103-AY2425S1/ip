@@ -41,6 +41,15 @@ public class ToggleCommand extends Command {
         return Parser.COMMAND_TOGGLE;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other instanceof ToggleCommand;
+    }
+
     public void initialise(String input) {
     }
     public void initialise(TaskType input) {

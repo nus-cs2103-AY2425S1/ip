@@ -2,6 +2,7 @@ package colress.command;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 import colress.Parser;
 import colress.TaskList;
@@ -25,6 +26,14 @@ public final class DeleteCommand extends Command {
 
     public DeleteCommand(String[] arguments) {
         super("Splendid! I have removed the task from your list.", arguments);
+    }
+
+    /**
+     * Constructs a DeleteCommand with the given fields.
+     */
+    public DeleteCommand(String[] arguments, int[] taskNumbers) {
+        super("Splendid! I have removed the task from your list.", arguments);
+        this.taskNumbers = taskNumbers;
     }
 
     @Override
@@ -72,5 +81,20 @@ public final class DeleteCommand extends Command {
     @Override
     public String toString() {
         return Parser.COMMAND_DELETE;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DeleteCommand)) {
+            return false;
+        }
+
+        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
+        return Arrays.equals(getArguments(), otherDeleteCommand.getArguments())
+                && Arrays.equals(taskNumbers, otherDeleteCommand.taskNumbers);
     }
 }

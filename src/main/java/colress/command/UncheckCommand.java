@@ -2,6 +2,7 @@ package colress.command;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 import colress.Parser;
 import colress.TaskList;
@@ -25,6 +26,14 @@ public final class UncheckCommand extends Command {
 
     public UncheckCommand(String[] arguments) {
         super("Splendid! I have marked this task on your list as not done:", arguments);
+    }
+
+    /**
+     * Constructs an UncheckCommand with the given fields.
+     */
+    public UncheckCommand(String[] arguments, int[] taskNumbers) {
+        super("Splendid! I have marked this task on your list as not done:", arguments);
+        this.taskNumbers = taskNumbers;
     }
 
     @Override
@@ -73,5 +82,20 @@ public final class UncheckCommand extends Command {
     @Override
     public String toString() {
         return Parser.COMMAND_UNCHECK;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof UncheckCommand)) {
+            return false;
+        }
+
+        UncheckCommand otherUncheckCommand = (UncheckCommand) other;
+        return Arrays.equals(getArguments(), otherUncheckCommand.getArguments())
+                && Arrays.equals(taskNumbers, otherUncheckCommand.taskNumbers);
     }
 }

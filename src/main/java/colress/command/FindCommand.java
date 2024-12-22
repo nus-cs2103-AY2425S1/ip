@@ -1,5 +1,8 @@
 package colress.command;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 import colress.Parser;
 import colress.TaskList;
 import colress.UiAdvanced;
@@ -21,6 +24,14 @@ public final class FindCommand extends ListCommand {
 
     public FindCommand(String[] arguments) {
         super(arguments);
+    }
+
+    /**
+     * Constructs a FindCommand with the given fields.
+     */
+    public FindCommand(String[] arguments, String keyword) {
+        super(arguments);
+        this.keyword = keyword;
     }
 
     @Override
@@ -58,5 +69,20 @@ public final class FindCommand extends ListCommand {
     @Override
     public String toString() {
         return Parser.COMMAND_FIND;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof FindCommand)) {
+            return false;
+        }
+
+        FindCommand otherFindCommand = (FindCommand) other;
+        return Arrays.equals(getArguments(), otherFindCommand.getArguments())
+                && Objects.equals(keyword, otherFindCommand.keyword);
     }
 }
