@@ -2,20 +2,20 @@ package colress.parser;
 
 import static colress.testutil.TestUtil.DELIMITER;
 import static colress.testutil.TestUtil.EMPTY_STRING;
-import static colress.testutil.TestUtil.INVALID_COMMAND;
+import static colress.testutil.TestUtil.INVALID_COMMAND_WORD;
 import static colress.testutil.TestUtil.INVALID_DATE_ARGUMENT;
 import static colress.testutil.TestUtil.INVALID_TASK_NUMBERS_ARGUMENT;
 import static colress.testutil.TestUtil.INVALID_TASK_TYPE_ARGUMENT;
 import static colress.testutil.TestUtil.INVALID_TIME_ARGUMENT;
-import static colress.testutil.TestUtil.VALID_COMMAND_ADD;
-import static colress.testutil.TestUtil.VALID_COMMAND_CHECK;
-import static colress.testutil.TestUtil.VALID_COMMAND_DATE;
-import static colress.testutil.TestUtil.VALID_COMMAND_DELETE;
-import static colress.testutil.TestUtil.VALID_COMMAND_EXIT;
-import static colress.testutil.TestUtil.VALID_COMMAND_FIND;
-import static colress.testutil.TestUtil.VALID_COMMAND_LIST;
-import static colress.testutil.TestUtil.VALID_COMMAND_TOGGLE;
-import static colress.testutil.TestUtil.VALID_COMMAND_UNCHECK;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_ADD;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_CHECK;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_DATE;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_DELETE;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_EXIT;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_FIND;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_LIST;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_TOGGLE;
+import static colress.testutil.TestUtil.VALID_COMMAND_WORD_UNCHECK;
 import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_ONE;
 import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DESCRIPTION_ONE;
@@ -59,7 +59,7 @@ public class ParserTest {
     @Test
     public void getCommand_validAddCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_ADD), new AddCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_ADD), new AddCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -68,7 +68,7 @@ public class ParserTest {
     @Test
     public void getCommand_validCheckCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_CHECK), new CheckCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_CHECK), new CheckCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -77,7 +77,7 @@ public class ParserTest {
     @Test
     public void getCommand_validDateCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_DATE), new DateCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_DATE), new DateCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -86,7 +86,7 @@ public class ParserTest {
     @Test
     public void getCommand_validDeleteCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_DELETE), new DeleteCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_DELETE), new DeleteCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -95,7 +95,7 @@ public class ParserTest {
     @Test
     public void getCommand_validExitCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_EXIT), new ExitCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_EXIT), new ExitCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -104,7 +104,7 @@ public class ParserTest {
     @Test
     public void getCommand_validFindCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_FIND), new FindCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_FIND), new FindCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -113,7 +113,7 @@ public class ParserTest {
     @Test
     public void getCommand_validListCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_LIST), new ListCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_LIST), new ListCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -122,7 +122,7 @@ public class ParserTest {
     @Test
     public void getCommand_validToggleCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_TOGGLE), new ToggleCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_TOGGLE), new ToggleCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -131,7 +131,7 @@ public class ParserTest {
     @Test
     public void getCommand_validUncheckCommand_success() {
         try {
-            assertEquals(parser.getCommand(VALID_COMMAND_UNCHECK), new UncheckCommand());
+            assertEquals(parser.getCommand(VALID_COMMAND_WORD_UNCHECK), new UncheckCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -139,25 +139,25 @@ public class ParserTest {
 
     @Test
     public void getCommand_unknownCommand_exceptionThrown() {
-        assertThrows(UnknownCommandException.class, () -> parser.getCommand(INVALID_COMMAND));
+        assertThrows(UnknownCommandException.class, () -> parser.getCommand(INVALID_COMMAND_WORD));
     }
 
     @Test
     public void parseCommand_validAddCommand_success() {
         try {
             // To-Do
-            assertEquals(parser.parseCommand(VALID_COMMAND_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_TODO
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_TODO
                             + DELIMITER + VALID_DESCRIPTION_ONE),
                     new AddCommand(new String[]{VALID_TASK_TYPE_ARGUMENT_TODO, VALID_DESCRIPTION_ONE}));
 
             // Deadline
-            assertEquals(parser.parseCommand(VALID_COMMAND_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_DEADLINE
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_DEADLINE
                             + DELIMITER + VALID_DESCRIPTION_ONE + DELIMITER + VALID_DATE_ARGUMENT_ONE),
                     new AddCommand(new String[]{VALID_TASK_TYPE_ARGUMENT_DEADLINE, VALID_DESCRIPTION_ONE,
                         VALID_DATE_ARGUMENT_ONE}));
 
             // Event
-            assertEquals(parser.parseCommand(VALID_COMMAND_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_EVENT
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_ADD + WHITESPACE + VALID_TASK_TYPE_ARGUMENT_EVENT
                             + DELIMITER + VALID_DESCRIPTION_ONE + DELIMITER + VALID_DATE_ARGUMENT_ONE + DELIMITER
                             + VALID_FROM_TIME_ARGUMENT_ONE + DELIMITER + VALID_TO_TIME_ARGUMENT_ONE),
                     new AddCommand(new String[]{VALID_TASK_TYPE_ARGUMENT_EVENT, VALID_DESCRIPTION_ONE,
@@ -170,7 +170,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validCheckCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_CHECK + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_CHECK + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
                     new CheckCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}));
         } catch (UnknownCommandException e) {
             fail();
@@ -180,7 +180,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validDateCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_DATE + WHITESPACE + VALID_DATE_ARGUMENT_ONE),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_DATE + WHITESPACE + VALID_DATE_ARGUMENT_ONE),
                     new DateCommand(new String[]{VALID_DATE_ARGUMENT_ONE}));
         } catch (UnknownCommandException e) {
             fail();
@@ -190,7 +190,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validDeleteCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_DELETE + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_DELETE + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
                     new DeleteCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}));
         } catch (UnknownCommandException e) {
             fail();
@@ -200,7 +200,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validExitCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_EXIT), new ExitCommand());
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_EXIT), new ExitCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -209,7 +209,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validFindCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_FIND + WHITESPACE + VALID_KEYWORD_ONE),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_FIND + WHITESPACE + VALID_KEYWORD_ONE),
                     new FindCommand(new String[]{VALID_KEYWORD_ONE}));
         } catch (UnknownCommandException e) {
             fail();
@@ -219,7 +219,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validListCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_LIST), new ListCommand());
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_LIST), new ListCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -228,7 +228,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validToggleCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_TOGGLE), new ToggleCommand());
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_TOGGLE), new ToggleCommand());
         } catch (UnknownCommandException e) {
             fail();
         }
@@ -237,7 +237,7 @@ public class ParserTest {
     @Test
     public void parseCommand_validUncheckCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_UNCHECK + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_UNCHECK + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
                     new UncheckCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}));
         } catch (UnknownCommandException e) {
             fail();
@@ -246,7 +246,7 @@ public class ParserTest {
 
     @Test
     public void parseCommand_unknownCommand_exceptionThrown() {
-        assertThrows(UnknownCommandException.class, () -> parser.parseCommand(INVALID_COMMAND));
+        assertThrows(UnknownCommandException.class, () -> parser.parseCommand(INVALID_COMMAND_WORD));
     }
 
     @Test

@@ -53,14 +53,14 @@ public class TestUtil {
     public static final int[] VALID_ONE_TASK_NUMBER = new int[]{1};
     public static final String INVALID_TASK_NUMBERS_ARGUMENT = "three";
 
-    public static final String VALID_COMMAND_ADD = "aDd";
-    public static final String VALID_COMMAND_CHECK = "cHeCk";
-    public static final String VALID_COMMAND_DATE = "dATe";
-    public static final String VALID_COMMAND_DELETE = "dElETe";
-    public static final String VALID_COMMAND_EXIT = "ExIT";
-    public static final String VALID_COMMAND_FIND = "fiND";
-    public static final String VALID_COMMAND_LIST = "LISt";
-    public static final String VALID_COMMAND_TOGGLE = "tOGgLe";
-    public static final String VALID_COMMAND_UNCHECK = "UnCHeCk";
-    public static final String INVALID_COMMAND = "hello";
+    public static final String VALID_COMMAND_WORD_ADD = "aDd";
+    public static final String VALID_COMMAND_WORD_CHECK = "cHeCk";
+    public static final String VALID_COMMAND_WORD_DATE = "dATe";
+    public static final String VALID_COMMAND_WORD_DELETE = "dElETe";
+    public static final String VALID_COMMAND_WORD_EXIT = "ExIT";
+    public static final String VALID_COMMAND_WORD_FIND = "fiND";
+    public static final String VALID_COMMAND_WORD_LIST = "LISt";
+    public static final String VALID_COMMAND_WORD_TOGGLE = "tOGgLe";
+    public static final String VALID_COMMAND_WORD_UNCHECK = "UnCHeCk";
+    public static final String INVALID_COMMAND_WORD = "hello";
 }
