@@ -170,7 +170,8 @@ public class ParserTest {
     @Test
     public void parseCommand_validCheckCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_CHECK + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_CHECK + WHITESPACE
+                            + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
                     new CheckCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}));
         } catch (UnknownCommandException e) {
             fail();
@@ -190,7 +191,8 @@ public class ParserTest {
     @Test
     public void parseCommand_validDeleteCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_DELETE + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_DELETE + WHITESPACE
+                            + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
                     new DeleteCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}));
         } catch (UnknownCommandException e) {
             fail();
@@ -237,7 +239,8 @@ public class ParserTest {
     @Test
     public void parseCommand_validUncheckCommand_success() {
         try {
-            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_UNCHECK + WHITESPACE + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
+            assertEquals(parser.parseCommand(VALID_COMMAND_WORD_UNCHECK + WHITESPACE
+                            + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT),
                     new UncheckCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}));
         } catch (UnknownCommandException e) {
             fail();
