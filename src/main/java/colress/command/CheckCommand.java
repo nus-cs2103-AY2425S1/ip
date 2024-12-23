@@ -16,23 +16,24 @@ import colress.tasklist.TaskList;
  * Represents the check command that marks a task in the list of tasks as done.
  */
 public final class CheckCommand extends Command {
+    public static final String MESSAGE_SUCCESSFUL_EXECUTION = "Splendid! I have marked this task on your list as done:";
     public static final String COMMAND_FORMAT = "check NUMBERS";
     public static final int EXPECTED_ARG_NUMBER = 1;
     private int[] taskNumbers;
 
     public CheckCommand() {
-        super("Splendid! I have marked this task on your list as done:");
+        super();
     }
 
     public CheckCommand(String[] arguments) {
-        super("Splendid! I have marked this task on your list as done:", arguments);
+        super(arguments);
     }
 
     /**
      * Constructs a CheckCommand with the given fields.
      */
     public CheckCommand(String[] arguments, int[] taskNumbers) {
-        super("Splendid! I have marked this task on your list as done:", arguments);
+        super(arguments);
         this.taskNumbers = taskNumbers;
     }
 
@@ -60,8 +61,7 @@ public final class CheckCommand extends Command {
      */
     @Override
     public String execute(UiBeginner ui, TaskList taskList) {
-        return ui.printConfirmationMessage(taskList,
-                getSuccessfulExecutionMessage() + taskList.checkTask(taskNumbers));
+        return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION + taskList.checkTask(taskNumbers));
     }
 
     @Override
@@ -74,8 +74,7 @@ public final class CheckCommand extends Command {
             ui.setCommandType("error");
             return Ui.MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }
-        return ui.printConfirmationMessage(taskList,
-                getSuccessfulExecutionMessage() + taskList.checkTask(taskNumbers));
+        return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION + taskList.checkTask(taskNumbers));
     }
 
     @Override

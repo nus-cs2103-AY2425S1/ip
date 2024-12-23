@@ -15,11 +15,11 @@ import colress.tasklist.TaskList;
  */
 public class ListCommand extends Command {
     public ListCommand() {
-        super("");
+        super();
     }
 
     public ListCommand(String[] arguments) {
-        super("", arguments);
+        super(arguments);
     }
 
     @Override

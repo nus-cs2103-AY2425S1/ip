@@ -16,23 +16,24 @@ import colress.tasklist.TaskList;
  * Represents the delete command that removes a task from the list of tasks.
  */
 public final class DeleteCommand extends Command {
+    public static final String MESSAGE_SUCCESSFUL_EXECUTION = "Splendid! I have removed the task from your list.";
     public static final String COMMAND_FORMAT = "delete NUMBERS";
     public static final int EXPECTED_ARG_NUMBER = 1;
     private int[] taskNumbers;
 
     public DeleteCommand() {
-        super("Splendid! I have removed the task from your list.");
+        super();
     }
 
     public DeleteCommand(String[] arguments) {
-        super("Splendid! I have removed the task from your list.", arguments);
+        super(arguments);
     }
 
     /**
      * Constructs a DeleteCommand with the given fields.
      */
     public DeleteCommand(String[] arguments, int[] taskNumbers) {
-        super("Splendid! I have removed the task from your list.", arguments);
+        super(arguments);
         this.taskNumbers = taskNumbers;
     }
 
@@ -61,7 +62,7 @@ public final class DeleteCommand extends Command {
     @Override
     public String execute(UiBeginner ui, TaskList taskList) {
         taskList.deleteTask(taskNumbers);
-        return ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage());
+        return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION);
     }
 
     @Override
@@ -75,7 +76,7 @@ public final class DeleteCommand extends Command {
             return Ui.MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }
         taskList.deleteTask(taskNumbers);
-        return ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage());
+        return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION);
     }
 
     @Override

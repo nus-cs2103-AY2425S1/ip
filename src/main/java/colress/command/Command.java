@@ -15,23 +15,15 @@ import colress.tasklist.TaskList;
 public abstract class Command {
     public static final String MESSAGE_INVALID_FORMAT = "What is this?! I do not recognise that command format!\n"
             + "Here's the correct format: %s";
-    private final String successfulExecutionMessage;
     private String[] arguments;
 
-    public Command(String successfulExecutionMessage) {
-        this.successfulExecutionMessage = successfulExecutionMessage;
-    }
+    public Command() {}
 
     /**
      * Constructs a command with its arguments.
      */
-    public Command(String successfulExecutionMessage, String[] arguments) {
-        this.successfulExecutionMessage = successfulExecutionMessage;
+    public Command(String[] arguments) {
         this.arguments = arguments;
-    }
-
-    public String getSuccessfulExecutionMessage() {
-        return successfulExecutionMessage;
     }
 
     public String[] getArguments() {

@@ -25,6 +25,7 @@ import colress.tasklist.TaskList;
  * Represents the add command that add a task to the list of tasks.
  */
 public final class AddCommand extends Command {
+    public static final String MESSAGE_SUCCESSFUL_EXECUTION = "Splendid! I have added this task to your list:\n";
     public static final String COMMAND_FORMAT = "add TASK TYPE, DESCRIPTION, [DATE], [START TIME], [END TIME]";
     public static final int EXPECTED_ARG_NUMBER_TODO = 2;
     public static final int EXPECTED_ARG_NUMBER_DEADLINE = 3;
@@ -37,20 +38,19 @@ public final class AddCommand extends Command {
     private boolean hasStartTime;
 
     /**
-     * Constructs an AddCommand with the given successfulExecutionMessage. The AddCommand field has
-     * no start time field to begin with by default
+     * Constructs an AddCommand. The AddCommand field has no start time field to begin with by default.
      */
     public AddCommand() {
-        super("Splendid! I have added this task to your list:\n");
+        super();
         hasStartTime = false;
     }
 
     /**
-     * Constructs an AddCommand with the given successfulExecutionMessage and arguments. The AddCommand field has
-     * no start time field to begin with by default
+     * Constructs an AddCommand with the given arguments. The AddCommand field has no start time field to begin with
+     * by default.
      */
     public AddCommand(String[] arguments) {
-        super("Splendid! I have added this task to your list:\n", arguments);
+        super(arguments);
         hasStartTime = false;
     }
 
@@ -59,7 +59,7 @@ public final class AddCommand extends Command {
      */
     public AddCommand(String[] arguments, TaskType taskType, String description,
                       LocalDate date, LocalTime startTime, LocalTime endTime) {
-        super("Splendid! I have added this task to your list:\n", arguments);
+        super(arguments);
         this.taskType = taskType;
         this.description = description;
         this.date = date;
@@ -122,8 +122,7 @@ public final class AddCommand extends Command {
             task = new ToDo(description);
         }
 
-        return ui.printConfirmationMessage(taskList,
-                getSuccessfulExecutionMessage() + taskList.addTask(task));
+        return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION + taskList.addTask(task));
     }
 
     @Override
@@ -158,8 +157,7 @@ public final class AddCommand extends Command {
             ui.setCommandType("error");
             return Ui.MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
-        return ui.printConfirmationMessage(taskList,
-                getSuccessfulExecutionMessage() + taskList.addTask(task));
+        return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION + taskList.addTask(task));
     }
 
     private void checkMinimumNumberOfArgs(String[] args)

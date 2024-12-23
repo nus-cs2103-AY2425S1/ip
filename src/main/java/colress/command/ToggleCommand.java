@@ -13,8 +13,10 @@ import colress.tasklist.TaskList;
  * Represents the toggle command that toggles the mode of the program between Beginner and Advanced.
  */
 public class ToggleCommand extends Command {
+    public static final String MESSAGE_SUCCESSFUL_EXECUTION = "Sure, I have toggled the mode to %s.";
+
     public ToggleCommand() {
-        super("Sure, I have toggled the mode to %s.");
+        super();
     }
 
     @Override
@@ -28,12 +30,12 @@ public class ToggleCommand extends Command {
      */
     @Override
     public String execute(UiBeginner ui, TaskList taskList) {
-        return String.format(getSuccessfulExecutionMessage(), ui.toggleMode() ? "Beginner" : "Advanced");
+        return String.format(MESSAGE_SUCCESSFUL_EXECUTION, ui.toggleMode() ? "Beginner" : "Advanced");
     }
 
     @Override
     public String execute(UiAdvanced ui, TaskList taskList) {
-        return String.format(getSuccessfulExecutionMessage(), ui.toggleMode() ? "Beginner" : "Advanced");
+        return String.format(MESSAGE_SUCCESSFUL_EXECUTION, ui.toggleMode() ? "Beginner" : "Advanced");
     }
 
     @Override

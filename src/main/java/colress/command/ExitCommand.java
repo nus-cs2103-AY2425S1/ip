@@ -14,9 +14,9 @@ import javafx.application.Platform;
  * Represents the exit command that exits the program.
  */
 public final class ExitCommand extends Command {
-
+    public static final String MESSAGE_SUCCESSFUL_EXECUTION = "Well then, I hope to see you again sometime.";
     public ExitCommand() {
-        super("Well then, I hope to see you again sometime.");
+        super();
     }
 
     @Override
@@ -31,13 +31,13 @@ public final class ExitCommand extends Command {
     @Override
     public String execute(UiBeginner ui, TaskList taskList) {
         Platform.exit();
-        return getSuccessfulExecutionMessage();
+        return MESSAGE_SUCCESSFUL_EXECUTION;
     }
 
     @Override
     public String execute(UiAdvanced ui, TaskList taskList) {
         Platform.exit();
-        return getSuccessfulExecutionMessage();
+        return MESSAGE_SUCCESSFUL_EXECUTION;
     }
 
     @Override
