@@ -3,13 +3,13 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
+import colress.parser.Parser;
 
 /**
  * Represents the date command that prints tasks from the list of tasks that fall on a specific date.

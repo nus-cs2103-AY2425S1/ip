@@ -3,13 +3,13 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
+import colress.parser.Parser;
 
 /**
  * Represents the delete command that removes a task from the list of tasks.

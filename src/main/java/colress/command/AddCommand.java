@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Objects;
 
-import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
@@ -16,6 +15,7 @@ import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
 import colress.exception.InvalidCommandFormatException;
 import colress.exception.UnknownTaskTypeException;
+import colress.parser.Parser;
 import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.Task;

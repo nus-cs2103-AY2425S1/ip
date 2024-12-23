@@ -3,11 +3,11 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.parser.Parser;
 import javafx.application.Platform;
 
 /**

@@ -3,6 +3,9 @@ package colress;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import colress.parser.Parsable;
+import colress.parser.Parser;
+
 /**
  * Represents the Ui of the Colress chatbot.
  */
@@ -30,12 +33,12 @@ public abstract class Ui {
     public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
 
     private final Colress colress;
-    private final Parser parser;
+    private final Parsable parser;
     private Status status;
 
     /**
      * Instantiates colress and status field of Ui.
-     * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
+     * The Ui object has a Parsable object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object has a status field which is an indication of what type of input is being expected from the user.
      */
     public Ui(Colress colress) {
@@ -52,7 +55,7 @@ public abstract class Ui {
         return colress;
     }
 
-    public Parser getParser() {
+    public Parsable getParser() {
         return parser;
     }
 
