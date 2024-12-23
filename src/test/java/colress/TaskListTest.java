@@ -3,7 +3,6 @@ package colress;
 import static colress.TaskList.MESSAGE_TASK_NUMBER_OUT_OF_BOUND;
 import static colress.TaskList.RESULT_PREAMBLE;
 import static colress.testutil.TestUtil.EMPTY_STRING;
-import static colress.testutil.TestUtil.INVALID_COMMAND;
 import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DATE_TWO;
 import static colress.testutil.TestUtil.VALID_DESCRIPTION_ONE;
@@ -20,19 +19,15 @@ import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER;
 import static colress.testutil.TestUtil.VALID_TO_TIME_ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
-import colress.exception.UnknownCommandException;
 import org.junit.jupiter.api.Test;
 
 import colress.task.Deadline;
 import colress.task.Event;
-import colress.task.Task;
 import colress.task.ToDo;
 
 public class TaskListTest {
