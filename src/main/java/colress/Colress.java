@@ -51,13 +51,13 @@ public final class Colress {
     }
 
     /**
-     * Constructs Colress with the given Storage and TaskList objects and whether isBeginnerMode is selected.
+     * Constructs Colress with the given parameters.
      */
-    public Colress(Storage storage, TaskList taskList, boolean isBeginnerMode) {
+    public Colress(Storage storage, TaskList taskList, boolean hasError, boolean isBeginnerMode) {
         this.storage = storage;
         this.taskList = taskList;
         this.commandType = "greet";
-        this.hasError = false;
+        this.hasError = hasError;
         this.isBeginnerMode = isBeginnerMode;
         setUi();
     }

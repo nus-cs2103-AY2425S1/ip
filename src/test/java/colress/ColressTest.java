@@ -1,5 +1,6 @@
 package colress;
 
+import static colress.testutil.TestUtil.VALID_COMMAND_TOGGLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,17 +34,33 @@ public class ColressTest {
     }
 
     @Test
+    public void getCommandTypeTest() {
+        Storage storage = new CorrectFormatStorageStub();
+        TaskList taskList = new CorrectFormatTaskListStub();
+
+        // no error
+        Colress colress = new Colress(storage, taskList, false, true);
+        String expectedCommandType = "greet";
+        assertEquals(expectedCommandType, colress.getCommandType());
+
+        // has error
+        colress = new Colress(storage, taskList, true, true);
+        expectedCommandType = "error";
+        assertEquals(expectedCommandType, colress.getCommandType());
+    }
+
+    @Test
     public void toggleModeTest() {
         Storage storage = new CorrectFormatStorageStub();
         TaskList taskList = new CorrectFormatTaskListStub();
-        Colress colress = new Colress(storage, taskList, true);
+        Colress colress = new Colress(storage, taskList, false, true);
 
         // Beginner to Advanced
         colress.toggleMode();
         assertFalse(colress.getIsBeginnerMode());
 
         // Advanced to Beginner
-        colress = new Colress(storage, taskList, false);
+        colress = new Colress(storage, taskList, false, false);
         colress.toggleMode();
         assertTrue(colress.getIsBeginnerMode());
     }
