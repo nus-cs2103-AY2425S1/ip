@@ -1,0 +1,6 @@
+[ ] | TODO | go jogging
+[X] | TODO | go jogging
+[ ] | DEADLINE | go running | 2024-05-04
+[X] | DEADLINE | go running | 2024-05-04
+[ ] | EVENT | go sprinting | 2024-05-05 | 14:30 to 15:00
+[X] | EVENT | go sprinting | 2024-05-05 | 14:30 to 15:00

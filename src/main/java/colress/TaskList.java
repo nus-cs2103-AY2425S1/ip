@@ -7,13 +7,12 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import colress.task.Deadline;
 import colress.task.Task;
 
 /**
  * Represents the TaskList of the Colress chatbot.
  */
-public final class TaskList {
+public class TaskList {
     public static final String RESULT_PREAMBLE = "Here! This is your list:";
     public static final String MESSAGE_TASK_NUMBER_OUT_OF_BOUND = "Task Number should not be out of bounds.";
     private final List<Task> tasks;

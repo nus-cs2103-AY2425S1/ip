@@ -8,13 +8,27 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import colress.exception.FileCorruptedException;
+import colress.testutil.CorrectFormatTaskListStub;
 
 public class StorageTest {
     @Test
+    public void loadTask_correctFormat_success() {
+        try {
+            Storage storage = new Storage("src/test/java/colress/testutil/correctFormat.txt");
+            TaskList taskList = new TaskList();
+            storage.loadTasks(taskList);
+            TaskList expectedTaskList = new CorrectFormatTaskListStub();
+            assertEquals(expectedTaskList, taskList);
+        } catch (IOException | FileCorruptedException e) {
+            fail();
+        }
+    }
+
+    @Test
     public void loadTask_wrongBraceFormat_exceptionThrown() {
         try {
-            Storage storage = new Storage("wrongBraceFormat.txt");
-            storage.loadTasks(null);
+            Storage storage = new Storage("src/test/java/colress/testutil/wrongBraceFormat.txt");
+            storage.loadTasks(new TaskList());
             fail();
         } catch (IOException e) {
             fail();
@@ -28,8 +42,8 @@ public class StorageTest {
     @Test
     public void loadTask_wrongDateFormat_exceptionThrown() {
         try {
-            Storage storage = new Storage("wrongDateFormat.txt");
-            storage.loadTasks(null);
+            Storage storage = new Storage("src/test/java/colress/testutil/wrongDateFormat.txt");
+            storage.loadTasks(new TaskList());
             fail();
         } catch (IOException e) {
             fail();
@@ -43,8 +57,8 @@ public class StorageTest {
     @Test
     public void loadTask_wrongTimeFormat_exceptionThrown() {
         try {
-            Storage storage = new Storage("wrongTimeFormat.txt");
-            storage.loadTasks(null);
+            Storage storage = new Storage("src/test/java/colress/testutil/wrongTimeFormat.txt");
+            storage.loadTasks(new TaskList());
             fail();
         } catch (IOException e) {
             fail();

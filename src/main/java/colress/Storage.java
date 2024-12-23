@@ -31,6 +31,14 @@ public final class Storage {
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
     }
+
+    /**
+     * Constructs a Storage object with the given File.
+     */
+    public Storage(File file) {
+        this.taskFile = file;
+    }
+
     private LocalDate readDate(String date) throws FileCorruptedException {
         try {
             return LocalDate.parse(date);
