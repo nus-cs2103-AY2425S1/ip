@@ -69,7 +69,6 @@ public class TaskList {
         try {
             String result = "";
             for (int i: taskNumbers) {
-                assert !isOutOfBounds(i) : MESSAGE_TASK_NUMBER_OUT_OF_BOUND;
                 Task task = tasks.get(i - 1);
                 action.accept(task);
                 result += getCurrTask(i - 1);
@@ -86,7 +85,6 @@ public class TaskList {
     public void deleteTask(int... taskNumbers) {
         try {
             for (int i = taskNumbers.length - 1; i >= 0; i--) {
-                assert !isOutOfBounds(taskNumbers[i]) : MESSAGE_TASK_NUMBER_OUT_OF_BOUND;
                 int currIndex = taskNumbers[i] - 1;
                 tasks.remove(currIndex);
             }

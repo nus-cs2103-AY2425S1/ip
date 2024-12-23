@@ -1,7 +1,9 @@
 package colress;
 
+import static colress.TaskList.MESSAGE_TASK_NUMBER_OUT_OF_BOUND;
 import static colress.TaskList.RESULT_PREAMBLE;
 import static colress.testutil.TestUtil.EMPTY_STRING;
+import static colress.testutil.TestUtil.INVALID_COMMAND;
 import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DATE_TWO;
 import static colress.testutil.TestUtil.VALID_DESCRIPTION_ONE;
@@ -9,6 +11,7 @@ import static colress.testutil.TestUtil.VALID_DESCRIPTION_THREE;
 import static colress.testutil.TestUtil.VALID_DESCRIPTION_TWO;
 import static colress.testutil.TestUtil.VALID_FROM_TIME_ONE;
 import static colress.testutil.TestUtil.VALID_KEYWORD_ALL;
+import static colress.testutil.TestUtil.VALID_KEYWORD_NONE;
 import static colress.testutil.TestUtil.VALID_KEYWORD_ONE;
 import static colress.testutil.TestUtil.VALID_KEYWORD_THREE;
 import static colress.testutil.TestUtil.VALID_KEYWORD_TWO;
@@ -17,18 +20,63 @@ import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER;
 import static colress.testutil.TestUtil.VALID_TO_TIME_ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+import colress.exception.UnknownCommandException;
 import org.junit.jupiter.api.Test;
 
 import colress.task.Deadline;
 import colress.task.Event;
+import colress.task.Task;
 import colress.task.ToDo;
 
 public class TaskListTest {
+    @Test
+    public void isEmptyTest() {
+        TaskList taskList = new TaskList();
+
+        // empty task list -> returns true
+        assertTrue(taskList.isEmpty());
+
+        // 1 to-do -> returns false
+        ToDo todo = new ToDo(VALID_DESCRIPTION_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(todo)));
+        assertFalse(taskList.isEmpty());
+
+        // 1 deadline -> returns false
+        Deadline deadline = new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(deadline)));
+        assertFalse(taskList.isEmpty());
+
+        // 1 event -> returns false
+        Event event = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(event)));
+        assertFalse(taskList.isEmpty());
+
+        // multiple tasks -> returns false
+        taskList = new TaskList(new ArrayList<>(List.of(todo, deadline, event)));
+        assertFalse(taskList.isEmpty());
+    }
+
+    @Test
+    public void isOutOfBoundsTest() {
+        TaskList taskList = new TaskList();
+
+        // empty task list -> returns true
+        assertTrue(taskList.isOutOfBounds(1));
+
+        // non-empty task list -> returns false
+        ToDo todo = new ToDo(VALID_DESCRIPTION_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(todo)));
+
+        assertFalse(taskList.isOutOfBounds(1));
+    }
+
     @Test
     public void addTask_toDo_success() {
         TaskList taskList = new TaskList();
@@ -113,6 +161,16 @@ public class TaskListTest {
     }
 
     @Test
+    public void checkTask_outOfBounds_exceptionThrown() {
+        ToDo todo = new ToDo(VALID_DESCRIPTION_ONE);
+        TaskList taskList = new TaskList(new ArrayList<>(List.of(todo)));
+
+        TaskList expectedTaskList = new TaskList(new ArrayList<>(List.of(todo)));
+        assertEquals(MESSAGE_TASK_NUMBER_OUT_OF_BOUND, taskList.checkTask(Integer.MAX_VALUE));
+        assertEquals(expectedTaskList, taskList);
+    }
+
+    @Test
     public void uncheckTask_oneToDo_success() {
         ToDo todo = new ToDo(VALID_DESCRIPTION_ONE, true);
         TaskList taskList = new TaskList(new ArrayList<>(List.of(todo)));
@@ -162,6 +220,16 @@ public class TaskListTest {
         assertEquals("\n1. " + expectedTodo + "\n2. " + expectedDeadline
                         + "\n3. " + expectedEvent,
                 taskList.uncheckTask(VALID_MULTIPLE_TASK_NUMBERS));
+        assertEquals(expectedTaskList, taskList);
+    }
+
+    @Test
+    public void uncheckTask_outOfBounds_exceptionThrown() {
+        ToDo todo = new ToDo(VALID_DESCRIPTION_ONE, true);
+        TaskList taskList = new TaskList(new ArrayList<>(List.of(todo)));
+
+        TaskList expectedTaskList = new TaskList(new ArrayList<>(List.of(todo)));
+        assertEquals(MESSAGE_TASK_NUMBER_OUT_OF_BOUND, taskList.uncheckTask(Integer.MAX_VALUE));
         assertEquals(expectedTaskList, taskList);
     }
 
@@ -216,70 +284,107 @@ public class TaskListTest {
     }
 
     @Test
+    public void deleteTask_outOfBounds_exceptionThrown() {
+        ToDo todo = new ToDo(VALID_DESCRIPTION_ONE, true);
+        TaskList taskList = new TaskList(new ArrayList<>(List.of(todo)));
+
+        TaskList expectedTaskList = new TaskList(new ArrayList<>(List.of(todo)));
+        assertEquals(expectedTaskList, taskList);
+    }
+
+    @Test
+    public void retrieveTask_noParameter_success() {
+        TaskList taskList = new TaskList();
+
+        // no tasks in list
+        assertEquals(EMPTY_STRING, taskList.retrieveTasks());
+
+        // 1 To-do
+        ToDo todo = new ToDo(VALID_DESCRIPTION_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(todo)));
+
+        assertEquals(RESULT_PREAMBLE + "\n1. " + todo, taskList.retrieveTasks());
+
+        // 1 Deadline
+        Deadline deadline = new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(deadline)));
+
+        assertEquals(RESULT_PREAMBLE + "\n1. " + deadline, taskList.retrieveTasks());
+
+        // 1 Event
+        Event event = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(event)));
+
+        assertEquals(RESULT_PREAMBLE + "\n1. " + event, taskList.retrieveTasks());
+
+        // multiple tasks
+        event = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_ONE, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
+        taskList = new TaskList(new ArrayList<>(List.of(deadline, event)));
+        assertEquals(RESULT_PREAMBLE + "\n1. " + deadline + "\n2. " + event,
+                taskList.retrieveTasks());
+    }
+
+    @Test
     public void retrieveTask_dateParameter_success() {
         TaskList taskList = new TaskList();
 
-        // no items
+        // no tasks in list
         assertEquals(EMPTY_STRING, taskList.retrieveTasks(VALID_DATE_ONE));
 
         // 1 Deadline
-        taskList = new TaskList();
         Deadline deadline = new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE);
-        taskList.addTask(deadline);
+        taskList = new TaskList(new ArrayList<>(List.of(deadline)));
 
         assertEquals(RESULT_PREAMBLE + "\n1. " + deadline, taskList.retrieveTasks(VALID_DATE_ONE));
 
         // 1 Event
-        taskList = new TaskList();
         Event event = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
-        taskList.addTask(event);
+        taskList = new TaskList(new ArrayList<>(List.of(event)));
 
         assertEquals(RESULT_PREAMBLE + "\n1. " + event, taskList.retrieveTasks(VALID_DATE_TWO));
 
-        // multiple items
-        taskList = new TaskList();
-        taskList.addTask(deadline);
+        // multiple tasks fall on date
         event = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_ONE, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
-        taskList.addTask(event);
+        taskList = new TaskList(new ArrayList<>(List.of(deadline, event)));
         assertEquals(RESULT_PREAMBLE + "\n1. " + deadline + "\n2. " + event,
                 taskList.retrieveTasks(VALID_DATE_ONE));
+
+        // no tasks fall on date
+        assertEquals(EMPTY_STRING, taskList.retrieveTasks(VALID_DATE_TWO));
     }
 
     @Test
     public void retrieveTask_keywordParameter_success() {
         TaskList taskList = new TaskList();
 
-        // no items
+        // no tasks
         assertEquals(EMPTY_STRING, taskList.retrieveTasks(VALID_KEYWORD_ONE));
 
         // 1 To-do
-        taskList = new TaskList();
         ToDo todo = new ToDo(VALID_DESCRIPTION_ONE);
-        taskList.addTask(todo);
+        taskList = new TaskList(new ArrayList<>(List.of(todo)));
 
         assertEquals(RESULT_PREAMBLE + "\n1. " + todo, taskList.retrieveTasks(VALID_KEYWORD_ONE));
 
         // 1 Deadline
-        taskList = new TaskList();
         Deadline deadline = new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE);
-        taskList.addTask(deadline);
+        taskList = new TaskList(new ArrayList<>(List.of(deadline)));
 
         assertEquals(RESULT_PREAMBLE + "\n1. " + deadline, taskList.retrieveTasks(VALID_KEYWORD_TWO));
 
         // 1 Event
-        taskList = new TaskList();
         Event event = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
-        taskList.addTask(event);
+        taskList = new TaskList(new ArrayList<>(List.of(event)));
 
         assertEquals(RESULT_PREAMBLE + "\n1. " + event, taskList.retrieveTasks(VALID_KEYWORD_THREE));
 
-        // multiple items
-        taskList = new TaskList();
-        taskList.addTask(todo);
-        taskList.addTask(deadline);
-        taskList.addTask(event);
+        // multiple tasks contain keyword
+        taskList = new TaskList(new ArrayList<>(List.of(todo, deadline, event)));
         assertEquals(RESULT_PREAMBLE + "\n1. " + todo + "\n2. " + deadline + "\n3. " + event,
                 taskList.retrieveTasks(VALID_KEYWORD_ALL));
+
+        // no tasks contain keyword
+        assertEquals(EMPTY_STRING, taskList.retrieveTasks(VALID_KEYWORD_NONE));
     }
 
     @Test

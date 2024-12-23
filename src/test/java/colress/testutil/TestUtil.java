@@ -20,6 +20,7 @@ public class TestUtil {
     public static final String VALID_DESCRIPTION_THREE = "go sprinting";
     public static final String VALID_KEYWORD_THREE = "sprint";
     public static final String VALID_KEYWORD_ALL = "go";
+    public static final String VALID_KEYWORD_NONE = "no";
 
     public static final String VALID_DATE_ARGUMENT_ONE = "2024-05-04";
     public static final LocalDate VALID_DATE_ONE = LocalDate.of(2024, 5, 4);
