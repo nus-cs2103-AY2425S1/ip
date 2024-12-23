@@ -1,6 +1,7 @@
 package colress;
 
 import static colress.testutil.TestUtil.DELIMITER;
+import static colress.testutil.TestUtil.EMPTY_STRING;
 import static colress.testutil.TestUtil.INVALID_COMMAND;
 import static colress.testutil.TestUtil.INVALID_DATE_ARGUMENT;
 import static colress.testutil.TestUtil.INVALID_TASK_NUMBERS_ARGUMENT;
@@ -20,10 +21,10 @@ import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DESCRIPTION_ONE;
 import static colress.testutil.TestUtil.VALID_FROM_TIME_ARGUMENT_ONE;
 import static colress.testutil.TestUtil.VALID_KEYWORD_ONE;
-import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
-import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER_ARGUMENT;
 import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS;
-import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBERS;
+import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
+import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER;
+import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER_ARGUMENT;
 import static colress.testutil.TestUtil.VALID_TASK_TYPE_ARGUMENT_DEADLINE;
 import static colress.testutil.TestUtil.VALID_TASK_TYPE_ARGUMENT_EVENT;
 import static colress.testutil.TestUtil.VALID_TASK_TYPE_ARGUMENT_TODO;
@@ -276,7 +277,7 @@ public class ParserTest {
 
     @Test
     public void getTaskType_emptyInput_exceptionThrown() {
-        assertThrows(IllegalArgumentException.class, () -> parser.getTaskType(""));
+        assertThrows(IllegalArgumentException.class, () -> parser.getTaskType(EMPTY_STRING));
     }
 
     @Test
@@ -338,7 +339,7 @@ public class ParserTest {
     @Test
     public void getTaskNumber_oneValidInput_success() {
         try {
-            assertArrayEquals(parser.getTaskNumber(VALID_ONE_TASK_NUMBER_ARGUMENT), VALID_ONE_TASK_NUMBERS);
+            assertArrayEquals(parser.getTaskNumber(VALID_ONE_TASK_NUMBER_ARGUMENT), VALID_ONE_TASK_NUMBER);
         } catch (NumberFormatException e) {
             fail();
         }
@@ -360,7 +361,7 @@ public class ParserTest {
 
     @Test
     public void getTaskNumber_emptyInput_exceptionThrown() {
-        assertThrows(NumberFormatException.class, () -> parser.getTaskNumber(""));
+        assertThrows(NumberFormatException.class, () -> parser.getTaskNumber(EMPTY_STRING));
     }
 
     @Test
@@ -383,6 +384,6 @@ public class ParserTest {
 
     @Test
     public void getString_emptyInput_exceptionThrown() {
-        assertThrows(EmptyInputException.class, () -> parser.getString(""));
+        assertThrows(EmptyInputException.class, () -> parser.getString(EMPTY_STRING));
     }
 }

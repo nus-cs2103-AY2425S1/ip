@@ -11,11 +11,15 @@ import colress.TaskType;
 public class TestUtil {
     public static final String WHITESPACE = " ";
     public static final String DELIMITER = ",";
-    public static final String VALID_DESCRIPTION_ONE = "go jogging";
-    public static final String VALID_DESCRIPTION_TWO = "go running";
+    public static final String EMPTY_STRING = "";
 
-    public static final String VALID_KEYWORD_ONE = "go";
-    public static final String VALID_KEYWORD_TWO = "jogging";
+    public static final String VALID_DESCRIPTION_ONE = "go jogging";
+    public static final String VALID_KEYWORD_ONE = "jog";
+    public static final String VALID_DESCRIPTION_TWO = "go running";
+    public static final String VALID_KEYWORD_TWO = "run";
+    public static final String VALID_DESCRIPTION_THREE = "go sprinting";
+    public static final String VALID_KEYWORD_THREE = "sprint";
+    public static final String VALID_KEYWORD_ALL = "go";
 
     public static final String VALID_DATE_ARGUMENT_ONE = "2024-05-04";
     public static final LocalDate VALID_DATE_ONE = LocalDate.of(2024, 5, 4);
@@ -42,10 +46,10 @@ public class TestUtil {
     public static final TaskType VALID_TASK_TYPE_EVENT = TaskType.EVENT;
     public static final String INVALID_TASK_TYPE_ARGUMENT = "goodbye";
 
-    public static final String VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT = "1 2 3";
+    public static final String VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT = "3 1 2";
     public static final int[] VALID_MULTIPLE_TASK_NUMBERS = new int[]{1, 2, 3};
-    public static final String VALID_ONE_TASK_NUMBER_ARGUMENT = "3";
-    public static final int[] VALID_ONE_TASK_NUMBERS = new int[]{3};
+    public static final String VALID_ONE_TASK_NUMBER_ARGUMENT = "1";
+    public static final int[] VALID_ONE_TASK_NUMBER = new int[]{1};
     public static final String INVALID_TASK_NUMBERS_ARGUMENT = "three";
 
     public static final String VALID_COMMAND_ADD = "aDd";

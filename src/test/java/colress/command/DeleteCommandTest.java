@@ -3,7 +3,7 @@ package colress.command;
 import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
 import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER_ARGUMENT;
 import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS;
-import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBERS;
+import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -34,6 +34,6 @@ public class DeleteCommandTest {
 
         // different values -> returns false
         assertFalse(deleteCommand.equals(new DeleteCommand(
-                new String[]{VALID_ONE_TASK_NUMBER_ARGUMENT}, VALID_ONE_TASK_NUMBERS)));
+                new String[]{VALID_ONE_TASK_NUMBER_ARGUMENT}, VALID_ONE_TASK_NUMBER)));
     }
 }
