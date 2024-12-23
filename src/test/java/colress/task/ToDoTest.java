@@ -1,7 +1,7 @@
 package colress.task;
 
-import static colress.TestUtil.VALID_DESCRIPTION_ONE;
-import static colress.TestUtil.VALID_DESCRIPTION_TWO;
+import static colress.testutil.TestUtil.VALID_DESCRIPTION_ONE;
+import static colress.testutil.TestUtil.VALID_DESCRIPTION_TWO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

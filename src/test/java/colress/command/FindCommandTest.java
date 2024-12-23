@@ -1,7 +1,7 @@
 package colress.command;
 
-import static colress.TestUtil.VALID_KEYWORD_ONE;
-import static colress.TestUtil.VALID_KEYWORD_TWO;
+import static colress.testutil.TestUtil.VALID_KEYWORD_ONE;
+import static colress.testutil.TestUtil.VALID_KEYWORD_TWO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

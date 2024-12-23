@@ -1,9 +1,9 @@
 package colress.command;
 
-import static colress.TestUtil.VALID_TASK_NUMBERS_ARGUMENT_ONE;
-import static colress.TestUtil.VALID_TASK_NUMBERS_ARGUMENT_TWO;
-import static colress.TestUtil.VALID_TASK_NUMBERS_ONE;
-import static colress.TestUtil.VALID_TASK_NUMBERS_TWO;
+import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
+import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER_ARGUMENT;
+import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS;
+import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBERS;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,11 +17,11 @@ public class DeleteCommandTest {
         // null values -> returns true
         assertTrue(deleteCommand.equals(new DeleteCommand()));
 
-        deleteCommand = new DeleteCommand(new String[]{VALID_TASK_NUMBERS_ARGUMENT_ONE}, VALID_TASK_NUMBERS_ONE);
+        deleteCommand = new DeleteCommand(new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}, VALID_MULTIPLE_TASK_NUMBERS);
 
         // same values -> returns true
         assertTrue(deleteCommand.equals(new DeleteCommand(
-                new String[]{VALID_TASK_NUMBERS_ARGUMENT_ONE}, VALID_TASK_NUMBERS_ONE)));
+                new String[]{VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT}, VALID_MULTIPLE_TASK_NUMBERS)));
 
         // same object -> returns true
         assertTrue(deleteCommand.equals(deleteCommand));
@@ -34,6 +34,6 @@ public class DeleteCommandTest {
 
         // different values -> returns false
         assertFalse(deleteCommand.equals(new DeleteCommand(
-                new String[]{VALID_TASK_NUMBERS_ARGUMENT_TWO}, VALID_TASK_NUMBERS_TWO)));
+                new String[]{VALID_ONE_TASK_NUMBER_ARGUMENT}, VALID_ONE_TASK_NUMBERS)));
     }
 }

@@ -1,7 +1,9 @@
-package colress;
+package colress.testutil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import colress.TaskType;
 
 /**
  * A utility class for test cases.
@@ -40,10 +42,10 @@ public class TestUtil {
     public static final TaskType VALID_TASK_TYPE_EVENT = TaskType.EVENT;
     public static final String INVALID_TASK_TYPE_ARGUMENT = "goodbye";
 
-    public static final String VALID_TASK_NUMBERS_ARGUMENT_ONE = "1 2 3";
-    public static final int[] VALID_TASK_NUMBERS_ONE = new int[]{1, 2, 3};
-    public static final String VALID_TASK_NUMBERS_ARGUMENT_TWO = "3";
-    public static final int[] VALID_TASK_NUMBERS_TWO = new int[]{3};
+    public static final String VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT = "1 2 3";
+    public static final int[] VALID_MULTIPLE_TASK_NUMBERS = new int[]{1, 2, 3};
+    public static final String VALID_ONE_TASK_NUMBER_ARGUMENT = "3";
+    public static final int[] VALID_ONE_TASK_NUMBERS = new int[]{3};
     public static final String INVALID_TASK_NUMBERS_ARGUMENT = "three";
 
     public static final String VALID_COMMAND_ADD = "aDd";

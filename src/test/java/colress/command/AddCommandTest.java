@@ -1,21 +1,21 @@
 package colress.command;
 
-import static colress.TestUtil.VALID_DATE_ARGUMENT_ONE;
-import static colress.TestUtil.VALID_DATE_ARGUMENT_TWO;
-import static colress.TestUtil.VALID_DATE_ONE;
-import static colress.TestUtil.VALID_DATE_TWO;
-import static colress.TestUtil.VALID_DESCRIPTION_ONE;
-import static colress.TestUtil.VALID_DESCRIPTION_TWO;
-import static colress.TestUtil.VALID_FROM_TIME_ARGUMENT_ONE;
-import static colress.TestUtil.VALID_FROM_TIME_ARGUMENT_TWO;
-import static colress.TestUtil.VALID_FROM_TIME_ONE;
-import static colress.TestUtil.VALID_FROM_TIME_TWO;
-import static colress.TestUtil.VALID_TASK_TYPE_ARGUMENT_EVENT;
-import static colress.TestUtil.VALID_TASK_TYPE_EVENT;
-import static colress.TestUtil.VALID_TO_TIME_ARGUMENT_ONE;
-import static colress.TestUtil.VALID_TO_TIME_ARGUMENT_TWO;
-import static colress.TestUtil.VALID_TO_TIME_ONE;
-import static colress.TestUtil.VALID_TO_TIME_TWO;
+import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_ONE;
+import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_TWO;
+import static colress.testutil.TestUtil.VALID_DATE_ONE;
+import static colress.testutil.TestUtil.VALID_DATE_TWO;
+import static colress.testutil.TestUtil.VALID_DESCRIPTION_ONE;
+import static colress.testutil.TestUtil.VALID_DESCRIPTION_TWO;
+import static colress.testutil.TestUtil.VALID_FROM_TIME_ARGUMENT_ONE;
+import static colress.testutil.TestUtil.VALID_FROM_TIME_ARGUMENT_TWO;
+import static colress.testutil.TestUtil.VALID_FROM_TIME_ONE;
+import static colress.testutil.TestUtil.VALID_FROM_TIME_TWO;
+import static colress.testutil.TestUtil.VALID_TASK_TYPE_ARGUMENT_EVENT;
+import static colress.testutil.TestUtil.VALID_TASK_TYPE_EVENT;
+import static colress.testutil.TestUtil.VALID_TO_TIME_ARGUMENT_ONE;
+import static colress.testutil.TestUtil.VALID_TO_TIME_ARGUMENT_TWO;
+import static colress.testutil.TestUtil.VALID_TO_TIME_ONE;
+import static colress.testutil.TestUtil.VALID_TO_TIME_TWO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

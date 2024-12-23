@@ -1,9 +1,9 @@
 package colress.command;
 
-import static colress.TestUtil.VALID_DATE_ARGUMENT_ONE;
-import static colress.TestUtil.VALID_DATE_ARGUMENT_TWO;
-import static colress.TestUtil.VALID_DATE_ONE;
-import static colress.TestUtil.VALID_DATE_TWO;
+import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_ONE;
+import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_TWO;
+import static colress.testutil.TestUtil.VALID_DATE_ONE;
+import static colress.testutil.TestUtil.VALID_DATE_TWO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
