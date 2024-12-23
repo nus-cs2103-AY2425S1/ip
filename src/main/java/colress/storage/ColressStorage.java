@@ -22,7 +22,6 @@ import colress.tasklist.TaskList;
  * Represents the ColressStorage of the Colress chatbot.
  */
 public final class ColressStorage extends Storage {
-    private final File taskFile;
     private FileWriter writer;
 
     /**
@@ -31,14 +30,7 @@ public final class ColressStorage extends Storage {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public ColressStorage(String filePath) {
-        this.taskFile = new File(filePath);
-    }
-
-    /**
-     * Constructs a ColressStorage object with the given File.
-     */
-    public ColressStorage(File file) {
-        this.taskFile = file;
+        super(new File(filePath));
     }
 
     private LocalDate readDate(String date) throws FileCorruptedException {
@@ -58,7 +50,7 @@ public final class ColressStorage extends Storage {
     }
 
     private void repopulateTasks(TaskList taskList) throws FileCorruptedException, FileNotFoundException {
-        Scanner reader = new Scanner(taskFile);
+        Scanner reader = new Scanner(getTaskFile());
         String[] strings;
         String currLine;
 
@@ -109,7 +101,7 @@ public final class ColressStorage extends Storage {
      * The method throws a FileCorruptedException if there are error reading the file.
      */
     public void loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
-        taskFile.createNewFile();
+        getTaskFile().createNewFile();
         repopulateTasks(taskList);
     }
 
@@ -118,15 +110,15 @@ public final class ColressStorage extends Storage {
      */
     public void createFile() {
         try {
-            taskFile.delete();
-            taskFile.createNewFile();
+            getTaskFile().delete();
+            getTaskFile().createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void initialiseFileWriter() throws IOException {
-        writer = new FileWriter(taskFile, false);
+        writer = new FileWriter(getTaskFile(), false);
     }
 
     /**

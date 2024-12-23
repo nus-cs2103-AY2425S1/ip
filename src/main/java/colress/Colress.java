@@ -30,12 +30,48 @@ public final class Colress {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public Colress(String filePath) {
-        this.ui = new UiAdvanced(this);
         this.storage = new ColressStorage(filePath);
         this.taskList = new ColressTaskList();
         this.commandType = "greet";
         this.hasError = false;
         this.isBeginnerMode = false;
+        setUi();
+    }
+
+    /**
+     * Constructs Colress with the given Storage and TaskList objects.
+     */
+    public Colress(Storage storage, TaskList taskList) {
+        this.storage = storage;
+        this.taskList = taskList;
+        this.commandType = "greet";
+        this.hasError = false;
+        this.isBeginnerMode = false;
+        setUi();
+    }
+
+    /**
+     * Constructs Colress with the given Storage and TaskList objects and whether isBeginnerMode is selected.
+     */
+    public Colress(Storage storage, TaskList taskList, boolean isBeginnerMode) {
+        this.storage = storage;
+        this.taskList = taskList;
+        this.commandType = "greet";
+        this.hasError = false;
+        this.isBeginnerMode = isBeginnerMode;
+        setUi();
+    }
+
+    private void setUi() {
+        this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);
+    }
+
+    public void setUi(Ui ui) {
+        this.ui = ui;
+    }
+
+    public boolean getIsBeginnerMode() {
+        return isBeginnerMode;
     }
 
     public String greetUser() {
@@ -103,7 +139,7 @@ public final class Colress {
      */
     public boolean toggleMode() {
         this.isBeginnerMode = !isBeginnerMode;
-        this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);
+        setUi();
         return isBeginnerMode;
     }
 

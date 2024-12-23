@@ -8,10 +8,8 @@ import static colress.testutil.TestUtil.VALID_DESCRIPTION_TWO;
 import static colress.testutil.TestUtil.VALID_FROM_TIME_ONE;
 import static colress.testutil.TestUtil.VALID_TO_TIME_ONE;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import colress.task.Deadline;
 import colress.task.Event;
@@ -34,15 +32,6 @@ public class CorrectFormatTaskListStub extends TaskList {
                 new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE),
                 new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE, true))));
     }
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOutOfBounds(int x) {
-        return x > getTasks().size();
-    }
 
     @Override
     public String addTask(Task task) {
@@ -61,24 +50,4 @@ public class CorrectFormatTaskListStub extends TaskList {
 
     @Override
     public void deleteTask(int... taskNumbers) {}
-
-    @Override
-    public String retrieveTasks() {
-        return "This method should not be called";
-    }
-
-    @Override
-    public String retrieveTasks(LocalDate date) {
-        return "This method should not be called";
-    }
-
-    @Override
-    public String retrieveTasks(String keyword) {
-        return "This method should not be called";
-    }
-
-    @Override
-    public Stream<Task> stream() {
-        return null;
-    }
 }

@@ -2,6 +2,7 @@ package colress.tasklist;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import colress.task.Task;
@@ -22,16 +23,68 @@ public abstract class TaskList {
         return tasks;
     }
 
-    public abstract boolean isEmpty();
-    public abstract boolean isOutOfBounds(int x);
+    public boolean isEmpty() {
+        return getTasks().isEmpty();
+    }
+
+    public boolean isOutOfBounds(int x) {
+        return x > getTasks().size();
+    }
+
+    public String getCurrTask(int index) {
+        return String.format("\n%d. " + getTasks().get(index), index + 1);
+    }
+
+    /**
+     * Facilitates building a string representation of the list of tasks and returns it.
+     */
+    public String retrieveTasks() {
+        return buildListOfTasks(x -> true);
+    }
+
+    /**
+     * Facilitates building a string representation of the list of tasks that falls on the provided LocalDate object
+     * and returns it.
+     */
+    public String retrieveTasks(LocalDate date) {
+        return buildListOfTasks(x -> x.fallsOnDate(date));
+    }
+
+    /**
+     * Facilitates building a string representation of the list of tasks whose description contains a specified keyword
+     * and returns it.
+     */
+    public String retrieveTasks(String keyword) {
+        return buildListOfTasks(x -> x.containsInDescription(keyword));
+    }
+
+    private String buildListOfTasks(Function<Task, Boolean> condition) {
+        String result = "";
+        if (getTasks().isEmpty()) {
+            return result;
+        } else {
+            for (int i = 0; i < getTasks().size(); i++) {
+                Task currTask = getTasks().get(i);
+                if (condition.apply(currTask)) {
+                    result += getCurrTask(i);
+                }
+            }
+        }
+
+        if (result.isEmpty()) {
+            return result;
+        }
+        return RESULT_PREAMBLE + result;
+    }
+
+    public Stream<Task> stream() {
+        return tasks.stream();
+    }
+
     public abstract String addTask(Task task);
     public abstract String checkTask(int... taskNumbers);
     public abstract String uncheckTask(int... taskNumbers);
     public abstract void deleteTask(int... taskNumbers);
-    public abstract String retrieveTasks();
-    public abstract String retrieveTasks(LocalDate date);
-    public abstract String retrieveTasks(String keyword);
-    public abstract Stream<Task> stream();
 
     @Override
     public boolean equals(Object other) {
