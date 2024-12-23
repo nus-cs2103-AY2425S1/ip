@@ -21,7 +21,7 @@ import colress.tasklist.TaskList;
 /**
  * Represents the Storage of the Colress chatbot.
  */
-public final class Storage {
+public final class Storage implements Storable {
     private final File taskFile;
     private FileWriter writer;
 
@@ -33,6 +33,7 @@ public final class Storage {
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
     }
+
     private LocalDate readDate(String date) throws FileCorruptedException {
         try {
             return LocalDate.parse(date);
@@ -100,6 +101,7 @@ public final class Storage {
      * Facilitates loading the task from the file to the provided TaskList object.
      * The method throws a FileCorruptedException if there are error reading the file.
      */
+    @Override
     public void loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
         taskFile.createNewFile();
         repopulateTasks(taskList);
@@ -108,6 +110,7 @@ public final class Storage {
     /**
      * Facilitates creating a new task file.
      */
+    @Override
     public void createFile() {
         try {
             taskFile.delete();
@@ -124,6 +127,7 @@ public final class Storage {
     /**
      * Facilitates writing tasks from the provided TaskList object to the text file.
      */
+    @Override
     public void writeToTaskFile(TaskList taskList) throws IOException {
         String result = taskList.stream().map(Task::toTextFile).reduce("", (res, next) -> res + next + '\n');
         initialiseFileWriter();
