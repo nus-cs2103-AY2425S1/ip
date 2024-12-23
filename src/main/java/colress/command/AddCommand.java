@@ -19,7 +19,7 @@ import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.Task;
 import colress.task.ToDo;
-import colress.tasklist.TaskList;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the add command that add a task to the list of tasks.
@@ -69,7 +69,7 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskListable taskList) {
         return ui.promptTaskType();
     }
 
@@ -105,11 +105,11 @@ public final class AddCommand extends Command {
     }
 
     /**
-     * Facilitates adding a task to the provided TaskList as not done, using the provided Ui object to receive input
+     * Facilitates adding a task to the provided TaskListable as not done, using the provided Ui object to receive input
      * from the user regarding what type of task to add and the various fields of the task to be added.
      */
     @Override
-    public String execute(UiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskListable taskList) {
         Task task;
         switch (taskType) {
         case DEADLINE:
@@ -127,7 +127,7 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskListable taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         Task task;
         try {

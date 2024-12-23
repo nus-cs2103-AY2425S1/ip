@@ -12,7 +12,7 @@ import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
-import colress.tasklist.TaskList;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the Beginner mode Ui of the Colress chatbot.
@@ -28,11 +28,11 @@ public final class UiBeginner extends Ui {
     /**
      * Checks current status of the Ui and calls the corresponding processing method to process the user input.
      *
-     * @param taskList A TaskList object that is passed to the processing methods that require them to correctly
+     * @param taskList A TaskListable object that is passed to the processing methods that require them to correctly
      *                 process user input.
      */
     @Override
-    public String processInput(String input, TaskList taskList) {
+    public String processInput(String input, TaskListable taskList) {
         switch(getStatus()) {
         case COMMAND:
             return processCommand(input, taskList);
@@ -61,10 +61,10 @@ public final class UiBeginner extends Ui {
      * The method catches an UnknownCommandException thrown by the parser if an invalid input is received, and alerts
      * the user that an invalid command has been detected.
      *
-     * @param taskList A TaskList object that is passed to the start method of the commands to allow the commands to
+     * @param taskList A TaskListable object that is passed to the start method of the commands to allow the commands to
      *                 perform operations on the list of tasks.
      */
-    public String processCommand(String input, TaskList taskList) {
+    public String processCommand(String input, TaskListable taskList) {
         try {
             this.currCommand = getParser().getCommand(input);
             setCommandType(currCommand.toString());
@@ -78,9 +78,9 @@ public final class UiBeginner extends Ui {
     /**
      * Sets status of the UI to expect a keyword for the user's next input and returns a prompt to the user
      * for a keyword to find in the list of tasks.
-     * If the given TaskList is empty, return an empty list message.
+     * If the given TaskListable is empty, return an empty list message.
      */
-    public String promptKeyword(TaskList taskList) {
+    public String promptKeyword(TaskListable taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -93,9 +93,9 @@ public final class UiBeginner extends Ui {
      * The method catches an EmptyInputException if user input is empty, and returns an error message to the user.
      *
      * @param input The user input.
-     * @param taskList The TaskList to print the list of tasks from.
+     * @param taskList The TaskListable to print the list of tasks from.
      */
-    public String processKeyword(String input, TaskList taskList) {
+    public String processKeyword(String input, TaskListable taskList) {
         try {
             input = getParser().getString(input);
             currCommand.initialise(input);
@@ -156,9 +156,9 @@ public final class UiBeginner extends Ui {
      * The method catches an EmptyInputException if user input is empty, and returns an error message to the user.
      *
      * @param input The user input.
-     * @param taskList The TaskList to add the task to.
+     * @param taskList The TaskListable to add the task to.
      */
-    public String processDescription(String input, TaskList taskList) {
+    public String processDescription(String input, TaskListable taskList) {
         try {
             // A typecast is required here because not all command objects have the getTaskType method.
             // The only command that will lead to this method being called is the AddCommand command.
@@ -186,13 +186,13 @@ public final class UiBeginner extends Ui {
     /**
      * Sets status of the UI to expect a date for the user's next input and returns a prompt to the user
      * for a date. The prompt returned depends on the current command to be executed and the type of task to be added.
-     * If the current command to be executed is the date command, check if the given TaskList is empty.
+     * If the current command to be executed is the date command, check if the given TaskListable is empty.
      * If so, return an empty list message.
      *
      * @param taskType The type of the task to be added.
-     * @param taskList The TaskList to add the task to.
+     * @param taskList The TaskListable to add the task to.
      */
-    public String promptDate(TaskType taskType, TaskList taskList) {
+    public String promptDate(TaskType taskType, TaskListable taskList) {
         if (currCommand instanceof DateCommand && taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -215,9 +215,9 @@ public final class UiBeginner extends Ui {
      * The method catches DateTimeParseException and returns an error message.
      *
      * @param input The user input.
-     * @param taskList The TaskList to add the task to or print from.
+     * @param taskList The TaskListable to add the task to or print from.
      */
-    public String processDate(String input, TaskList taskList) {
+    public String processDate(String input, TaskListable taskList) {
         LocalDate result;
         try {
             result = getParser().readDate(input);
@@ -272,7 +272,7 @@ public final class UiBeginner extends Ui {
      *
      * @param input The user input.
      */
-    public String processEndTime(String input, TaskList taskList) {
+    public String processEndTime(String input, TaskListable taskList) {
         try {
             LocalTime result = getParser().readTime(input);
             // A typecast is required here because not all command objects have the getTaskType method.
@@ -297,7 +297,7 @@ public final class UiBeginner extends Ui {
      * Prompts the user to enter the task number of the task to operate on, reads it using its Parser object
      * and returns it.
      */
-    public String promptTaskNumber(TaskList taskList) {
+    public String promptTaskNumber(TaskListable taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -313,7 +313,7 @@ public final class UiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to perform operations on.
      */
-    public String processTaskNumber(String input, TaskList taskList) {
+    public String processTaskNumber(String input, TaskListable taskList) {
         try {
             int[] result = getParser().getTaskNumber(input);
             for (int i: result) {
@@ -336,7 +336,7 @@ public final class UiBeginner extends Ui {
      * of tasks in the given TaskList that falls on the specified date.
      */
     @Override
-    public String printTasks(TaskList taskList, LocalDate date) {
+    public String printTasks(TaskListable taskList, LocalDate date) {
         setStatus(Status.COMMAND);
         return super.printTasks(taskList, date);
     }
@@ -346,7 +346,7 @@ public final class UiBeginner extends Ui {
      * of tasks in the given TaskList whose description contains the specified keyword.
      */
     @Override
-    public String printTasks(TaskList taskList, String keyword) {
+    public String printTasks(TaskListable taskList, String keyword) {
         setStatus(Status.COMMAND);
         return super.printTasks(taskList, keyword);
     }

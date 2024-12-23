@@ -5,7 +5,7 @@ import colress.UiBeginner;
 import colress.exception.EmptyInputException;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
-import colress.tasklist.TaskList;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the find command which prints a list of tasks that contain a specified keyword
@@ -24,7 +24,7 @@ public final class FindCommand extends ListCommand {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskListable taskList) {
         return ui.promptKeyword(taskList);
     }
 
@@ -34,16 +34,16 @@ public final class FindCommand extends ListCommand {
     }
 
     /**
-     * Facilitates listing all tasks in the provided TaskList object that contain a specified keyword,
+     * Facilitates listing all tasks in the provided TaskListable object that contain a specified keyword,
      * using the provided Ui object to receive date input from the user and to print the output for the user.
      */
     @Override
-    public String execute(UiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskListable taskList) {
         return ui.printTasks(taskList, keyword);
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskListable taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

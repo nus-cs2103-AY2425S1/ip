@@ -7,7 +7,7 @@ import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
-import colress.tasklist.TaskList;
+import colress.tasklist.TaskListable;
 
 /**
  * Encapsulates the behaviour of a command.
@@ -48,13 +48,13 @@ public abstract class Command {
         }
     }
 
-    public abstract String start(UiBeginner ui, TaskList taskList);
+    public abstract String start(UiBeginner ui, TaskListable taskList);
     public abstract void initialise(String input);
     public abstract void initialise(TaskType input);
     public abstract void initialise(int... input);
     public abstract void initialise(LocalDate input);
     public abstract void initialise(LocalTime input);
 
-    public abstract String execute(UiBeginner ui, TaskList taskList);
-    public abstract String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException;
+    public abstract String execute(UiBeginner ui, TaskListable taskList);
+    public abstract String execute(UiAdvanced ui, TaskListable taskList) throws InvalidCommandFormatException;
 }

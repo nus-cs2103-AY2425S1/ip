@@ -11,17 +11,23 @@ import colress.task.Task;
 /**
  * Represents the TaskList of the Colress chatbot.
  */
-public final class TaskList {
+public final class TaskList implements TaskListable {
     private final ArrayList<Task> tasks;
+
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
+    @Override
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
+
+    @Override
     public boolean isOutOfBounds(int x) {
         return x > tasks.size();
     }
+
     private String getCurrTask(int index) {
         return String.format("\n%d. " + tasks.get(index), index + 1);
     }
@@ -31,6 +37,7 @@ public final class TaskList {
      *
      * @return A string representation of the task that was added.
      */
+    @Override
     public String addTask(Task task) {
         tasks.add(task);
         return getCurrTask(tasks.size() - 1);
@@ -41,6 +48,7 @@ public final class TaskList {
      *
      * @return A string representation of the task that was marked done.
      */
+    @Override
     public String checkTask(int... taskNumbers) {
         return processTask(Task::check, taskNumbers);
     }
@@ -50,6 +58,7 @@ public final class TaskList {
      *
      * @return A string representation of the task that was marked not done.
      */
+    @Override
     public String uncheckTask(int... taskNumbers) {
         return processTask(Task::uncheck, taskNumbers);
     }
@@ -72,6 +81,7 @@ public final class TaskList {
     /**
      * Facilitates removing the Task object that corresponds to the provided task number.
      */
+    @Override
     public void deleteTask(int... taskNumbers) {
         try {
             for (int i = taskNumbers.length - 1; i >= 0; i--) {
@@ -87,6 +97,7 @@ public final class TaskList {
     /**
      * Facilitates building a string representation of the list of tasks and returns it.
      */
+    @Override
     public String retrieveTasks() {
         return buildListOfTasks(x -> false);
     }
@@ -95,6 +106,7 @@ public final class TaskList {
      * Facilitates building a string representation of the list of tasks that falls on the provided LocalDate object
      * and returns it.
      */
+    @Override
     public String retrieveTasks(LocalDate date) {
         return buildListOfTasks(x -> !x.fallsOnDate(date));
     }
@@ -103,6 +115,7 @@ public final class TaskList {
      * Facilitates building a string representation of the list of tasks whose description contains a specified keyword
      * and returns it.
      */
+    @Override
     public String retrieveTasks(String keyword) {
         return buildListOfTasks(x -> !x.containsInDescription(keyword));
     }
@@ -127,6 +140,7 @@ public final class TaskList {
         return "Here! This is your list:" + result;
     }
 
+    @Override
     public Stream<Task> stream() {
         return tasks.stream();
     }
