@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Objects;
 
-import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
 import colress.UiAdvanced;
@@ -20,6 +19,7 @@ import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.Task;
 import colress.task.ToDo;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the add command that add a task to the list of tasks.

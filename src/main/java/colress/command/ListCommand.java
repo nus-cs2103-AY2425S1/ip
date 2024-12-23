@@ -3,12 +3,12 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import colress.TaskList;
 import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the list command that prints all tasks from the list of tasks.

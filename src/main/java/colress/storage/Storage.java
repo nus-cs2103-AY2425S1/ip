@@ -1,4 +1,4 @@
-package colress;
+package colress.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,11 +10,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
+import colress.TaskType;
 import colress.exception.FileCorruptedException;
 import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.Task;
 import colress.task.ToDo;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the Storage of the Colress chatbot.

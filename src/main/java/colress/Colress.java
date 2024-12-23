@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 import colress.exception.FileCorruptedException;
+import colress.storage.Storage;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the Colress chatbot.

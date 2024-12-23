@@ -12,6 +12,7 @@ import colress.exception.EndTimeException;
 import colress.exception.InvalidCommandFormatException;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the Advanced mode Ui of the Colress chatbot.

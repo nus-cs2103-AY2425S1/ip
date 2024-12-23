@@ -1,11 +1,11 @@
 package colress.command;
 
-import colress.TaskList;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.EmptyInputException;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the find command which prints a list of tasks that contain a specified keyword

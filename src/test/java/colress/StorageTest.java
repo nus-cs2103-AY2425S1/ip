@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import colress.exception.FileCorruptedException;
+import colress.storage.Storage;
 
 public class StorageTest {
     @Test
