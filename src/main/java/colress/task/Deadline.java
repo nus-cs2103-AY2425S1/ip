@@ -64,6 +64,6 @@ public class Deadline extends Task {
         }
 
         Deadline otherDeadline = (Deadline) other;
-        return getDescription().equals(otherDeadline.getDescription()) && this.deadline.equals(otherDeadline.deadline);
+        return super.equals(otherDeadline) && this.deadline.equals(otherDeadline.deadline);
     }
 }

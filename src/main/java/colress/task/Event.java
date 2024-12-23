@@ -85,7 +85,7 @@ public class Event extends Task {
         }
 
         Event otherEvent = (Event) other;
-        return getDescription().equals(otherEvent.getDescription())
+        return super.equals(otherEvent)
                 && this.date.equals(otherEvent.date)
                 && this.from.equals(otherEvent.from)
                 && this.to.equals(otherEvent.to);

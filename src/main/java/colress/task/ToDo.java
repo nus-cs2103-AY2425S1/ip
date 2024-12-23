@@ -64,7 +64,6 @@ public class ToDo extends Task {
             return false;
         }
 
-        ToDo otherToDo = (ToDo) other;
-        return getDescription().equals(otherToDo.getDescription());
+        return super.equals(other);
     }
 }

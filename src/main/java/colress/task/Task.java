@@ -65,4 +65,18 @@ public abstract class Task {
      * Returns a string representation of the task with delimiters to facilitate file reading.
      */
     public abstract String toTextFile();
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Task)) {
+            return false;
+        }
+
+        Task otherTask = (Task) other;
+        return this.description.equals(otherTask.description) && this.isDone == otherTask.isDone;
+    }
 }
