@@ -3,6 +3,10 @@ package colress;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import colress.parser.Parsable;
+import colress.parser.Parser;
+import colress.tasklist.TaskListable;
+
 /**
  * Represents the Ui of the Colress chatbot.
  */
@@ -30,12 +34,12 @@ public abstract class Ui {
     public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
 
     private final Colress colress;
-    private final Parser parser;
+    private final Parsable parser;
     private Status status;
 
     /**
      * Instantiates colress and status field of Ui.
-     * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
+     * The Ui object has a Parsable object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object has a status field which is an indication of what type of input is being expected from the user.
      */
     public Ui(Colress colress) {
@@ -52,7 +56,7 @@ public abstract class Ui {
         return colress;
     }
 
-    public Parser getParser() {
+    public Parsable getParser() {
         return parser;
     }
 
@@ -69,9 +73,9 @@ public abstract class Ui {
     }
 
     /**
-     * Returns a String illustration of the list of tasks in the given TaskList.
+     * Returns a String illustration of the list of tasks in the given TaskListable.
      */
-    public String printTasks(TaskList taskList) {
+    public String printTasks(TaskListable taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -80,9 +84,9 @@ public abstract class Ui {
     }
 
     /**
-     * Returns a String illustration of the list of tasks in the given TaskList that falls on the specified date.
+     * Returns a String illustration of the list of tasks in the given TaskListable that falls on the specified date.
      */
-    public String printTasks(TaskList taskList, LocalDate date) {
+    public String printTasks(TaskListable taskList, LocalDate date) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -92,10 +96,10 @@ public abstract class Ui {
     }
 
     /**
-     * Returns a String illustration of the list of tasks in the given TaskList whose description contains
+     * Returns a String illustration of the list of tasks in the given TaskListable whose description contains
      * the specified keyword.
      */
-    public String printTasks(TaskList taskList, String keyword) {
+    public String printTasks(TaskListable taskList, String keyword) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -108,7 +112,7 @@ public abstract class Ui {
      * Sets the status of the UI to expect a call to storage to write the modified task list to the task file.
      * Return the given message and the current list of tasks.
      */
-    public String printConfirmationMessage(TaskList taskList, String message) {
+    public String printConfirmationMessage(TaskListable taskList, String message) {
         setStatus(Status.WRITE);
         return message + "\n\n" + printTasks(taskList);
     }
@@ -117,5 +121,5 @@ public abstract class Ui {
         return colress.toggleMode();
     }
 
-    public abstract String processInput(String input, TaskList taskList);
+    public abstract String processInput(String input, TaskListable taskList);
 }

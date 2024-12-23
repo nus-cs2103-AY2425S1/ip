@@ -53,6 +53,7 @@ application {
 shadowJar {
     archiveBaseName = "colress"
     archiveClassifier = null
+    dependsOn(distTar, distZip)
 }
 
 run{

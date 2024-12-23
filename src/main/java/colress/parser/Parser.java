@@ -1,9 +1,10 @@
-package colress;
+package colress.parser;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import colress.TaskType;
 import colress.command.AddCommand;
 import colress.command.CheckCommand;
 import colress.command.Command;
@@ -20,16 +21,7 @@ import colress.exception.UnknownCommandException;
 /**
  * Represents the Parser of the Ui of the Colress chatbot.
  */
-public final class Parser {
-    public static final String COMMAND_ADD = "add";
-    public static final String COMMAND_CHECK = "check";
-    public static final String COMMAND_DATE = "date";
-    public static final String COMMAND_DELETE = "delete";
-    public static final String COMMAND_EXIT = "exit";
-    public static final String COMMAND_FIND = "find";
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_TOGGLE = "toggle";
-    public static final String COMMAND_UNCHECK = "uncheck";
+public final class Parser implements Parsable {
 
     public Parser() {}
 
@@ -37,6 +29,7 @@ public final class Parser {
      * Reads user input and returns the corresponding Command.
      * Throws an UnknownCommandException if an invalid command is detected.
      */
+    @Override
     public Command getCommand(String input) throws UnknownCommandException {
         input = input.trim();
         switch (input.toLowerCase()) {
@@ -67,6 +60,7 @@ public final class Parser {
      * Reads user input and returns the corresponding Command.
      * Throws an UnknownCommandException if an invalid command is detected.
      */
+    @Override
     public Command parseCommand(String input) throws UnknownCommandException {
         input = input.trim();
         int whitespace = input.indexOf(" ");
@@ -109,6 +103,7 @@ public final class Parser {
      * Takes an input and returns the corresponding task type.
      * Throws an UnknownTaskTypeException if an invalid task type is detected.
      */
+    @Override
     public TaskType getTaskType(String input) throws IllegalArgumentException {
         input = input.trim();
         return TaskType.valueOf(input.toUpperCase());
@@ -118,6 +113,7 @@ public final class Parser {
      * Takes an input and returns the corresponding LocalDate object.
      * Throws a DateTimeParseException if an invalid task type is detected.
      */
+    @Override
     public LocalDate readDate(String input) throws DateTimeParseException {
         input = input.trim();
         return LocalDate.parse(input);
@@ -127,6 +123,7 @@ public final class Parser {
      * Takes an input and returns the corresponding LocalTime object.
      * Throws a DateTimeParseException if an invalid task type is detected.
      */
+    @Override
     public LocalTime readTime(String input) throws DateTimeParseException {
         input = input.trim();
         return LocalTime.parse(input);
@@ -136,6 +133,7 @@ public final class Parser {
      * Takes an input and returns the corresponding task number.
      * Throws a NumberFormatException if a number is not detected.
      */
+    @Override
     public int[] getTaskNumber(String input) throws NumberFormatException {
         input = input.trim();
         String[] inputs = input.split(" ");
@@ -146,6 +144,7 @@ public final class Parser {
         return result;
     }
 
+    @Override
     public String getString(String input) throws EmptyInputException {
         input = input.trim();
         if (input.isEmpty()) {

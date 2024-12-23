@@ -1,4 +1,4 @@
-package colress;
+package colress.tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import colress.task.Task;
 /**
  * Represents the TaskList of the Colress chatbot.
  */
-public class TaskList {
+public final class TaskList implements TaskListable {
     public static final String RESULT_PREAMBLE = "Here! This is your list:";
     public static final String MESSAGE_TASK_NUMBER_OUT_OF_BOUND = "Task Number should not be out of bounds.";
     private final List<Task> tasks;
@@ -25,10 +25,12 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    @Override
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    @Override
     public boolean isOutOfBounds(int x) {
         return x > tasks.size();
     }
@@ -42,6 +44,7 @@ public class TaskList {
      *
      * @return A string representation of the task that was added.
      */
+    @Override
     public String addTask(Task task) {
         tasks.add(task);
         return getCurrTask(tasks.size() - 1);
@@ -52,6 +55,7 @@ public class TaskList {
      *
      * @return A string representation of the task that was marked done.
      */
+    @Override
     public String checkTask(int... taskNumbers) {
         return processTask(Task::check, taskNumbers);
     }
@@ -82,9 +86,11 @@ public class TaskList {
     /**
      * Facilitates removing the Task object that corresponds to the provided task number.
      */
+    @Override
     public void deleteTask(int... taskNumbers) {
         try {
             for (int i = taskNumbers.length - 1; i >= 0; i--) {
+                assert !isOutOfBounds(taskNumbers[i]) : "Task Number should not be out of bounds.";
                 int currIndex = taskNumbers[i] - 1;
                 tasks.remove(currIndex);
             }
@@ -96,6 +102,7 @@ public class TaskList {
     /**
      * Facilitates building a string representation of the list of tasks and returns it.
      */
+    @Override
     public String retrieveTasks() {
         return buildListOfTasks(x -> true);
     }
@@ -104,6 +111,7 @@ public class TaskList {
      * Facilitates building a string representation of the list of tasks that falls on the provided LocalDate object
      * and returns it.
      */
+    @Override
     public String retrieveTasks(LocalDate date) {
         return buildListOfTasks(x -> x.fallsOnDate(date));
     }
@@ -112,6 +120,7 @@ public class TaskList {
      * Facilitates building a string representation of the list of tasks whose description contains a specified keyword
      * and returns it.
      */
+    @Override
     public String retrieveTasks(String keyword) {
         return buildListOfTasks(x -> x.containsInDescription(keyword));
     }
@@ -135,6 +144,7 @@ public class TaskList {
         return RESULT_PREAMBLE + result;
     }
 
+    @Override
     public Stream<Task> stream() {
         return tasks.stream();
     }

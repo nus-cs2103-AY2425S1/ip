@@ -8,6 +8,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import colress.exception.FileCorruptedException;
+import colress.storage.Storage;
+import colress.tasklist.TaskList;
+import colress.tasklist.TaskListable;
 import colress.testutil.CorrectFormatTaskListStub;
 
 public class StorageTest {
@@ -15,9 +18,9 @@ public class StorageTest {
     public void loadTask_correctFormat_success() {
         try {
             Storage storage = new Storage("src/test/java/colress/testutil/correctFormat.txt");
-            TaskList taskList = new TaskList();
+            TaskListable taskList = new TaskList();
             storage.loadTasks(taskList);
-            TaskList expectedTaskList = new CorrectFormatTaskListStub();
+            TaskListable expectedTaskList = new CorrectFormatTaskListStub();
             assertEquals(expectedTaskList, taskList);
         } catch (IOException | FileCorruptedException e) {
             fail();

@@ -12,6 +12,7 @@ import colress.exception.EndTimeException;
 import colress.exception.InvalidCommandFormatException;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the Advanced mode Ui of the Colress chatbot.
@@ -28,11 +29,11 @@ public final class UiAdvanced extends Ui {
      * Checks current status of the Ui, which is an indication of what type of input is being expected from the user,
      * and calls the corresponding processing method to process the user input.
      *
-     * @param taskList A TaskList object that is passed to the processing methods that require them to correctly
+     * @param taskList A TaskListable object that is passed to the processing methods that require them to correctly
      *                 process user input.
      */
     @Override
-    public String processInput(String input, TaskList taskList) {
+    public String processInput(String input, TaskListable taskList) {
         try {
             parseCommand(input);
             return currCommand.execute(this, taskList);
@@ -73,9 +74,9 @@ public final class UiAdvanced extends Ui {
      * its value. Else, throw exception
      *
      * @param input The user input.
-     * @param taskList The TaskList to check task number validity on.
+     * @param taskList The TaskListable to check task number validity on.
      */
-    public void parseTaskNumbers(String input, TaskList taskList)
+    public void parseTaskNumbers(String input, TaskListable taskList)
             throws IndexOutOfBoundsException, NumberFormatException {
         int[] result = getParser().getTaskNumber(input);
         for (int i: result) {

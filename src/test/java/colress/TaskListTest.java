@@ -1,7 +1,7 @@
 package colress;
 
-import static colress.TaskList.MESSAGE_TASK_NUMBER_OUT_OF_BOUND;
-import static colress.TaskList.RESULT_PREAMBLE;
+import static colress.tasklist.TaskList.MESSAGE_TASK_NUMBER_OUT_OF_BOUND;
+import static colress.tasklist.TaskList.RESULT_PREAMBLE;
 import static colress.testutil.TestUtil.EMPTY_STRING;
 import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DATE_TWO;
@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.ToDo;
+import colress.tasklist.TaskList;
 
 public class TaskListTest {
     @Test

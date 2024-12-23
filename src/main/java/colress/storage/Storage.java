@@ -1,4 +1,4 @@
-package colress;
+package colress.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,16 +10,18 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
+import colress.TaskType;
 import colress.exception.FileCorruptedException;
 import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.Task;
 import colress.task.ToDo;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the Storage of the Colress chatbot.
  */
-public final class Storage {
+public final class Storage implements Storable {
     private final File taskFile;
     private FileWriter writer;
 
@@ -55,7 +57,7 @@ public final class Storage {
         }
     }
 
-    private void repopulateTasks(TaskList taskList) throws FileCorruptedException, FileNotFoundException {
+    private void repopulateTasks(TaskListable taskList) throws FileCorruptedException, FileNotFoundException {
         Scanner reader = new Scanner(taskFile);
         String[] strings;
         String currLine;
@@ -78,7 +80,7 @@ public final class Storage {
         }
     }
 
-    private void addTaskToList(TaskList taskList, String[] arr, boolean isChecked, TaskType taskType)
+    private void addTaskToList(TaskListable taskList, String[] arr, boolean isChecked, TaskType taskType)
             throws FileCorruptedException {
         switch (taskType) {
         case TODO:
@@ -106,7 +108,7 @@ public final class Storage {
      * Facilitates loading the task from the file to the provided TaskList object.
      * The method throws a FileCorruptedException if there are error reading the file.
      */
-    public void loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
+    public void loadTasks(TaskListable taskList) throws IOException, FileCorruptedException {
         taskFile.createNewFile();
         repopulateTasks(taskList);
     }
@@ -130,7 +132,7 @@ public final class Storage {
     /**
      * Facilitates writing tasks from the provided TaskList object to the text file.
      */
-    public void writeToTaskFile(TaskList taskList) throws IOException {
+    public void writeToTaskFile(TaskListable taskList) throws IOException {
         String result = taskList.stream().map(Task::toTextFile).reduce("", (res, next) -> res + next + '\n');
         initialiseFileWriter();
         writer.write(result);

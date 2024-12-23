@@ -3,11 +3,11 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import colress.Parser;
-import colress.TaskList;
 import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.parser.Parser;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the toggle command that toggles the mode of the program between Beginner and Advanced.
@@ -18,21 +18,21 @@ public class ToggleCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskListable taskList) {
         return execute(ui, taskList);
     }
 
     /**
-     * Facilitates exiting the program by calling the exit method of the provided Ui object. The provided TaskList
+     * Facilitates exiting the program by calling the exit method of the provided Ui object. The provided TaskListable
      * object is irrelevant in this method.
      */
     @Override
-    public String execute(UiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskListable taskList) {
         return String.format(getSuccessfulExecutionMessage(), ui.toggleMode() ? "Beginner" : "Advanced");
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskListable taskList) {
         return String.format(getSuccessfulExecutionMessage(), ui.toggleMode() ? "Beginner" : "Advanced");
     }
 

@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.util.Objects;
 
 import colress.exception.FileCorruptedException;
+import colress.storage.Storable;
+import colress.storage.Storage;
+import colress.tasklist.TaskList;
+import colress.tasklist.TaskListable;
 
 /**
  * Represents the Colress chatbot.
  */
 public final class Colress {
-    private final Storage storage;
-    private final TaskList taskList;
+    private final Storable storage;
+    private final TaskListable taskList;
     private Ui ui;
     private String commandType;
     private boolean hasError;
@@ -19,9 +23,9 @@ public final class Colress {
     /**
      * Constructs Colress.
      * Colress has an Ui object which facilitates interactions with the user.
-     * Colress has a Storage object which writes tasks to the text file and loads tasks from the text file
+     * Colress has a Storable object which writes tasks to the text file and loads tasks from the text file
      * during start-up.
-     * Colress has a TaskList object which contains an ArrayList of Tasks and perform operations on them.
+     * Colress has a TaskListable object which contains an ArrayList of Tasks and perform operations on them.
      *
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
@@ -39,8 +43,8 @@ public final class Colress {
     }
 
     /**
-     * Loads task from task file to the given TaskList object and returns
-     * the contents of the TaskList object.
+     * Loads task from task file to the given TaskListable object and returns
+     * the contents of the TaskListable object.
      */
     public String loadTasks() {
         try {
