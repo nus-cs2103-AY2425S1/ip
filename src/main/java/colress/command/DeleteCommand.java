@@ -10,7 +10,7 @@ import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
-import colress.tasklist.TaskListable;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the delete command that removes a task from the list of tasks.
@@ -37,7 +37,7 @@ public final class DeleteCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskListable taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
         return ui.promptTaskNumber(taskList);
     }
 
@@ -55,17 +55,17 @@ public final class DeleteCommand extends Command {
     }
 
     /**
-     * Facilitates removing a task from the provided TaskListable, using the provided Ui object to receive input
+     * Facilitates removing a task from the provided TaskList, using the provided Ui object to receive input
      * from the user regarding which task to remove.
      */
     @Override
-    public String execute(UiBeginner ui, TaskListable taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         taskList.deleteTask(taskNumbers);
         return ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage());
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskListable taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

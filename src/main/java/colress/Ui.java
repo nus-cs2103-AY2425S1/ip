@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import colress.parser.Parsable;
 import colress.parser.Parser;
-import colress.tasklist.TaskListable;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the Ui of the Colress chatbot.
@@ -73,9 +73,9 @@ public abstract class Ui {
     }
 
     /**
-     * Returns a String illustration of the list of tasks in the given TaskListable.
+     * Returns a String illustration of the list of tasks in the given TaskList.
      */
-    public String printTasks(TaskListable taskList) {
+    public String printTasks(TaskList taskList) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -84,9 +84,9 @@ public abstract class Ui {
     }
 
     /**
-     * Returns a String illustration of the list of tasks in the given TaskListable that falls on the specified date.
+     * Returns a String illustration of the list of tasks in the given TaskList that falls on the specified date.
      */
-    public String printTasks(TaskListable taskList, LocalDate date) {
+    public String printTasks(TaskList taskList, LocalDate date) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -96,10 +96,10 @@ public abstract class Ui {
     }
 
     /**
-     * Returns a String illustration of the list of tasks in the given TaskListable whose description contains
+     * Returns a String illustration of the list of tasks in the given TaskList whose description contains
      * the specified keyword.
      */
-    public String printTasks(TaskListable taskList, String keyword) {
+    public String printTasks(TaskList taskList, String keyword) {
         if (taskList.isEmpty()) {
             return MESSAGE_LIST_EMPTY;
         }
@@ -112,7 +112,7 @@ public abstract class Ui {
      * Sets the status of the UI to expect a call to storage to write the modified task list to the task file.
      * Return the given message and the current list of tasks.
      */
-    public String printConfirmationMessage(TaskListable taskList, String message) {
+    public String printConfirmationMessage(TaskList taskList, String message) {
         setStatus(Status.WRITE);
         return message + "\n\n" + printTasks(taskList);
     }
@@ -121,5 +121,5 @@ public abstract class Ui {
         return colress.toggleMode();
     }
 
-    public abstract String processInput(String input, TaskListable taskList);
+    public abstract String processInput(String input, TaskList taskList);
 }

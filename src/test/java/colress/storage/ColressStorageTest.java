@@ -1,4 +1,4 @@
-package colress;
+package colress.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -8,19 +8,18 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import colress.exception.FileCorruptedException;
-import colress.storage.Storage;
+import colress.tasklist.ColressTaskList;
 import colress.tasklist.TaskList;
-import colress.tasklist.TaskListable;
 import colress.testutil.CorrectFormatTaskListStub;
 
-public class StorageTest {
+public class ColressStorageTest {
     @Test
     public void loadTask_correctFormat_success() {
         try {
-            Storage storage = new Storage("src/test/java/colress/testutil/correctFormat.txt");
-            TaskListable taskList = new TaskList();
-            storage.loadTasks(taskList);
-            TaskListable expectedTaskList = new CorrectFormatTaskListStub();
+            ColressStorage colressStorage = new ColressStorage("src/test/java/colress/testutil/correctFormat.txt");
+            TaskList taskList = new ColressTaskList();
+            colressStorage.loadTasks(taskList);
+            TaskList expectedTaskList = new CorrectFormatTaskListStub();
             assertEquals(expectedTaskList, taskList);
         } catch (IOException | FileCorruptedException e) {
             fail();
@@ -30,8 +29,8 @@ public class StorageTest {
     @Test
     public void loadTask_wrongBraceFormat_exceptionThrown() {
         try {
-            Storage storage = new Storage("src/test/java/colress/testutil/wrongBraceFormat.txt");
-            storage.loadTasks(new TaskList());
+            ColressStorage colressStorage = new ColressStorage("src/test/java/colress/testutil/wrongBraceFormat.txt");
+            colressStorage.loadTasks(new ColressTaskList());
             fail();
         } catch (IOException e) {
             fail();
@@ -45,8 +44,8 @@ public class StorageTest {
     @Test
     public void loadTask_wrongDateFormat_exceptionThrown() {
         try {
-            Storage storage = new Storage("src/test/java/colress/testutil/wrongDateFormat.txt");
-            storage.loadTasks(new TaskList());
+            ColressStorage colressStorage = new ColressStorage("src/test/java/colress/testutil/wrongDateFormat.txt");
+            colressStorage.loadTasks(new ColressTaskList());
             fail();
         } catch (IOException e) {
             fail();
@@ -60,8 +59,8 @@ public class StorageTest {
     @Test
     public void loadTask_wrongTimeFormat_exceptionThrown() {
         try {
-            Storage storage = new Storage("src/test/java/colress/testutil/wrongTimeFormat.txt");
-            storage.loadTasks(new TaskList());
+            ColressStorage colressStorage = new ColressStorage("src/test/java/colress/testutil/wrongTimeFormat.txt");
+            colressStorage.loadTasks(new ColressTaskList());
             fail();
         } catch (IOException e) {
             fail();

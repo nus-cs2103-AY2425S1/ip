@@ -10,7 +10,7 @@ import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
-import colress.tasklist.TaskListable;
+import colress.tasklist.TaskList;
 
 /**
  * Represents the check command that marks a task in the list of tasks as not done.
@@ -37,7 +37,7 @@ public final class UncheckCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskListable taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
         return ui.promptTaskNumber(taskList);
     }
 
@@ -56,17 +56,17 @@ public final class UncheckCommand extends Command {
     }
 
     /**
-     * Facilitates marking a task in the provided TaskListable as not done, using the provided Ui object to receive
+     * Facilitates marking a task in the provided TaskList as not done, using the provided Ui object to receive
      * input from the user regarding which task to mark.
      */
     @Override
-    public String execute(UiBeginner ui, TaskListable taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         return ui.printConfirmationMessage(taskList,
                     getSuccessfulExecutionMessage() + taskList.uncheckTask(taskNumbers));
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskListable taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

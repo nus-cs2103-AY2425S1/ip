@@ -13,18 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import colress.TaskList;
 import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.Task;
 import colress.task.ToDo;
+import colress.tasklist.TaskList;
 
 /**
  * A Stub class for testing purposes.
  */
 public class CorrectFormatTaskListStub extends TaskList {
     /**
-     * Constructs a TaskList object with valid tasks for testing.
+     * Constructs a ColressTaskList object with valid tasks for testing.
      */
     public CorrectFormatTaskListStub() {
         super(new ArrayList<>(List.of(new ToDo(VALID_DESCRIPTION_ONE),
@@ -33,6 +33,15 @@ public class CorrectFormatTaskListStub extends TaskList {
                 new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE, true),
                 new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE),
                 new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE, true))));
+    }
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean isOutOfBounds(int x) {
+        return x > getTasks().size();
     }
 
     @Override

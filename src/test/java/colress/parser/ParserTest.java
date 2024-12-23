@@ -1,4 +1,4 @@
-package colress;
+package colress.parser;
 
 import static colress.testutil.TestUtil.DELIMITER;
 import static colress.testutil.TestUtil.EMPTY_STRING;
@@ -40,6 +40,7 @@ import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
+import colress.TaskType;
 import colress.command.AddCommand;
 import colress.command.CheckCommand;
 import colress.command.DateCommand;
