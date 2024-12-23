@@ -23,6 +23,9 @@ import colress.task.ToDo;
  * A Stub class for testing purposes.
  */
 public class CorrectFormatTaskListStub extends TaskList {
+    /**
+     * Constructs a TaskList object with valid tasks for testing.
+     */
     public CorrectFormatTaskListStub() {
         super(new ArrayList<>(List.of(new ToDo(VALID_DESCRIPTION_ONE),
                 new ToDo(VALID_DESCRIPTION_ONE, true),
