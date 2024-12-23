@@ -46,7 +46,7 @@ public class TestUtil {
     public static final TaskType VALID_TASK_TYPE_EVENT = TaskType.EVENT;
     public static final String INVALID_TASK_TYPE_ARGUMENT = "goodbye";
 
-    public static final String VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT = "3 1 2";
+    public static final String VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT = "1 2 3";
     public static final int[] VALID_MULTIPLE_TASK_NUMBERS = new int[]{1, 2, 3};
     public static final String VALID_ONE_TASK_NUMBER_ARGUMENT = "1";
     public static final int[] VALID_ONE_TASK_NUMBER = new int[]{1};
