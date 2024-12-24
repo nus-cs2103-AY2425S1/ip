@@ -1,5 +1,7 @@
 package colress.command;
 
+import static colress.Ui.MESSAGE_LIST_EMPTY;
+
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
@@ -20,6 +22,9 @@ public class ListCommand extends Command {
 
     @Override
     public String start(UiBeginner ui, TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
         return execute(ui, taskList);
     }
 
@@ -34,6 +39,9 @@ public class ListCommand extends Command {
 
     @Override
     public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
         return ui.printTasks(taskList);
     }
 

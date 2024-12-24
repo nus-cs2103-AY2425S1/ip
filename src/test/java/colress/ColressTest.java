@@ -10,15 +10,15 @@ import colress.exception.FileCorruptedException;
 import colress.storage.Storage;
 import colress.tasklist.ColressTaskList;
 import colress.tasklist.TaskList;
-import colress.testutil.CorrectFormatStorageStub;
-import colress.testutil.CorrectFormatTaskListStub;
+import colress.testutil.StorageStub;
+import colress.testutil.TaskListStub;
 import colress.testutil.UiStub;
 
 public class ColressTest {
     @Test
     public void loadTasksTest() {
-        Storage storage = new CorrectFormatStorageStub();
-        TaskList taskList = new CorrectFormatTaskListStub();
+        Storage storage = new StorageStub();
+        TaskList taskList = new TaskListStub();
         Colress colress = new Colress(storage, taskList);
         Ui ui = new UiStub(colress);
         colress.setUi(ui);
@@ -34,8 +34,8 @@ public class ColressTest {
 
     @Test
     public void getCommandTypeTest() {
-        Storage storage = new CorrectFormatStorageStub();
-        TaskList taskList = new CorrectFormatTaskListStub();
+        Storage storage = new StorageStub();
+        TaskList taskList = new TaskListStub();
 
         // no error
         Colress colress = new Colress(storage, taskList, false, true);
@@ -50,8 +50,8 @@ public class ColressTest {
 
     @Test
     public void toggleModeTest() {
-        Storage storage = new CorrectFormatStorageStub();
-        TaskList taskList = new CorrectFormatTaskListStub();
+        Storage storage = new StorageStub();
+        TaskList taskList = new TaskListStub();
         Colress colress = new Colress(storage, taskList, false, true);
 
         // Beginner to Advanced

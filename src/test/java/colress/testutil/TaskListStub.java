@@ -20,17 +20,32 @@ import colress.tasklist.TaskList;
 /**
  * A Stub class for testing purposes.
  */
-public class CorrectFormatTaskListStub extends TaskList {
+public class TaskListStub extends TaskList {
+    public static final Task TASK_ONE = new ToDo(VALID_DESCRIPTION_ONE);
+    public static final Task TASK_TWO = new ToDo(VALID_DESCRIPTION_ONE, true);
+    public static final Task TASK_THREE = new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE);
+    public static final Task TASK_FOUR = new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE, true);
+    public static final Task TASK_FIVE = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO,
+            VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE);
+    public static final Task TASK_SIX = new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO,
+            VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE, true);
+
+    private final boolean isEmpty;
+
     /**
      * Constructs a ColressTaskList object with valid tasks for testing.
      */
-    public CorrectFormatTaskListStub() {
-        super(new ArrayList<>(List.of(new ToDo(VALID_DESCRIPTION_ONE),
-                new ToDo(VALID_DESCRIPTION_ONE, true),
-                new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE),
-                new Deadline(VALID_DESCRIPTION_TWO, VALID_DATE_ONE, true),
-                new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE),
-                new Event(VALID_DESCRIPTION_THREE, VALID_DATE_TWO, VALID_FROM_TIME_ONE, VALID_TO_TIME_ONE, true))));
+    public TaskListStub() {
+        super(new ArrayList<>(List.of(TASK_ONE, TASK_TWO, TASK_THREE, TASK_FOUR, TASK_FIVE, TASK_SIX)));
+        this.isEmpty = false;
+    }
+
+    /**
+     * Constructs an empty ColressTaskList for testing.
+     */
+    public TaskListStub(boolean isEmpty) {
+        super();
+        this.isEmpty = isEmpty;
     }
 
     @Override

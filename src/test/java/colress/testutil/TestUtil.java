@@ -26,6 +26,8 @@ public class TestUtil {
     public static final LocalDate VALID_DATE_ONE = LocalDate.of(2024, 5, 4);
     public static final String VALID_DATE_ARGUMENT_TWO = "2024-05-05";
     public static final LocalDate VALID_DATE_TWO = LocalDate.of(2024, 5, 5);
+    public static final String VALID_DATE_ARGUMENT_NONE = "2024-05-06";
+    public static final LocalDate VALID_DATE_NONE = LocalDate.of(2024, 5, 6);
     public static final String INVALID_DATE_ARGUMENT = "2024/05/05";
 
     public static final String VALID_FROM_TIME_ARGUMENT_ONE = "14:30";

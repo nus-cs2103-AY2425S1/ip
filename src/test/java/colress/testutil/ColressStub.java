@@ -8,11 +8,11 @@ import colress.Chatbot;
 public final class ColressStub extends Chatbot {
 
     public ColressStub() {
-        super(new CorrectFormatStorageStub(), new CorrectFormatTaskListStub());
+        super(new StorageStub(), new TaskListStub());
     }
 
     public ColressStub(boolean hasError, boolean isBeginnerMode) {
-        super(new CorrectFormatStorageStub(), new CorrectFormatTaskListStub(), hasError, isBeginnerMode);
+        super(new StorageStub(), new TaskListStub(), hasError, isBeginnerMode);
     }
 
     @Override

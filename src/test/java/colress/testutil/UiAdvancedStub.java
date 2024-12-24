@@ -47,6 +47,9 @@ public class UiAdvancedStub extends UiAdvanced {
 
     @Override
     public void parseDate(String input) throws DateTimeParseException {
+        if (throwsFirstException) {
+            throw new DateTimeParseException("", input, 0);
+        }
     }
 
     @Override
@@ -75,12 +78,17 @@ public class UiAdvancedStub extends UiAdvanced {
 
     @Override
     public void parseStartTime(String input) throws DateTimeParseException {
+        if (throwsFirstException) {
+            throw new DateTimeParseException("", input, 0);
+        }
     }
 
     @Override
     public void parseEndTime(String input) throws EndTimeException, DateTimeParseException {
         if (throwsFirstException) {
             throw new EndTimeException();
+        } else if (throwsSecondException) {
+            throw new DateTimeParseException("", input, 0);
         }
     }
 }

@@ -1,6 +1,7 @@
 package colress.tasklist;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -17,6 +18,10 @@ public abstract class TaskList {
 
     public TaskList(List<Task> taskList) {
         this.tasks = taskList;
+    }
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
     }
 
     public List<Task> getTasks() {

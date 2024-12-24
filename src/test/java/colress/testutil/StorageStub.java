@@ -8,9 +8,9 @@ import colress.tasklist.TaskList;
 /**
  * A stub class for the Storage class for testing purposes.
  */
-public class CorrectFormatStorageStub extends Storage {
+public class StorageStub extends Storage {
 
-    public CorrectFormatStorageStub() {
+    public StorageStub() {
         super(new File("src/test/java/colress/testutil/correctFormat.txt"));
     }
 

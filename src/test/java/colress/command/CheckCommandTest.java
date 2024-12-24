@@ -38,8 +38,7 @@ public class CheckCommandTest {
         TaskList taskList = colressUiBeginner.getColress().getTaskList();
 
         String expectedResult = CheckCommand.MESSAGE_SUCCESSFUL_EXECUTION + "\n\n" + taskList.retrieveTasks();
-        assertEquals(expectedResult, checkCommand.execute(colressUiBeginner,
-                colressUiBeginner.getColress().getTaskList()));
+        assertEquals(expectedResult, checkCommand.execute(colressUiBeginner, taskList));
     }
 
     @Test
