@@ -18,8 +18,9 @@ public abstract class UiAdvanced extends Ui {
 
     public abstract String processInput(String input, TaskList taskList);
     public abstract void parseKeyword(String input) throws EmptyInputException;
-    public abstract void parseDate(String input);
-    public abstract void parseTaskNumbers(String input, TaskList taskList);
+    public abstract void parseDate(String input) throws DateTimeParseException;
+    public abstract void parseTaskNumbers(String input, TaskList taskList)
+            throws IndexOutOfBoundsException, NumberFormatException;
     public abstract void parseTaskType(String input) throws UnknownTaskTypeException;
     public abstract void parseDescription(String input) throws EmptyInputException;
     public abstract void parseStartTime(String input);
