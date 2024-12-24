@@ -92,10 +92,6 @@ public abstract class Chatbot {
         return isBeginnerMode;
     }
 
-    public boolean hasError() {
-        return isBeginnerMode;
-    }
-
     public void setHasError(boolean hasError) {
         this.hasError = hasError;
     }
