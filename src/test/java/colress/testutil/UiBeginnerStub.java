@@ -1,5 +1,6 @@
 package colress.testutil;
 
+import colress.Chatbot;
 import colress.UiBeginner;
 import colress.tasklist.TaskList;
 
@@ -11,6 +12,10 @@ public class UiBeginnerStub extends UiBeginner {
 
     public UiBeginnerStub() {
         super(new ColressStub());
+    }
+
+    public UiBeginnerStub(Chatbot colress) {
+        super(colress);
     }
 
     @Override

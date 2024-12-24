@@ -2,6 +2,7 @@ package colress.testutil;
 
 import java.time.format.DateTimeParseException;
 
+import colress.Chatbot;
 import colress.UiAdvanced;
 import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
@@ -14,6 +15,10 @@ import colress.tasklist.TaskList;
 public class UiAdvancedStub extends UiAdvanced {
     public UiAdvancedStub() {
         super(new ColressStub());
+    }
+
+    public UiAdvancedStub(Chatbot colress) {
+        super(colress);
     }
 
     @Override
