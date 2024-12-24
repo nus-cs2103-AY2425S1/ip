@@ -33,7 +33,7 @@ public abstract class Ui {
             + "You can enter multiple numbers with a space between them";
     public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
 
-    private final Colress colress;
+    private final Chatbot colress;
     private final Parsable parser;
     private Status status;
 
@@ -42,7 +42,7 @@ public abstract class Ui {
      * The Ui object has a Parsable object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object has a status field which is an indication of what type of input is being expected from the user.
      */
-    public Ui(Colress colress) {
+    public Ui(Chatbot colress) {
         this.colress = colress;
         this.parser = new Parser();
         this.status = Status.COMMAND;
@@ -52,7 +52,7 @@ public abstract class Ui {
         return MESSAGE_GREETING;
     }
 
-    public Colress getColress() {
+    public Chatbot getColress() {
         return colress;
     }
 

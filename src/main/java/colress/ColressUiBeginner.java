@@ -20,7 +20,7 @@ public final class ColressUiBeginner extends UiBeginner {
 
     private Command currCommand;
 
-    public ColressUiBeginner(Colress colress) {
+    public ColressUiBeginner(Chatbot colress) {
         super(colress);
     }
 

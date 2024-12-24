@@ -12,7 +12,7 @@ import colress.tasklist.TaskList;
  * The Advanced mode Ui uses single-line command format with no prompts.
  */
 public abstract class UiAdvanced extends Ui {
-    public UiAdvanced(Colress colress) {
+    public UiAdvanced(Chatbot colress) {
         super(colress);
     }
 

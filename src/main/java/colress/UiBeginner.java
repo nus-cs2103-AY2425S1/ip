@@ -9,7 +9,7 @@ import colress.tasklist.TaskList;
  * The Beginner mode Ui uses multi-line command format, with prompts along each step.
  */
 public abstract class UiBeginner extends Ui {
-    public UiBeginner(Colress colress) {
+    public UiBeginner(Chatbot colress) {
         super(colress);
     }
 

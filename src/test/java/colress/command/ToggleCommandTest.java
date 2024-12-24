@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import colress.Chatbot;
 import colress.Colress;
 import colress.ColressUiAdvanced;
 import colress.ColressUiBeginner;
@@ -25,7 +26,7 @@ public class ToggleCommandTest {
         TaskList taskList = new CorrectFormatTaskListStub();
 
         // Advanced to Beginner
-        Colress colress = new Colress(storage, taskList, false, false);
+        Chatbot colress = new Colress(storage, taskList, false, false);
         UiBeginner colressUiBeginner = new ColressUiBeginner(colress);
 
         String expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Beginner");

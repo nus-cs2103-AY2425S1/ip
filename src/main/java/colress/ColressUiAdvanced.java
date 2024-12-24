@@ -21,7 +21,7 @@ public final class ColressUiAdvanced extends UiAdvanced {
 
     private Command currCommand;
 
-    public ColressUiAdvanced(Colress colress) {
+    public ColressUiAdvanced(Chatbot colress) {
         super(colress);
     }
 

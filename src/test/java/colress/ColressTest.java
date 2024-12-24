@@ -56,11 +56,11 @@ public class ColressTest {
 
         // Beginner to Advanced
         colress.toggleMode();
-        assertFalse(colress.getIsBeginnerMode());
+        assertFalse(colress.isBeginnerMode());
 
         // Advanced to Beginner
         colress = new Colress(storage, taskList, false, false);
         colress.toggleMode();
-        assertTrue(colress.getIsBeginnerMode());
+        assertTrue(colress.isBeginnerMode());
     }
 }
