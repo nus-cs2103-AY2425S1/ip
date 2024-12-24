@@ -8,8 +8,8 @@ import java.util.Objects;
 
 import colress.TaskType;
 import colress.Ui;
-import colress.UiAdvanced;
-import colress.UiBeginner;
+import colress.ColressUiAdvanced;
+import colress.ColressUiBeginner;
 import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
 import colress.exception.InvalidCommandFormatException;
@@ -94,7 +94,7 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
+    public String start(ColressUiBeginner ui, TaskList taskList) {
         return ui.promptTaskType();
     }
 
@@ -111,7 +111,7 @@ public final class AddCommand extends Command {
      * from the user regarding what type of task to add and the various fields of the task to be added.
      */
     @Override
-    public String execute(UiBeginner ui, TaskList taskList) {
+    public String execute(ColressUiBeginner ui, TaskList taskList) {
         Task task;
         switch (taskType) {
         case DEADLINE:
@@ -128,7 +128,7 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         Task task;
         try {

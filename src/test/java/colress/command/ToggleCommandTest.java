@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import colress.Colress;
-import colress.UiAdvanced;
-import colress.UiBeginner;
+import colress.ColressUiAdvanced;
+import colress.ColressUiBeginner;
 import colress.parser.Parser;
 import colress.storage.Storage;
 import colress.tasklist.TaskList;
@@ -24,17 +24,17 @@ public class ToggleCommandTest {
 
         // Advanced to Beginner
         Colress colress = new Colress(storage, taskList, false, false);
-        UiBeginner uiBeginner = new UiBeginner(colress);
+        ColressUiBeginner colressUiBeginner = new ColressUiBeginner(colress);
 
         String expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Beginner");
-        assertEquals(expectedResult, toggleCommand.start(uiBeginner, taskList));
+        assertEquals(expectedResult, toggleCommand.start(colressUiBeginner, taskList));
 
         // Beginner to Advanced
         colress = new Colress(storage, taskList, false, true);
-        uiBeginner = new UiBeginner(colress);
+        colressUiBeginner = new ColressUiBeginner(colress);
 
         expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Advanced");
-        assertEquals(expectedResult, toggleCommand.start(uiBeginner, taskList));
+        assertEquals(expectedResult, toggleCommand.start(colressUiBeginner, taskList));
     }
 
     @Test
@@ -45,17 +45,17 @@ public class ToggleCommandTest {
 
         // Advanced to Beginner
         Colress colress = new Colress(storage, taskList, false, false);
-        UiAdvanced uiAdvanced = new UiAdvanced(colress);
+        ColressUiAdvanced colressUiAdvanced = new ColressUiAdvanced(colress);
 
         String expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Beginner");
-        assertEquals(expectedResult, toggleCommand.execute(uiAdvanced, taskList));
+        assertEquals(expectedResult, toggleCommand.execute(colressUiAdvanced, taskList));
 
         // Beginner to Advanced
         colress = new Colress(storage, taskList, false, true);
-        uiAdvanced = new UiAdvanced(colress);
+        colressUiAdvanced = new ColressUiAdvanced(colress);
 
         expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Advanced");
-        assertEquals(expectedResult, toggleCommand.execute(uiAdvanced, taskList));
+        assertEquals(expectedResult, toggleCommand.execute(colressUiAdvanced, taskList));
     }
 
     @Test

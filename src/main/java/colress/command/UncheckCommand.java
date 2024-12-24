@@ -3,8 +3,8 @@ package colress.command;
 import java.util.Arrays;
 
 import colress.Ui;
-import colress.UiAdvanced;
-import colress.UiBeginner;
+import colress.ColressUiAdvanced;
+import colress.ColressUiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
@@ -41,7 +41,7 @@ public final class UncheckCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
+    public String start(ColressUiBeginner ui, TaskList taskList) {
         return ui.promptTaskNumber(taskList);
     }
 
@@ -50,12 +50,12 @@ public final class UncheckCommand extends Command {
      * input from the user regarding which task to mark.
      */
     @Override
-    public String execute(UiBeginner ui, TaskList taskList) {
+    public String execute(ColressUiBeginner ui, TaskList taskList) {
         return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION) + taskList.uncheckTask(taskNumbers);
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

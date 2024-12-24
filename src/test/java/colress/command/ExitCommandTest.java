@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import colress.Colress;
-import colress.UiAdvanced;
-import colress.UiBeginner;
+import colress.ColressUiAdvanced;
+import colress.ColressUiBeginner;
 import colress.parser.Parser;
 import colress.tasklist.ColressTaskList;
 import colress.tasklist.TaskList;
@@ -17,21 +17,21 @@ public class ExitCommandTest {
     @Test
     public void startTest() {
         ExitCommand exitCommand = new ExitCommand();
-        UiBeginner uiBeginner = new UiBeginner(new Colress(""));
+        ColressUiBeginner colressUiBeginner = new ColressUiBeginner(new Colress(""));
         TaskList taskList = new ColressTaskList();
 
         String expectedResult = ExitCommand.MESSAGE_SUCCESSFUL_EXECUTION;
-        assertEquals(expectedResult, exitCommand.start(uiBeginner, taskList));
+        assertEquals(expectedResult, exitCommand.start(colressUiBeginner, taskList));
     }
 
     @Test
     public void executeTest() {
         ExitCommand exitCommand = new ExitCommand();
-        UiAdvanced uiAdvanced = new UiAdvanced(new Colress(""));
+        ColressUiAdvanced colressUiAdvanced = new ColressUiAdvanced(new Colress(""));
         TaskList taskList = new ColressTaskList();
 
         String expectedResult = ExitCommand.MESSAGE_SUCCESSFUL_EXECUTION;
-        assertEquals(expectedResult, exitCommand.execute(uiAdvanced, taskList));
+        assertEquals(expectedResult, exitCommand.execute(colressUiAdvanced, taskList));
     }
 
     @Test

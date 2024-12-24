@@ -17,11 +17,11 @@ import colress.tasklist.TaskList;
 /**
  * Represents the Beginner mode Ui of the Colress chatbot.
  */
-public final class UiBeginner extends Ui {
+public final class ColressUiBeginner extends Ui {
 
     private Command currCommand;
 
-    public UiBeginner(Colress colress) {
+    public ColressUiBeginner(Colress colress) {
         super(colress);
     }
 

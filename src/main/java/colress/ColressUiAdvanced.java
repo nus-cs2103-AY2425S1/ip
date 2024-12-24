@@ -17,11 +17,11 @@ import colress.tasklist.TaskList;
 /**
  * Represents the Advanced mode Ui of the Colress chatbot.
  */
-public final class UiAdvanced extends Ui {
+public final class ColressUiAdvanced extends Ui {
 
     private Command currCommand;
 
-    public UiAdvanced(Colress colress) {
+    public ColressUiAdvanced(Colress colress) {
         super(colress);
     }
 

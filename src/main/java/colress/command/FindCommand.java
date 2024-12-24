@@ -3,8 +3,8 @@ package colress.command;
 import java.util.Arrays;
 import java.util.Objects;
 
-import colress.UiAdvanced;
-import colress.UiBeginner;
+import colress.ColressUiAdvanced;
+import colress.ColressUiBeginner;
 import colress.exception.EmptyInputException;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
@@ -41,7 +41,7 @@ public final class FindCommand extends ListCommand {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
+    public String start(ColressUiBeginner ui, TaskList taskList) {
         return ui.promptKeyword(taskList);
     }
 
@@ -50,12 +50,12 @@ public final class FindCommand extends ListCommand {
      * using the provided Ui object to receive date input from the user and to print the output for the user.
      */
     @Override
-    public String execute(UiBeginner ui, TaskList taskList) {
+    public String execute(ColressUiBeginner ui, TaskList taskList) {
         return ui.printTasks(taskList, keyword);
     }
 
     @Override
-    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

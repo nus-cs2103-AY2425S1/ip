@@ -63,7 +63,7 @@ public final class Colress {
     }
 
     private void setUi() {
-        this.ui = isBeginnerMode ? new UiBeginner(this) : new UiAdvanced(this);
+        this.ui = isBeginnerMode ? new ColressUiBeginner(this) : new ColressUiAdvanced(this);
     }
 
     public void setUi(Ui ui) {
