@@ -9,8 +9,10 @@ import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_TWO;
 import static colress.testutil.TestUtil.VALID_DATE_NONE;
 import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DATE_TWO;
+import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
 import colress.testutil.UiAdvancedStub;
@@ -42,6 +45,25 @@ public class DateCommandTest {
 
         String expectedResult = taskList.retrieveTasks(VALID_DATE_ONE);
         assertEquals(expectedResult, dateCommand.execute(colressUiBeginner, taskList));
+    }
+
+    @Test
+    public void execute_uiAdvancedInvalidFormat_exceptionThrown() {
+        UiAdvanced colressUiAdvanced = new UiAdvancedStub();
+        TaskList taskList = colressUiAdvanced.getColress().getTaskList();
+
+        // no arguments -> exception thrown
+        DateCommand dateCommandNoArguments = new DateCommand();
+
+        assertThrows(InvalidCommandFormatException.class, () ->
+                dateCommandNoArguments.execute(colressUiAdvanced, taskList));
+
+        // too many arguments -> exception thrown
+        DateCommand dateCommandTooManyArguments = new DateCommand(new String[]
+            {VALID_DATE_ARGUMENT_ONE, VALID_DATE_ARGUMENT_ONE});
+
+        assertThrows(InvalidCommandFormatException.class, () ->
+                dateCommandTooManyArguments.execute(colressUiAdvanced, taskList));
     }
 
     @Test

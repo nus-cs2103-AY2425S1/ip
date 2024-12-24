@@ -7,6 +7,7 @@ import static colress.testutil.TestUtil.VALID_KEYWORD_ONE;
 import static colress.testutil.TestUtil.VALID_KEYWORD_TWO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.exception.EmptyInputException;
+import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
 import colress.testutil.UiAdvancedStub;
@@ -39,6 +41,26 @@ public class FindCommandTest {
         String expectedResult = taskList.retrieveTasks(VALID_KEYWORD_ONE);
         assertEquals(expectedResult, findCommand.execute(colressUiBeginner, taskList));
     }
+
+    @Test
+    public void execute_uiAdvancedInvalidFormat_exceptionThrown() {
+        UiAdvanced colressUiAdvanced = new UiAdvancedStub();
+        TaskList taskList = colressUiAdvanced.getColress().getTaskList();
+
+        // no arguments -> exception thrown
+        FindCommand findCommandNoArguments = new FindCommand();
+
+        assertThrows(InvalidCommandFormatException.class, () ->
+                findCommandNoArguments.execute(colressUiAdvanced, taskList));
+
+        // too many arguments -> exception thrown
+        FindCommand findCommandTooManyArguments = new FindCommand(new String[]
+            {VALID_KEYWORD_ONE, VALID_KEYWORD_ONE});
+
+        assertThrows(InvalidCommandFormatException.class, () ->
+                findCommandTooManyArguments.execute(colressUiAdvanced, taskList));
+    }
+
 
     @Test
     public void execute_uiAdvanced_success() {

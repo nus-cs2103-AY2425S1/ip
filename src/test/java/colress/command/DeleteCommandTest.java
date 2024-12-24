@@ -8,12 +8,14 @@ import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER;
 import static colress.testutil.TestUtil.VALID_ONE_TASK_NUMBER_ARGUMENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import colress.UiAdvanced;
 import colress.UiBeginner;
+import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
 import colress.testutil.UiAdvancedStub;
@@ -40,6 +42,25 @@ public class DeleteCommandTest {
         String expectedResult = DeleteCommand.MESSAGE_SUCCESSFUL_EXECUTION + "\n\n" + taskList.retrieveTasks();
         assertEquals(expectedResult, deleteCommand.execute(colressUiBeginner,
                 colressUiBeginner.getColress().getTaskList()));
+    }
+
+    @Test
+    public void execute_uiAdvancedInvalidFormat_exceptionThrown() {
+        UiAdvanced colressUiAdvanced = new UiAdvancedStub();
+        TaskList taskList = colressUiAdvanced.getColress().getTaskList();
+
+        // no arguments -> exception thrown
+        DeleteCommand deleteCommandNoArguments = new DeleteCommand();
+
+        assertThrows(InvalidCommandFormatException.class, () ->
+                deleteCommandNoArguments.execute(colressUiAdvanced, taskList));
+
+        // too many arguments -> exception thrown
+        DeleteCommand deleteCommandTooManyArguments = new DeleteCommand(new String[]
+            {VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT, VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT});
+
+        assertThrows(InvalidCommandFormatException.class, () ->
+                deleteCommandTooManyArguments.execute(colressUiAdvanced, taskList));
     }
 
     @Test
