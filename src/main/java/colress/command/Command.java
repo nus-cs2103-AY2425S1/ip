@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import colress.TaskType;
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.tasklist.TaskList;
 
@@ -51,7 +51,7 @@ public abstract class Command {
     public void initialise(int... input) {
     };
 
-    public abstract String start(ColressUiBeginner ui, TaskList taskList);
-    public abstract String execute(ColressUiBeginner ui, TaskList taskList);
-    public abstract String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException;
+    public abstract String start(UiBeginner ui, TaskList taskList);
+    public abstract String execute(UiBeginner ui, TaskList taskList);
+    public abstract String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException;
 }

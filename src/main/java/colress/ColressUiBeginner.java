@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import colress.command.AddCommand;
 import colress.command.Command;
-import colress.command.DateCommand;
 import colress.exception.EmptyInputException;
 import colress.exception.EndTimeException;
 import colress.exception.UnknownCommandException;
@@ -17,7 +16,7 @@ import colress.tasklist.TaskList;
 /**
  * Represents the Beginner mode Ui of the Colress chatbot.
  */
-public final class ColressUiBeginner extends Ui {
+public final class ColressUiBeginner extends UiBeginner {
 
     private Command currCommand;
 
@@ -64,6 +63,7 @@ public final class ColressUiBeginner extends Ui {
      * @param taskList A TaskList object that is passed to the start method of the commands to allow the commands to
      *                 perform operations on the list of tasks.
      */
+    @Override
     public String processCommand(String input, TaskList taskList) {
         try {
             this.currCommand = getParser().getCommand(input);
@@ -76,25 +76,13 @@ public final class ColressUiBeginner extends Ui {
     }
 
     /**
-     * Sets status of the UI to expect a keyword for the user's next input and returns a prompt to the user
-     * for a keyword to find in the list of tasks.
-     * If the given TaskList is empty, return an empty list message.
-     */
-    public String promptKeyword(TaskList taskList) {
-        if (taskList.isEmpty()) {
-            return MESSAGE_LIST_EMPTY;
-        }
-        setStatus(Status.KEYWORD);
-        return PROMPT_KEYWORD;
-    }
-
-    /**
      * Stores the keyword given by the user in the FindCommand Object and then executes the command.
      * The method catches an EmptyInputException if user input is empty, and returns an error message to the user.
      *
      * @param input The user input.
      * @param taskList The TaskList to print the list of tasks from.
      */
+    @Override
     public String processKeyword(String input, TaskList taskList) {
         try {
             input = getParser().getString(input);
@@ -107,20 +95,12 @@ public final class ColressUiBeginner extends Ui {
     }
 
     /**
-     * Sets status of the UI to expect a task type for the user's next input and returns a prompt to the user
-     * for a task type to add to the list of tasks.
-     */
-    public String promptTaskType() {
-        setStatus(Status.TASKTYPE);
-        return PROMPT_TASK_TYPE;
-    }
-
-    /**
      * Parses the user input using the Parser Object, and stores the task type given by the user in the
      * AddCommand Object. Then, return a prompt to the user for a description of the task to add to the list of tasks.
      * The method catches an IllegalArgumentException if user input is not a recognisable task type, and returns an
      * error message to the user.
      */
+    @Override
     public String processTaskType(String input) {
         try {
             TaskType result = getParser().getTaskType(input);
@@ -133,23 +113,6 @@ public final class ColressUiBeginner extends Ui {
     }
 
     /**
-     * Sets status of the UI to expect a task description for the user's next input and returns a prompt to the user
-     * for a description of the task to add to the list of tasks. The prompt returned depends on the type of task
-     * to be added, indicated by the TaskType argument.
-     */
-    public String promptDescription(TaskType taskType) {
-        setStatus(Status.DESCRIPTION);
-        switch (taskType) {
-        case DEADLINE:
-            return PROMPT_DEADLINE_DESCRIPTION;
-        case EVENT:
-            return PROMPT_EVENT_DESCRIPTION;
-        default:
-            return PROMPT_TASK_DESCRIPTION;
-        }
-    }
-
-    /**
      * Parses the user input using the Parser Object, and stores the task description given by the user in the
      * AddCommand Object. Checks the type of task to be added. If task type is a to-do, then call the AddCommand's
      * execute method. Else, return a prompt to the user for a date of the deadline or event.
@@ -158,6 +121,7 @@ public final class ColressUiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to add the task to.
      */
+    @Override
     public String processDescription(String input, TaskList taskList) {
         try {
             // A typecast is required here because not all command objects have the getTaskType method.
@@ -184,30 +148,6 @@ public final class ColressUiBeginner extends Ui {
     }
 
     /**
-     * Sets status of the UI to expect a date for the user's next input and returns a prompt to the user
-     * for a date. The prompt returned depends on the current command to be executed and the type of task to be added.
-     * If the current command to be executed is the date command, check if the given TaskList is empty.
-     * If so, return an empty list message.
-     *
-     * @param taskType The type of the task to be added.
-     * @param taskList The TaskList to add the task to.
-     */
-    public String promptDate(TaskType taskType, TaskList taskList) {
-        if (currCommand instanceof DateCommand && taskList.isEmpty()) {
-            return MESSAGE_LIST_EMPTY;
-        }
-        setStatus(Status.DATE);
-        switch (taskType) {
-        case DEADLINE:
-            return PROMPT_DEADLINE;
-        case EVENT:
-            return PROMPT_EVENT_DATE;
-        default:
-            return PROMPT_DATE;
-        }
-    }
-
-    /**
      * Parses the user input using the Parser Object, and stores the date given by the user in the command object.
      * If the current command to be executed is the add command, and the task to be added is an event,
      * return a prompt to the user for a starting time of the event.
@@ -217,6 +157,7 @@ public final class ColressUiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to add the task to or print from.
      */
+    @Override
     public String processDate(String input, TaskList taskList) {
         LocalDate result;
         try {
@@ -234,26 +175,13 @@ public final class ColressUiBeginner extends Ui {
     }
 
     /**
-     * Checks whether a start time or an end time is expected using the timeType argument and sets the status of the UI
-     * to expect the right time. The corresponding prompt is then returned.
-     */
-    public String promptTime(String timeType) {
-        if (timeType.equals("from")) {
-            setStatus(Status.STARTTIME);
-            return PROMPT_EVENT_START_TIME;
-        } else {
-            setStatus(Status.ENDTIME);
-            return PROMPT_EVENT_END_TIME;
-        }
-    }
-
-    /**
      * Parses the user input using the Parser Object, and stores the starting time given by the user in the
      * command object. Return a prompt to the user for the ending time of the event.
      * The method catches DateTimeParseException and returns an error message.
      *
      * @param input The user input.
      */
+    @Override
     public String processStartTime(String input) {
         try {
             LocalTime result = getParser().readTime(input);
@@ -272,6 +200,7 @@ public final class ColressUiBeginner extends Ui {
      *
      * @param input The user input.
      */
+    @Override
     public String processEndTime(String input, TaskList taskList) {
         try {
             LocalTime result = getParser().readTime(input);
@@ -294,18 +223,6 @@ public final class ColressUiBeginner extends Ui {
     }
 
     /**
-     * Prompts the user to enter the task number of the task to operate on, reads it using its Parser object
-     * and returns it.
-     */
-    public String promptTaskNumber(TaskList taskList) {
-        if (taskList.isEmpty()) {
-            return MESSAGE_LIST_EMPTY;
-        }
-        setStatus(Status.TASKNUMBER);
-        return PROMPT_TASK_NUMBER;
-    }
-
-    /**
      * Parses the user input using the Parser Object, and check if the given task number is valid.
      * If so, store the task number in the command object, call the command object's execute method and returns
      * its value.
@@ -313,6 +230,7 @@ public final class ColressUiBeginner extends Ui {
      * @param input The user input.
      * @param taskList The ColressTaskList to perform operations on.
      */
+    @Override
     public String processTaskNumber(String input, TaskList taskList) {
         try {
             int[] result = getParser().getTaskNumber(input);
@@ -329,25 +247,5 @@ public final class ColressUiBeginner extends Ui {
             setCommandType("error");
             return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }
-    }
-
-    /**
-     * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
-     * of tasks in the given ColressTaskList that falls on the specified date.
-     */
-    @Override
-    public String printTasks(TaskList taskList, LocalDate date) {
-        setStatus(Status.COMMAND);
-        return super.printTasks(taskList, date);
-    }
-
-    /**
-     * Sets status of the UI to expect a command for the user's next input and returns a String illustration of the list
-     * of tasks in the given ColressTaskList whose description contains the specified keyword.
-     */
-    @Override
-    public String printTasks(TaskList taskList, String keyword) {
-        setStatus(Status.COMMAND);
-        return super.printTasks(taskList, keyword);
     }
 }

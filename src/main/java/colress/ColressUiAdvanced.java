@@ -17,7 +17,7 @@ import colress.tasklist.TaskList;
 /**
  * Represents the Advanced mode Ui of the Colress chatbot.
  */
-public final class ColressUiAdvanced extends Ui {
+public final class ColressUiAdvanced extends UiAdvanced {
 
     private Command currCommand;
 
@@ -53,6 +53,7 @@ public final class ColressUiAdvanced extends Ui {
      *
      * @param input The user input.
      */
+    @Override
     public void parseKeyword(String input) throws EmptyInputException {
         String keyword = getParser().getString(input);
         currCommand.initialise(keyword);
@@ -63,6 +64,7 @@ public final class ColressUiAdvanced extends Ui {
      *
      * @param input The user input.
      */
+    @Override
     public void parseDate(String input) throws DateTimeParseException {
         LocalDate date = getParser().readDate(input);
         currCommand.initialise(date);
@@ -76,6 +78,7 @@ public final class ColressUiAdvanced extends Ui {
      * @param input The user input.
      * @param taskList The TaskList to check task number validity on.
      */
+    @Override
     public void parseTaskNumbers(String input, TaskList taskList)
             throws IndexOutOfBoundsException, NumberFormatException {
         int[] result = getParser().getTaskNumber(input);
@@ -93,6 +96,7 @@ public final class ColressUiAdvanced extends Ui {
      * AddCommand Object. The method catches an IllegalArgumentException if user input is not a recognisable task type
      * and throws an UnknownTaskTypeException.
      */
+    @Override
     public void parseTaskType(String input) throws UnknownTaskTypeException {
         try {
             TaskType result = getParser().getTaskType(input);
@@ -108,6 +112,7 @@ public final class ColressUiAdvanced extends Ui {
      *
      * @param input The user input.
      */
+    @Override
     public void parseDescription(String input) throws EmptyInputException {
         input = getParser().getString(input);
         currCommand.initialise(input);
@@ -119,6 +124,7 @@ public final class ColressUiAdvanced extends Ui {
      *
      * @param input The user input.
      */
+    @Override
     public void parseStartTime(String input) throws DateTimeParseException {
         LocalTime result = getParser().readTime(input);
         currCommand.initialise(result);
@@ -130,6 +136,7 @@ public final class ColressUiAdvanced extends Ui {
      *
      * @param input The user input.
      */
+    @Override
     public void parseEndTime(String input) throws EndTimeException, DateTimeParseException {
         LocalTime result = getParser().readTime(input);
         // A typecast is required here because not all command objects have the getTaskType method.

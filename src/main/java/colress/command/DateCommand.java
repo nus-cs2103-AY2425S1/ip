@@ -1,5 +1,7 @@
 package colress.command;
 
+import static colress.Ui.MESSAGE_LIST_EMPTY;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -7,8 +9,8 @@ import java.util.Objects;
 
 import colress.TaskType;
 import colress.Ui;
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
@@ -43,7 +45,10 @@ public final class DateCommand extends ListCommand {
     }
 
     @Override
-    public String start(ColressUiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
         return ui.promptDate(TaskType.TODO, taskList);
     }
 
@@ -52,12 +57,16 @@ public final class DateCommand extends ListCommand {
      * provided Ui object to receive date input from the user and to print the output for the user.
      */
     @Override
-    public String execute(ColressUiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         return ui.printTasks(taskList, date);
     }
 
     @Override
-    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
+
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

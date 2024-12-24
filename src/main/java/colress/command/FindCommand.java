@@ -1,15 +1,16 @@
 package colress.command;
 
+import static colress.Ui.MESSAGE_LIST_EMPTY;
+
 import java.util.Arrays;
 import java.util.Objects;
 
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.exception.EmptyInputException;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
-
 
 /**
  * Represents the find command which prints a list of tasks that contain a specified keyword
@@ -41,7 +42,10 @@ public final class FindCommand extends ListCommand {
     }
 
     @Override
-    public String start(ColressUiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
         return ui.promptKeyword(taskList);
     }
 
@@ -50,12 +54,16 @@ public final class FindCommand extends ListCommand {
      * using the provided Ui object to receive date input from the user and to print the output for the user.
      */
     @Override
-    public String execute(ColressUiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         return ui.printTasks(taskList, keyword);
     }
 
     @Override
-    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
+
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

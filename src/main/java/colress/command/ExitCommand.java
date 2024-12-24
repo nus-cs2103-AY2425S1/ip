@@ -1,7 +1,7 @@
 package colress.command;
 
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
 import javafx.application.Platform;
@@ -16,7 +16,7 @@ public final class ExitCommand extends Command {
     }
 
     @Override
-    public String start(ColressUiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
         return execute(ui, taskList);
     }
 
@@ -25,13 +25,13 @@ public final class ExitCommand extends Command {
      * object is irrelevant in this method.
      */
     @Override
-    public String execute(ColressUiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         Platform.exit();
         return MESSAGE_SUCCESSFUL_EXECUTION;
     }
 
     @Override
-    public String execute(ColressUiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
         Platform.exit();
         return MESSAGE_SUCCESSFUL_EXECUTION;
     }

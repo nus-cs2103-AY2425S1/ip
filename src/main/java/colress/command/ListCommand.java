@@ -1,7 +1,7 @@
 package colress.command;
 
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String start(ColressUiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
         return execute(ui, taskList);
     }
 
@@ -28,12 +28,12 @@ public class ListCommand extends Command {
      * output for the user.
      */
     @Override
-    public String execute(ColressUiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         return ui.printTasks(taskList);
     }
 
     @Override
-    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         return ui.printTasks(taskList);
     }
 

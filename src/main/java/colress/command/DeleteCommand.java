@@ -3,8 +3,8 @@ package colress.command;
 import java.util.Arrays;
 
 import colress.Ui;
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.exception.InvalidCommandFormatException;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
@@ -40,7 +40,7 @@ public final class DeleteCommand extends Command {
     }
 
     @Override
-    public String start(ColressUiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
         return ui.promptTaskNumber(taskList);
     }
 
@@ -49,13 +49,13 @@ public final class DeleteCommand extends Command {
      * from the user regarding which task to remove.
      */
     @Override
-    public String execute(ColressUiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         taskList.deleteTask(taskNumbers);
         return ui.printConfirmationMessage(taskList, MESSAGE_SUCCESSFUL_EXECUTION);
     }
 
     @Override
-    public String execute(ColressUiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
+    public String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException {
         String[] args = getArguments();
         checkNumberOfArgs(args, EXPECTED_ARG_NUMBER, COMMAND_FORMAT);
         try {

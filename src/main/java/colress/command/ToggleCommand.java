@@ -1,7 +1,7 @@
 package colress.command;
 
-import colress.ColressUiAdvanced;
-import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.parser.Parser;
 import colress.tasklist.TaskList;
 
@@ -16,7 +16,7 @@ public class ToggleCommand extends Command {
     }
 
     @Override
-    public String start(ColressUiBeginner ui, TaskList taskList) {
+    public String start(UiBeginner ui, TaskList taskList) {
         return execute(ui, taskList);
     }
 
@@ -25,12 +25,12 @@ public class ToggleCommand extends Command {
      * object is irrelevant in this method.
      */
     @Override
-    public String execute(ColressUiBeginner ui, TaskList taskList) {
+    public String execute(UiBeginner ui, TaskList taskList) {
         return String.format(MESSAGE_SUCCESSFUL_EXECUTION, ui.toggleMode() ? "Beginner" : "Advanced");
     }
 
     @Override
-    public String execute(ColressUiAdvanced ui, TaskList taskList) {
+    public String execute(UiAdvanced ui, TaskList taskList) {
         return String.format(MESSAGE_SUCCESSFUL_EXECUTION, ui.toggleMode() ? "Beginner" : "Advanced");
     }
 

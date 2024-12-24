@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import colress.Colress;
 import colress.ColressUiAdvanced;
 import colress.ColressUiBeginner;
+import colress.UiAdvanced;
+import colress.UiBeginner;
 import colress.parser.Parser;
 import colress.storage.Storage;
 import colress.tasklist.TaskList;
@@ -24,7 +26,7 @@ public class ToggleCommandTest {
 
         // Advanced to Beginner
         Colress colress = new Colress(storage, taskList, false, false);
-        ColressUiBeginner colressUiBeginner = new ColressUiBeginner(colress);
+        UiBeginner colressUiBeginner = new ColressUiBeginner(colress);
 
         String expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Beginner");
         assertEquals(expectedResult, toggleCommand.start(colressUiBeginner, taskList));
@@ -45,7 +47,7 @@ public class ToggleCommandTest {
 
         // Advanced to Beginner
         Colress colress = new Colress(storage, taskList, false, false);
-        ColressUiAdvanced colressUiAdvanced = new ColressUiAdvanced(colress);
+        UiAdvanced colressUiAdvanced = new ColressUiAdvanced(colress);
 
         String expectedResult = String.format(ToggleCommand.MESSAGE_SUCCESSFUL_EXECUTION, "Beginner");
         assertEquals(expectedResult, toggleCommand.execute(colressUiAdvanced, taskList));
