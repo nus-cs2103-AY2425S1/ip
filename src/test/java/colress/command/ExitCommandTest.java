@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.parser.Parser;
-import colress.tasklist.ColressTaskList;
-import colress.tasklist.TaskList;
 import colress.testutil.UiAdvancedStub;
 import colress.testutil.UiBeginnerStub;
 
@@ -19,20 +17,20 @@ public class ExitCommandTest {
     public void startTest() {
         ExitCommand exitCommand = new ExitCommand();
         UiBeginner colressUiBeginner = new UiBeginnerStub();
-        TaskList taskList = new ColressTaskList();
 
         String expectedResult = ExitCommand.MESSAGE_SUCCESSFUL_EXECUTION;
-        assertEquals(expectedResult, exitCommand.start(colressUiBeginner, taskList));
+        assertEquals(expectedResult, exitCommand.start(colressUiBeginner,
+                colressUiBeginner.getColress().getTaskList()));
     }
 
     @Test
     public void executeTest() {
         ExitCommand exitCommand = new ExitCommand();
         UiAdvanced colressUiAdvanced = new UiAdvancedStub();
-        TaskList taskList = new ColressTaskList();
 
         String expectedResult = ExitCommand.MESSAGE_SUCCESSFUL_EXECUTION;
-        assertEquals(expectedResult, exitCommand.execute(colressUiAdvanced, taskList));
+        assertEquals(expectedResult, exitCommand.execute(colressUiAdvanced,
+                colressUiAdvanced.getColress().getTaskList()));
     }
 
     @Test
