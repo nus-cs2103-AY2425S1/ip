@@ -8,7 +8,7 @@ import colress.Chatbot;
 public final class ColressStub extends Chatbot {
 
     public ColressStub() {
-        super("");
+        super(new CorrectFormatStorageStub(), new CorrectFormatTaskListStub());
     }
 
     public ColressStub(boolean hasError, boolean isBeginnerMode) {
