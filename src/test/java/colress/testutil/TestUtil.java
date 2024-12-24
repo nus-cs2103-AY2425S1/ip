@@ -38,7 +38,6 @@ public class TestUtil {
     public static final LocalTime VALID_TO_TIME_TWO = LocalTime.of(13, 0);
     public static final String INVALID_TIME_ARGUMENT = "10.00";
 
-
     public static final String VALID_TASK_TYPE_ARGUMENT_TODO = "TodO";
     public static final TaskType VALID_TASK_TYPE_TODO = TaskType.TODO;
     public static final String VALID_TASK_TYPE_ARGUMENT_DEADLINE = "DeADLinE";
@@ -52,6 +51,7 @@ public class TestUtil {
     public static final String VALID_ONE_TASK_NUMBER_ARGUMENT = "1";
     public static final int[] VALID_ONE_TASK_NUMBER = new int[]{1};
     public static final String INVALID_TASK_NUMBERS_ARGUMENT = "three";
+    public static final String OUT_OF_BOUNDS_TASK_NUMBERS_ARGUMENT = String.valueOf(Integer.MAX_VALUE);
 
     public static final String VALID_COMMAND_WORD_ADD = "aDd";
     public static final String VALID_COMMAND_WORD_CHECK = "cHeCk";
@@ -63,4 +63,19 @@ public class TestUtil {
     public static final String VALID_COMMAND_WORD_TOGGLE = "tOGgLe";
     public static final String VALID_COMMAND_WORD_UNCHECK = "UnCHeCk";
     public static final String INVALID_COMMAND_WORD = "hello";
+
+    public static final String VALID_COMMAND_ADD = VALID_COMMAND_WORD_ADD + WHITESPACE
+            + VALID_TASK_TYPE_ARGUMENT_EVENT + DELIMITER + VALID_DATE_ARGUMENT_ONE + DELIMITER
+            + VALID_FROM_TIME_ARGUMENT_ONE + DELIMITER + VALID_TO_TIME_ONE;
+    public static final String VALID_COMMAND_CHECK = VALID_COMMAND_WORD_CHECK + WHITESPACE
+            + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
+    public static final String VALID_COMMAND_DATE = VALID_COMMAND_WORD_DATE + WHITESPACE + VALID_DATE_ARGUMENT_ONE;
+    public static final String VALID_COMMAND_DELETE = VALID_COMMAND_WORD_DELETE + WHITESPACE
+            + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
+    public static final String VALID_COMMAND_EXIT = VALID_COMMAND_WORD_EXIT;
+    public static final String VALID_COMMAND_FIND = VALID_COMMAND_WORD_FIND + WHITESPACE + VALID_KEYWORD_ALL;
+    public static final String VALID_COMMAND_LIST = VALID_COMMAND_WORD_LIST;
+    public static final String VALID_COMMAND_TOGGLE = VALID_COMMAND_WORD_TOGGLE;
+    public static final String VALID_COMMAND_UNCHECK = VALID_COMMAND_WORD_UNCHECK + WHITESPACE
+            + VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
 }

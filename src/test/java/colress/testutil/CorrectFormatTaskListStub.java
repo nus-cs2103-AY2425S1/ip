@@ -35,17 +35,17 @@ public class CorrectFormatTaskListStub extends TaskList {
 
     @Override
     public String addTask(Task task) {
-        return "This method should not be called";
+        return "";
     }
 
     @Override
     public String checkTask(int... taskNumbers) {
-        return "This method should not be called";
+        return "";
     }
 
     @Override
     public String uncheckTask(int... taskNumbers) {
-        return "This method should not be called";
+        return "";
     }
 
     @Override
