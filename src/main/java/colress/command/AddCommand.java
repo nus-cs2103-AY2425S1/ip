@@ -69,28 +69,21 @@ public final class AddCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
-        return ui.promptTaskType();
-    }
-
     public void initialise(TaskType input) {
         taskType = input;
     }
 
+    @Override
     public void initialise(String input) {
         description = input;
     }
 
-    public void initialise(int... input) {
-    }
-
+    @Override
     public void initialise(LocalDate input) {
         date = input;
     }
 
-    /**
-     * Initialises start time and end time of an event.
-     */
+    @Override
     public void initialise(LocalTime input) {
         if (hasStartTime) {
             this.endTime = input;
@@ -99,6 +92,15 @@ public final class AddCommand extends Command {
             hasStartTime = true;
         }
     }
+
+    @Override
+    public String start(UiBeginner ui, TaskList taskList) {
+        return ui.promptTaskType();
+    }
+
+    /**
+     * Initialises start time and end time of an event.
+     */
 
     public boolean isInvalidEndTime(LocalTime endTime) {
         return !endTime.isAfter(startTime);

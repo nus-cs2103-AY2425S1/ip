@@ -1,10 +1,7 @@
 package colress.command;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 
-import colress.TaskType;
 import colress.Ui;
 import colress.UiAdvanced;
 import colress.UiBeginner;
@@ -38,21 +35,13 @@ public final class CheckCommand extends Command {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
-        return ui.promptTaskNumber(taskList);
-    }
-
     public void initialise(int... input) {
         this.taskNumbers = input;
     }
 
-    public void initialise(String input) {
-    }
-    public void initialise(TaskType input) {
-    }
-    public void initialise(LocalDate input) {
-    }
-    public void initialise(LocalTime input) {
+    @Override
+    public String start(UiBeginner ui, TaskList taskList) {
+        return ui.promptTaskNumber(taskList);
     }
 
     /**

@@ -40,13 +40,18 @@ public abstract class Command {
         }
     }
 
-    public abstract String start(UiBeginner ui, TaskList taskList);
-    public abstract void initialise(String input);
-    public abstract void initialise(TaskType input);
-    public abstract void initialise(int... input);
-    public abstract void initialise(LocalDate input);
-    public abstract void initialise(LocalTime input);
+    public void initialise(LocalDate input) {
+    };
+    public void initialise(LocalTime input) {
+    };
+    public void initialise(String input) {
+    };
+    public void initialise(TaskType input) {
+    };
+    public void initialise(int... input) {
+    };
 
+    public abstract String start(UiBeginner ui, TaskList taskList);
     public abstract String execute(UiBeginner ui, TaskList taskList);
     public abstract String execute(UiAdvanced ui, TaskList taskList) throws InvalidCommandFormatException;
 }

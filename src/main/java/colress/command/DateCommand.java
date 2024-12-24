@@ -38,13 +38,13 @@ public final class DateCommand extends ListCommand {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
-        return ui.promptDate(TaskType.TODO, taskList);
+    public void initialise(LocalDate input) {
+        this.date = input;
     }
 
     @Override
-    public void initialise(LocalDate input) {
-        this.date = input;
+    public String start(UiBeginner ui, TaskList taskList) {
+        return ui.promptDate(TaskType.TODO, taskList);
     }
 
     /**

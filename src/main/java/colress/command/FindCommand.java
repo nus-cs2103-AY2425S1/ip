@@ -36,13 +36,13 @@ public final class FindCommand extends ListCommand {
     }
 
     @Override
-    public String start(UiBeginner ui, TaskList taskList) {
-        return ui.promptKeyword(taskList);
+    public void initialise(String input) {
+        this.keyword = input.toLowerCase();
     }
 
     @Override
-    public void initialise(String input) {
-        this.keyword = input.toLowerCase();
+    public String start(UiBeginner ui, TaskList taskList) {
+        return ui.promptKeyword(taskList);
     }
 
     /**

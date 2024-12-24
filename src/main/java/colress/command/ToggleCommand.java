@@ -1,9 +1,5 @@
 package colress.command;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import colress.TaskType;
 import colress.UiAdvanced;
 import colress.UiBeginner;
 import colress.parser.Parser;
@@ -50,16 +46,5 @@ public class ToggleCommand extends Command {
         }
 
         return other instanceof ToggleCommand;
-    }
-
-    public void initialise(String input) {
-    }
-    public void initialise(TaskType input) {
-    }
-    public void initialise(int... input) {
-    }
-    public void initialise(LocalDate input) {
-    }
-    public void initialise(LocalTime input) {
     }
 }
