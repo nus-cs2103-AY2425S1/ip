@@ -41,8 +41,6 @@ public class ToggleCommandTest {
     @Test
     public void executeTest() {
         ToggleCommand toggleCommand = new ToggleCommand();
-        Storage storage = new CorrectFormatStorageStub();
-        TaskList taskList = new CorrectFormatTaskListStub();
 
         // Advanced to Beginner
         Chatbot colress = new ColressStub(false, false);
