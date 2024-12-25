@@ -9,7 +9,6 @@ import static colress.testutil.TestUtil.VALID_DATE_ARGUMENT_TWO;
 import static colress.testutil.TestUtil.VALID_DATE_NONE;
 import static colress.testutil.TestUtil.VALID_DATE_ONE;
 import static colress.testutil.TestUtil.VALID_DATE_TWO;
-import static colress.testutil.TestUtil.VALID_MULTIPLE_TASK_NUMBERS_ARGUMENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
