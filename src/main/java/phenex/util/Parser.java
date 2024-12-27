@@ -19,6 +19,7 @@ import phenex.command.EventCommand;
 import phenex.command.FindCommand;
 import phenex.command.ListCommand;
 import phenex.command.MarkCommand;
+import phenex.command.ScheduleCommand;
 import phenex.command.TerminatingCommand;
 import phenex.command.TodoCommand;
 import phenex.command.UnmarkCommand;
@@ -47,7 +48,8 @@ public class Parser {
         REGEX_FIND("^(?i)find (.+)$", new FindCommand()),
         REGEX_TODO("^(?i)todo (.+)$", new TodoCommand()),
         REGEX_DEADLINE("^(?i)deadline (.+) /by (.+)$", new DeadlineCommand()),
-        REGEX_EVENT("^(?i)event (.+) /from (.+) /to (.+)$", new EventCommand());
+        REGEX_EVENT("^(?i)event (.+) /from (.+) /to (.+)$", new EventCommand()),
+        REGEX_SCHEDULE("^(?i)schedule (.+)$", new ScheduleCommand());
 
         private final String regex;
         private final Command command;
@@ -135,6 +137,10 @@ public class Parser {
             String name = matcher.group(1);
             FindCommand findCommand = (FindCommand) command;
             findCommand.setName(name);
+        } else if (command instanceof ScheduleCommand) {
+            String scheduleDate = matcher.group(1);
+            ScheduleCommand scheduleCommand = (ScheduleCommand) command;
+            scheduleCommand.setScheduleDate(parseLocalDateFromLine(scheduleDate));
         }
     }
 
