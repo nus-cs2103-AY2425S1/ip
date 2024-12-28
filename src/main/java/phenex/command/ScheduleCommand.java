@@ -12,11 +12,13 @@ import phenex.ui.Ui;
  */
 public class ScheduleCommand extends Command {
 
-    private LocalDate scheduleDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
-        return ui.printTaskList(taskList.findAllTasksOn(scheduleDate));
+        // implement find all tasks within date range
+        return ui.printTaskList(taskList.findAllTasksBetween(fromDate, toDate));
     }
 
     @Override
@@ -24,7 +26,11 @@ public class ScheduleCommand extends Command {
         return false;
     }
 
-    public void setScheduleDate(LocalDate scheduleDate) {
-        this.scheduleDate = scheduleDate;
+    public void setScheduleDates(LocalDate fromDate, LocalDate toDate) throws PhenexException {
+        if (toDate.isBefore(fromDate)) {
+            throw new PhenexException("Error: invalid event dates");
+        }
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 }

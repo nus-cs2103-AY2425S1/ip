@@ -25,4 +25,13 @@ public abstract class TaskWithDate extends Task {
      * @return boolean indicating whether the specified date overlaps with deadline.
      */
     public abstract boolean overlapsWith(LocalDate localDate);
+
+    /**
+     * Returns a boolean indicating whether a the task occurs between two dates.
+     *
+     * @param fromDate the starting date.
+     * @param toDate the ending date.
+     * @return boolean indicating whether the task occurs between the specified dates.
+     */
+    public abstract boolean occursBetween(LocalDate fromDate, LocalDate toDate);
 }

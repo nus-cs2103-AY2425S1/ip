@@ -49,7 +49,7 @@ public class Parser {
         REGEX_TODO("^(?i)todo (.+)$", new TodoCommand()),
         REGEX_DEADLINE("^(?i)deadline (.+) /by (.+)$", new DeadlineCommand()),
         REGEX_EVENT("^(?i)event (.+) /from (.+) /to (.+)$", new EventCommand()),
-        REGEX_SCHEDULE("^(?i)schedule (.+)$", new ScheduleCommand());
+        REGEX_SCHEDULE("^(?i)schedule /from (.+) /to (.+)$", new ScheduleCommand());
 
         private final String regex;
         private final Command command;
@@ -138,9 +138,10 @@ public class Parser {
             FindCommand findCommand = (FindCommand) command;
             findCommand.setName(name);
         } else if (command instanceof ScheduleCommand) {
-            String scheduleDate = matcher.group(1);
+            LocalDate fromDate = parseLocalDateFromLine(matcher.group(1));
+            LocalDate toDate = parseLocalDateFromLine(matcher.group(2));
             ScheduleCommand scheduleCommand = (ScheduleCommand) command;
-            scheduleCommand.setScheduleDate(parseLocalDateFromLine(scheduleDate));
+            scheduleCommand.setScheduleDates(fromDate, toDate);
         }
     }
 

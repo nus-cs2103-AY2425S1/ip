@@ -141,6 +141,23 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks which overlap with given dates.
+     *
+     * @param fromDate date to check overlap start.
+     * @param toDate date to check overlap end.
+     * @return task list containing all tasks overlapping date.
+     */
+    public TaskList findAllTasksBetween(LocalDate fromDate, LocalDate toDate) {
+        TaskList taskList = new TaskList();
+        taskList.tasks = this.tasks.stream()
+                .filter(task -> task instanceof TaskWithDate)
+                .map(task -> (TaskWithDate) task)
+                .filter(task -> task.occursBetween(fromDate, toDate))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return taskList;
+    }
+
+    /**
      * Fills up data from storage into task list.
      *
      * @param storage the Storage to read from.

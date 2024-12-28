@@ -38,6 +38,12 @@ public class Event extends TaskWithDate {
     }
 
     @Override
+    public boolean occursBetween(LocalDate fromDate, LocalDate toDate) {
+        return (fromDate.equals(this.startDate) || fromDate.isBefore(this.startDate))
+                && (toDate.equals(this.endDate) || toDate.isAfter(this.endDate));
+    }
+
+    @Override
     public String formatDate(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }

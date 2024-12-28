@@ -31,6 +31,12 @@ public class Deadline extends TaskWithDate {
     }
 
     @Override
+    public boolean occursBetween(LocalDate fromDate, LocalDate toDate) {
+        return (fromDate.equals(this.localDate) || fromDate.isBefore(this.localDate))
+                && (toDate.equals(this.localDate) || toDate.isAfter(this.localDate));
+    }
+
+    @Override
     public String formatDate(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
