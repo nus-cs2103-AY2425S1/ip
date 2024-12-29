@@ -13,13 +13,7 @@ public class MarkCommand extends CommandWithIndex {
     private double hoursTaken;
 
     public MarkCommand() {
-        super(-1);
-        this.hoursTaken = -1;
-    }
-
-    public MarkCommand(int idx, double hoursTaken) {
-        super(idx);
-        this.hoursTaken = hoursTaken;
+        super(0);
     }
 
     public void setHoursTaken(double hoursTaken) {

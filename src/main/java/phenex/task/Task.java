@@ -8,7 +8,7 @@ public abstract class Task {
     protected boolean isCompleted;
     protected String symbol;
     protected double hoursTaken;
-    protected double default_hours = -1;
+    protected double defaultHours = 0;
 
     /**
      * Creates a Task.
@@ -19,7 +19,7 @@ public abstract class Task {
         this.name = name;
         this.isCompleted = false;
         this.symbol = symbol;
-        this.hoursTaken = default_hours;
+        this.hoursTaken = defaultHours;
     }
 
     public String getName() {
@@ -41,7 +41,7 @@ public abstract class Task {
 
     protected void setUncompleted() {
         this.isCompleted = false;
-        this.hoursTaken = default_hours;
+        this.hoursTaken = defaultHours;
     }
 
     protected String getStatusIcon() {

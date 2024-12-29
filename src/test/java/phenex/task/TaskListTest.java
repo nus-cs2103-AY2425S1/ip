@@ -23,7 +23,7 @@ public class TaskListTest {
         ToDo toDoTask = new ToDo("task Test");
         taskList.addTask(toDoTask);
 
-        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(-1));
+        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(-1, -1));
         assertEquals("\t Invalid input, no such mission!", exception.getMessage());
     }
 
@@ -71,7 +71,7 @@ public class TaskListTest {
     public void markTaskCompleted_emptyList_throwsPhenexException() {
         TaskList taskList = new TaskList();
 
-        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(0));
+        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(0, 0));
         assertEquals("\t Invalid input, no such mission!", exception.getMessage());
     }
 
@@ -85,7 +85,7 @@ public class TaskListTest {
         taskList.addTask(toDoTask);
 
         // Index is out of bounds because only 1 task is present
-        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(10));
+        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(10, 10));
         assertEquals("\t Invalid input, no such mission!", exception.getMessage());
     }
 }

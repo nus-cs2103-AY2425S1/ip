@@ -119,7 +119,7 @@ public class Parser {
                 MarkCommand markCommand = (MarkCommand) command;
                 markCommand.setIndex(indexOfTask);
                 markCommand.setHoursTaken(hoursTaken);
-            } else {    
+            } else {
                 CommandWithIndex commandWithIndex = (CommandWithIndex) command;
                 commandWithIndex.setIndex(this.getIndexOfTask(line, command));
             }
@@ -190,7 +190,7 @@ public class Parser {
         // initialise hashmap which stores the valid task details length for each symbol.
         HashMap<String, Integer> validLengthMap = new HashMap<>();
         validLengthMap.put("T", 4);
-        validLengthMap.put("D",5);
+        validLengthMap.put("D", 5);
         validLengthMap.put("E", 6);
         String symbol = taskDetails[0];
         if (taskDetails.length != validLengthMap.get(symbol)) {
