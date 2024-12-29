@@ -8,7 +8,6 @@ import java.time.format.ResolverStyle;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import phenex.command.Command;
 import phenex.command.CommandWithIndex;
 import phenex.command.CreateTaskCommand;
@@ -41,7 +40,7 @@ public class Parser {
     public enum RegexFormat {
         REGEX_TERMINATING("(?i)bye\\s*$", new TerminatingCommand()),
         REGEX_LIST("(?i)list\\s*$", new ListCommand()),
-        REGEX_MARK("^mark \\d+\\s*$", new MarkCommand()),
+        REGEX_MARK("^mark (\\d+) /hours (\\d+)\\s*$", new MarkCommand()),
         REGEX_UNMARK("^unmark \\d+\\s*$", new UnmarkCommand()),
         REGEX_DELETE("^delete \\d+\\s*$", new DeleteCommand()),
         REGEX_DATECHECK("^missions on (.+)$", new DateCheckCommand()),
@@ -50,6 +49,7 @@ public class Parser {
         REGEX_DEADLINE("^(?i)deadline (.+) /by (.+)$", new DeadlineCommand()),
         REGEX_EVENT("^(?i)event (.+) /from (.+) /to (.+)$", new EventCommand()),
         REGEX_SCHEDULE("^(?i)schedule /from (.+) /to (.+)$", new ScheduleCommand());
+
 
         private final String regex;
         private final Command command;
@@ -111,14 +111,22 @@ public class Parser {
      */
     public void updateCommand(Command command, Matcher matcher, String line) throws PhenexException {
         if (command instanceof CommandWithIndex) {
-            CommandWithIndex commandWithIndex = (CommandWithIndex) command;
-            commandWithIndex.setIndex(this.getIndexOfTask(line, command));
+
+            if (command instanceof MarkCommand) {
+                int indexOfTask = Integer.parseInt(matcher.group(1));
+                double hoursTaken = Double.parseDouble(matcher.group(2));
+                MarkCommand markCommand = (MarkCommand) command;
+                markCommand.setIndex(indexOfTask);
+                markCommand.setHoursTaken(hoursTaken);
+            } else {    
+                CommandWithIndex commandWithIndex = (CommandWithIndex) command;
+                commandWithIndex.setIndex(this.getIndexOfTask(line, command));
+            }
         } else if (command instanceof DateCheckCommand) {
             DateCheckCommand dateCheckCommand = (DateCheckCommand) command;
             String date = line.substring(12);
             dateCheckCommand.setLocalDate(this.parseLocalDateFromLine(date));
         } else if (command instanceof CreateTaskCommand) {
-
             if (command instanceof DeadlineCommand) {
                 String deadlineBy = matcher.group(2);
                 LocalDate localDate = parseLocalDateFromLine(deadlineBy);

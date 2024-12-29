@@ -7,6 +7,8 @@ public abstract class Task {
     protected final String name;
     protected boolean isCompleted;
     protected String symbol;
+    protected double hoursTaken;
+    protected double default_hours = -1;
 
     /**
      * Creates a Task.
@@ -31,12 +33,14 @@ public abstract class Task {
         return this.symbol;
     }
 
-    protected void setCompleted() {
+    protected void setCompleted(double hoursTaken) {
         this.isCompleted = true;
+        this.hoursTaken = hoursTaken;
     }
 
     protected void setUncompleted() {
         this.isCompleted = false;
+        this.hoursTaken = default_hours;
     }
 
     protected String getStatusIcon() {
@@ -45,10 +49,15 @@ public abstract class Task {
 
     @Override
     public String toString() {
+        String hoursString = (this.getStatusIcon().equals("X"))
+                             ? "Hours taken: " + this.hoursTaken
+                             : "";
         return "["
                 + this.getStatusIcon()
                 + "] "
-                + this.name;
+                + this.name
+                + "."
+                + hoursString;
     }
 
     @Override

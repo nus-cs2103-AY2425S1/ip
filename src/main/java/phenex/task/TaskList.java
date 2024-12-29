@@ -5,7 +5,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.ui.Ui;
@@ -44,15 +43,16 @@ public class TaskList {
      * Marks a task as complete.
      *
      * @param idx the index of the task to mark as complete.
+     * @param hoursTaken the hours taken to complete the task.
      * @return task which was marked as complete.
      * @throws PhenexException if invalid index.
      */
-    public Task markTaskCompleted(int idx) throws PhenexException {
+    public Task markTaskCompleted(int idx, double hoursTaken) throws PhenexException {
         if (idx >= this.tasks.size() || idx < 0) {
             throw new PhenexException("\t Invalid input, no such mission!");
         } else {
             Task taskMarked = this.tasks.get(idx);
-            taskMarked.setCompleted();
+            taskMarked.setCompleted(hoursTaken);
             return taskMarked;
         }
     }
@@ -200,6 +200,7 @@ public class TaskList {
         String status = taskDetails[1];
         String name = taskDetails[2];
         Task taskToAdd;
+        double default_hours = -1;
 
         switch (symbol) {
         case "T":
@@ -224,7 +225,7 @@ public class TaskList {
         }
 
         if (status.equals("1")) {
-            taskToAdd.setCompleted();
+            taskToAdd.setCompleted(default_hours);
         }
         return taskToAdd;
     }
