@@ -61,12 +61,13 @@ public class Event extends TaskWithDate {
 
     @Override
     public String toString() {
+        String suffix = " (from: "
+                            + this.formatDate(this.startDate)
+                            + " to: "
+                            + this.formatDate(this.endDate)
+                            + ")";
         return "[" + this.symbol + "]"
                 + super.toString()
-                + " (from: "
-                + this.formatDate(this.startDate)
-                + " to: "
-                + this.formatDate(this.endDate)
-                + ")";
+                + suffix;
     }
 }

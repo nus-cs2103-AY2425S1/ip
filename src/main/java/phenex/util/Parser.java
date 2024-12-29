@@ -8,6 +8,7 @@ import java.time.format.ResolverStyle;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import phenex.command.Command;
 import phenex.command.CommandWithIndex;
 import phenex.command.CreateTaskCommand;
@@ -113,7 +114,7 @@ public class Parser {
         if (command instanceof CommandWithIndex) {
 
             if (command instanceof MarkCommand) {
-                int indexOfTask = Integer.parseInt(matcher.group(1));
+                int indexOfTask = Integer.parseInt(matcher.group(1)) - 1;
                 double hoursTaken = Double.parseDouble(matcher.group(2));
                 MarkCommand markCommand = (MarkCommand) command;
                 markCommand.setIndex(indexOfTask);
@@ -188,9 +189,9 @@ public class Parser {
 
         // initialise hashmap which stores the valid task details length for each symbol.
         HashMap<String, Integer> validLengthMap = new HashMap<>();
-        validLengthMap.put("T", 3);
-        validLengthMap.put("D", 4);
-        validLengthMap.put("E", 5);
+        validLengthMap.put("T", 4);
+        validLengthMap.put("D",5);
+        validLengthMap.put("E", 6);
         String symbol = taskDetails[0];
         if (taskDetails.length != validLengthMap.get(symbol)) {
             throw new PhenexException("Error, corrupted memory.");
@@ -224,6 +225,7 @@ public class Parser {
         String localDateString = "";
         String completedSymbol = "1, ";
         String incompleteSymbol = "0, ";
+        String hoursTaken = Double.toString(task.getHoursTaken());
         if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
             localDateString = deadlineTask.getDeadlineDate().toString() + ", ";
@@ -235,6 +237,7 @@ public class Parser {
         return task.getSymbol() + ", "
                 + (task.isCompleted() ? completedSymbol : incompleteSymbol)
                 + task.getName() + ", "
+                + hoursTaken + ", "
                 + localDateString
                 + "\n";
     }

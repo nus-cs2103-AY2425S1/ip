@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Phenex instance */
     public void setPhenex(Phenex phenex) {
         this.phenex = phenex;
     }

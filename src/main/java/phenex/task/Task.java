@@ -19,6 +19,7 @@ public abstract class Task {
         this.name = name;
         this.isCompleted = false;
         this.symbol = symbol;
+        this.hoursTaken = default_hours;
     }
 
     public String getName() {
@@ -47,10 +48,14 @@ public abstract class Task {
         return this.isCompleted ? "X" : " ";
     }
 
+    public double getHoursTaken() {
+        return this.hoursTaken;
+    }
+
     @Override
     public String toString() {
         String hoursString = (this.getStatusIcon().equals("X"))
-                             ? "Hours taken: " + this.hoursTaken
+                             ? "\n\t\tHours taken: " + this.hoursTaken
                              : "";
         return "["
                 + this.getStatusIcon()

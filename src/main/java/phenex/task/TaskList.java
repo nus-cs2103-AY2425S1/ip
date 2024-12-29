@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.ui.Ui;
@@ -199,22 +200,22 @@ public class TaskList {
         String symbol = taskDetails[0];
         String status = taskDetails[1];
         String name = taskDetails[2];
+        String hours = taskDetails[3];
         Task taskToAdd;
-        double default_hours = -1;
 
         switch (symbol) {
         case "T":
             taskToAdd = new ToDo(name);
             break;
         case "D":
-            String byDate = taskDetails[3];
+            String byDate = taskDetails[4];
             LocalDate date = LocalDate.parse(byDate);
             taskToAdd = new Deadline(name, date);
             break;
         case "E":
             try {
-                LocalDate fromDate = LocalDate.parse(taskDetails[3]);
-                LocalDate toDate = LocalDate.parse(taskDetails[4]);
+                LocalDate fromDate = LocalDate.parse(taskDetails[4]);
+                LocalDate toDate = LocalDate.parse(taskDetails[5]);
                 taskToAdd = new Event(name, fromDate, toDate);
                 break;
             } catch (DateTimeParseException e) {
@@ -225,7 +226,7 @@ public class TaskList {
         }
 
         if (status.equals("1")) {
-            taskToAdd.setCompleted(default_hours);
+            taskToAdd.setCompleted(Double.parseDouble(hours));
         }
         return taskToAdd;
     }

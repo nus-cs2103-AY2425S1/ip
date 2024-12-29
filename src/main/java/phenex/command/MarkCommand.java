@@ -28,7 +28,6 @@ public class MarkCommand extends CommandWithIndex {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
-        // TODO: finish dependencies
         Task taskMarked = taskList.markTaskCompleted(super.index, hoursTaken);
         return ui.printTaskMarkedCompleteMessage(taskMarked);
     }
