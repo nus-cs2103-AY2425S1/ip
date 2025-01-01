@@ -17,8 +17,8 @@ public class Event extends TaskWithDate {
      * @param startDate the start date of the Event task.
      * @param endDate the end date of the Event task.
      */
-    public Event(String name, LocalDate startDate, LocalDate endDate) {
-        super(name, "E");
+    public Event(String name, LocalDate startDate, LocalDate endDate, TaskType taskType) {
+        super(name, "E", taskType);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -66,7 +66,7 @@ public class Event extends TaskWithDate {
                             + " to: "
                             + this.formatDate(this.endDate)
                             + ")";
-        return "[" + this.symbol + "]"
+        return "[" + this.taskSymbol + "]"
                 + super.toString()
                 + suffix;
     }

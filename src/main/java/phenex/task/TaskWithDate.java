@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * Abstract TaskWithDate class encapsulating more specific Tasks, which contain a date.
  */
 public abstract class TaskWithDate extends Task {
-    public TaskWithDate(String name, String symbol) {
-        super(name, symbol);
+    public TaskWithDate(String name, String taskSymbol, TaskType taskType) {
+        super(name, taskSymbol, taskType);
     }
 
     /**

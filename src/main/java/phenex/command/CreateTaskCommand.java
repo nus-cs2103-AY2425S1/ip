@@ -1,11 +1,24 @@
 package phenex.command;
 
+import java.util.HashMap;
+import java.util.Set;
+
+import phenex.task.Task.TaskType;
+
 /**
  * Abstract class CreateTaskCommand to encapsulate a Command which creates a Task.
  */
 public abstract class CreateTaskCommand extends Command {
-    /** encapsulates the name of the task to be created */
+    protected static HashMap<String, TaskType> typeMap = new HashMap<>();
+
+    static {
+        typeMap.put(phenex.task.Task.RECREATIONAL_TASK_SYMBOL, phenex.task.Task.TaskType.RECREATIONAL);
+        typeMap.put(phenex.task.Task.PRODUCTIVE_TASK_SYMBOL, phenex.task.Task.TaskType.PRODUCTIVE);
+        typeMap.put(phenex.task.Task.OTHER_TASK_SYMBOL, phenex.task.Task.TaskType.OTHERS);
+    }
+
     protected String name;
+    protected String typeSymbol;
 
     public CreateTaskCommand(String name) {
         this.name = name;
@@ -13,6 +26,18 @@ public abstract class CreateTaskCommand extends Command {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static TaskType getTaskTypeFromSymbol(String typeSymbol) {
+        return typeMap.get(typeSymbol);
+    }
+
+    public void setTypeSymbol(String typeSymbol) {
+        this.typeSymbol = typeSymbol;
+    }
+
+    public static Set<String> getValidSymbols() {
+        return typeMap.keySet();
     }
 
     @Override

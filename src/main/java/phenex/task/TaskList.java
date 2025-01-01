@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import phenex.command.CreateTaskCommand;
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.ui.Ui;
@@ -197,26 +198,28 @@ public class TaskList {
      * @throws PhenexException if invalid task details.
      */
     private Task generateTaskFromDetails(String[] taskDetails) throws PhenexException {
-        String symbol = taskDetails[0];
-        String status = taskDetails[1];
-        String name = taskDetails[2];
-        String hours = taskDetails[3];
+        String taskSymbol = taskDetails[0];
+        String taskTypeSymbol = taskDetails[1];
+        String status = taskDetails[2];
+        String name = taskDetails[3];
+        String hours = taskDetails[4];
+        Task.TaskType taskType = CreateTaskCommand.getTaskTypeFromSymbol(taskTypeSymbol);
         Task taskToAdd;
 
-        switch (symbol) {
+        switch (taskSymbol) {
         case "T":
-            taskToAdd = new ToDo(name);
+            taskToAdd = new ToDo(name, taskType);
             break;
         case "D":
-            String byDate = taskDetails[4];
+            String byDate = taskDetails[5];
             LocalDate date = LocalDate.parse(byDate);
-            taskToAdd = new Deadline(name, date);
+            taskToAdd = new Deadline(name, date, taskType);
             break;
         case "E":
             try {
-                LocalDate fromDate = LocalDate.parse(taskDetails[4]);
-                LocalDate toDate = LocalDate.parse(taskDetails[5]);
-                taskToAdd = new Event(name, fromDate, toDate);
+                LocalDate fromDate = LocalDate.parse(taskDetails[5]);
+                LocalDate toDate = LocalDate.parse(taskDetails[6]);
+                taskToAdd = new Event(name, fromDate, toDate, taskType);
                 break;
             } catch (DateTimeParseException e) {
                 throw new PhenexException("Error: invalid date.");

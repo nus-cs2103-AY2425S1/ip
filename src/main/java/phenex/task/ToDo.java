@@ -5,12 +5,12 @@ package phenex.task;
  */
 public class ToDo extends Task {
 
-    public ToDo(String name) {
-        super(name, "T");
+    public ToDo(String name, TaskType taskType) {
+        super(name, "T", taskType);
     }
 
     @Override
     public String toString() {
-        return "[" + this.symbol + "]" + super.toString();
+        return "[" + this.taskSymbol + "]" + super.toString();
     }
 }

@@ -47,9 +47,9 @@ public class Parser {
         REGEX_DATECHECK("^missions on (.+)$", new DateCheckCommand()),
         REGEX_FIND("^(?i)find (.+)$", new FindCommand()),
         REGEX_TODO("^(?i)todo (.+)$", new TodoCommand()),
-        REGEX_DEADLINE("^(?i)deadline (.+) /by (.+)$", new DeadlineCommand()),
-        REGEX_EVENT("^(?i)event (.+) /from (.+) /to (.+)$", new EventCommand()),
-        REGEX_SCHEDULE("^(?i)schedule /from (.+) /to (.+)$", new ScheduleCommand());
+        REGEX_DEADLINE("^(?i)deadline (.+) /type (.+) /by (.+)$", new DeadlineCommand()),
+        REGEX_EVENT("^(?i)event (.+) /type (.+) /from (.+) /to (.+)$", new EventCommand()),
+        REGEX_SCHEDULE("^(?i)schedule /type (.+) /from (.+) /to (.+)$", new ScheduleCommand());
 
 
         private final String regex;
@@ -128,20 +128,25 @@ public class Parser {
             String date = line.substring(12);
             dateCheckCommand.setLocalDate(this.parseLocalDateFromLine(date));
         } else if (command instanceof CreateTaskCommand) {
+            String typeSymbol = matcher.group(2);
+            if (!CreateTaskCommand.getValidSymbols().contains(typeSymbol)) {
+                throw new PhenexException("Error, invalid type detected");
+            }
             if (command instanceof DeadlineCommand) {
-                String deadlineBy = matcher.group(2);
+                String deadlineBy = matcher.group(3);
                 LocalDate localDate = parseLocalDateFromLine(deadlineBy);
                 DeadlineCommand deadlineCommand = (DeadlineCommand) command;
                 deadlineCommand.setDate(localDate);
             } else if (command instanceof EventCommand) {
-                LocalDate fromDate = parseLocalDateFromLine(matcher.group(2));
-                LocalDate toDate = parseLocalDateFromLine(matcher.group(3));
+                LocalDate fromDate = parseLocalDateFromLine(matcher.group(3));
+                LocalDate toDate = parseLocalDateFromLine(matcher.group(4));
                 EventCommand eventCommand = (EventCommand) command;
                 eventCommand.setDates(fromDate, toDate);
             }
             String name = matcher.group(1);
             CreateTaskCommand createTaskCommand = (CreateTaskCommand) command;
             createTaskCommand.setName(name);
+            createTaskCommand.setTypeSymbol(typeSymbol);
         } else if (command instanceof FindCommand) {
             String name = matcher.group(1);
             FindCommand findCommand = (FindCommand) command;
@@ -189,9 +194,9 @@ public class Parser {
 
         // initialise hashmap which stores the valid task details length for each symbol.
         HashMap<String, Integer> validLengthMap = new HashMap<>();
-        validLengthMap.put("T", 4);
-        validLengthMap.put("D", 5);
-        validLengthMap.put("E", 6);
+        validLengthMap.put("T", 5);
+        validLengthMap.put("D", 6);
+        validLengthMap.put("E", 7);
         String symbol = taskDetails[0];
         if (taskDetails.length != validLengthMap.get(symbol)) {
             throw new PhenexException("Error, corrupted memory.");
@@ -234,7 +239,8 @@ public class Parser {
             localDateString = eventTask.getEventStartDate().toString()
                     + ", " + eventTask.getEventEndDate().toString() + ", ";
         }
-        return task.getSymbol() + ", "
+        return task.getTaskSymbol() + ", "
+                + task.getTaskTypeSymbol() + ", "
                 + (task.isCompleted() ? completedSymbol : incompleteSymbol)
                 + task.getName() + ", "
                 + hoursTaken + ", "

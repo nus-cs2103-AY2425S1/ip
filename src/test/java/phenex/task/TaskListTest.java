@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import phenex.exception.PhenexException;
+import phenex.task.Task.TaskType;
 
 /**
  * Unit tests for the TaskList class.
@@ -20,7 +21,7 @@ public class TaskListTest {
     @Test
     public void markTaskCompleted_invalidIndex_throwsPhenexException() {
         TaskList taskList = new TaskList();
-        ToDo toDoTask = new ToDo("task Test");
+        ToDo toDoTask = new ToDo("task Test", TaskType.OTHERS);
         taskList.addTask(toDoTask);
 
         PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(-1, -1));
@@ -33,7 +34,7 @@ public class TaskListTest {
     @Test
     public void addTask_validTask_taskAddedSuccessfully() {
         TaskList taskList = new TaskList();
-        ToDo toDo = new ToDo("test");
+        ToDo toDo = new ToDo("test", TaskType.OTHERS);
         taskList.addTask(toDo);
 
         assertEquals(1, taskList.getTasks().size());
@@ -45,7 +46,7 @@ public class TaskListTest {
     @Test
     public void containsTask_validTask_returnsTrue() {
         TaskList taskList = new TaskList();
-        ToDo toDo = new ToDo("test");
+        ToDo toDo = new ToDo("test", TaskType.PRODUCTIVE);
         taskList.addTask(toDo);
 
         assertTrue(taskList.containsTask(toDo));
@@ -57,9 +58,9 @@ public class TaskListTest {
     @Test
     public void containsTask_nonExistingTask_returnsFalse() {
         TaskList taskList = new TaskList();
-        ToDo toDo = new ToDo("test");
+        ToDo toDo = new ToDo("test", TaskType.OTHERS);
         taskList.addTask(toDo);
-        ToDo task = new ToDo("Not found");
+        ToDo task = new ToDo("Not found", TaskType.RECREATIONAL);
 
         assertFalse(taskList.containsTask(task));
     }
@@ -81,7 +82,7 @@ public class TaskListTest {
     @Test
     public void markTaskCompleted_outOfBoundsIndex_throwsPhenexException() {
         TaskList taskList = new TaskList();
-        ToDo toDoTask = new ToDo("task Test");
+        ToDo toDoTask = new ToDo("task Test", TaskType.PRODUCTIVE);
         taskList.addTask(toDoTask);
 
         // Index is out of bounds because only 1 task is present
