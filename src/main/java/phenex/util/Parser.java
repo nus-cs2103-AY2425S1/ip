@@ -46,7 +46,7 @@ public class Parser {
         REGEX_DELETE("^delete \\d+\\s*$", new DeleteCommand()),
         REGEX_DATECHECK("^missions on (.+)$", new DateCheckCommand()),
         REGEX_FIND("^(?i)find (.+)$", new FindCommand()),
-        REGEX_TODO("^(?i)todo (.+)$", new TodoCommand()),
+        REGEX_TODO("^(?i)todo (.+) /type (.+)$", new TodoCommand()),
         REGEX_DEADLINE("^(?i)deadline (.+) /type (.+) /by (.+)$", new DeadlineCommand()),
         REGEX_EVENT("^(?i)event (.+) /type (.+) /from (.+) /to (.+)$", new EventCommand()),
         REGEX_SCHEDULE("^(?i)schedule /type (.+) /from (.+) /to (.+)$", new ScheduleCommand());
