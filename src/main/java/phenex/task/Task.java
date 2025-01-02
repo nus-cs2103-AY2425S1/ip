@@ -91,10 +91,10 @@ public abstract class Task {
                              ? "\n\t\tHours taken: " + this.hoursTaken
                              : "";
         return "["
-                + this.getStatusIcon()
+                + this.getTaskTypeSymbol()
                 + "]"
                 + "["
-                + this.getTaskTypeSymbol()
+                + this.getStatusIcon()
                 + "] "
                 + this.name
                 + "."

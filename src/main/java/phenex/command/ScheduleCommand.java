@@ -17,7 +17,6 @@ public class ScheduleCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
-        // implement find all tasks within date range
         return ui.printTaskList(taskList.findAllTasksBetween(fromDate, toDate));
     }
 

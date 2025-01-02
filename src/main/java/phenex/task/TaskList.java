@@ -160,6 +160,20 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks which are of a given task type.
+     *
+     * @param taskType the task type to filter by.
+     * @return task list containing all tasks of the given task type.
+     */
+    public TaskList findAllTasksOfType(Task.TaskType taskType) {
+        TaskList taskList = new TaskList();
+        taskList.tasks = this.tasks.stream()
+                .filter(task -> task.taskType.equals(taskType))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return taskList;
+    }
+
+    /**
      * Fills up data from storage into task list.
      *
      * @param storage the Storage to read from.
