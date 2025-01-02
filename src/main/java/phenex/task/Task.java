@@ -92,6 +92,9 @@ public abstract class Task {
                              : "";
         return "["
                 + this.getStatusIcon()
+                + "]"
+                + "["
+                + this.getTaskTypeSymbol()
                 + "] "
                 + this.name
                 + "."
