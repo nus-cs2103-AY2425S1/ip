@@ -17,11 +17,6 @@ public class FindCommand extends Command {
         this.name = "";
     }
 
-    public FindCommand(String name, TaskType taskType) {
-        this.name = name;
-        this.taskType = taskType;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
