@@ -46,7 +46,7 @@ public class Parser {
         REGEX_UNMARK("^unmark \\d+\\s*$", new UnmarkCommand()),
         REGEX_DELETE("^delete \\d+\\s*$", new DeleteCommand()),
         REGEX_DATECHECK("^missions on (.+)$", new DateCheckCommand()),
-        REGEX_FIND("^(?i)find /name (.+) /type (.+)$", new FindCommand()),
+        REGEX_FIND("^(?i)find(?: /name ([^/]+))?(?: /type (.+))?$", new FindCommand()),
         REGEX_TODO("^(?i)todo (.+) /type (.+)$", new TodoCommand()),
         REGEX_DEADLINE("^(?i)deadline (.+) /type (.+) /by (.+)$", new DeadlineCommand()),
         REGEX_EVENT("^(?i)event (.+) /type (.+) /from (.+) /to (.+)$", new EventCommand()),
@@ -150,7 +150,8 @@ public class Parser {
             createTaskCommand.setTypeSymbol(typeSymbol);
         } else if (command instanceof FindCommand) {
             String name = matcher.group(1);
-            TaskType taskType = CreateTaskCommand.getTaskTypeFromSymbol(matcher.group(2));
+            String taskTypeSymbol = matcher.group(2);
+            TaskType taskType = CreateTaskCommand.getTaskTypeFromSymbol(taskTypeSymbol);
             FindCommand findCommand = (FindCommand) command;
             findCommand.setName(name);
             findCommand.setTaskType(taskType);
@@ -172,7 +173,7 @@ public class Parser {
     public Command parseCommandFromLine(String line) throws PhenexException {
         RegexFormat format = findMatchingFormat(line);
         if (format == null) {
-            throw new PhenexException("Invalid user input!");
+            throw new PhenexException("Invalid user input! Command mismatch.");
         }
         Command command = format.command;
         Pattern pattern = Pattern.compile(format.regex);

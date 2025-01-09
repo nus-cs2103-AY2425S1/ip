@@ -32,6 +32,11 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+        if (this.name == null) {
+            return ui.printTaskList(taskList.findTasksOfType(taskType));
+        } else if (taskType == null) {
+            return ui.printTaskList(taskList.findTasksOfName(name));
+        }
         TaskList matchingTasks = taskList.findTasksOfName(this.name).findTasksOfType(taskType);
         return ui.printTaskList(matchingTasks);
     }

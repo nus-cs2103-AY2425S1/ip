@@ -30,6 +30,9 @@ public abstract class CreateTaskCommand extends Command {
     }
 
     public static TaskType getTaskTypeFromSymbol(String typeSymbol) throws PhenexException {
+        if (typeSymbol == null) {
+            return null;
+        }
         if (!typeMap.containsKey(typeSymbol)) {
             throw new PhenexException("Invalid task Type Symbol provided.\nValid symbols are 'O', 'P', 'R'");
         }
