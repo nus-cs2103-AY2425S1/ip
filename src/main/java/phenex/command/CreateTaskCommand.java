@@ -3,6 +3,7 @@ package phenex.command;
 import java.util.HashMap;
 import java.util.Set;
 
+import phenex.exception.PhenexException;
 import phenex.task.Task.TaskType;
 
 /**
@@ -28,7 +29,10 @@ public abstract class CreateTaskCommand extends Command {
         this.name = name;
     }
 
-    public static TaskType getTaskTypeFromSymbol(String typeSymbol) {
+    public static TaskType getTaskTypeFromSymbol(String typeSymbol) throws PhenexException {
+        if (!typeMap.containsKey(typeSymbol)) {
+            throw new PhenexException("Invalid task Type Symbol provided.\nValid symbols are 'O', 'P', 'R'");
+        }
         return typeMap.get(typeSymbol);
     }
 

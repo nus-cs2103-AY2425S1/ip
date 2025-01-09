@@ -97,7 +97,6 @@ public abstract class Task {
                 + this.getStatusIcon()
                 + "] "
                 + this.name
-                + "."
                 + hoursString;
     }
 
@@ -105,7 +104,7 @@ public abstract class Task {
     public boolean equals(Object object) {
         if (object instanceof Task) {
             Task compared = (Task) object;
-            return this.name.equals(compared.name);
+            return this.name.equals(compared.name) && this.taskType.equals(compared.taskType);
         }
         return false;
     }

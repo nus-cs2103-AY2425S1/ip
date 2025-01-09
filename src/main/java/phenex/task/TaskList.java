@@ -107,11 +107,25 @@ public class TaskList {
      * @param name name of task.
      * @return task list containing all tasks with given name.
      */
-    public TaskList findTasks(String name) {
+    public TaskList findTasksOfName(String name) {
         assert name.isEmpty() : "Error: invalid task name!";
         TaskList matchingTasks = new TaskList();
         matchingTasks.tasks = this.tasks.stream()
-                .filter(task -> task.getName().equals(name))
+                .filter(task -> task.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return matchingTasks;
+    }
+
+    /**
+     * Finds tasks which are of a given task type.
+     *
+     * @param taskType the type of task.
+     * @return task list containing all tasks with given task type.
+     */
+    public TaskList findTasksOfType(Task.TaskType taskType) {
+        TaskList matchingTasks = new TaskList();
+        matchingTasks.tasks = this.tasks.stream()
+                .filter(task -> task.taskType == taskType)
                 .collect(Collectors.toCollection(ArrayList::new));
         return matchingTasks;
     }
@@ -155,20 +169,6 @@ public class TaskList {
                 .filter(task -> task instanceof TaskWithDate)
                 .map(task -> (TaskWithDate) task)
                 .filter(task -> task.occursBetween(fromDate, toDate))
-                .collect(Collectors.toCollection(ArrayList::new));
-        return taskList;
-    }
-
-    /**
-     * Finds tasks which are of a given task type.
-     *
-     * @param taskType the task type to filter by.
-     * @return task list containing all tasks of the given task type.
-     */
-    public TaskList findAllTasksOfType(Task.TaskType taskType) {
-        TaskList taskList = new TaskList();
-        taskList.tasks = this.tasks.stream()
-                .filter(task -> task.taskType.equals(taskType))
                 .collect(Collectors.toCollection(ArrayList::new));
         return taskList;
     }

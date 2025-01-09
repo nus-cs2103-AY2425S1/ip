@@ -27,6 +27,7 @@ import phenex.exception.PhenexException;
 import phenex.task.Deadline;
 import phenex.task.Event;
 import phenex.task.Task;
+import phenex.task.Task.TaskType;
 
 
 /**
@@ -45,7 +46,7 @@ public class Parser {
         REGEX_UNMARK("^unmark \\d+\\s*$", new UnmarkCommand()),
         REGEX_DELETE("^delete \\d+\\s*$", new DeleteCommand()),
         REGEX_DATECHECK("^missions on (.+)$", new DateCheckCommand()),
-        REGEX_FIND("^(?i)find (.+)$", new FindCommand()),
+        REGEX_FIND("^(?i)find /name (.+) /type (.+)$", new FindCommand()),
         REGEX_TODO("^(?i)todo (.+) /type (.+)$", new TodoCommand()),
         REGEX_DEADLINE("^(?i)deadline (.+) /type (.+) /by (.+)$", new DeadlineCommand()),
         REGEX_EVENT("^(?i)event (.+) /type (.+) /from (.+) /to (.+)$", new EventCommand()),
@@ -149,8 +150,10 @@ public class Parser {
             createTaskCommand.setTypeSymbol(typeSymbol);
         } else if (command instanceof FindCommand) {
             String name = matcher.group(1);
+            TaskType taskType = CreateTaskCommand.getTaskTypeFromSymbol(matcher.group(2));
             FindCommand findCommand = (FindCommand) command;
             findCommand.setName(name);
+            findCommand.setTaskType(taskType);
         } else if (command instanceof ScheduleCommand) {
             LocalDate fromDate = parseLocalDateFromLine(matcher.group(1));
             LocalDate toDate = parseLocalDateFromLine(matcher.group(2));
