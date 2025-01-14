@@ -4,6 +4,10 @@ public class Alden {
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
 
+        // Array to store up to 100 tasks
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         // Print the greeting message
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Alden");
@@ -18,9 +22,18 @@ public class Alden {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
-            } else {
+            } else if (userInput.equalsIgnoreCase("list")) {
+                // Display the list of tasks
                 System.out.println("____________________________________________________________");
-                System.out.println(" " + userInput);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                tasks[taskCount] = userInput;
+                taskCount ++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + userInput);
                 System.out.println("____________________________________________________________");
             }
         }
