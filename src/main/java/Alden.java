@@ -27,9 +27,45 @@ public class Alden {
             } else if (userInput.equalsIgnoreCase("list")) {
                 // Display the list of tasks
                 System.out.println("____________________________________________________________");
+                System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println(" " + (i + 1) + ". " + tasks[i]);
                 }
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("todo")) {
+                // Add a todo task
+                String description = userInput.substring(5).trim();
+                tasks[taskCount] = new Todo(description);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("deadline")) {
+                // Add a deadline task
+                String[] parts = userInput.split("/by", 2);
+                String description = parts[0].substring(9).trim();
+                String by = parts[1].trim();
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("event")) {
+                // Add an Event task
+                String[] parts = userInput.split("/from|/to", 3);
+                String description = parts[0].substring(6).trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else if (userInput.startsWith("mark")) {
                 // Extract task number and mark it as done
@@ -39,7 +75,7 @@ public class Alden {
                         tasks[taskNumber].markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this work as done: ");
-                        System.out.println(" " + tasks[taskNumber]);
+                        System.out.println("   " + tasks[taskNumber]);
                         System.out.println("____________________________________________________________");
                     } else {
                         System.out.println("Invalid task number.");
@@ -55,7 +91,7 @@ public class Alden {
                         tasks[taskNumber].unmarkAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println(" OK, I've marked this task as not done yet: ");
-                        System.out.println(" " + tasks[taskNumber]);
+                        System.out.println("   " + tasks[taskNumber]);
                         System.out.println("____________________________________________________________");
                     } else {
                         System.out.println("Invalid task number.");
@@ -64,11 +100,8 @@ public class Alden {
                     System.out.println("Invalid input. Please specify a valid task number.");
                 }
             } else {
-                // Add a new task to the list
-                tasks[taskCount] = new Task(userInput);
-                taskCount++;
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + userInput);
+                System.out.println(" I didn't understand that command.");
                 System.out.println("____________________________________________________________");
             }
         }
