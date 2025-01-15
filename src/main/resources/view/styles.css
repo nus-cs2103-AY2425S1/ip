@@ -1,0 +1,30 @@
+.root {
+    -fx-background-color: #F0F8FF;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 1;
+}
+
+.button {
+    -fx-background-color: #c45049;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+}
