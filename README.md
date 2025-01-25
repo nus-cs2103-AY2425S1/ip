@@ -1,24 +1,29 @@
-# Primo project template
+# Primo Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Ui.png](docs/Ui.png)
 
-## Setting up in Intellij
+**El Primo is here!** Introducing a text based chat with yours truly, 
+El Primo himself! El Primo will help you to _manage your tasks_, so that you 
+will no longer miss deadlines, and be an organised good person :)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+> El Primo, is here.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Primo.java` file, right-click it, and choose `Run Primo.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Sample Functions/Commands
+1. **Add a Task** 🖋️
+   - Supporting todo, deadline, and event tasks.
+2. **Delete a task** 🖋️
+   - Delete tasks when it's no longer relevant.
+2. **Mark a task** 🖋️
+   - You can mark and unmark tasks when it's completed.
+3. **Add notes** 🖋️
+   - Add some notes for the corresponding task.
+4. **Find a task** 🖋️
+   - Enables searching for a task.
+5. **List all tasks** 🖋️
+   - View all your tasks.
+
+### Find Out More!
+For the detailed documentation of this project, see the **[Primo Product Website](https://choonzies.github.io/ip/)**.
+
+### Acknowledgements
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org). If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
