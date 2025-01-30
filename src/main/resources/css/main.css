@@ -1,0 +1,28 @@
+.root {
+    main-color: rgb(248, 244, 255);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/starssbg.jpg");
+    -fx-background-size: cover;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(230,230,230,.5);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+
+.button {
+    -fx-background-color: rgb(50, 50, 50);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

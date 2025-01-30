@@ -1,0 +1,3 @@
+D | 0 | homework | #uni | Sep 17 2024 23:59
+T | 0 | buy groceries
+E | 0 | run | exercise | from Sep 17 2024 07:00 to Sep 17 2024 08:00
