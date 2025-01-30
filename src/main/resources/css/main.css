@@ -1,0 +1,51 @@
+.root {
+    -fx-background-image: url("/images/background_img.jpeg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.text-field {
+    -fx-background-color: rgba(230, 230, 230, 0.8);
+    -fx-font: 16px "Arial";
+    -fx-text-fill: #333;
+    -fx-background-radius: 5px;
+    -fx-border-color: #ccc;
+}
+
+.button {
+    -fx-background-color: #007bff;
+    -fx-font: 14px "Arial";
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.button:pressed {
+    -fx-background-color: #004080;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #888;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
