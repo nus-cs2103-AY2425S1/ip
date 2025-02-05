@@ -1,0 +1,59 @@
+.label {
+    background: white;
+    -fx-background-color: background;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: paleturquoise;
+}
+
+.general-label {
+    -fx-background-color: white;
+}
+
+.help-label {
+    -fx-background-color: moccasin;
+}
+
+.mark-label {
+    -fx-background-color: palegreen;
+}
+
+.search-label {
+    -fx-background-color: plum;
+}
+
+.unmark-label {
+    -fx-background-color: olivedrab;
+}
+
+.unknown-label {
+    -fx-background-color: lightsalmon;
+}
+
+.delete-label {
+    -fx-background-color: lightcoral;
+}
+
+.error-label {
+    -fx-background-color: crimson;
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

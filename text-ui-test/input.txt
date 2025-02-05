@@ -1,0 +1,40 @@
+help
+borrow book
+todo
+todo borrow book
+deadline
+deadline read book
+deadline read book /by June 6th
+deadline read book /2024-06-01
+deadline read book /2024-09-16
+deadline return book /tues
+deadline return book /tues
+list
+event
+event DAY6 Concert
+event DAY6 Concert /2024-11-22
+event DAY6 Concert /2024-11-22 1900
+event DAY6 Concert /2024-11-22 1900 /2024-11-22 2100
+event Figma Workshop /thurs 1900 /thurs 2100
+event Figma Workshop /thurs 1900 /thurs 2100
+mark
+mark 6
+mark 1
+mark 2
+unmark
+unmark 6
+unmark 2
+delete
+delete 6
+todo temp
+delete 6
+happening
+happening /Sep 6th
+happening /2024-11-20
+happening /sunday
+happening /monday
+happening /2024-11-22
+find book
+list
+deleteall
+bye
