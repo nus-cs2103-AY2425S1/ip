@@ -1,6 +1,6 @@
 # Talk-a-Bot User Guide
 
-![Ui of Talk-a-Bot](/Ui.png)
+![Ui of Talk-a-Bot](docs/Ui.png)
 
 Hiya, pal! Let Talk-a-Bot help you sort out your to-do list with ease!
 
