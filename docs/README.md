@@ -1,30 +1,41 @@
-# Duke User Guide
+# brainrot PRO
 
-// Update the title above to match the actual product name
+>"Home is where you don't have to wipe your toilet seat before shitting" -Martin Ng([source](https://www.youtube.com/watch?v=xvFZjo5PgG0))
 
-// Product screenshot goes here
+brainrot PRO can
+- skibidi gyat
+- ohio rizz
+- fanum tax
+- sigma chode
 
-// Product intro goes here
+But first, how much aura do you have?
 
-## Adding deadlines
+1. Check your vbucks
+2. Then check your robux
+3. ~~Comment in the code down below your 16 numbers infront of your credit card and the 3 cool numbers behind as well as the expiry date 😸~~
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+If you are a Java programmer, you can try practicing, might be too hard for you:
+```java
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
 ```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
 
 
-## Feature XYZ
-
-// Feature details
+Features of this bot:
+- [ ] Make you happy
+- [ ] keep you company
+- [x] Teach you brainrot
+- Typing "todo" + "[ action ]" will log a todo task
+- Typing "deadline" + "[ action ]" + "/by" + "[any time]" will log a task with deadline
+- Typing "event" + "[ action ]" + "/from" + "[any time]" + "/to" + "[any time]"
+  will log an event with start and end timing
+- Type "list" to see all tasks
+- Type "delete" + "[ number in list ]" to delete that task
+- Type "mark" + "[ number in list ]" to mark that task
+- Type "unmark" + [ number in list ] to unmark that task
+- Type "bye" to exit program
+- Type "find" + "[ action ]" to find a task
+- Type "tag" + "[number in list]" + "[# any tag]" will tag the task
