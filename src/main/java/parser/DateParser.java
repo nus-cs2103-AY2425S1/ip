@@ -26,7 +26,7 @@ public class DateParser {
     }
 
     /**
-     * Parses the date information after the keyword by.
+     * Parses the date information after the keyword "by".
      *
      * @param eventString input from user.
      * @return the string of date after keyword by.
