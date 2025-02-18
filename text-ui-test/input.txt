@@ -1,0 +1,10 @@
+todo t1
+event e1 /from 2023-01-01 /to 2022-01-01
+deadline t2 /by 2024-01-01
+mark 1
+mark 2
+unmark 2
+delete 3
+delete 10
+list
+bye
