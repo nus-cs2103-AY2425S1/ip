@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * Abstract TaskWithDate class encapsulating more specific Tasks, which contain a date.
  */
 public abstract class TaskWithDate extends Task {
-    public TaskWithDate(String name, String symbol) {
-        super(name, symbol);
+    public TaskWithDate(String name, String taskSymbol, TaskType taskType) {
+        super(name, taskSymbol, taskType);
     }
 
     /**
@@ -25,4 +25,13 @@ public abstract class TaskWithDate extends Task {
      * @return boolean indicating whether the specified date overlaps with deadline.
      */
     public abstract boolean overlapsWith(LocalDate localDate);
+
+    /**
+     * Returns a boolean indicating whether a the task occurs between two dates.
+     *
+     * @param fromDate the starting date.
+     * @param toDate the ending date.
+     * @return boolean indicating whether the task occurs between the specified dates.
+     */
+    public abstract boolean occursBetween(LocalDate fromDate, LocalDate toDate);
 }

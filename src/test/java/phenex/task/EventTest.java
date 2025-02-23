@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import phenex.task.Task.TaskType;
+
 /**
  * Unit tests for the Event class.
  */
@@ -21,9 +23,18 @@ public class EventTest {
     @BeforeEach
     public void setUp() {
         // Initialize test Event objects with different dates
-        event1 = new Event("test1", LocalDate.parse("2023-09-15"), LocalDate.parse("2023-09-17"));
-        event2 = new Event("test2", LocalDate.parse("2023-09-18"), LocalDate.parse("2023-09-19"));
-        event3 = new Event("test3", LocalDate.parse("2023-09-15"), LocalDate.parse("2023-09-16"));
+        event1 = new Event("test1",
+                            LocalDate.parse("2023-09-15"),
+                            LocalDate.parse("2023-09-17"),
+                            TaskType.OTHERS);
+        event2 = new Event("test2",
+                            LocalDate.parse("2023-09-18"),
+                            LocalDate.parse("2023-09-19"),
+                            TaskType.OTHERS);
+        event3 = new Event("test3",
+                            LocalDate.parse("2023-09-15"),
+                            LocalDate.parse("2023-09-16"),
+                            TaskType.OTHERS);
     }
 
     /**
@@ -72,7 +83,8 @@ public class EventTest {
     @Test
     public void equals_sameEvent_returnsTrue() {
         Event duplicateEvent = new Event("test1",
-                                         LocalDate.parse("2023-09-15"), LocalDate.parse("2023-09-17"));
+                                         LocalDate.parse("2023-09-15"), LocalDate.parse("2023-09-17"),
+                                         TaskType.OTHERS);
         assertTrue(event1.equals(duplicateEvent));
     }
 

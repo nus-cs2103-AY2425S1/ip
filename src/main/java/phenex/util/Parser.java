@@ -19,6 +19,7 @@ import phenex.command.EventCommand;
 import phenex.command.FindCommand;
 import phenex.command.ListCommand;
 import phenex.command.MarkCommand;
+import phenex.command.ScheduleCommand;
 import phenex.command.TerminatingCommand;
 import phenex.command.TodoCommand;
 import phenex.command.UnmarkCommand;
@@ -26,6 +27,7 @@ import phenex.exception.PhenexException;
 import phenex.task.Deadline;
 import phenex.task.Event;
 import phenex.task.Task;
+import phenex.task.Task.TaskType;
 
 
 /**
@@ -40,14 +42,16 @@ public class Parser {
     public enum RegexFormat {
         REGEX_TERMINATING("(?i)bye\\s*$", new TerminatingCommand()),
         REGEX_LIST("(?i)list\\s*$", new ListCommand()),
-        REGEX_MARK("^mark \\d+\\s*$", new MarkCommand()),
+        REGEX_MARK("^mark (\\d+) /hours (\\d+)\\s*$", new MarkCommand()),
         REGEX_UNMARK("^unmark \\d+\\s*$", new UnmarkCommand()),
         REGEX_DELETE("^delete \\d+\\s*$", new DeleteCommand()),
         REGEX_DATECHECK("^missions on (.+)$", new DateCheckCommand()),
-        REGEX_FIND("^(?i)find (.+)$", new FindCommand()),
-        REGEX_TODO("^(?i)todo (.+)$", new TodoCommand()),
-        REGEX_DEADLINE("^(?i)deadline (.+) /by (.+)$", new DeadlineCommand()),
-        REGEX_EVENT("^(?i)event (.+) /from (.+) /to (.+)$", new EventCommand());
+        REGEX_FIND("^(?i)find(?: /name ([^/]+))?(?: /type (.+))?$", new FindCommand()),
+        REGEX_TODO("^(?i)todo (.+) /type (.+)$", new TodoCommand()),
+        REGEX_DEADLINE("^(?i)deadline (.+) /type (.+) /by (.+)$", new DeadlineCommand()),
+        REGEX_EVENT("^(?i)event (.+) /type (.+) /from (.+) /to (.+)$", new EventCommand()),
+        REGEX_SCHEDULE("^(?i)schedule /type (.+) /from (.+) /to (.+)$", new ScheduleCommand());
+
 
         private final String regex;
         private final Command command;
@@ -109,32 +113,53 @@ public class Parser {
      */
     public void updateCommand(Command command, Matcher matcher, String line) throws PhenexException {
         if (command instanceof CommandWithIndex) {
-            CommandWithIndex commandWithIndex = (CommandWithIndex) command;
-            commandWithIndex.setIndex(this.getIndexOfTask(line, command));
+
+            if (command instanceof MarkCommand) {
+                int indexOfTask = Integer.parseInt(matcher.group(1)) - 1;
+                double hoursTaken = Double.parseDouble(matcher.group(2));
+                MarkCommand markCommand = (MarkCommand) command;
+                markCommand.setIndex(indexOfTask);
+                markCommand.setHoursTaken(hoursTaken);
+            } else {
+                CommandWithIndex commandWithIndex = (CommandWithIndex) command;
+                commandWithIndex.setIndex(this.getIndexOfTask(line, command));
+            }
         } else if (command instanceof DateCheckCommand) {
             DateCheckCommand dateCheckCommand = (DateCheckCommand) command;
             String date = line.substring(12);
             dateCheckCommand.setLocalDate(this.parseLocalDateFromLine(date));
         } else if (command instanceof CreateTaskCommand) {
-
+            String typeSymbol = matcher.group(2);
+            if (!CreateTaskCommand.getValidSymbols().contains(typeSymbol)) {
+                throw new PhenexException("Error, invalid type detected");
+            }
             if (command instanceof DeadlineCommand) {
-                String deadlineBy = matcher.group(2);
+                String deadlineBy = matcher.group(3);
                 LocalDate localDate = parseLocalDateFromLine(deadlineBy);
                 DeadlineCommand deadlineCommand = (DeadlineCommand) command;
                 deadlineCommand.setDate(localDate);
             } else if (command instanceof EventCommand) {
-                LocalDate fromDate = parseLocalDateFromLine(matcher.group(2));
-                LocalDate toDate = parseLocalDateFromLine(matcher.group(3));
+                LocalDate fromDate = parseLocalDateFromLine(matcher.group(3));
+                LocalDate toDate = parseLocalDateFromLine(matcher.group(4));
                 EventCommand eventCommand = (EventCommand) command;
                 eventCommand.setDates(fromDate, toDate);
             }
             String name = matcher.group(1);
             CreateTaskCommand createTaskCommand = (CreateTaskCommand) command;
             createTaskCommand.setName(name);
+            createTaskCommand.setTypeSymbol(typeSymbol);
         } else if (command instanceof FindCommand) {
             String name = matcher.group(1);
+            String taskTypeSymbol = matcher.group(2);
+            TaskType taskType = CreateTaskCommand.getTaskTypeFromSymbol(taskTypeSymbol);
             FindCommand findCommand = (FindCommand) command;
             findCommand.setName(name);
+            findCommand.setTaskType(taskType);
+        } else if (command instanceof ScheduleCommand) {
+            LocalDate fromDate = parseLocalDateFromLine(matcher.group(1));
+            LocalDate toDate = parseLocalDateFromLine(matcher.group(2));
+            ScheduleCommand scheduleCommand = (ScheduleCommand) command;
+            scheduleCommand.setScheduleDates(fromDate, toDate);
         }
     }
 
@@ -148,7 +173,7 @@ public class Parser {
     public Command parseCommandFromLine(String line) throws PhenexException {
         RegexFormat format = findMatchingFormat(line);
         if (format == null) {
-            throw new PhenexException("Invalid user input!");
+            throw new PhenexException("Invalid user input! Command mismatch.");
         }
         Command command = format.command;
         Pattern pattern = Pattern.compile(format.regex);
@@ -173,9 +198,9 @@ public class Parser {
 
         // initialise hashmap which stores the valid task details length for each symbol.
         HashMap<String, Integer> validLengthMap = new HashMap<>();
-        validLengthMap.put("T", 3);
-        validLengthMap.put("D", 4);
-        validLengthMap.put("E", 5);
+        validLengthMap.put("T", 5);
+        validLengthMap.put("D", 6);
+        validLengthMap.put("E", 7);
         String symbol = taskDetails[0];
         if (taskDetails.length != validLengthMap.get(symbol)) {
             throw new PhenexException("Error, corrupted memory.");
@@ -209,6 +234,7 @@ public class Parser {
         String localDateString = "";
         String completedSymbol = "1, ";
         String incompleteSymbol = "0, ";
+        String hoursTaken = Double.toString(task.getHoursTaken());
         if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
             localDateString = deadlineTask.getDeadlineDate().toString() + ", ";
@@ -217,9 +243,11 @@ public class Parser {
             localDateString = eventTask.getEventStartDate().toString()
                     + ", " + eventTask.getEventEndDate().toString() + ", ";
         }
-        return task.getSymbol() + ", "
+        return task.getTaskSymbol() + ", "
+                + task.getTaskTypeSymbol() + ", "
                 + (task.isCompleted() ? completedSymbol : incompleteSymbol)
                 + task.getName() + ", "
+                + hoursTaken + ", "
                 + localDateString
                 + "\n";
     }

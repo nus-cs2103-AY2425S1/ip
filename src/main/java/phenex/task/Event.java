@@ -17,8 +17,8 @@ public class Event extends TaskWithDate {
      * @param startDate the start date of the Event task.
      * @param endDate the end date of the Event task.
      */
-    public Event(String name, LocalDate startDate, LocalDate endDate) {
-        super(name, "E");
+    public Event(String name, LocalDate startDate, LocalDate endDate, TaskType taskType) {
+        super(name, "E", taskType);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -35,6 +35,12 @@ public class Event extends TaskWithDate {
     public boolean overlapsWith(LocalDate localDate) {
         return (localDate.equals(this.startDate) || localDate.isAfter(this.startDate))
                 && (localDate.equals(this.endDate) || localDate.isBefore(this.endDate));
+    }
+
+    @Override
+    public boolean occursBetween(LocalDate fromDate, LocalDate toDate) {
+        return (fromDate.equals(this.startDate) || fromDate.isBefore(this.startDate))
+                && (toDate.equals(this.endDate) || toDate.isAfter(this.endDate));
     }
 
     @Override
@@ -55,12 +61,13 @@ public class Event extends TaskWithDate {
 
     @Override
     public String toString() {
-        return "[" + this.symbol + "]"
+        String suffix = " (from: "
+                            + this.formatDate(this.startDate)
+                            + " to: "
+                            + this.formatDate(this.endDate)
+                            + ")";
+        return "[" + this.taskSymbol + "]"
                 + super.toString()
-                + " (from: "
-                + this.formatDate(this.startDate)
-                + " to: "
-                + this.formatDate(this.endDate)
-                + ")";
+                + suffix;
     }
 }

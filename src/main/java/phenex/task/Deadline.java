@@ -16,8 +16,8 @@ public class Deadline extends TaskWithDate {
      * @param name the name of the Deadline task.
      * @param localDate the date of the Deadline task.
      */
-    public Deadline(String name, LocalDate localDate) {
-        super(name, "D");
+    public Deadline(String name, LocalDate localDate, TaskType taskType) {
+        super(name, "D", taskType);
         this.localDate = localDate;
     }
 
@@ -28,6 +28,12 @@ public class Deadline extends TaskWithDate {
     @Override
     public boolean overlapsWith(LocalDate localDate) {
         return this.localDate.equals(localDate);
+    }
+
+    @Override
+    public boolean occursBetween(LocalDate fromDate, LocalDate toDate) {
+        return (fromDate.equals(this.localDate) || fromDate.isBefore(this.localDate))
+                && (toDate.equals(this.localDate) || toDate.isAfter(this.localDate));
     }
 
     @Override
@@ -46,7 +52,7 @@ public class Deadline extends TaskWithDate {
 
     @Override
     public String toString() {
-        return "[" + this.symbol + "]"
+        return "[" + this.taskSymbol + "]"
                 + super.toString()
                 + " (by: "
                 + formatDate(this.localDate) + ")";

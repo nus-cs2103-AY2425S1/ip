@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import phenex.command.CreateTaskCommand;
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.ui.Ui;
@@ -44,15 +45,16 @@ public class TaskList {
      * Marks a task as complete.
      *
      * @param idx the index of the task to mark as complete.
+     * @param hoursTaken the hours taken to complete the task.
      * @return task which was marked as complete.
      * @throws PhenexException if invalid index.
      */
-    public Task markTaskCompleted(int idx) throws PhenexException {
+    public Task markTaskCompleted(int idx, double hoursTaken) throws PhenexException {
         if (idx >= this.tasks.size() || idx < 0) {
             throw new PhenexException("\t Invalid input, no such mission!");
         } else {
             Task taskMarked = this.tasks.get(idx);
-            taskMarked.setCompleted();
+            taskMarked.setCompleted(hoursTaken);
             return taskMarked;
         }
     }
@@ -105,11 +107,25 @@ public class TaskList {
      * @param name name of task.
      * @return task list containing all tasks with given name.
      */
-    public TaskList findTasks(String name) {
+    public TaskList findTasksOfName(String name) {
         assert name.isEmpty() : "Error: invalid task name!";
         TaskList matchingTasks = new TaskList();
         matchingTasks.tasks = this.tasks.stream()
-                .filter(task -> task.getName().equals(name))
+                .filter(task -> task.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return matchingTasks;
+    }
+
+    /**
+     * Finds tasks which are of a given task type.
+     *
+     * @param taskType the type of task.
+     * @return task list containing all tasks with given task type.
+     */
+    public TaskList findTasksOfType(Task.TaskType taskType) {
+        TaskList matchingTasks = new TaskList();
+        matchingTasks.tasks = this.tasks.stream()
+                .filter(task -> task.taskType == taskType)
                 .collect(Collectors.toCollection(ArrayList::new));
         return matchingTasks;
     }
@@ -136,6 +152,23 @@ public class TaskList {
                 .filter(task -> task instanceof TaskWithDate)
                 .map(task -> (TaskWithDate) task)
                 .filter(task -> task.overlapsWith(localDate))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return taskList;
+    }
+
+    /**
+     * Finds tasks which overlap with given dates.
+     *
+     * @param fromDate date to check overlap start.
+     * @param toDate date to check overlap end.
+     * @return task list containing all tasks overlapping date.
+     */
+    public TaskList findAllTasksBetween(LocalDate fromDate, LocalDate toDate) {
+        TaskList taskList = new TaskList();
+        taskList.tasks = this.tasks.stream()
+                .filter(task -> task instanceof TaskWithDate)
+                .map(task -> (TaskWithDate) task)
+                .filter(task -> task.occursBetween(fromDate, toDate))
                 .collect(Collectors.toCollection(ArrayList::new));
         return taskList;
     }
@@ -179,25 +212,28 @@ public class TaskList {
      * @throws PhenexException if invalid task details.
      */
     private Task generateTaskFromDetails(String[] taskDetails) throws PhenexException {
-        String symbol = taskDetails[0];
-        String status = taskDetails[1];
-        String name = taskDetails[2];
+        String taskSymbol = taskDetails[0];
+        String taskTypeSymbol = taskDetails[1];
+        String status = taskDetails[2];
+        String name = taskDetails[3];
+        String hours = taskDetails[4];
+        Task.TaskType taskType = CreateTaskCommand.getTaskTypeFromSymbol(taskTypeSymbol);
         Task taskToAdd;
 
-        switch (symbol) {
+        switch (taskSymbol) {
         case "T":
-            taskToAdd = new ToDo(name);
+            taskToAdd = new ToDo(name, taskType);
             break;
         case "D":
-            String byDate = taskDetails[3];
+            String byDate = taskDetails[5];
             LocalDate date = LocalDate.parse(byDate);
-            taskToAdd = new Deadline(name, date);
+            taskToAdd = new Deadline(name, date, taskType);
             break;
         case "E":
             try {
-                LocalDate fromDate = LocalDate.parse(taskDetails[3]);
-                LocalDate toDate = LocalDate.parse(taskDetails[4]);
-                taskToAdd = new Event(name, fromDate, toDate);
+                LocalDate fromDate = LocalDate.parse(taskDetails[5]);
+                LocalDate toDate = LocalDate.parse(taskDetails[6]);
+                taskToAdd = new Event(name, fromDate, toDate, taskType);
                 break;
             } catch (DateTimeParseException e) {
                 throw new PhenexException("Error: invalid date.");
@@ -207,7 +243,7 @@ public class TaskList {
         }
 
         if (status.equals("1")) {
-            taskToAdd.setCompleted();
+            taskToAdd.setCompleted(Double.parseDouble(hours));
         }
         return taskToAdd;
     }

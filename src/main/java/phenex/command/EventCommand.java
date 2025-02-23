@@ -42,7 +42,7 @@ public class EventCommand extends CreateTaskCommand {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
-        Event event = new Event(this.name, this.fromDate, this.toDate);
+        Event event = new Event(this.name, this.fromDate, this.toDate, typeMap.get(typeSymbol));
         if (taskList.containsTask(event)) {
             throw new PhenexException("Error: Duplicate Mission. Aborting!");
         }

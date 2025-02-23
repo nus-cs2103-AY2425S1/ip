@@ -10,18 +10,19 @@ import phenex.ui.Ui;
  * MarkCommand class which encapsulates a Command which Marks a task.
  */
 public class MarkCommand extends CommandWithIndex {
+    private double hoursTaken;
 
     public MarkCommand() {
-        super(-1);
+        super(0);
     }
 
-    public MarkCommand(int idx) {
-        super(idx);
+    public void setHoursTaken(double hoursTaken) {
+        this.hoursTaken = hoursTaken;
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
-        Task taskMarked = taskList.markTaskCompleted(super.index);
+        Task taskMarked = taskList.markTaskCompleted(super.index, hoursTaken);
         return ui.printTaskMarkedCompleteMessage(taskMarked);
     }
 }
